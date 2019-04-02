@@ -1,0 +1,39 @@
+@import "./utils/animate.wxss";
+@import "./utils/icon.wxss";
+a{cursor: pointer;text-decoration: none;}
+body{width:640px;height: auto;background: #FFFFFF;padding:0;margin:0 auto;-webkit-appearance:none;display: none;}
+ul li,h3{list-style:none;}
+input{border:0;vertical-align:middle;font-family: "微软雅黑";background: none;}
+  ::-ms-clear, ::-ms-reveal{display: none;}
+/*公共顶部*/
+.topbind{width:640px;height:86px;  background:#FDD000;font: 32px/86px "微软雅黑";color: #FFFFFF;text-align: center;}
+.topbind a{float: left;padding: 0 28px;}
+.topbind a i,.iconclose i{color: #FFFFFF !important;font-size: 20px;}
+.topbind span{padding-right:70px;}
+/*账号logo*/
+.logo{width: 100%;text-align:center;margin-top:120px;}
+.logo img{width: 152px;height: 174px;}
+/*添加提示修改密码样式*/
+.addfixed{display: none;width:640px;background-color: #FF5B20;position: fixed;top:86px;z-index:9999;font: 24px/56px "微软雅黑";color: #FFFFFF;text-align: center;}
+.addfixed .comWidth a{text-decoration: underline; font-style: italic;}
+.addfixed .iconclose{float: right;margin:-2px 20px;}
+.layui-m-layerbtn {height:80px !important;line-height: 80px !important;}
+.layui-m-layerbtn span {font-size: 26px !important;}
+.layui-m-layercont{font: 26px/40px "微软雅黑" !important;}
+.layui-m-layercont h3{font: 34px/40px "微软雅黑" !important;}
+  
+/*tips*/
+.addSuccestip{margin-top: -30px;}
+.addSuccestip span{font: 18px/30px "微软雅黑";color:#E5433E;}
+.addSuccestip span i,.addtips i{display:block;float:left;margin: 4px 8px 0;color:#E5433E;font-size:18px}
+.addSuccestip span i{margin: 0 8px 0;}
+
+.iconfont {
+	color: #bdbdbd;
+	font-family: "iconfont" !important;
+	font-size: 36px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}

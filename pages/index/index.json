@@ -1,0 +1,12 @@
+{
+  "navigationStyle":"custom",
+  "navigationBarTitleText": "订单查询",
+ "usingComponents": {
+  "i-button": "../../dist/button/index",
+  "i-icon": "../../dist/icon/index",
+  "i-tabs": "../../dist/tabs/index",
+  "i-tab": "../../dist/tab/index",
+  "i-swipeout": "../../dist/swipeout/index",
+  "i-modal": "../../dist/modal/index"
+}
+}

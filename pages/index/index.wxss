@@ -1,0 +1,94 @@
+
+/*登录页头部*/
+.aaaa{background:url(https://weixin.shengdaprint.com/Content/img/backTop.png);text-align: center;background-size: 100%;background-repeat: no-repeat;}
+.top{width:750rpx;height:431rpx;background:url(https://weixin.shengdaprint.com/Content/img/backTop.png);text-align: center;background-size: 100%;background-repeat: no-repeat;}
+.top image{margin-top:40rpx;width:189rpx;height: 189rpx;}
+.top view{font:bolder 36rpx/0rpx "微软雅黑";color:#FFFFFF;line-height: 72rpx;}
+/*finish*/
+.finish{width:750rpx;height:504rpx;background:url(https://weixin.shengdaprint.com/Content/img/finishBck.png);text-align: center;}
+.finish image{margin-top:170rpx;}
+/*密码重置*/
+.loginBody .addSuccestip{margin-top:20rpx;font-size: 20rpx;}
+.ad,.sTel,.tel,.pass,.adress,.qq,.qqgray{background:url(https://weixin.shengdaprint.com/Content/img/iconimg.png) no-repeat;float:left;margin:12rpx 15rpx 10rpx 25rpx;background-size: 218rpx;}
+.ad{height:35rpx;width:24rpx;background-position:0 0;margin: 19rpx 15rpx 10rpx 25rpx;}
+.sTel{height:34rpx;width:26rpx;background-position:-24rpx 0;margin-top: 18rpx;}
+.tel{height:43rpx;width:39rpx;background-position:-50rpx 0;}
+.adress{height:32rpx;width:32rpx;background-position:-80rpx 0;margin: 19rpx 15rpx 10rpx 20rpx;}
+.pass{height:42rpx;width:39rpx;background-position:-112rpx 0;}
+.qq{height:37rpx;width:35rpx;background-position:-144rpx 0;margin: 16rpx 15rpx 10rpx 18rpx;}
+.qqgray{height:40rpx;width:38rpx;background-position:-180rpx 0;}
+/*登录表单*/
+.loginbody,.finishArea{width:500rpx;height: 400rpx;margin: 0 auto;font:28rpx/80rpx "微软雅黑";}
+.loginstyle{width:500rpx;height:auto;overflow: auto;}
+.telLogin,.qqLogin{float: left;margin-right: 34rpx;color: #989898;}
+.line{border-bottom:3rpx solid #efefef;margin-top: 80rpx;}
+.loginstyle .active,.qqLogin .active{border-bottom:3rpx solid #fed100;color:#000;}
+.telARea,.qqStyLogin,.userForm{width:500rpx;min-height:180rpx;margin-top: 40rpx;}
+.phone,.passWord{height:66rpx;background-color: #EFEFEF;margin-bottom: 30rpx;}
+.phone input,.passWord input,.picBorder input{display: block;height:64rpx;float:left;font:24rpx/36rpx "微软雅黑";color:#333333;}
+.phone{width:500rpx;}
+.phone input{width:370rpx;}
+.phone .iconfont{display: none;line-height: 50rpx;margin:12rpx auto;}
+.passWord{width:286rpx;float: left;}
+.passWord input{width:180rpx;}
+.imgNum{width: 186rpx;height: 66rpx;float: right;border: 1rpx solid #c4c4c4;text-align:center;font:24rpx/66rpx "微软雅黑";cursor: pointer;}
+.imgNum.active span{color:#B5B5B6;}
+.loginButton{display:block;margin-bottom: 200rpx; width:500rpx;height:66rpx;background:#fdd000;text-align:center;color:#FFFFFF;font: 30rpx/66rpx "微软雅黑";border-radius: 10rpx;}
+.qqStyLogin .phone input{width:360rpx;}
+.qqTips{width:478rpx;height:50rpx;padding:10rpx;   text-align: center; border: 1rpx solid #c4c4c4;font: 21rpx/26rpx "微软雅黑";color:#727171;}
+.loginfooter{margin: 50rpx auto 20rpx;text-align: center; font:18rpx/20rpx "微软雅黑";color:#9fa0a0;}
+/*完善会员信息*/
+.topimg{width:750rrpx;height:146rpx;background: url(../img/secBack.png);margin: 0 auto;}
+.topimgTit h3{margin-top:20rpx;text-align: center;color:#FDD000;font:bolder 36rpx/80rpx "微软雅黑" ;}
+.userForm{width: 530rpx; margin: 0 auto;}
+.userForm .addsp{float: right;margin-top: 20rpx;color:#E5433E;}
+.userForm .phone{border: 1rpx solid #b5b5b5;background: none;}
+.picnum{width: 500rpx;height: 66rpx;margin-bottom: 26rpx;}
+.picBorder{width:294rpx;height: 66rpx;border: 1rpx solid #b5b5b5;float: left;}
+.picBorder input{width:260rpx;float: right !important;}
+.picnum a{float: right;display: block;width: 180rpx;height: 60rpx;border: 1rpx solid #b5b5b5;padding: 3rpx;}
+.picnum a img{width:180rpx;height: 60rpx;}
+ .finishArea{text-align: center;font:24rpx/30rpx "微软雅黑";margin-top:90rpx;}
+ /*匹配5s真机字体*/
+@media screen and (max-width: 350rpx) {
+  .phone input,.passWord input,.picBorder input,.imgNum{font-size: 14rpx;}
+  .loginButton{font-size: 16rpx;}
+  .topimgTit h3{font-size: 28rpx;}
+}
+icon{
+  display: inline-block;
+  width: 45rpx;
+  height:66rpx;
+}
+navigator{
+  display: inline;
+}
+/*登录页面添加提示模块*/
+.addtips{font:20rpx/30rpx "微软雅黑";margin: -10rpx 0 20rpx;}
+.addtips i-icon{float: left;  margin:0rpx 6rpx;}
+.addtips a{text-decoration: underline;font-style: italic;color:#E51C23;}
+.addor{width: 500rpx;height: 110rpx;}
+/*注册页面弹框*/
+.succRightArea,.fileRegiterArea{display: none; position: absolute; left: 0; top: 0; min-height: 1500rpx; width: 100%; height: 100%; background: rgba(0,0,0,.4); z-index: 9999;}
+.succRight,.fileRegiter{ overflow-y: auto; background: white; position: fixed; margin-top: -340rpx; margin-left: -410rpx; left: 50%; top: 50%;box-shadow: 0 0 5rpx 2rpx #d0cfc8;}
+.succRight{width:600rpx;min-height:400rpx;height: auto;margin-top:-300rpx;margin-left: -300rpx; } 
+.succeTilte{width: 180rpx; margin: 60rpx auto 30rpx;}
+.succeTilte i,.succeTilterandonpass h3{float: left;margin:0 20rpx;}
+.succeTilte i{color: #4CAE4C;}
+.randonpass{width: 550rpx;  font:12rpx/26rpx "微软雅黑" ;color: #666666;margin: 0 auto;}
+.randonpass .sucessWord{width:520rpx;height: auto;margin: 20rpx auto;}
+.sucessWord span{font: 12rpx/60rpx "微软雅黑";color:#101010;}
+.sucessWord a{font:bold 16rpx/30rpx "微软雅黑";margin: 0 10rpx;/*color:#E5433E ;*/}
+.suuesbutton{width: 432rpx; height: 144rpx; margin: 0 auto; overflow: auto;}
+.suuesbutton a{display: block; float: left; text-align: center; width: 136rpx; height:54rpx; color:#000000; font:24rpx/54rpx 微软雅黑; border-radius: 6rpx; background: #fdd000; margin:40rpx;}
+.suuesbutton a:last-child{background: #EFEFEF; color: #000000;}
+/*注册失败弹出框*/
+.fileRegiter{width:550rpx;min-height:230rpx;height: auto;margin-top:-300rpx;margin-left: -280rpx; } 
+.fileRegiter .sucessWord{width: 370rpx;line-height: 30rpx;}
+.fileRegiter .succeTilte{width: 100rpx; margin: 60rpx auto 30rpx;}
+
+
+
+
+
+

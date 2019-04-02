@@ -1,0 +1,7 @@
+// var foo = "'hello world' from comm.wxs";
+var bar = function (d) {
+  return d.split("T");
+}
+module.exports = {
+  bar: bar
+};

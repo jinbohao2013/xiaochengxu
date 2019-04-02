@@ -1,0 +1,67 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: white;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-bar-border {
+  background-color: rgba(0, 0, 0, 0.33);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleY(0.5);
+}
+
+.tab-bar-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* .tab-bar-item cover-image {
+  width: 27px;
+  height: 27px;
+} */
+
+.tab-bar-item cover-view {
+  font-size: 28rpx;
+}
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1553835992120'); /* IE9 */
+  src: url('iconfont.eot?t=1553835992120#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQgAAsAAAAACJQAAAPTAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDFAqEWIQaATYCJAMQCwoABCAFhG0HSBuEB1FULnpkPwvshusiLMMAY2l7sZCbRQOhCHe4wjQ6eGc89L8f7c578/+qJEmqVez0TSZpF7FGpZKgNEokFCjVQ7X9n8sDNirPH8tTAGCL+S2nL83dtufn9JQCsptw+z+76tdYPSsrYwS6asFUyIxT5mzB8JyB2b2uXGTE/5/DpY2lBTS/ZbnMPagXxXFAAY0x7s4m0Z3IsZ9F7Lp58VBtIO4T6DalLns8XZ8zFYkvC8QLzzEyFY9WJhSGTqGN2JviIzQ6y3vOF3yg34/fNkNE0VR87cnDxM70v02+ulxMsWsdAbzqzLgdomJZRhL3kdZLeSu6LK/7M71gVUYrhVKVm1II5XC/8rajkoJ/XrS4tBfYbUmdKp5iEHx7ZMPm2xNoVaBzcSe68BV/GHbCVDRIWZDZ2o728nMmmr+uzx/s7u+zb38y8V3K7f7wBaVOb05uM+QBhMk7tQ32uBC5L7sicsRZafbc33dLEJmZmAKCoNf6HpCcXJrzlq8ClOc3VvyV6068IVFMbCE+2XaSwrvpyVmE5CQiWCtd3YTcXoImpvC0lCA5I0/OkhmJVBaQyD3mXNnUjaiXz5K6VRModbhgZkJXgvRJppxH0HRlCEbNL6X1xPBLYhNrwgaXyDgF/bgAiRDGqCDC+76KOBP1d78uSOyzNbeVBzkXpacXOdcVOmekOxUJFLYWtook/67XYSgxLy8RgaX3oURnH/gU22QGyShDZSDIYE0MyvzwTXGu+P7e/f13KvsGg/YMZdyV/5xhC9IKbiqAugKWqat8AeATWtpPL4irM0nTXxywRvYgHXYGWw5k1I08GEcv7u3G9qGhcuN3Y2NmJgukP4w/pIA9Z7YH31QODQAA6DWb8x+qDnNbAGj1L/0FAoDAm+8LVfnK8H8iKQ8AwOPLd4/MQ2mm7Dk6FW68Q8/L2JVfAddlvoWK+8tNbxTZmmrdIsB/3Dnsrwr5WOZ8QqcxB4oOk1B1mkYmdhkaPbah1WkPui2ZHe4xguVFdmHRM4Mw6AWKfp+hGvSKTOwvNMb9Q2swuNDtNLRn9piNylocoyFog/kEnkWxkgapmYVHdG6hwW4Bka/IqReAzuq6PzHDGLmKDend6YooUEwRTNljGIYECZOPljRdkaTXWnuI+qKmRVGm5ghDBoFswPQEeCwkpvTBohb4+SPkuAkZOKHjh/kKsZQ3OuhoamdAzqRxpo5dmZy6c3QJoc6LFEYiYAozCkWUgCR6lg9ZRJNbIJzoaZ16qazSZvPyaA0PQTd+RkaJGhmNfEs21upZ07A2B+pa8+xIA1uTyQAA') format('woff2'),
+  url('iconfont.woff?t=1553835992120') format('woff'),
+  url('iconfont.ttf?t=1553835992120') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1553835992120#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconwode:before {
+  content: "\e645";
+}
+
+.iconorder_icon:before {
+  content: "\e667";
+}
+
+.iconstick_icon:before {
+  content: "\e668";
+}
+

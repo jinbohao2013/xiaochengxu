@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "i-icon": "../../../dist/icon/index",
+    "i-row": "../../../dist/row/index",
+    "i-col": "../../../dist/col/index"}
+}

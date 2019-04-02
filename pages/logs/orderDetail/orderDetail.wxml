@@ -1,0 +1,59 @@
+<!--标题栏-->
+<view class='aaaa' style='height:{{statusBarHeight}}px;background: linear-gradient(to left,#f9bb00,#fdd000);position:fixed;top:0;width:100%;z-index:2;'></view>
+<view class='topBar' style='position:fixed;top:{{statusBarHeight}}px;width:100%;text-align:center;font-size:33rpx;color:#444;height:44px;line-height:44px;background: linear-gradient(to left,#f9bb00,#fdd000);z-index:2;'>
+  <view class='return' style='position:absolute;left:20rpx;' bindtap='return'><i-icon style='position:relative;top:-1.5px' size="20" type="return" /> 返回</view>
+  订单详情
+</view>
+<view class="contain" style='margin-bottom:52px;padding-top:{{statusBarHeight+44}}px;'>
+  <view class='header'>
+    <view><i-row>
+    <i-col span="6" i-class="col-class">订单号：</i-col>
+    <i-col span="18" i-class="col-class r">{{ajaxData.sn}}</i-col>
+</i-row></view>
+<view><i-row>
+    <i-col span="6" i-class="col-class">订单名称：</i-col>
+    <i-col span="18" i-class="col-class r">{{ajaxData.name}}</i-col>
+</i-row></view>
+<view><i-row>
+    <i-col span="6" i-class="col-class">业务类型：</i-col>
+    <i-col span="18" i-class="col-class r">{{ajaxData.category}}</i-col>
+</i-row></view>
+<view><i-row>
+    <i-col span="6" i-class="col-class">总金额：</i-col>
+    <i-col span="18" i-class="col-class r">{{ajaxData.payment.sum}}</i-col>
+</i-row></view>
+<view><i-row>
+    <i-col span="6" i-class="col-class">已付金额：</i-col>
+    <i-col span="18" i-class="col-class r">{{ajaxData.payment.receivedSum}}</i-col>
+</i-row></view>
+<view><i-row>
+    <i-col span="6" i-class="col-class">下单时间：</i-col>
+    <i-col span="18" i-class="col-class r">{{tools.bar(ajaxData.makeTime)[0]}}<text style='margin-left:20rpx;'>{{tools.bar(ajaxData.makeTime)[1]}}</text></i-col>
+</i-row></view>
+  </view>
+  <!--产品列表-->
+			<block wx:for="{{ajaxData.product.parts}}" wx:for-item="item1" wx:key="*this">
+      
+      <view class='orderTitle' bindtouchstart='handlerCloseButton'>
+      <view style='display:flex;justify-content: space-between;padding:2rpx 28rpx;height:40rpx;line-height:40rpx;'>
+        <view class="title" style='font-size:26rpx;width:500rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;'>{{item1.paperName}}</view>
+        <view class='btnOrderType' style=''>{{ajaxData.orderStatusName}}</view>
+      </view>
+        <view style='display:flex;justify-content: space-between;color:#9F9F9F;font-size:24rpx;border-top: 1px dotted #FFC64C;border-bottom: 1px solid #FFC64C;padding:10rpx 28rpx;'>
+          <view class='left' style='width:515rpx;'>
+              <view style="margin-top:6rpx;margin-bottom:16rpx;"><i-row>
+                  <i-col span="5" i-class="col-class">产品名： </i-col>
+                  <i-col span="19" i-class="col-class"><view style='display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;word-break: break-all;overflow: hidden;'>{{ajaxData.name}}</view></i-col>
+              </i-row></view>
+            <view style="margin-top:6rpx;"><i-row>
+                  <i-col span="4" i-class="col-class">尺寸： </i-col>
+                  <i-col span="8" i-class="col-class">{{item1.configName!=""?item1.configName:(item1.width+"*"+item1.height+"*"+item1.thickness)}}</i-col>
+                  <i-col span="4" i-class="col-class">数量： </i-col>
+                  <i-col span="8" i-class="col-class">{{item1.count}}</i-col>
+              </i-row></view>
+          </view>
+        </view>
+      
+      </view>
+  </block>
+</view>

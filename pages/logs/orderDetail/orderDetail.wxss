@@ -1,0 +1,17 @@
+
+.contain{
+  font-size: 26rpx;
+}
+.r{
+  color: #989898;
+}
+.header{
+  padding: 15rpx 40rpx;
+}
+.header>view{
+  margin-bottom: 16rpx;
+}
+.orderTitle{
+  border-top: 1px solid #ffca58;
+  margin-bottom: 20rpx;
+}
