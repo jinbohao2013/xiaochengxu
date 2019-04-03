@@ -61,7 +61,6 @@ Page({
         "pageSize": _this.data.pageSize
       }
       ajaxDate3 = {
-        "category": 10,
         "productName": _this.data.productName,
         // "paymentStatus": 0,//支付状态 0 未付定金 1 已付定金 2已支付 ,
         // "deliverGoodsStatus": 0,//1 未发货 2 已发货 ,
@@ -211,8 +210,22 @@ Page({
               },
               success(res) {
                 let arr = _this.data.orderLists;
-                console.log(typeof arr)
-                arr = arr.concat(res.data.result.items)
+               try{
+                 arr = arr.concat(res.data.result.items)
+               } catch(e){
+                 console.log("出错了");
+                 if (_this.data.totleNum == 0) {
+                   _this.setData({
+                     hiddenload: false
+                   });
+                 }
+                 if (_this.data.totleNum <= 10 || _this.data.totleNum == _this.data.productNum) {
+                   _this.setData({
+                     showLoade: false
+                   });
+                 }
+               }
+                
                 if (res.data.success) {
                   _this.setData({
                     orderLists: arr
@@ -259,6 +272,7 @@ Page({
                 }
 
               }
+              
             })
           }
         })

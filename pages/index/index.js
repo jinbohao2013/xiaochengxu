@@ -4,16 +4,19 @@ var app = getApp()
 
 Page({
   data: {
+    ifHide1:app.data.dalay,
+    albumDisabled: true,
+    bindDisabled: false,
     statusBarHeight: app.data.statusBarHeight,
     time:60,
     interval: null,
     ifqq:false,
     iftel: false,
     ifpass:false,
-    qqtext: "397616745",
+    qqtext: "",
     teltext: "",
     codetext:"",
-    passtext: "654321",
+    passtext: "",
     ifHide:false,
     ifActive: false,
     userInfo: {},
@@ -94,6 +97,7 @@ Page({
     })
   },
   onLoad: function (options) {
+    console.log("index")
     if (options.showM){
       this.setData({
         showM:true
@@ -112,6 +116,20 @@ Page({
       wx.setNavigationBarTitle({
         title: "登录"
       })
+    }
+    if (!app.data.dalay) {//index后
+      app.data.dalay = false;
+      this.setData({
+        ifHide1: false
+      })
+    } else {//index 先
+      app.readyCallback = () => {
+        app.data.dalay = false;
+        console.log("我只行了")
+        this.setData({
+          ifHide1: false
+        })
+      };
     }
     if (app.globalData.userInfo) {
       this.setData({
@@ -252,6 +270,12 @@ Page({
               duration: 2000
             })
           }
+        },
+        error(res){
+          clearInterval(_this.data.interval);
+          _this.setData({
+            time: 60
+          })
         }
       })
     }
@@ -295,11 +319,7 @@ Page({
         },
         success(res) {
           if (res.data.success) {
-            wx.setStorageSync("token", res.data.result)
-            wx.switchTab({
-              url: '../logs/logs',
-            })
-            return false;
+            wx.setStorageSync("token", res.data.result);
             if (_this.data.showM) {//提示默认登录
               _this.bindViewTap();
             } else {
@@ -312,7 +332,6 @@ Page({
               duration: 2000
             })
           }
-
         }
       })
       return false;
@@ -329,11 +348,7 @@ Page({
       },
       success(res) {
         if(res.data.success){
-          wx.setStorageSync("token", res.data.result)
-          // wx.switchTab({
-          //   url: '../logs/logs',
-          // })
-          // return false;
+          wx.setStorageSync("token", res.data.result);
           if(_this.data.showM){//提示默认登录
             _this.bindViewTap();
           }else{

@@ -42,7 +42,7 @@ Page({
     })
   },
   logOut: function (options) {
-    wx.clearStorageSync("token");
+    wx.removeStorageSync("token");
     wx.reLaunch({
       url: '../index/index?showM=1'
     })

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container" wx:if="{{ifHide}}" >
+<view class="container" wx:if="{{!ifHide1}}" >
  <!--登录头部-->
  <view class='aaaa' style='height:{{statusBarHeight}}px'></view>
 		<view class="top">

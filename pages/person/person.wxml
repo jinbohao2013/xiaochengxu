@@ -9,17 +9,17 @@
 <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
     <view>	
     <!-- <open-data class="name" type="userNickName"></open-data> -->
-    <view>{{userInfo.name}} ({{userInfo.customerTypeName}})</view>
-    <view>{{userInfo.factoryCode=="0"?"郑州厂区":"成都厂区"}}</view>
+    <view wx-if="{{userInfo}}">{{userInfo.name}} ({{userInfo.customerTypeName}})</view>
+    <view wx-if="{{userInfo}}">{{userInfo.factoryCode=="0"?"郑州厂区":"成都厂区"}}</view>
     </view>
   </view>
   <view class="line" style="background-color: #eee;height: 0.25rem;"></view>
   <view class="main">
     <view bindtap="logOut" class="list">退出登录</view>
-    <navigator url="../jinbi/jinbo" class="list" >List2</navigator>
+    <!-- <navigator url="../jinbi/jinbo" class="list" >List2</navigator>
     <navigator url="../tree/tree" class="list">List3</navigator>
     <navigator url="../coupons/coupons" class="list">List4</navigator>
-    <navigator url="../donation/kaipiao/kaipiao" class="list">List5</navigator>
+    <navigator url="../donation/kaipiao/kaipiao" class="list">List5</navigator> -->
   </view>
 </view>
 
