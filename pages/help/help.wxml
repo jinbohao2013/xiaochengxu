@@ -1,0 +1,2 @@
+<!--pages/help/help.wxml-->
+ <image src='/image/demo_3.jpg' style='width:100%;' mode='widthFix'></image>

@@ -14,7 +14,7 @@
     </swiper>
     <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{allcurrent}}</van-tag></view>
   </view>
-  <view class='main' style='margin-bottom:0;'>
+  <view class='main' style='margin-bottom:100rpx;'>
     <view class="top" style='padding-left:33rpx'>
       <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
         <view>snow+</view>
@@ -42,14 +42,18 @@
       </van-tabs>
     </view><!-- 商品详情结束 -->
   </view><!-- mian结束 -->
-  <view class='buy'>
-    <van-submit-bar
+  <view class='buy' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;'>
+  <view class="">
+    
+    <button style='height:90rpx;line-height:90rpx;' class="bg-red submit" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">立即购买</button>
+  </view>
+    <!-- <van-submit-bar
     price=""
     button-text="立即购买"
     bind:submit="onClickButton"
     custom-class="van-submit-bar"
     safe-area-inset-bottom="{{ false }}"
-  />
+  /> -->
   </view>
 </view>
 
@@ -79,7 +83,7 @@
 </van-cell>
     </view>
   </view>
-  <view class='bottom' bindtap='onClickButton' style='margin-top:20rpx;'><van-button id='custom-class' size="large" type="default" style='background-color:#333333;'>下一步</van-button></view>
+  <view class='bottom' style='margin-top:20rpx;'><button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button></view> 
 </van-popup>
 <!-- 弹出分享图片 -->
 <view id='imgPop'> 
@@ -89,7 +93,7 @@
     transition="none"
     bind:close="togglePopup"
   >
-  <view style='max-height:{{windowHeight}}px;overflow:auto;'><canvas style="width: 482rpx; height: 766rpx;margin:auto;" canvas-id="myQrcode"></canvas>
+  <view style='max-height:{{windowHeight}}px;overflow:auto;'><canvas style="width: 451rpx; height: 753rpx;margin:auto;" canvas-id="myQrcode"></canvas>
     <button wx:if="{{!loading}}" style='color:white; text-align:center;line-height:83rpx;width:482rpx;margin:auto;margin-top:20rpx;background-color:#EB544D;' bindtap='saveImgBtn'>{{openset?'请先授权访问相册':'保存图片'}}</button>
     <button wx:if="{{loading}}" class='bg-black' loading style='color:white; text-align:center;line-height:83rpx;width:482rpx;margin:auto;margin-top:20rpx;' bindtap='saveImgBtn'>保存图片</button>
   </view>

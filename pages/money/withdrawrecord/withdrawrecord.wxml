@@ -1,35 +1,26 @@
 <!--推广商品-->
 <view class='body'>
-  <view class='header text-center' style='margin-bottom:10rpx;'>
-    <van-search
-      value="{{ goodsValue }}"
-      placeholder="搜索商品"
-      show-action
-      bind:search="onSearch"
-      bind:cancel="onCancel"
-    />
+  <view class='header text-center' style='margin-bottom:0rpx;'>
+    
   </view>
   <view class='main' style='margin-bottom:0;'>
   <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
-   
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
-    <view class='goods_list' style='margin-top:15rpx;'>
-      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>SNOW＋橘子汽水</view>
-      <image data-id='{{item.id}}' bindtap='skipNextPage' src='/image/demo_1.jpg' style='width:684rpx;height:456rpx;'></image>
-      <view class='goods_detail' style='margin-top:20rpx;'>
-        <view>SNOW＋橘子汽水</view>
-        <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
-          <text>￥320</text><view bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
-        </view>
-      </view>
+    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
+      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#07BF05;margin-right:28rpx;'>0.01</text></view>
+      <text style='color:#aaa;'>2019-01-03 21:37:31</text>
+    </view>
+    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
+      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#EC5050;margin-right:28rpx;'>0.01</text></view>
+      <text style='color:#aaa;'>2019-01-03 21:37:31</text>
     </view>
     </block>
-    <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+    <view style='color:#999;text-align:center;'>
     <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
     </view>
-    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
-      我到底了
+    <view style='color:#999;text-align:center;'>
+      没有更多了
     </view>
     </view>
   </scroll-view>
@@ -38,7 +29,7 @@
   <view class='footer'>
     <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
       <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
-      <navigator open-type="navigate" >推广商品</navigator>
+      <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
       <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
     </view>
   </view>
@@ -67,5 +58,5 @@
 </van-cell>
     </view>
   </view>
-  <view class='bottom' style='margin-top:20rpx;'><button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button></view>
+  <view class='bottom' bindtap='skipToconfirmOrder' style='margin-top:20rpx;'><van-button id='custom-class' size="large" type="default" style='background-color:#333333;'>下一步</van-button></view>
 </van-popup>

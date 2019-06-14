@@ -32,7 +32,7 @@ Page({
     circular:true,
     tasteId:null,//口味id
     acticeInxex: null,//口味的顺序index值0开始
-    widthCord:126 / 750 * wx.getSystemInfoSync().windowWidth,//二维码的px值（转换之后的）
+    widthCord:195 / 750 * wx.getSystemInfoSync().windowWidth,//二维码的px值（转换之后的）
     productName:"SNOW＋橘子汽水",
     loading:false,//保存按钮的加载动画
     openset: false,//打开设置的判断
@@ -57,8 +57,9 @@ Page({
     //   url: '/pages/index/index'
     // })
     let _this=this;
-    console.log(app.data.windowHeight)
+    console.log("传过来的商品id是:---"+options.id)
     this.setData({
+      
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
@@ -73,8 +74,9 @@ Page({
         'content-type': 'application/json',
       },
       success(res) {
-        console.log(res.data);
-        if (res.data.success) {
+        
+        if (res.data.Success) {
+          console.log(res.data);
           _this.setData({
             ajaxData: res.data.Data
           })
@@ -95,14 +97,14 @@ Page({
       }
     })
     //禁止页面分享
-    var w = 482 / 750 * wx.getSystemInfoSync().windowWidth;
-    var h = 766 / 750 * wx.getSystemInfoSync().windowWidth;
+    var w = 451 / 750 * wx.getSystemInfoSync().windowWidth;
+    var h = 753 / 750 * wx.getSystemInfoSync().windowWidth;
     var a = 43 / 750 * wx.getSystemInfoSync().windowWidth;
     var b = 625 / 750 * wx.getSystemInfoSync().windowWidth;
-    var c = 40 / 750 * wx.getSystemInfoSync().windowWidth;
-    var d = 402 / 750 * wx.getSystemInfoSync().windowWidth;
+    var c = 45 / 750 * wx.getSystemInfoSync().windowWidth;
+    var d = 360 / 750 * wx.getSystemInfoSync().windowWidth;
     var e = 45 / 750 * wx.getSystemInfoSync().windowWidth;
-    var f = 485 / 750 * wx.getSystemInfoSync().windowWidth;
+    var f = 443 / 750 * wx.getSystemInfoSync().windowWidth;
     var ss = 22 / 750 * wx.getSystemInfoSync().windowWidth;
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
@@ -111,7 +113,7 @@ Page({
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
-    ctx.drawImage("/image/demo_1.jpg", c, c, d, d)
+    ctx.drawImage("/image/demo_1.jpg", c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
     //加入商品名字到canvas中
     ctx.setFontSize(s)
     ctx.fillText(_this.data.productName, e, f)
@@ -122,8 +124,8 @@ Page({
     ctx.fillText('39.00', a+15, b)
     // 绘制图片到canvas中
     drawQrcode({
-      x: 316 / 750 * wx.getSystemInfoSync().windowWidth,
-      y: 559 / 750 * wx.getSystemInfoSync().windowWidth,
+      x: 211 / 750 * wx.getSystemInfoSync().windowWidth,
+      y: 479 / 750 * wx.getSystemInfoSync().windowWidth,
       width: _this.data.widthCord,
       height: _this.data.widthCord,
       canvasId: 'myQrcode',
@@ -342,6 +344,12 @@ this.setData({
   togglePopup() {
     this.setData({ show1: !this.data.show1 });
   },
+  onGotUserInfo: function (e) {
+    console.log(e)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    this.onClickButton()
+  },
   onClickButton() {//立即购买
     //判断口味是否选择
     console.log(this.data.acticeInxex)
@@ -349,6 +357,7 @@ this.setData({
       //提交到订单确认
       wx.navigateTo({
         url: '../payMent/pay?ajaxData='+JSON.stringify({
+                                          id: 2471,//商品id
                                           title: "1",//标题
                                           desc: "2",//描述
                                           img:"3",

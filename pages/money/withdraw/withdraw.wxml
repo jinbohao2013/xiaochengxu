@@ -1,0 +1,50 @@
+<view class="withdraw__wrapper">
+  <view class="withdraw-account">
+    <view class="withdraw-account__main">
+      <label class="withdraw-account__label">到账账户</label>
+      <view class="withdraw-account__content" bindtap='skipToAccount'>
+        <view class="withdraw-account__account">
+        <van-icon
+        name="wechat"
+        size="20px"
+        custom-class="icon"
+        style='position:relative;top:10rpx;color:#4BBA03;'
+      />
+        
+          <text style='font-size: 14px;'>情谊べ永恒</text>
+        </view>
+        <view class="withdraw-account__tips">1-3个工作日到账</view>
+      </view>
+    </view>
+  </view>
+  <view class="withdraw-amount">
+    <header class="withdraw-amount__header">
+      提现金额
+    </header>
+    <view class="withdraw-amount__main">
+      <span class="withdraw-amount__symbol">¥</span>
+      <input type='digit' class="withdraw-amount__input"></input>
+    </view>
+    <footer class="withdraw-amount__footer">
+      <i class="withdraw-amount__tip van-icon van-icon-info-o" style="color: rgb(68, 187, 0);">
+        <!---->
+      </i>
+      <span class="withdraw-amount__tips">可提现金额0.00元，</span>
+      <a class="withdraw-amount__all">全部提现</a>
+      <i class="withdraw-amount__warn van-icon van-icon-warn" style="color: rgb(212, 0, 0);">
+        <!---->
+      </i>
+    </footer>
+  </view>
+  <view class="withdraw-button">
+    <button  class="withdraw-button__button van-button van-button--primary van-button--normal van-button--disabled">
+      <span class="van-button__text">提现</span>
+    </button>
+    <!---->
+  </view>
+  <view class="withdraw-links">
+  <navigator class='withdraw-links__question' url='/pages/help/help'>相关问题</navigator>
+    <text class="withdraw-links__divider"></text>
+    <navigator url='../withdrawrecord/withdrawrecord'>提现记录</navigator>
+  </view>
+</view>

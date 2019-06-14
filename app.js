@@ -7,8 +7,8 @@ App({
     
   },
   data:{
-    hostAjax: "http://39.106.49.173:8084",
-    // hostAjax: "https://www.yqcoffee.cn:2019",
+    // hostAjax: "http://39.106.49.173:8084",
+    hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
@@ -33,27 +33,6 @@ App({
           console.log(res.code);
           _this.getData("/api/Account/Code2Session", { jsCode: res.code }).then(res => {
             wx.setStorageSync("openid", res.result.openid);
-            _this.postData("/api/Account/AuthenticateByOpenId", { openId: wx.getStorageSync("openid") }).then(res => {
-              
-              if (res.success) {
-                wx.setStorageSync("token", res.result);
-                console.log("_this.data.stop==========" + _this.data.stop)
-                if (_this.data.stop){
-                  return false;
-                }
-                wx.switchTab({
-                  url: '/pages/logs/logs',
-                })
-                _this.data.dalay = false;
-                return false;
-              }
-              if (_this.readyCallback) {
-                _this.readyCallback();
-              } else {
-                _this.data.dalay = false;
-              }
-            })
-
           })
           resolve()
           

@@ -9,7 +9,11 @@
     "pages/money/index/index",
     "pages/goods/index/index",
     "pages/goods/detail/detail",
-    "pages/goods/payMent/pay"
+    "pages/goods/payMent/pay",
+    "pages/money/withdraw/cardlist/list",
+    "pages/money/withdraw/withdraw",
+    "pages/help/help",
+    "pages/money/withdrawrecord/withdrawrecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

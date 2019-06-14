@@ -11,6 +11,7 @@ Page({
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
     ajaxData: {
+      id:"",
       title: "snow+",//标题
       desc: "",//描述
       img:"/image/demo_1.jpg",
@@ -164,13 +165,49 @@ Page({
     this.setData({ show1: !this.data.show1 });
   },
   onClickButton() {//提交订单--吊起支付
+    let _this=this;
     this.setData({ loading: true });
-    //判断口味是否选择
-    if (this.data.acticeInxex) {
-      //提交到订单详情页
-    } else {
-      
-    }
+    wx.request({
+      url: app.data.hostAjax + "/api/transaction/v1/orderpayinfo",
+      data: {
+        userid: wx.getStorageSync("uid"),
+        goodsid: _this.data.goodsId,
+        salapersonid: wx.getStorageSync("couponsName").split('&')[1],//分销员id
+        // shopid:"",//店铺id
+        num: parseFloat(_this.data.needPay),
+        tasteid: this.data.tasteid,//商品口味
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      },
+      success(res) {
+        try{
+          console.log(JSON.parse(res.data.Data));
+          wx.requestPayment({
+            timeStamp: JSON.parse(res.data.Data).timeStamp,
+            nonceStr: JSON.parse(res.data.Data).nonceStr,
+            package: JSON.parse(res.data.Data).package,
+            signType: 'MD5',
+            paySign: JSON.parse(res.data.Data).paySign,
+            success(res) {//支付成功
+              //消除优惠券
+              wx.removeStorageSync("couponsName");
+              wx.removeStorageSync("couponPrice");
+              //展示支付成功的界面
+              _this.setData({
+                testFloat1: false
+              })
+            },
+            fail(res) { console.log(res) }
+          })
+        }catch(e){
+
+        }
+        
+        _this.setData({ loading: false });
+      }
+    })
 
   },
   /**

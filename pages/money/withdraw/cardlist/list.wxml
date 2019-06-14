@@ -1,0 +1,85 @@
+<view class="card-list">
+  <van-cell-group>
+    <view>
+      <van-cell id="银行卡" title="银行卡" value="添加" bind:click="changeAccount1" />
+    </view>
+    
+  </van-cell-group>
+  <view  class="card-section">
+    <van-cell  id="微信钱包" title="微信钱包" value="添加" bind:click="changeAccount1" />
+    </view>
+  <view class="card-section" bindtap='changeAccount2'><!-- 一种情况 -->
+    <ul class="card-section__list">
+      <view class="van-hairline card-section__list-item card-section__list-item-wechat">
+        <image src="//b.yzcdn.cn/h5/withdraw/wechat-wallet@2x.png" class="card-section__list-item-icon"></image>
+        <div class="card-section__list-item-content">
+          <p class="card-section__list-item-name">
+            情谊べ永恒
+            <text class="card-section__list-item-label">默认</text>
+          </p>
+          <p class="card-section__list-item-detail">尾号rDYg 微信钱包 (私)</p>
+        </div>
+        <span class="card-section__list-item-check"></span>
+      </view>
+    </ul>
+  </view><!-- 一种情况 -->
+  
+  <view class="card-list__tips">到账账户相关疑问，
+    <a>点击查看</a>
+  </view>
+</view>
+
+<view class='yanzhegn'>
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom">
+    <view class="captcha-validator__header">
+      <text bindtap='onClose' class="captcha-validator__cancel">取消</text>
+      <h4 class="captcha-validator__title">短信验证</h4>
+      <text bindtap='confirm' class="captcha-validator__confirm">确认</text>
+    </view>
+    <view class="captcha-validator__tips">
+      为保障你的账户安全，已发送短信验证码到你登录的手机号：+86-{{hideTel}}进行验证
+    </view>
+    <view class="captcha-validator__captcha">
+      <view class="captcha-validator__input">{{tel}}</view>
+      <text bindtap='catchCode' class="captcha-validator__fetch">{{time==60?"获取验证码":time+"秒之后重新获取"}}</text>
+    </view>
+    <view class="van-number-keyboard van-number-keyboard--default" style="z-index: 100;">
+      <view class="van-number-keyboard__body">
+        <button bindtap='skipe' data-index='1' class="van-hairline van-key">1</button>
+        <button bindtap='skipe' data-index='2' class="van-hairline van-key">2</button>
+        <button bindtap='skipe' data-index='3' class="van-hairline van-key">3</button>
+        <button bindtap='skipe' data-index='4' class="van-hairline van-key">4</button>
+        <button bindtap='skipe' data-index='5' class="van-hairline van-key">5</button>
+        <button bindtap='skipe' data-index='6' class="van-hairline van-key">6</button>
+        <button bindtap='skipe' data-index='7' class="van-hairline van-key">7</button>
+        <button bindtap='skipe' data-index='8' class="van-hairline van-key">8</button>
+        <button bindtap='skipe' data-index='9' class="van-hairline van-key">9</button>
+        <button class="van-hairline van-key van-key--gray"></button>
+        <button bindtap='skipe' data-index='0' class="van-hairline van-key">0</button>
+        <button bindtap='skipe' data-index='' class="van-hairline van-key van-key--gray van-key--delete">删除</button>
+      </view>
+    </view>
+  </van-popup>
+</view>
+<view>
+<!--底部的弹出（删除。设置默认） -->
+<van-action-sheet
+    show="{{ show1 }}"
+    actions="{{ actions }}"
+    cancel-text="取消"
+    bind:close="toggleActionSheet1"
+    bind:cancel="toggleActionSheet1"
+    bind:select="toggleActionSheet1"
+  />
+</view>
+<view>
+<!--底部的弹出（删除。设置默认） -->
+<van-action-sheet
+    show="{{ show2}}"
+    actions="{{ actions1 }}"
+    cancel-text="取消"
+    bind:close="toggleActionSheet2"
+    bind:cancel="toggleActionSheet2"
+    bind:select="toggleActionSheet2"
+  />
+</view>

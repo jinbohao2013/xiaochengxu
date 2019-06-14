@@ -3,10 +3,10 @@ const util = require('../../../utils/util.js');
 import Toast from '../../../dist/toast/toast';
 var app = getApp();
 Page({
-  skipNextPage(){
+  skipNextPage(e){
     //点击图片跳转到详情
     wx.navigateTo({
-      url: '../detail/detail',
+      url: '../detail/detail?id='+e.currentTarget.dataset.id
     })
   },
   /**
@@ -15,12 +15,16 @@ Page({
   data: {
     true: true,
     goodsValue:"",
-    ajaxData: [1, 21, 21, 2],
+    ajaxData: [],
     isIphoneX: app.data.isIphoneX,
     scroolHeight:200,
     loading:true,
+    hideLoading:true,//隐藏底部加载
     show: false,
-    acticeInxex:1
+    acticeInxex:1,//口味的index,从0开始
+    pageindex:1,
+    goodsValue:"",//搜索框的内容
+    pagesize:10,//每页的商品数量
   },
   changeIndex(e){
     console.log(e)
@@ -38,6 +42,53 @@ Page({
     console.log(app.data.windowHeight)
     this.setData({
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
+    })
+    let _this = this;
+    
+    //下面是调取列表接口--展示商品信息
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/getgoodslist', // 获取商品列表
+      data: {
+        id:null,
+        orderby: 0,//0:默认时间排序 1:排序号排序
+        search: this.data.goodsValue,
+        pageindex: this.data.pageindex,
+        pagesize: this.data.pagesize,
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+
+        if (res.data.Success) {
+          console.log(res.data);
+          let arr = _this.data.ajaxData;
+          try {
+            if (res.data.Data.list) {
+              arr = arr.concat(res.data.Data.list)
+            }
+
+          } catch (e) {
+            console.log("出错了");
+          }
+
+          _this.setData({
+            ajaxData: arr
+          })
+          if (res.data.Data.list.length<10){
+            _this.setData({
+              hideLoading:false
+            })
+          }
+        } else {
+          wx.showToast({
+            title: "数据信息展示失败",
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
     })
   },
 
@@ -86,7 +137,10 @@ Page({
     console.warn(`change: ${event.detail}`);
   },
   onSearch(e){
-    console.log(e.detail)
+    this.setData({
+      goodsValue:e.detail
+    })
+    this.onLoad();
   },
   onCancel() {//取消搜索搜索时触发
     
@@ -123,11 +177,32 @@ Page({
         })
       },1000)
       console.log("在我这里调取加载数据")
+      if (this.data.hideLoading){
+        return
+      }
+      this.setData({
+        pageindex:this.data.pageindex+1
+      })
+      this.onLoad();
     }
     
   },
+  onGotUserInfo: function (e) {
+    console.log(e)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    this.onClickButton()
+  },
   onClose() {
     this.setData({ show: !this.data.show });
+  },
+  showBottomBuy(e){
+    //调取详情 接口
+    wx.showLoading({
+      title: '加载中',
+    })
+    return
+    this.onClose();
   },
   /**
    * 用户点击右上角分享

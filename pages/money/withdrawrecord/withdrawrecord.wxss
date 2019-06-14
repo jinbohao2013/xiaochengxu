@@ -1,0 +1,12 @@
+/* pages/goods/index/index.wxss */
+.goods_list{
+  padding: 0 33rpx;
+}
+.price{
+  font-size: 37.5rpx;
+}
+#custom-class button{
+  background-color:#333333;
+  color: white;
+  border: 1px solid #333333;
+}
