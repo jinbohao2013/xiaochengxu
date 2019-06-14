@@ -1,61 +1,9 @@
 <!--index.wxml-->
-<view class="container" wx:if="{{!ifHide1}}" >
+<view class="container">
  <!--登录头部-->
  <view class='aaaa' style='height:{{statusBarHeight}}px'></view>
-		<view class="top">
-			<image mode='scaleToFill' style='' src="https://weixin.shengdaprint.com/Content/img/logo.png"></image>
-			<view>客户登录</view>
-		</view>
-		<!--登录表单内容区域-->
-		<view class="loginbody">
-			<view class="loginstyle">
-				<view class="qqLogin {{!ifActive?'active':''}}" data-item='false' bindtap='changeActive'><span>客户登录</span></view>
-				<view class="telLogin {{ifActive?'active':''}}" data-item='true' bindtap='changeActive'><span>手机号登录</span></view>
-				<view class="line"></view>
-			</view>
-			<!--手机号-->
-			<view class="telARea" wx:if="{{ifActive}}">
-				<view class="phone">
-					<view class="tel"></view>
-					<input name="iphone" type="number" id='pass1' maxlength="11" placeholder="请输入手机号" bindinput='telinput' value='{{teltext}}' bindfocus='changeiftel' bindblur='changeiftel'></input>
-					<icon type="clear" style='{{iftel?"opacity:1":"opacity:0"}}' size="14" wx:if="{{teltext!=''}}" bindtap='cleartel'/>
-				</view>
-				<view class="addor">
-					<view class="passWord">
-						<view class="pass"></view>
-						<input name="password"  bindinput='codeinput' type="number" placeholder="请输入验证码"></input>
-					</view>
-					<!--点击添加active-->
-					<view class="imgNum" bindtap="time">
-						<text>{{time==60?'获取验证码':time}}</text>
-					</view>
-				</view>
-				<!--登陆-->
-			</view>
-			<!--qq号-->
-			<view class="qqStyLogin" wx:if="{{!ifActive}}">
-				<view class="phone">
-					<view class="qqgray"></view>
-					<input name="qq" type="text" maxlength="10" bindinput='qqinput' id="pass2" placeholder="请输入客户名称/QQ" value='{{qqtext}}' bindfocus='changeifqq' bindblur='changeifqq'></input>
-					<icon type="clear" size="14" style='{{ifqq?"opacity:1":"opacity:0"}}' wx:if="{{qqtext!=''}}" bindtap='clearqq'/>
-				</view>
-				<view class="phone">
-					<view class="pass"></view>
-					<input name="password" type="password" id="pass3" placeholder="请输入密码" bindinput='passinput' value='{{passtext}}' bindfocus='changeifpass' bindblur='changeifpass'></input>
-					 <icon type="clear" size="14" style='{{ifpass?"opacity:1":"opacity:0"}}' wx:if="{{passtext!=''}}" bindtap='clearpass' />
-				</view>
-				<!--addtips-->
-				<view class="addtips">
-					<span><i-icon color="#e5433e" style='position:relative;bottom:5rpx;' type="prompt" /></span><span>不知道密码可以</span><a href="addpassWord.html"><navigator url='' >点击此处（重设密码）</navigator></a><span>设置密码</span>
-				</view>
-				<!--登陆-->
+		<navigator url='../money/index/index'>首页</navigator>
 				
-			</view>
-      <view class="loginButton" bindtap='submit'>登录</view>
-		</view>
-    
+			
+    <van-button type="primary" class="demo-margin-right">主要按钮</van-button>
 </view>
-<view class='container' wx:if="{{!ifHide}}">111</view>
-<i-modal title="提示" visible="{{ visible3 }}" actions="{{ actions3 }}" bind:click="handleClick3">
-    <view>是否确定下次默认此账号登录</view>
-</i-modal>

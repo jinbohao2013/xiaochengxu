@@ -2,6 +2,10 @@ Component({
     externalClasses: ['i-class', 'i-class-mask'],
 
     properties: {
+      Strue: {
+        type: Boolean,
+        value: false
+      },
         visible: {
             type: Boolean,
             value: false

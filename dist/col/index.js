@@ -1,20 +1,23 @@
-Component({
-    externalClasses: ['i-class'],
-
-    relations: {
-        '../row/index': {
-            type: 'parent'
-        }
+import { VantComponent } from '../common/component';
+VantComponent({
+    relation: {
+        name: 'row',
+        type: 'ancestor'
     },
-
-    properties: {
-        span: {
-            value: 0,
-            type: Number
-        },
-        offset: {
-            value: 0,
-            type: Number
+    props: {
+        span: Number,
+        offset: Number
+    },
+    data: {
+        style: ''
+    },
+    methods: {
+        setGutter(gutter) {
+            const padding = `${gutter / 2}px`;
+            const style = gutter ? `padding-left: ${padding}; padding-right: ${padding};` : '';
+            if (style !== this.data.style) {
+                this.set({ style });
+            }
         }
     }
 });

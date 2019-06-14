@@ -1,6 +1,5 @@
 {
-  "navigationStyle":"custom",
-  "navigationBarTitleText": "订单查询",
+  "navigationBarTitleText": "",
  "usingComponents": {
   "i-button": "../../dist/button/index",
   "i-icon": "../../dist/icon/index",

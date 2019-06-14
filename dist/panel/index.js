@@ -1,19 +1,10 @@
-Component({
-    externalClasses: ['i-class'],
-
-    properties: {
-        title: {
-            type: String,
-            value: ''
-        },
-        // 标题顶部距离
-        hideTop: {
-            type: Boolean,
-            value: false
-        },
-        hideBorder: {
-            type: Boolean,
-            value: false
-        }
+import { VantComponent } from '../common/component';
+VantComponent({
+    classes: ['header-class', 'footer-class'],
+    props: {
+        desc: String,
+        title: String,
+        status: String,
+        useFooterSlot: Boolean
     }
 });

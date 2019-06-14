@@ -1,0 +1,40 @@
+<!--推广商品-->
+<wxs src="../../../utils/tools.wxs" module="tools" />
+<view class='body'>
+  <view class='header ' style='position:relative;'>
+  <view class='title'>商品信息</view>
+    <!-- 商品卡片 -->
+    <van-card
+      num="{{ajaxData.num}}"
+      price="{{ajaxData.price}}"
+      desc="{{ajaxData.desc}}"
+      title="{{ajaxData.title}}"
+      thumb="{{ ajaxData.img }}"
+    />
+    
+  </view>
+  <view class='main' style='margin-bottom:0;'>
+    <view style='padding: 0 30rpx;margin-top:20rpx;'>口味：{{ajaxData.taste}}</view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{tools.floatPrice(ajaxData.totle)}}</text></view>
+    <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{tools.floatPrice(ajaxData.totle)}}</view>
+  </view><!-- mian结束 -->
+  <view class='buy' wx:if="{{!loading}}">
+    <van-submit-bar
+    price="{{ajaxData.totle}}"
+    button-text="提价订单"
+    bind:submit="onClickButton"
+    custom-class="van-submit-bar"
+    safe-area-inset-bottom="{{ false }}"
+  />
+  </view>
+  <view class='buy' wx:if="{{loading}}">
+    <van-submit-bar
+    loading
+    price="{{ajaxData.totle}}"
+    button-text="提价订单"
+    bind:submit="onClickButton"
+    custom-class="van-submit-bar"
+    safe-area-inset-bottom="{{ false }}"
+  />
+  </view>
+</view>

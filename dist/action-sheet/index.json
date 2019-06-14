@@ -1,8 +1,8 @@
 {
   "component": true,
-  "usingComponents":
-  {
-    "i-button": "../button/index",
-    "i-icon": "../icon/index"
+  "usingComponents": {
+    "van-icon": "../icon/index",
+    "van-popup": "../popup/index",
+    "van-loading": "../loading/index"
   }
 }

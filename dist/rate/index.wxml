@@ -1,23 +1,32 @@
-<view class="i-class i-rate" 
-    bindtouchmove="handleTouchMove">
-    <input type="text" :name="name" wx:value="{{value}}" class="i-rate-hide-input" />
-    <view
-        wx:for="{{count}}"
-        wx:key="{{item}}" 
-        class="i-rate-star {{ parse.getCurrent( value,index ) }}" 
-        data-index="{{index}}" 
-        bindtap="handleClick">
-        <i-icon type="collection_fill" size="{{size}}"></i-icon>
-    </view>
-    <view class="i-rate-text" wx:if="{{ value !== 0 }}"><slot></slot></view>
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<view
+  class="van-rate custom-class"
+  bind:touchmove="onTouchMove"
+>
+  <view
+    class="van-rate__item"
+    wx:for="{{ count }}"
+    wx:key="index"
+    style="font-size: {{ size}}px;"
+  >
+    <van-icon
+      name="{{ index + 1 <= innerValue ? icon : voidIcon }}"
+      class="van-rate__icon"
+      custom-class="icon-class"
+      data-score="{{ index }}"
+      color="{{ disabled ? disabledColor : index + 1 <= innerValue ? color : voidColor }}"
+      bind:click="onSelect"
+    />
+
+    <van-icon
+      wx:if="{{ allowHalf }}"
+      name="{{ index + 0.5 <= innerValue ? icon : voidIcon }}"
+      class="{{ utils.bem('rate__icon', ['half']) }}"
+      custom-class="icon-class"
+      data-score="{{ index - 0.5 }}"
+      color="{{ disabled ? disabledColor : index + 0.5 <= innerValue ? color : voidColor }}"
+      bind:click="onSelect"
+    />
+  </view>
 </view>
-<wxs module="parse">
-var prefixCls = 'i-rate';
-module.exports = {
-    getCurrent : function( value,index ){
-        if( index < value  ){
-            return prefixCls + '-current'
-        }
-    }
-}
-</wxs>

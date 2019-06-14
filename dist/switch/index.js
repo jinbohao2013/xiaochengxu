@@ -1,38 +1,43 @@
-Component({
-    externalClasses: ['i-class'],
-    properties : {
-        value : {
-            type : Boolean,
-            value : false
+import { VantComponent } from '../common/component';
+VantComponent({
+    field: true,
+    classes: ['node-class'],
+    props: {
+        checked: null,
+        loading: Boolean,
+        disabled: Boolean,
+        activeColor: String,
+        inactiveColor: String,
+        size: {
+            type: String,
+            value: '30px'
         },
-        //large small default
-        size : {
-            type : String,
-            value : 'default'
+        activeValue: {
+            type: null,
+            value: true
         },
-        // is or not disable
-        disabled : {
-            type : Boolean,
-            value : false
-        },
-        // hidden inut name
-        name : {
-            type : String,
-            value : ''
+        inactiveValue: {
+            type: null,
+            value: false
         }
     },
-    options: {
-        // 在组件定义时的选项中启用多slot支持
-        multipleSlots: true
+    watch: {
+        checked(value) {
+            this.set({ value });
+        }
     },
-    methods : {
-        toggle(){
-            if( this.data.disabled ) return;
-            const data = this.data;
-            const value = data.value ? false : true;
-            this.triggerEvent('change',{
-                value : value
-            })
+    created() {
+        this.set({ value: this.data.checked });
+    },
+    methods: {
+        onClick() {
+            const { activeValue, inactiveValue } = this.data;
+            if (!this.data.disabled && !this.data.loading) {
+                const checked = this.data.checked === activeValue;
+                const value = checked ? inactiveValue : activeValue;
+                this.$emit('input', value);
+                this.$emit('change', value);
+            }
         }
     }
 });

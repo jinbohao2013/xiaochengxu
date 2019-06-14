@@ -1,0 +1,69 @@
+<!--推广商品-->
+<view class='body'>
+  <view class='header text-center' style='margin-bottom:10rpx;'>
+    <van-search
+      value="{{ goodsValue }}"
+      placeholder="搜索商品"
+      show-action
+      bind:search="onSearch"
+      bind:cancel="onCancel"
+    />
+  </view>
+  <view class='main' style='margin-bottom:0;'>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+   
+    <view class='lists' style='padding-bottom:50rpx;'>
+    <block wx:for="{{ajaxData}}" wx:key>
+    <view class='goods_list' style='margin-top:15rpx;'>
+      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>SNOW＋橘子汽水</view>
+      <image bindtap='skipNextPage' src='/image/demo_1.jpg' style='width:684rpx;height:456rpx;'></image>
+      <view class='goods_detail' style='margin-top:20rpx;'>
+        <view>SNOW＋橘子汽水</view>
+        <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
+          <text>￥320</text><view bindtap='onClose'><van-icon name="add-o" size="21px"/></view>
+        </view>
+      </view>
+    </view>
+    </block>
+    <view style='color:#999;text-align:center;'>
+    <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    
+    </view>
+  </scroll-view>
+    
+  </view>
+  <view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
+      <navigator open-type="navigate" >推广商品</navigator>
+      <navigator open-type="navigate" url=''>结算中心</navigator>
+    </view>
+  </view>
+</view>
+<van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
+  <view class="top" style='padding-left:33rpx'>
+    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='/image/demo_1.jpg' mode="aspectFill"></image>
+    <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
+      <view>snow+</view>
+      <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view>
+    </view>
+    <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
+  </view>
+  <view class='c' style='clear:both;'>
+    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>口味分类</view>
+    <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
+      <block wx:for="{{ajaxData}}" wx:key="*">
+        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>橘子汽水</button>
+      </block>
+    </view>
+    <!--  -->
+    <view style='padding:0 12px' class="van-hairline--top">
+    <van-cell title="购买数量：">
+  <van-stepper value="{{ value1 }}" bind:change="onChange"/>
+
+</van-cell>
+    </view>
+  </view>
+  <view class='bottom' bindtap='skipToconfirmOrder' style='margin-top:20rpx;'><van-button id='custom-class' size="large" type="default" style='background-color:#333333;'>下一步</van-button></view>
+</van-popup>

@@ -1,56 +1,74 @@
-const prefixCls = 'i-checkbox';
-
-Component({
-    externalClasses: ['i-class'],
-    relations: {
-        '../checkbox-group/index': {
-            type: 'parent'
+import { VantComponent } from '../common/component';
+function emit(target, value) {
+    target.$emit('input', value);
+    target.$emit('change', value);
+}
+VantComponent({
+    field: true,
+    relation: {
+        name: 'checkbox-group',
+        type: 'ancestor',
+        linked(target) {
+            this.parent = target;
+        },
+        unlinked() {
+            this.parent = null;
         }
     },
-    properties: {
-        value: {
+    classes: ['icon-class', 'label-class'],
+    props: {
+        value: Boolean,
+        disabled: Boolean,
+        useIconSlot: Boolean,
+        checkedColor: String,
+        labelPosition: String,
+        labelDisabled: Boolean,
+        shape: {
             type: String,
-            value: ''
-        },
-        checked: {
-            type: Boolean,
-            value: false
-        },
-        disabled: {
-            type: Boolean,
-            value: false
-        },
-        color: {
-            type: String,
-            value: '#2d8cf0'
-        },
-        position: {
-            type: String,
-            value: 'left', //left right
-            observer: 'setPosition'
+            value: 'round'
         }
-    },
-    data: {
-        checked: true,
-        positionCls: `${prefixCls}-checkbox-left`,
-    },
-    attached() {
-        this.setPosition();
     },
     methods: {
-        changeCurrent(current) {
-            this.setData({ checked: current });
+        emitChange(value) {
+            if (this.parent) {
+                this.setParentValue(this.parent, value);
+            }
+            else {
+                emit(this, value);
+            }
         },
-        checkboxChange() {
-            if (this.data.disabled) return;
-            const item = { current: !this.data.checked, value: this.data.value };
-            const parent = this.getRelationNodes('../checkbox-group/index')[0];
-            parent ? parent.emitEvent(item) : this.triggerEvent('change', item);
+        toggle() {
+            const { disabled, value } = this.data;
+            if (!disabled) {
+                this.emitChange(!value);
+            }
         },
-        setPosition() {
-            this.setData({
-                positionCls: this.data.position.indexOf('left') !== -1 ? `${prefixCls}-checkbox-left` : `${prefixCls}-checkbox-right`,
-            });
+        onClickLabel() {
+            const { labelDisabled, disabled, value } = this.data;
+            if (!disabled && !labelDisabled) {
+                this.emitChange(!value);
+            }
+        },
+        setParentValue(parent, value) {
+            const parentValue = parent.data.value.slice();
+            const { name } = this.data;
+            const { max } = parent.data;
+            if (value) {
+                if (max && parentValue.length >= max) {
+                    return;
+                }
+                if (parentValue.indexOf(name) === -1) {
+                    parentValue.push(name);
+                    emit(parent, parentValue);
+                }
+            }
+            else {
+                const index = parentValue.indexOf(name);
+                if (index !== -1) {
+                    parentValue.splice(index, 1);
+                    emit(parent, parentValue);
+                }
+            }
         }
     }
 });

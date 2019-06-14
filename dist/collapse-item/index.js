@@ -1,46 +1,94 @@
-Component({
-    externalClasses: ['i-class-content', 'i-class-title', 'i-class'],
-
-    relations: {
-        '../collapse/index': {
-            type: 'parent',
-            linked: function (target) {
-                const options = {
-                    accordion: target.data.accordion
-                }
-                if (target.data.name === this.data.name) {
-                    options.showContent = 'i-collapse-item-show-content';
-                }
-                this.setData(options);
-            }
+import { VantComponent } from '../common/component';
+const nextTick = () => new Promise(resolve => setTimeout(resolve, 20));
+VantComponent({
+    classes: ['title-class', 'content-class'],
+    relation: {
+        name: 'collapse',
+        type: 'ancestor',
+        linked(parent) {
+            this.parent = parent;
         }
     },
-
-    properties: {
-        title: String,
-        name: String
+    props: {
+        name: null,
+        title: null,
+        value: null,
+        icon: String,
+        label: String,
+        disabled: Boolean,
+        clickable: Boolean,
+        border: {
+            type: Boolean,
+            value: true
+        },
+        isLink: {
+            type: Boolean,
+            value: true
+        }
     },
-
     data: {
-        showContent: '',
-        accordion: false
+        contentHeight: 0,
+        expanded: false,
+        transition: false
     },
-
-    options: {
-        multipleSlots: true
+    mounted() {
+        this.updateExpanded()
+            .then(nextTick)
+            .then(() => {
+            this.set({ transition: true });
+        });
     },
-
     methods: {
-        trigger(e) {
-            const data = this.data;
-            if (data.accordion) {
-                this.triggerEvent('collapse', {name: data.name}, {composed: true, bubbles: true});
-            } else {
-                this.setData({
-                    showContent: data.showContent ? '' : 'i-collapse-item-show-content'
+        updateExpanded() {
+            if (!this.parent) {
+                return Promise.resolve();
+            }
+            const { value, accordion } = this.parent.data;
+            const { children = [] } = this.parent;
+            const { name } = this.data;
+            const index = children.indexOf(this);
+            const currentName = name == null ? index : name;
+            const expanded = accordion
+                ? value === currentName
+                : (value || []).some((name) => name === currentName);
+            const stack = [];
+            if (expanded !== this.data.expanded) {
+                stack.push(this.updateStyle(expanded));
+            }
+            stack.push(this.set({ index, expanded }));
+            return Promise.all(stack);
+        },
+        updateStyle(expanded) {
+            return this.getRect('.van-collapse-item__content')
+                .then((rect) => rect.height)
+                .then((height) => {
+                if (expanded) {
+                    return this.set({
+                        contentHeight: height ? `${height}px` : 'auto'
+                    });
+                }
+                else {
+                    return this.set({ contentHeight: `${height}px` })
+                        .then(nextTick)
+                        .then(() => this.set({ contentHeight: 0 }));
+                }
+            });
+        },
+        onClick() {
+            if (this.data.disabled) {
+                return;
+            }
+            const { name, expanded } = this.data;
+            const index = this.parent.children.indexOf(this);
+            const currentName = name == null ? index : name;
+            this.parent.switch(currentName, !expanded);
+        },
+        onTransitionEnd() {
+            if (this.data.expanded) {
+                this.set({
+                    contentHeight: 'auto'
                 });
             }
-        },
+        }
     }
 });
-

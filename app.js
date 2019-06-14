@@ -2,15 +2,19 @@
 const Promise = require('utils/promise.js');
 App({
   readyCallback: null,
+  
   globalData: {
     
   },
   data:{
-    // hostAjax: "http://218.28.235.114:20012", 
-    hostAjax: "https://weixin.shengdaprint.com",
+    hostAjax: "http://39.106.49.173:8084",
+    // hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
+    isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
-    dalay:true
+    windowHeight: wx.getSystemInfoSync()["windowHeight"],
+    dalay:true,
+    stop: false
   },
   onLaunch: function () {
     // if (wx.getStorageSync("token")) {//ifLogin
@@ -19,13 +23,9 @@ App({
     //   })
     //   return false;
     // }
+    return
     let _this=this;
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs);
-    // 登录
-    console.log("app1")
+   
     new Promise(function (resolve, reject){
       wx.login({
         success: res => {
@@ -37,14 +37,20 @@ App({
               
               if (res.success) {
                 wx.setStorageSync("token", res.result);
+                console.log("_this.data.stop==========" + _this.data.stop)
+                if (_this.data.stop){
+                  return false;
+                }
                 wx.switchTab({
-                  url: '../logs/logs',
+                  url: '/pages/logs/logs',
                 })
+                _this.data.dalay = false;
+                return false;
               }
               if (_this.readyCallback) {
                 _this.readyCallback();
               } else {
-                // _this.data.dalay = false;
+                _this.data.dalay = false;
               }
             })
 
@@ -58,6 +64,32 @@ App({
       console.log("app2")
     })
     console.log("app3")
+  },
+  onShow:function(){
+    const updateManager = wx.getUpdateManager()
+
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
+
+    updateManager.onUpdateReady(function () {
+      updateManager.applyUpdate()
+      // wx.showModal({
+      //   title: '更新提示',
+      //   content: '新版本已经准备好，是否重启应用？',
+      //   success(res) {
+      //     if (res.confirm) {
+      //       // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+           
+      //     }
+      //   }
+      // })
+    })
+
+    updateManager.onUpdateFailed(function () {
+      // 新版本下载失败
+    })
   },
   globalData: {
     userInfo: null

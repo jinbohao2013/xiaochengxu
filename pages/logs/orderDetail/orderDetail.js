@@ -7,7 +7,11 @@ Page({
   data: {
     statusBarHeight: app.data.statusBarHeight,
     orderLists:[1,2,3],
-    ajaxData:null
+    ajaxData:null,
+    showLoad:false,
+    expresscompany:"",
+    expressnumber:"",
+    options:null
   },
 
   /**
@@ -19,7 +23,16 @@ Page({
         url: '../../../pages/index/index'
       })
     }
-    console.log(JSON.parse(options.data))
+    console.log(options)
+    this.setData({
+      options: options,
+      expresscompany: JSON.parse(options.data).expresscompany,
+      expressnumber: JSON.parse(options.data).expressnumber,
+      deliveryMan: JSON.parse(options.data).deliveryman,
+      deliverytime: JSON.parse(options.data).deliverytime,
+      arrivedtime: JSON.parse(options.data).arrivedtime,
+    })
+    console.log(this.data.expressnumber)
     let _this=this;
     wx.request({
       url: app.data.hostAjax + '/api/Order/Detail',
@@ -33,10 +46,11 @@ Page({
         'Authorization': "Bearer " + wx.getStorageSync("token")
       },
       success(res) {
-        console.log(res.data.result);
+        console.log(res.data.result.makeTime);
         if (res.data.success) {
           _this.setData({
-            ajaxData: res.data.result
+            ajaxData: res.data.result,
+            showLoad: true
           });
         }
 
@@ -94,7 +108,15 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+   // console.log(this.data.options)+ _this.data.options.data
+    let _this=this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      path: '/pages/index/index?stop=1' 
+    }
   }
 })

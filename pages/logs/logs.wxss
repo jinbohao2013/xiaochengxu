@@ -1,20 +1,40 @@
 
-
+.tabs111{
+  background: linear-gradient(to left,#f9bb00,#fdd000)!important;
+}
+.tabs222 view{
+   color:  black;
+}
 .topbind input{
-  height: 60rpx;
-  border-radius:60rpx;
+  height: 80rpx;
+  border-radius:6rpx;
   background-color: #fff;
-  padding-left: 66rpx;
+  padding-left:40rpx;
+  padding-right: 160rpx;
   box-sizing: border-box;
   font-size: 28rpx;
 }
+/* .borderL::before{
+  content: " ";
+  border-left:1px solid #999;
+  position: relative;
+  right: 20rpx;
+} */
 .topbind icon{
   position: absolute;
   left: 40rpx;
   top: 17rpx;
 }
-.title{
-  
+.area .cu-btn{
+  width: 100%;
+ padding: 0 15rpx;
+ position: relative;
+}
+.cu-form-group{
+  min-height:60rpx;
+}
+.col-class{
+  padding: 15rpx;
 }
 .topbind .boxbutton{
   background-color:#FABF00!important;
@@ -39,16 +59,14 @@ button.button-hover{
   top: 2px;
 }
 .demo-container{
-	width:80vw;
+	width:90vw;
 	height: 100vh;
 	background:#fff;
+  overflow: scroll;
+  padding-bottom: 100rpx;
 }
 .btnOrderType{
-  color: #FFC64C;
-}
-.i-swipeout-demo-item{
-  border-top: 1px solid #FFC64C;
-  margin-bottom: 20rpx;
+  color: #FDD001; 
 }
 .loading{
     display: inline-block;
@@ -75,7 +93,7 @@ button.button-hover{
 .toTop{
   position: fixed;
   right: 20rpx;
-  bottom: 120rpx;
+  /* bottom: 60px; */
   border: 1px solid #eee;
   background-color: #fff;
   border-radius: 50%;
@@ -89,7 +107,7 @@ button.button-hover{
   font-size: 20rpx;
   position: fixed;
   right: 75rpx;
-  bottom: 140rpx;
+  /* bottom: 140rpx; */
   height: 36rpx;
   line-height: 36rpx;
   padding-left: 15rpx;
@@ -97,4 +115,9 @@ button.button-hover{
   color: white;
   border-radius:  18rpx 0 0 18rpx;
   background-color: rgba(0, 0, 0, 0.5)
+}
+.cu-tag{
+  width: 50%;
+  height: 80rpx;
+  font-size: 30rpx;
 }

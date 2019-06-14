@@ -92,12 +92,32 @@ Page({
     })
   },
   bindViewTap: function() {
+    
     this.setData({
       visible3: true
     })
   },
   onLoad: function (options) {
-    console.log("index")
+    // var options={
+    //   id:123456
+    // }
+    // console.log(decodeURIComponent(options.q))
+    // console.log(decodeURIComponent(options.q).split("?id=")[1])
+    // wx.showToast({
+    //   title: decodeURIComponent(options.q).split("?id=")[1],
+    //   duration: 20000
+    // })
+    if (options.stop){
+      app.data.stop=true;
+      this.setData({
+        ifHide1: false
+      })
+      if (wx.getStorageSync("token")){
+        wx.switchTab({
+          url: '../logs/logs',
+        })
+      }
+    }
     if (options.showM){
       this.setData({
         showM:true
@@ -336,6 +356,22 @@ Page({
       })
       return false;
     }
+    if (this.data.qqtext == "") {
+      wx.showToast({
+        title: "请输入客户名称/QQ",
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
+    if (this.data.passtext == "") {
+      wx.showToast({
+        title: "请输入密码",
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
     wx.request({
       url: app.data.hostAjax + '/api/Account/Authenticate', // 获取token--储存-作为用户登录的凭证
       data: {
@@ -382,24 +418,34 @@ Page({
   },
   setTime: function () {
     let _this = this;
-    if (this.data.time == 15) {//倒计时开始
+    if (this.data.time == 60) {//倒计时开始
       this.setData({
         time: this.data.time - 1
       })
     } else if (this.data.time == 0) {//倒计时结束
       clearInterval(_this.data.interval);
       this.setData({
-        time: 15
+        time: 60
       })
-      _this.setData({
-
-        testfloat2: false,
-      })
-      _this.submit();
     } else {
       this.setData({
         time: this.data.time - 1
       })
     }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (res) {
+    let _this = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      path: '/pages/index/index?stop=1'
+    }
   }
+
 })

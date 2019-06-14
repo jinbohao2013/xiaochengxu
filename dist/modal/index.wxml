@@ -1,4 +1,4 @@
-<view class="i-modal-mask i-class-mask {{ visible ? 'i-modal-mask-show' : '' }}"></view>
+<view class="i-modal-mask i-class-mask {{ visible ? 'i-modal-mask-show' : '' }}" catchtouchmove="{{Strue}}" catchtouchstart='true'></view>
 <view class="i-class i-modal {{ visible ? 'i-modal-show' : '' }}">
     <view class="i-modal-main">
         <view class="i-modal-content">

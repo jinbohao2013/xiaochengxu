@@ -1,0 +1,9 @@
+/* pages/goods/payMent/pay.wxss */
+.header .van-card__title ,.header .van-card__bottom{
+  line-height: 45rpx;
+}
+.header .title{
+  padding: 0 30rpx;
+  line-height: 100rpx;
+  font-size: 33rpx;
+}

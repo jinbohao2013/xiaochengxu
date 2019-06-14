@@ -1,38 +1,39 @@
-Component({
-    externalClasses: ['i-class'],
-    relations: {
-        '../checkbox/index': {
-            type: 'child',
-            linked() {
-                this.changeCurrent();
-            },
-            linkChanged() {
-                this.changeCurrent();
-            },
-            unlinked() {
-                this.changeCurrent();
-            }
+import { VantComponent } from '../common/component';
+VantComponent({
+    field: true,
+    relation: {
+        name: 'checkbox',
+        type: 'descendant',
+        linked(target) {
+            this.children = this.children || [];
+            this.children.push(target);
+            this.updateChild(target);
+        },
+        unlinked(target) {
+            this.children = this.children.filter((child) => child !== target);
         }
     },
-    properties: {
-        current: {
+    props: {
+        max: Number,
+        value: {
             type: Array,
-            value: [],
-            observer: 'changeCurrent'
+            observer: 'updateChildren'
         },
+        disabled: {
+            type: Boolean,
+            observer: 'updateChildren'
+        }
     },
     methods: {
-        changeCurrent(val = this.data.current) {
-            let items = this.getRelationNodes('../checkbox/index');
-            const len = items.length;
-            if (len > 0) {
-                items.forEach(item => {
-                    item.changeCurrent(val.indexOf(item.data.value) !== -1);
-                });
-            }
+        updateChildren() {
+            (this.children || []).forEach((child) => this.updateChild(child));
         },
-        emitEvent(current) {
-            this.triggerEvent('change', current);
+        updateChild(child) {
+            const { value, disabled } = this.data;
+            child.set({
+                value: value.indexOf(child.data.name) !== -1,
+                disabled: disabled || child.data.disabled
+            });
         }
     }
 });

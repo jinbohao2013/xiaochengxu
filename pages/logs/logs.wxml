@@ -1,69 +1,112 @@
 <!--标题栏-->
-<view class='aaaa' style='height:{{statusBarHeight}}px;background: linear-gradient(to left,#f9bb00,#fdd000);position:fixed;top:0;width:100%;z-index:2;'></view>
-<view class='topBar' style='position:fixed;top:{{statusBarHeight}}px;width:100%;text-align:center;font-size:33rpx;color:#444;height:44px;line-height:44px;background: linear-gradient(to left,#f9bb00,#fdd000);z-index:2;'>
+<view class='aaaa' style='height:{{statusBarHeight}}px;background: linear-gradient(to left,#f9bb00,#fdd000);position:fixed;top:0;width:100%;z-index:22222;'></view>
+<view class='topBar' style='position:fixed;top:{{statusBarHeight}}px;width:100%;text-align:center;font-size:33rpx;color:#444;height:44px;line-height:44px;background: linear-gradient(to left,#f9bb00,#fdd000);z-index:22222;'>
   <!-- <view class='return' style='position:absolute;left:20rpx;' bindtap='return'><i-icon style='position:relative;top:-1.5px' size="20" type="return" /> 返回</view> -->
-  订单查询
+  <view style='position:absolute;left:20rpx;'>订单查询</view>
 </view>
-<view class="container" id='container' style='margin-bottom:52px;padding-top:{{statusBarHeight+44}}px;'>
-  <view class='topbind' style='width: 750rpx;height: 86rpx;font: 32rpx/86rpx "微软雅黑";background-color:#fff; color: #000;text-align: left;display:flex;border-bottom: 1px solid #eee;position:relative;'>
-   <icon type="search" size="13" color="#666" /> <input class='box' style='flex-grow:2;background-color:#eee;' confirm-type="search" bindconfirm="doSearh" bindinput='proName' type='text' placeholder="请输入产品名称或订单号"></input>
-    <!-- <button class='box' >搜索</button> -->
-    <i-button style='margin-right:20rpx;' i-class="box boxbutton" bind:click="doSearh"  shape="circle" size="small">搜索</i-button>
-    <!-- <view class='box' bindtap='toggleRight1' style='margin-right:20rpx;font-size:24rpx;'>筛选<i-icon size='20' type="other" /></view> -->
-  </view>
-  <view style='margin-bottom:20rpx;' class='tab' id='tab'>
-    <i-tabs current="{{ current }}" color="#FABF00" bindchange="handleChange">
-      <i-tab key="tab1" title="全部"></i-tab><i-tab key="tab2" title="未付定金"></i-tab>
-      <i-tab key="tab3" title="待发货"></i-tab>
-      <i-tab key="tab4" title="已发货"></i-tab>
+<view class="container" id='container' style='padding-bottom:{{isIphoneX?"134px":"100px"}};padding-top:{{statusBarHeight+44}}px;'>
+  <view  style='margin-bottom:20rpx;position:fixed;top:{{statusBarHeight+44}}px;width:100%;z-index:100;' class='tab' id='tab'>
+    <i-tabs i-class="tabs111" current="{{ current }}" color="red" bindchange="handleChange">
+      <i-tab i-class="tabs222" key="tab1" title="全部"></i-tab>
+      <i-tab i-class="tabs222" key="tab2" title="未付定金"></i-tab>
+      <i-tab i-class="tabs222" key="tab3" title="待发货"></i-tab>
+      <i-tab i-class="tabs222" key="tab4" title="已发货"></i-tab>
     </i-tabs>
+  </view>
+  <view  style='margin-bottom:20rpx;opacity:0;'>
+    <i-tabs i-class="tabs111" current="{{ current }}" color="red" bindchange="handleChange">
+      <i-tab i-class="tabs222" key="tab1" title="全部"></i-tab>
+      <i-tab i-class="tabs222" key="tab2" title="未付定金"></i-tab>
+      <i-tab i-class="tabs222" key="tab3" title="待发货"></i-tab>
+      <i-tab i-class="tabs222" key="tab4" title="已发货"></i-tab>
+    </i-tabs>
+  </view>
+  <view class='topbind' style='width: 750rpx;height: 86rpx;font: 32rpx/86rpx "微软雅黑";background-color:#fff; color: #000;text-align: left;display:flex;position:relative;margin:20rpx 0 20rpx 0;'>
+    <view style='flex:1;align-self:center;margin-left:20rpx;position:relative;overflow:hidden;'>
+      <input style='background-color:#F7F7F7;'  disabled='disabled' confirm-type="search" bindconfirm="doSearh" bindtap='proName' type='text' value='{{productName}}' placeholder="搜一搜"></input>
+      <view style='height:80rpx;line-height:80rpx;width:80rpx;position:absolute;right:0;text-align:center;top:0;z-index:7;font-size:36rpx;' class=' borderL iconfont {{productName==""?"icontubiao-3":"icontubiao--5"}}' bindtap='doSearh'>
+      </view>
+      <view class='iconfont icontubiao--1' style='line-height:80rpx;height:80rpx;width:80rpx;font-size:36rpx;position:absolute;right:80rpx;text-align:center;top:0;z-index:7;color:#999;' wx:if="{{productName!=''}}" bindtap='clearNum'></view>
+    </view>
+    <view class='box ' bindtap='toggleRight1' style='margin-right:20rpx;font-size:30rpx;white-space: nowrap;'>筛选</view>
   </view>
   <view  class='animated {{orderLists.length==0&&hiddenload?"zoomIn":"zoomOut"}}' style='text-align: center;display:{{orderLists.length==0&&hiddenload?"block":"none"}}'>
    <view class="loading"></view></view>
   <wxs src="../../utils/tools.wxs" module="tools" />
-
-  
+  <view wx:if="{{orderLists.length!=0}}" style='height:20rpx;background-color:#F0F0F0;'></view>
   <block wx:for="{{orderLists}}" wx:key="index">
-    <i-swipeout data-id='{{item.sn}}' data-code="{{item.companyCode}}" data-index="2" i-class="i-swipeout-demo-item" unclosable="{{true}}" toggle="{{toggle2}}" actions="{{actions}}" bindchange="change">
-      
-      <view slot="content" data-id='{{item.sn}}' data-code="{{item.companyCode}}" class='orderTitle' bindtap='change' bindtouchstart='handlerCloseButton'>
-      <view style='display:flex;justify-content: space-between;padding:2rpx 28rpx;height:40rpx;line-height:40rpx;'>
-        <view class="title" style='font-size:24rpx;width:500rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;'>{{item.name}}</view>
+   <i-swipeout  data-deliveryMan="{{item.deliveryMan}}" data-arrivedTime='{{tools.bar(item.makeTime)[0]}}' data-deliveryTime='{{tools.bar(item.makeTime)[0]}}' data-id='{{item.sn}}' data-code="{{item.companyCode}}" data-expressNumber='{{item.expressNumber}}' data-expressCompany='{{item.expressCompany}}' data-index="2" i-class="i-swipeout-demo-item" unclosable="{{true}}" toggle="{{toggle2}}" actions="{{actions}}" bindchange="change">
+      <view slot="content" data-arrivedTime='{{item.arrivedTime}}' data-deliveryTime='{{item.deliveryTime}}' data-id='{{item.sn}}' data-deliveryMan="{{item.deliveryMan}}" data-code="{{item.companyCode}}" data-expressNumber='{{item.expressNumber}}' data-expressCompany='{{item.expressCompany}}' class='orderTitle' bindtap='change' bindtouchstart='handlerCloseButton'>
+      <view style='display:flex;justify-content: space-between;padding:20rpx 24rpx;'>
+        <view class="title" style='font-size:30rpx;width:600rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;'><text catchlongpress='catchlong' selectable='true' style='font-size:32rpx;'>{{item.name}}</text></view>
         <view class='btnOrderType'>{{item.category}}</view>
       </view>
-        <view style='display:flex;justify-content: space-between;color:#9F9F9F;font-size:22rpx;border-top: 1px dotted #FFC64C;border-bottom: 1px solid #FFC64C;padding:10rpx 28rpx;'>
-          <view class='left' style='width:515rpx;display:flex;align-content:space-around;flex-wrap:wrap;'>
-              <view style='width:515rpx;'>订单号：{{item.sn}}</view>
-              <view wx-if="{{item.expressNumber}}" style="margin-top:6rpx;"><i-row>
-                  <i-col span="18" i-class="col-class">物流号：{{item.expressNumber}} </i-col>
-                  <i-col span="6" i-class="col-class">{{item.expressCompany}}</i-col>
-              </i-row></view>
-              <view style="margin-top:6rpx;width:515rpx;">总金额：{{item.sum}} <text style='margin-left:20rpx;'>运费：{{item.expressSum}}</text></view>
-          </view>
-          <view class='right' style='display:flex;align-content:space-between;flex-wrap:wrap;justify-content: flex-end'>
-              <view style='text-align:right;'>{{tools.bar(item.makeTime)[0]}}<view>{{tools.bar(item.makeTime)[1]}}</view></view>
-              <view style='text-align:right;'>已付：{{item.receivedSum}}</view>
+        <view style='background-color:#F7F7F7;font-size:30rpx;'>
+          <view class='left' style='padding:20rpx 24rpx;'>
+              <view style='width:;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;'>订单号:{{item.sn}} <view style='float:right;color:#666;position:relative;top:2px'>{{tools.bar2(item.makeTime)}}</view></view>
+              <view wx-if="{{item.deliveryTime}}" style="margin-top:10rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;color:#666;">预出货：{{tools.bar1(item.deliveryTime)[0]}}
+              <text style='float:right;color:#666;' wx-if="{{item.arrivedTime}}">预到货：{{tools.bar1(item.arrivedTime)[0]}}</text>
+              </view>
+                <view wx-if="{{item.expressNumber}}" style="margin-top:6rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;">物流信息：{{item.expressCompany}}
+                  <text style='margin-left:20rpx;'>{{item.expressNumber}}</text>
+              </view>
+              <view wx-if="{{item.arrivedTime}}" style="margin-top:6rpx;word-break:break-all;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;">
+              </view>
           </view>
         </view>
-      
+      <view style="margin-top:6rpx;padding:20rpx 24rpx;">总金额：<text style='color:red;margin-right:20rpx;'>{{tools.price1(item.sum)}}</text><text wx:if="{{item.expressSum}}">运费：<text style='color:red;'>{{tools.price1(item.expressSum)}}</text></text>  <text style='float:right;'>已付：<text style='color:red;'>{{tools.price1(item.receivedSum)}}</text></text></view>
       </view>
     </i-swipeout>
+    <view style='height:20rpx;background-color:#F0F0F0;'></view>
   </block>
-  <view  style='font-size:25rpx;text-align:center;margin-top:30%;display:{{totleNum ==0&&doOnce?"block":"none"}}'><image  style='width:200rpx;height:200rpx;' src='../../image/meiyoudingdan.png'></image><view>没有订单</view></view>
+   <view  style='font-size:30rpx;text-align:center;margin-top:30%;display:{{totleNum ==0&&noOrder?"block":"none"}};color:#cccccc;'>
+  <!-- <image  style='width:200rpx;height:200rpx;' src='../../image/meiyoudingdan.png'></image> -->
+  <view class='iconfont icontubiao---' style='font-size:62px;color:#cccccc;'></view>
+  <view>没有订单</view></view>
 <view wx-if="{{orderLists.length!=0&&showLoade}}"><i-load-more /></view>
 <view wx-if="{{productNum==totleNum}}" style='opacity:{{showBottom?"1":"0"}}' id='theBottom'><i-load-more tip="到底了" loading="{{ false }}" /></view>
 </view>
 <view>
-  <view class='index'>{{productNum}} / {{totleNum}}</view>
-  <view class='toTop' bindtap='totop'>
+  <view class='index' style='bottom:{{isIphoneX?"124px":"104px"}}'>{{productNum}} / {{totleNum}}</view>
+  <view class='toTop' bindtap='totop' style='bottom:{{isIphoneX?"114px":"94px"}}'>
     
-    <view class='iconfont iconstick_icon'></view>
+    <view class='iconfont icontubiao--4'></view>
   </view>
-</view>
+  </view>
 <!-- 筛选 -->
   <i-drawer mode="right" visible="{{showRight1}}" bind:close="toggleRight1">
       <view class="demo-container">
-        <view style='height:{{statusBarHeight}}px;padding-top:44px;'></view>
-          这里存放选择的标签
+        <view style='padding-top:{{statusBarHeight+86}}px;'></view>
+          <view class="action" style='padding:15rpx 25rpx;'>下单时间</view>
+          <view class="padding-sm text-center" style=' padding-top:0'>
+          <i-row>
+              <i-col span="11" i-class="col-class">
+                <view>
+                  <picker mode="date" value="{{date}}" start="2015-09-01" end="{{date1}}" bindchange="DateChange">
+                    <button class="cu-btn round {{date==''?'text-gray':''}}">{{date==""?"开始时间":date}}</button>
+                  </picker>
+                </view>
+              </i-col>
+              <i-col span="2" i-class="col-class"><view  style='height:2px;border:1px solid black;margin-top:31rpx'></view></i-col>
+              <i-col span="11" i-class="col-class">
+                <view>
+                  <picker mode="date" value="{{date1}}" start="{{date}}" end="2025-09-01" bindchange="DateChange1">
+                    <button class="cu-btn round {{date1==''?'text-gray':''}}">{{date1==""?"结束时间":date1}}</button>
+                  </picker>
+                </view>
+              </i-col>
+          </i-row></view>
+
+
+
+
+          <view class="cu-capsule" style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;'>
+            <view class="cu-tag line-yellow" bindtap='resetAll'>
+              重置
+            </view>
+            <view class="cu-tag bg-yellow text-white" bindtap='searchAll'>
+              确定
+            </view>
+          </view>
       </view>
   </i-drawer>

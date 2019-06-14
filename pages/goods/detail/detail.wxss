@@ -1,0 +1,26 @@
+.goods_list{
+  padding: 0 33rpx;
+}
+.price{
+  font-size: 37.5rpx;
+}
+#custom-class button{
+  background-color:#333333;
+  color: white;
+  border: 1px solid #333333;
+}
+#imgPop .van-popup {
+background-color:rgba(0, 0, 0, 0)!important;
+}
+.van-tabs--line .van-tabs__wrap {
+  /* 标签的样式 */
+ width:200px!important;
+ margin:auto
+}
+.van-tabs__line {
+background-color:#000!important;
+}
+.buy .van-button--danger {
+  background-color:#333;
+border:1px solid #333;
+}

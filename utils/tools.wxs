@@ -1,7 +1,49 @@
 // var foo = "'hello world' from comm.wxs";
 var bar = function (d) {
-  return d.split("T");
+  return d.split(".")[0].split("T");
+}
+var bar1 = function (d) {
+  return d.split(".")[0].split(" ");
+}
+var bar2 = function (d) {
+  var a = d.split(".")[0].split("T");
+  var b = a[0];
+  var c = a[1].split(":");
+
+  return b + " " + c[0] + ":" + c[1]
+}
+var price1 = function (s) {
+  return parseFloat(s / 100) + "元"
+}
+var addmm = function (s) {
+  if (s.indexOf("mm") > 0) {
+    return s
+  } else if (s.indexOf("m") > 0) {
+    return s
+  } else {
+    return s + "mm"
+  }
+}
+var showTime = function (d) {
+  return d.split(".")[0].replace("T", " ");
+}
+var require1 = function (a, b) {
+  if (a && a == b) {
+    return true;
+  }
+  return false;
+}
+var floatPrice = function (s) {
+  var price=s/100
+  return price.toFixed(2)
 }
 module.exports = {
-  bar: bar
+  bar: bar,
+  bar1: bar1,
+  bar2: bar2,
+  price1: price1,
+  addmm: addmm,
+  require1: require1,
+  showTime: showTime,
+  floatPrice: floatPrice
 };

@@ -1,38 +1,38 @@
-Component({
-    externalClasses: ['i-class'],
-    relations: {
-        '../radio/index': {
-            type: 'child',
-            linked() {
-                this.changeCurrent();
-            },
-            linkChanged() {
-                this.changeCurrent();
-            },
-            unlinked() {
-                this.changeCurrent();
-            }
+import { VantComponent } from '../common/component';
+VantComponent({
+    field: true,
+    relation: {
+        name: 'radio',
+        type: 'descendant',
+        linked(target) {
+            this.children = this.children || [];
+            this.children.push(target);
+            this.updateChild(target);
+        },
+        unlinked(target) {
+            this.children = this.children.filter((child) => child !== target);
         }
     },
-    properties: {
-        current: {
-            type: String,
-            value: '',
-            observer: 'changeCurrent'
+    props: {
+        value: {
+            type: null,
+            observer: 'updateChildren'
         },
+        disabled: {
+            type: Boolean,
+            observer: 'updateChildren'
+        }
     },
     methods: {
-        changeCurrent(val = this.data.current) {
-            let items = this.getRelationNodes('../radio/index');
-            const len = items.length;
-            if (len > 0) {
-                items.forEach(item => {
-                    item.changeCurrent(val === item.data.value);
-                });
-            }
+        updateChildren() {
+            (this.children || []).forEach((child) => this.updateChild(child));
         },
-        emitEvent(current) {
-            this.triggerEvent('change', current);
+        updateChild(child) {
+            const { value, disabled } = this.data;
+            child.set({
+                value,
+                disabled: disabled || child.data.disabled
+            });
         }
     }
 });

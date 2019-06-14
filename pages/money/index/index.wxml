@@ -1,0 +1,24 @@
+<!--pages/money/index/index.wxml结算中心-->
+<view class='body'>
+  <view class='header text-center' style='margin-bottom:90rpx;'>
+    <view class='img img1' style='margin-top:100rpx;margin-bottom:35rpx;'>
+      <image src='http://www.yqcoffee.cn/img/saleMan/001settlement.png' style='width:320rpx;height:140rpx;'></image>
+    </view>
+    <text style='font-size:32.3rpx'>可提现金额</text>
+    <view style='font-size:54.2rpx;margin-top:25rpx;'>￥<text style='margin-left:20rpx;'>0.00</text></view>
+  </view>
+  <view class='main'>
+    <navigator url='' style='margin:0 20rpx 35rpx 20rpx;'><van-button type="primary" size="large">提现</van-button></navigator>
+    <van-cell-group>
+      <van-cell url="/pages/dashboard/index" title="收支明细" is-link />
+      <van-cell url="/pages/dashboard/index" title="提现记录" is-link />
+    </van-cell-group>
+  </view>
+  <view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
+      <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
+      <navigator open-type="navigate" url=''>结算中心</navigator>
+    </view>
+  </view>
+</view>

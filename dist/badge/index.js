@@ -1,29 +1,30 @@
-Component({
-    externalClasses: ['i-class', 'i-class-alone'],
-
-    properties: {
-        count: {
-            type: Number,
-            value: 0,
-            observer: 'finalCount'
-        },
-        overflowCount: {
-            type: Number,
-            value: 99
-        },
-        dot: {
-            type: Boolean,
-            value: false
-        },
+import { VantComponent } from '../common/component';
+VantComponent({
+    relation: {
+        type: 'ancestor',
+        name: 'badge-group',
+        linked(target) {
+            this.parent = target;
+        }
     },
-    data: {
-        finalCount: 0
+    props: {
+        info: null,
+        title: String
     },
     methods: {
-        finalCount() {
-            this.setData({
-                finalCount: parseInt(this.data.count) >= parseInt(this.data.overflowCount) ? `${this.data.overflowCount}+` : this.data.count
+        onClick() {
+            const { parent } = this;
+            if (!parent) {
+                return;
+            }
+            const index = parent.badges.indexOf(this);
+            parent.setActive(index).then(() => {
+                this.$emit('click', index);
+                parent.$emit('change', index);
             });
         },
+        setActive(active) {
+            return this.set({ active });
+        }
     }
 });

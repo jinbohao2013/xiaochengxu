@@ -1,112 +1,123 @@
-const VALID_MODE = ['closeable'];
-const FONT_COLOR = '#f60';
-const BG_COLOR = '#fff7cc';
-
-Component({
-    externalClasses: ['i-class'],
-
-    properties: {
-        closable: {
-            type: Boolean,
-            value: false
-        },
-        icon: {
+import { VantComponent } from '../common/component';
+const FONT_COLOR = '#ed6a0c';
+const BG_COLOR = '#fffbe8';
+VantComponent({
+    props: {
+        text: {
             type: String,
             value: ''
         },
-        loop: {
-            type: Boolean,
-            value: false
-        },
-        // 背景颜色
-        backgroundcolor: {
+        mode: {
             type: String,
-            value: '#fefcec'
+            value: ''
         },
-        // 字体及图标颜色
-        color: {
+        url: {
             type: String,
-            value: '#f76a24'
+            value: ''
         },
-        // 滚动速度
+        openType: {
+            type: String,
+            value: 'navigate'
+        },
+        delay: {
+            type: Number,
+            value: 1
+        },
         speed: {
             type: Number,
-            value: 1000
-        }
+            value: 50
+        },
+        scrollable: {
+            type: Boolean,
+            value: true
+        },
+        leftIcon: {
+            type: String,
+            value: ''
+        },
+        color: {
+            type: String,
+            value: FONT_COLOR
+        },
+        backgroundColor: {
+            type: String,
+            value: BG_COLOR
+        },
+        wrapable: Boolean
     },
-
     data: {
-        show: true,
-        wrapWidth: 0,
-        width: 0,
-        duration: 0,
-        animation: null,
-        timer: null,
+        show: true
     },
-    detached() {
-        this.destroyTimer();
-    },
-    ready() {
-        if (this.data.loop) {
-            this.initAnimation();
+    watch: {
+        text() {
+            this.set({}, this.init);
         }
     },
-
+    created() {
+        this.resetAnimation = wx.createAnimation({
+            duration: 0,
+            timingFunction: 'linear'
+        });
+    },
+    destroyed() {
+        this.timer && clearTimeout(this.timer);
+    },
     methods: {
-        initAnimation() {
-            wx.createSelectorQuery().in(this).select('.i-noticebar-content-wrap').boundingClientRect((wrapRect) => {
-                wx.createSelectorQuery().in(this).select('.i-noticebar-content').boundingClientRect((rect) => {
-                    const duration = rect.width / 40 * this.data.speed;
-                    const animation = wx.createAnimation({
-                        duration: duration,
-                        timingFunction: "linear",
+        init() {
+            Promise.all([
+                this.getRect('.van-notice-bar__content'),
+                this.getRect('.van-notice-bar__wrap')
+            ]).then((rects) => {
+                const [contentRect, wrapRect] = rects;
+                if (contentRect == null ||
+                    wrapRect == null ||
+                    !contentRect.width ||
+                    !wrapRect.width) {
+                    return;
+                }
+                const { speed, scrollable, delay } = this.data;
+                if (scrollable && wrapRect.width < contentRect.width) {
+                    const duration = (contentRect.width / speed) * 1000;
+                    this.wrapWidth = wrapRect.width;
+                    this.contentWidth = contentRect.width;
+                    this.duration = duration;
+                    this.animation = wx.createAnimation({
+                        duration,
+                        timingFunction: 'linear',
+                        delay
                     });
-                    this.setData({
-                        wrapWidth: wrapRect.width,
-                        width: rect.width,
-                        duration: duration,
-                        animation: animation
-                    }, () => {
-                        this.startAnimation();
-                    });
-                }).exec();
-
-            }).exec();
+                    this.scroll();
+                }
+            });
         },
-        startAnimation() {
-            //reset
-            if (this.data.animation.option.transition.duration !== 0) {
-                this.data.animation.option.transition.duration = 0;
-                const resetAnimation = this.data.animation.translateX(this.data.wrapWidth).step();
-                this.setData({
-                    animationData: resetAnimation.export()
-                });
-            }
-            this.data.animation.option.transition.duration = this.data.duration;
-            const animationData = this.data.animation.translateX(-this.data.width).step();
+        scroll() {
+            this.timer && clearTimeout(this.timer);
+            this.timer = null;
+            this.set({
+                animationData: this.resetAnimation
+                    .translateX(this.wrapWidth)
+                    .step()
+                    .export()
+            });
             setTimeout(() => {
-                this.setData({
-                    animationData: animationData.export()
+                this.set({
+                    animationData: this.animation
+                        .translateX(-this.contentWidth)
+                        .step()
+                        .export()
                 });
-            }, 100);
-            const timer = setTimeout(() => {
-                this.startAnimation();
-            }, this.data.duration);
-            this.setData({
-                timer,
-            });
+            }, 20);
+            this.timer = setTimeout(() => {
+                this.scroll();
+            }, this.duration);
         },
-        destroyTimer() {
-            if (this.data.timer) {
-                clearTimeout(this.data.timer);
-            }
+        onClickIcon() {
+            this.timer && clearTimeout(this.timer);
+            this.timer = null;
+            this.set({ show: false });
         },
-        handleClose() {
-            this.destroyTimer();
-            this.setData({
-                show: false,
-                timer: null
-            });
+        onClick(event) {
+            this.$emit('click', event);
         }
     }
 });
