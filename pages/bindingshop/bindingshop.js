@@ -9,6 +9,7 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
+    distributorid:null,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -67,14 +68,14 @@ Page({
               url: config.apiHost + '/api/user/v1/addshopowner_manager',
               method: "POST",
               data: {
-                distributorid: 1,
+                distributorid: this.data.distributorid,
                 phone: this.data.phone,
                 code: this.data.code,
                 shopname: this.data.name,
                 openid: app.globalData.openid,
                 Address: this.data.address
               },
-              success: (res) => {
+              success: (res) => { 
                 console.log(res)
                 if(res.data.Msg == '操作成功'){
                   wx.showToast({
@@ -207,6 +208,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
+      this.data.setData({
+        distributorid : decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
+      })
+      
+    } else {
+      this.setData({
+        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
+      })
+     
+    }
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

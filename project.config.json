@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -75,6 +75,13 @@
 					"id": 3,
 					"name": "1",
 					"pathName": "pages/binding/binding",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "邀请二维码",
+					"pathName": "pages/invite/invite",
 					"query": "",
 					"scene": null
 				}

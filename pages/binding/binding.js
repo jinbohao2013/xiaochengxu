@@ -8,6 +8,8 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
+    distributorid:null,
+    shopid:null,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -66,8 +68,8 @@ Page({
               url: config.apiHost + '/api/user/v1/addsalesperson_manager',
               method: "POST",
               data: {
-                distributorid: 1,
-                shopid: 2,
+                distributorid: this.data.distributorid,
+                shopid: this.data.shopid, 
                 phone: this.data.phone,
                 code: this.data.code,
                 shopname: this.data.name,
@@ -207,6 +209,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
+      this.data.setData({
+        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
+      })
+
+    } else {
+      this.setData({
+        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
+      })
+
+    }
+    if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
+      this.data.setData({
+        shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0]
+      })
+
+    } else {
+      this.setData({
+        shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1]
+      })
+
+    }
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

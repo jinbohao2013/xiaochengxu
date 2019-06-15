@@ -8,7 +8,7 @@
          <text>{{userInfo.nickName}}</text>
       </view>
       <view class='foot_two'>
-         <image src='{{inviteImage[1]}}'></image>
+         <canvas style="width: 400rpx; height: 400rpx;margin:auto;" canvas-id="myQrcode"></canvas>
       </view>
    </view>
-</view>
+</view> 
