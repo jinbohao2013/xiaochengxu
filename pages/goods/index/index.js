@@ -43,6 +43,12 @@ Page({
     // wx.reLaunch({//重定向到登录页面
     //   url: '/pages/index/index'
     // })
+    //如果不是客戶，進來
+    wx.hideShareMenu({
+      success: function () {
+        console.log("禁止了分享按钮的现实！")
+      }
+    })
     console.log(app.data.windowHeight)
     this.setData({
       windowHeight: app.data.windowHeight,
@@ -72,6 +78,7 @@ Page({
            _this.setData({
              hideBotom:false
            })
+           
          }
           
         } else {

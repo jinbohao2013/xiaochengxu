@@ -14,7 +14,8 @@ App({
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
     windowHeight: wx.getSystemInfoSync()["windowHeight"],
     dalay:true,
-    stop: false
+    stop: false,
+    hideBotom: true,////隐藏底部导航
   },
   onLaunch: function () {
     // if (wx.getStorageSync("token")) {//ifLogin
@@ -23,7 +24,7 @@ App({
     //   })
     //   return false;
     // }
-    return
+    // return
     let _this=this;
    
     new Promise(function (resolve, reject){
@@ -31,8 +32,39 @@ App({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           console.log(res.code);
-          _this.getData("/api/Account/Code2Session", { jsCode: res.code }).then(res => {
-            wx.setStorageSync("openid", res.result.openid);
+          _this.getData("/api/weixin/v1/jscode2session", { response_type: res.code }).then(res => {
+           
+            wx.setStorage({
+              key: 'sessionKey',
+              data: JSON.parse(res.Data).session_key,
+            })
+            wx.setStorageSync("openid", JSON.parse(res.Data).openid);
+            //首先登录，获取用户的类型，判断是不是客户
+            wx.request({
+              url: _this.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+              data: {
+                openid: wx.getStorageSync("openid"),
+
+              },
+              method: "get",
+              header: {
+                'content-type': 'application/json',
+              },
+              success(res) {
+
+                if (res.data.Success) {
+                  wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+                  if (res.data.Data.usertype == 1) {
+                    //1为普通用户 2为经销商 3为店长 4为分销员
+                    //1--隐藏底部导航
+                    _this.data.hideBotom=false;
+                  }
+                  console.log("111111111111111111111", _this.data.hideBotom)
+                } else {
+
+                }
+              }
+            })
           })
           resolve()
           
