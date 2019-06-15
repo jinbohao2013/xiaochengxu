@@ -1,4 +1,5 @@
 <!--推广商品-->
+<wxs src="../../../utils/tools.wxs" module="tools" />
 <view class='body'>
   <view class='header text-center' style='margin-bottom:10rpx;position:relative;'>
     <swiper indicator-dots="{{indicatorDots}}"
@@ -6,19 +7,20 @@
     bindchange="changeSwiper"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
       style='height:750rpx;'>
-      <block wx:for="{{imgUrls}}" wx:key="*">
+      <block wx:for="{{tools.imgFirst(ajaxData.imgurl)}}" wx:key="*">
         <swiper-item>
           <image src="{{item}}" class="slide-image" style='width:750rpx;height:750rpx;'/>
         </swiper-item>
       </block>
     </swiper>
-    <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{allcurrent}}</van-tag></view>
+    <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{tools.imgFirst(ajaxData.imgurl).length}}</van-tag></view>
   </view>
   <view class='main' style='margin-bottom:100rpx;'>
     <view class="top" style='padding-left:33rpx'>
       <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-        <view>snow+</view>
-        <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view>
+        <view>{{ajaxData.englishname}}</view>
+        <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
+        <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
       </view>
       <view style='float:right;padding:20rpx;' bindtap="togglePopup"><van-icon name="share" size='25px'/></view>
     </view>  <!-- top结束 -->
@@ -36,7 +38,7 @@
           title="{{ '商品详情'}}"
         >
           <view class="content">
-            <image src='/image/demo_2.jpg' style='width:100%;' mode='widthFix'></image>
+            <image src='{{ajaxData.synopsisimg}}' style='width:100%;' mode='widthFix'></image>
           </view>
         </van-tab>
       </van-tabs>
@@ -61,18 +63,19 @@
 
 <van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
   <view class="top" style='padding-left:33rpx'>
-    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='/image/demo_1.jpg' mode="aspectFill"></image>
+    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-      <view>snow+</view>
-      <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view>
+      <view>{{ajaxData.englishname}}</view>
+      <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
+      <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
     </view>
     <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
   <view class='c' style='clear:both;'>
     <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>口味分类</view>
     <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
-      <block wx:for="1234" wx:key="*">
-        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' data-name='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>橘子汽水</button>
+      <block wx:for="{{ajaxData.tastename}}" wx:key="*">
+        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' data-name='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>{{item.names}}</button>
       </block>
     </view>
     <!--  -->

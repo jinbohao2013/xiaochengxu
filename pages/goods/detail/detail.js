@@ -19,21 +19,21 @@ Page({
     show: false,//选择口味的弹出层
     show1:false,//保存图片的弹出层
     imgUrls: [
-      '/image/demo_1.jpg',
-      '/image/demo_1.jpg',
-      '/image/demo_1.jpg',
+      
     ],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
     current:0,
-    allcurrent:3,
+    // allcurrent:3,
     circular:true,
-    tasteId:null,//口味id
+    // goodsnum:0,
+    // tastArr:[],
+    // tasteId:null,//口味id
     acticeInxex: null,//口味的顺序index值0开始
     widthCord:195 / 750 * wx.getSystemInfoSync().windowWidth,//二维码的px值（转换之后的）
-    productName:"SNOW＋橘子汽水",
+    // productName:"SNOW＋橘子汽水",
     loading:false,//保存按钮的加载动画
     openset: false,//打开设置的判断
   },
@@ -56,8 +56,18 @@ Page({
     // wx.reLaunch({//重定向到登录页面
     //   url: '/pages/index/index'
     // })
+    console.log(decodeURIComponent(options.q))
     let _this=this;
-    console.log("传过来的商品id是:---"+options.id)
+    var goodsId = options.id;
+    if (!goodsId){
+      if (decodeURIComponent(options.q).split("?")[1].split("goodsid=").indexOf("&")>=0){
+        goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=").split("&")[0]
+      }else{
+        goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1]
+      }
+      
+    }
+    console.log("传过来的商品id是:---" + goodsId)
     this.setData({
       
       windowHeight: app.data.windowHeight,
@@ -67,7 +77,7 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/getgoodsdetail', // 获取商品详情
       data: {
-        goods_id:2471
+        goods_id: goodsId
       },
       method: "get",
       header: {
@@ -80,6 +90,7 @@ Page({
           _this.setData({
             ajaxData: res.data.Data
           })
+          _this.drawImg();
         } else {
           wx.showToast({
             title: "数据信息展示失败",
@@ -96,6 +107,10 @@ Page({
         console.log("禁止了分享按钮的现实！")
       }
     })
+    
+  },
+  drawImg(){
+    let _this=this;
     //禁止页面分享
     var w = 451 / 750 * wx.getSystemInfoSync().windowWidth;
     var h = 753 / 750 * wx.getSystemInfoSync().windowWidth;
@@ -109,19 +124,20 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0]
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
-    ctx.drawImage("/image/demo_1.jpg", c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
+    ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
     //加入商品名字到canvas中
     ctx.setFontSize(s)
-    ctx.fillText(_this.data.productName, e, f)
+    ctx.fillText(_this.data.ajaxData.name, e, f)
     //加入价钱到canvas中
     ctx.setFontSize(ss)
     ctx.fillText('￥', a, b)
     ctx.setFontSize(s)
-    ctx.fillText('39.00', a+15, b)
+    ctx.fillText(_this.data.ajaxData.e_price, a + 15, b)
     // 绘制图片到canvas中
     drawQrcode({
       x: 211 / 750 * wx.getSystemInfoSync().windowWidth,
@@ -130,7 +146,7 @@ Page({
       height: _this.data.widthCord,
       canvasId: 'myQrcode',
       ctx: ctx,
-      text: 'https://github.com/yingye',
+      text: 'https://www.yqcoffee.cn/goods/detail/?shopid=0&distributorid=0&salapersonid=0&goodsid=0',
     })
   },
   saveImgBtn(){
@@ -296,6 +312,10 @@ this.setData({
   },
   onChange(event) {
     console.warn(`change: ${event.detail}`);
+    console.log(event.detail)
+    this.setData({
+      value1:  event.detail 
+    })
   },
   onSearch(e) {
     console.log(e.detail)
@@ -352,20 +372,21 @@ this.setData({
   },
   onClickButton() {//立即购买
     //判断口味是否选择
-    console.log(this.data.acticeInxex)
-    if (this.data.acticeInxex){
+    console.log("口味：",this.data.acticeInxex)
+    console.log(this.data.value1 * this.data.ajaxData.e_price)
+    if (this.data.acticeInxex != null){
       //提交到订单确认
       wx.navigateTo({
         url: '../payMent/pay?ajaxData='+JSON.stringify({
-                                          id: 2471,//商品id
-                                          title: "1",//标题
-                                          desc: "2",//描述
-                                          img:"3",
-                                          price: "4",//单价
-                                          num: "5",//数量
-                                          taste: "6",//口味
-                                          tasteId: 7,//口味id
-                                          totle: 39.00,//总金额
+                                          id: this.data.ajaxData.id,//商品id
+          title: this.data.ajaxData.englishname+this.data.ajaxData.name,//标题
+          desc: this.data.ajaxData.synopsis,//描述
+          img: this.data.ajaxData.smallimg,
+          price: this.data.ajaxData.e_price,//单价
+                                          num: this.data.value1,//数量
+          taste: this.data.ajaxData.tastename[this.data.acticeInxex].names,//口味名字
+          tasteId: this.data.ajaxData.tastename[this.data.acticeInxex].id,//口味id
+          totle: this.data.value1 * this.data.ajaxData.e_price*100,//总金额=数量乘以单价==单位是分
                                         }),
       })
     }else{

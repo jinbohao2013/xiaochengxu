@@ -48,9 +48,9 @@ Page({
     let _this = this;
     try{
       console.log(options.ajaxData)
-      // this.setData({
-      //   ajaxData: JSON.parse(options.ajaxData)
-      // })
+      this.setData({
+        ajaxData: JSON.parse(options.ajaxData)
+      })
     }catch(e){
 
     }

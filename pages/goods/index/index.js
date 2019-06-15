@@ -16,15 +16,18 @@ Page({
     true: true,
     goodsValue:"",
     ajaxData: [],
+    value1:1,//商品数量
+    ajaxGood:null,//点击加号，获取商品详情中的口味
     isIphoneX: app.data.isIphoneX,
     scroolHeight:200,
     loading:true,
     hideLoading:true,//隐藏底部加载
     show: false,
-    acticeInxex:1,//口味的index,从0开始
+    acticeInxex:null,//口味的index,从0开始
     pageindex:1,
     goodsValue:"",//搜索框的内容
     pagesize:10,//每页的商品数量
+    firstId: 0,//上一次选择的商品id
   },
   changeIndex(e){
     console.log(e)
@@ -135,6 +138,9 @@ Page({
   },
   onChange(event) {
     console.warn(`change: ${event.detail}`);
+    this.setData({
+      value1: event.detail
+    })
   },
   onSearch(e){
     this.setData({
@@ -191,18 +197,88 @@ Page({
     console.log(e)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
-    this.onClickButton()
+    console.log("登录信息获取，然后跳转到详情页面--调起支付")
+    //判断口味是否选择
+    console.log("口味：", this.data.acticeInxex)
+    console.log(this.data.value1 * this.data.ajaxGood.e_price)
+    if (this.data.acticeInxex!=null) {
+      //提交到订单确认
+      wx.navigateTo({
+        url: '../payMent/pay?ajaxData=' + JSON.stringify({
+          id: this.data.firstId,//商品id
+          title: this.data.ajaxGood.englishname + this.data.ajaxData.name,//标题
+          desc: this.data.ajaxGood.synopsis,//描述
+          img: this.data.ajaxGood.smallimg,
+          price: this.data.ajaxGood.e_price,//单价
+          num: this.data.value1,//数量
+          taste: this.data.ajaxGood.tastename[this.data.acticeInxex].names,//口味名字
+          tasteId: this.data.ajaxGood.tastename[this.data.acticeInxex].id,//口味id
+          totle: this.data.value1 * this.data.ajaxGood.e_price * 100,//总金额=数量乘以单价==单位是分
+        }),
+      })
+    } else {
+      //提示选择口味
+      wx.showToast({
+        title: '请选择口味',
+        icon: "none"
+      })
+      if (this.data.show) {
+        return false
+      }
+      this.setData({ show: !this.data.show });
+    }
+
   },
   onClose() {
     this.setData({ show: !this.data.show });
   },
   showBottomBuy(e){
-    //调取详情 接口
+    let _this=this;
+    //初始化弹框的信息，先判断商品是否与上次点击不同
+    if (e.currentTarget.dataset.id!=this.data.firstId){
+      _this.setData({
+        value1: 1,
+        acticeInxex: null
+      })
+    }
+    this.setData({
+      firstId: e.currentTarget.dataset.id
+    })
+    //调取详情 接口--id--e.currentTarget.dataset.id
     wx.showLoading({
       title: '加载中',
     })
-    return
-    this.onClose();
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/getgoodsdetail', // 获取商品详情
+      data: {
+        goods_id: e.currentTarget.dataset.id
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        wx.hideLoading();//关闭加载按钮--弹出口味选择--下一步点击下一步
+        _this.onClose();
+        if (res.data.Success) {
+          console.log(res.data);
+          _this.setData({
+            ajaxGood: res.data.Data
+          })
+          
+          
+          
+        } else {
+          wx.showToast({
+            title: "数据信息展示失败",
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        
+      }
+    })
+    
   },
   /**
    * 用户点击右上角分享

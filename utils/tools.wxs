@@ -37,6 +37,10 @@ var floatPrice = function (s) {
   var price=s/100
   return price.toFixed(2)
 }
+var imgFirst = function (s) {
+  var imgArr = s.split("|")
+  return imgArr
+}
 module.exports = {
   bar: bar,
   bar1: bar1,
@@ -45,5 +49,6 @@ module.exports = {
   addmm: addmm,
   require1: require1,
   showTime: showTime,
-  floatPrice: floatPrice
+  floatPrice: floatPrice,
+  imgFirst: imgFirst
 };

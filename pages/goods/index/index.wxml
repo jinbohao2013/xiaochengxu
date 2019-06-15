@@ -11,16 +11,16 @@
   </view>
   <view class='main' style='margin-bottom:0;'>
   <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
-   
+   <wxs src="../../../utils/tools.wxs" module="tools" />
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
-      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>SNOW＋橘子汽水</view>
-      <image data-id='{{item.id}}' bindtap='skipNextPage' src='/image/demo_1.jpg' style='width:684rpx;height:456rpx;'></image>
+      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.englishname}} {{item.name}}</view>
+      <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{tools.imgFirst(item.imgurl)[0]}}' style='width:684rpx;height:456rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
-        <view>SNOW＋橘子汽水</view>
+        <view>{{item.englishname}} {{item.name}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
-          <text>￥320</text><view bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
+          <text>￥{{item.e_price}}</text><view data-id='{{item.id}}' bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
         </view>
       </view>
     </view>
@@ -45,18 +45,19 @@
 </view>
 <van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
   <view class="top" style='padding-left:33rpx'>
-    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='/image/demo_1.jpg' mode="aspectFill"></image>
+    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxGood.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-      <view>snow+</view>
-      <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view>
+      <view>{{ajaxGood.englishname}}</view>
+      <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
+      <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxGood.e_price}}</text></view>
     </view>
     <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
   <view class='c' style='clear:both;'>
     <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>口味分类</view>
     <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
-      <block wx:for="{{ajaxData}}" wx:key="*">
-        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>橘子汽水</button>
+      <block wx:for="{{ajaxGood.tastename}}" wx:key="*">
+        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>{{item.names}}</button>
       </block>
     </view>
     <!--  -->
