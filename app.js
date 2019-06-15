@@ -4,7 +4,7 @@ App({
   readyCallback: null,
   
   globalData: {
-    
+    usertype:null
   },
   data:{
     // hostAjax: "http://39.106.49.173:8084",
@@ -44,20 +44,21 @@ App({
               url: _this.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
               data: {
                 openid: wx.getStorageSync("openid"),
-
               },
               method: "get",
               header: {
                 'content-type': 'application/json',
               },
               success(res) {
-
                 if (res.data.Success) {
-                  wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+                  
                   if (res.data.Data.usertype == 1) {
                     //1为普通用户 2为经销商 3为店长 4为分销员
                     //1--隐藏底部导航
                     _this.data.hideBotom=false;
+                  }else{
+                    //储存--用于购买支付的经销商的id、店长的id、分销员的id
+                    wx.setStorageSync("useridsaleman", res.data.Data.user_id);
                   }
                   console.log("111111111111111111111", _this.data.hideBotom)
                 } else {

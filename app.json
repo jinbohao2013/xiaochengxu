@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/authorize/authorize",
     "pages/index/index",
     "pages/logs/logs",
     "pages/logs/search",
@@ -14,7 +15,12 @@
     "pages/money/withdraw/withdraw",
     "pages/help/help",
     "pages/money/withdrawrecord/withdrawrecord",
-    "pages/money/tradingrecord/tradingrecord"
+    "pages/money/tradingrecord/tradingrecord",
+    "pages/bindingshop/bindingshop",
+    "pages/invite/invite",
+    "pages/home/home",
+    "pages/binding/binding",
+    "pages/logon/logon"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,24 +28,6 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 200
-  },
-  "tabBar": {
-    "color": "#666",
-    "selectedColor": "#FDD000",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "image/demo_1.jpg",
-        "selectedIconPath": "image/demo_1.jpg",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "image/demo_1.jpg",
-        "selectedIconPath": "image/demo_1.jpg",
-        "text": "首页"
-      }
-    ]
   },
   "usingComponents": {
     "van-action-sheet": "../../dist/action-sheet/index",

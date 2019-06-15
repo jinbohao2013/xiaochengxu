@@ -1,0 +1,14 @@
+<view class='all'>
+   <view class='invite_img'>
+     <image src='{{inviteImage[0]}}'></image>
+   </view>
+   <view class='invite_footer'>
+      <view class='foot_one'>
+         <image src='{{userInfo.avatarUrl}}'></image>
+         <text>{{userInfo.nickName}}</text>
+      </view>
+      <view class='foot_two'>
+         <image src='{{inviteImage[1]}}'></image>
+      </view>
+   </view>
+</view>

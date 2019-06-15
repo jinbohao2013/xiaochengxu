@@ -60,7 +60,6 @@ Page({
       url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
       data: {
         openid: wx.getStorageSync("openid"),
-        
       },
       method: "get",
       header: {
@@ -78,9 +77,7 @@ Page({
            _this.setData({
              hideBotom:false
            })
-           
          }
-          
         } else {
 
         }

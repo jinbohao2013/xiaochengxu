@@ -1,0 +1,5 @@
+<!--pages/authorize/authorize.wxml-->
+<view class='container'>
+  <button open-type='getUserInfo' bindgetuserinfo="getInfo" wx:if='{{isLogin}}'>登录授权</button>
+</view>
+

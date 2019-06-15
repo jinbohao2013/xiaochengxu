@@ -1,0 +1,148 @@
+.top{
+  padding: 40rpx;
+  overflow: hidden;
+  background: linear-gradient(0deg,#575a6a,#2b2d3d);
+  width: 100%;
+}
+.top_one{
+  border-radius: 50px;
+  float: left;
+}
+.top_one image{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50px;
+}
+.top_two{
+  float: left;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+}
+.name{
+  font-size: 28rpx;
+  color: white;
+}
+.store{
+  font-size: 24rpx;
+  color:#8b8b8b;
+   margin-top: 5rpx;
+}
+.cent{
+  margin-top: 10rpx;
+  font-size: 24rpx;
+}
+.cent text{
+  margin-right: 8rpx;
+  padding: 2rpx
+}
+.cent_one{
+    border: 1px solid #8b8b8b;
+    color: #8b8b8b;
+}
+.cent_two{
+    color: #eed1a0;
+    border: 1px solid lightsalmon
+}
+.middel{
+  overflow: hidden;
+}
+.middel_one{
+  text-align: center;
+  padding: 20rpx 0 30rpx 0;
+  color: #999;
+}
+.middel_one view{
+  margin-top: 20rpx;
+}
+.middel_two{
+  overflow: hidden;
+  margin-bottom: 35rpx;
+}
+.total_one{
+  font-size: 34rpx;
+}
+.total_two{
+  font-size:60rpx; 
+  color: black!important;
+}
+.total_three{
+  font-size: 28rpx;
+}
+.earning{
+  float: left;
+  width: 50%;
+ text-align: center;
+ color: #999;
+ border-right:1px solid lightgray;
+}
+.earning_one{
+  font-size: 34rpx;
+}
+.earning_two{
+  font-size: 50rpx;
+  color: black!important;
+  margin-top:15rpx;
+}
+.earning_three{
+  font-size: 28rpx;
+  margin-top:15rpx;
+}
+.client{
+  float: left;
+  width: 49%;
+ text-align: center;
+ color: #999;
+}
+.client_one{
+  font-size: 34rpx;
+}
+.client_two{
+  font-size: 50rpx;
+  color: black!important;
+  margin-top:15rpx;
+}
+.client_three{
+  font-size: 28rpx;
+  margin-top:15rpx;
+}
+.middel_three{
+  overflow: hidden;
+   padding: 30rpx;
+   border-top: 1px solid lightgrey;
+  color: #323233;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.accumulate{
+  width:100%;
+  border-top: 20rpx solid #eeeeee;
+  display: flex;
+}
+.accumulate_one{
+  float: left;
+  text-align: center;
+  flex: 1;
+  padding: 20rpx 0 20rpx 0;
+}
+.accumulate_one view:nth-of-type(2){
+  font-size: 24rpx;
+    color: #333;
+    margin-top: 20rpx;
+}
+.popularize  {
+  width: 100%;
+  float: left;
+  border-bottom: 20rpx solid #eeeeee;
+   border-top: 20rpx solid #eeeeee;
+}
+.popularize view{
+  width: 47%;
+  padding: 20rpx 0rpx 20rpx 20rpx;
+  float: left;
+  height: 130rpx;
+}
+.popularize view image{
+  width: 90%;
+  height:130rpx;
+}

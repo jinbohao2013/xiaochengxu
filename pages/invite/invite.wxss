@@ -1,0 +1,30 @@
+.invite_img image{
+  width: 100%;
+}
+page{
+ background-color: #f8f8f8;
+}
+.foot_one{
+  margin: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 28rpx;
+  padding-bottom: 20rpx;
+  padding-left: 25rpx;
+}
+.foot_one image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+.foot_one text{
+  margin-left: 30rpx;
+}
+.foot_two{
+  text-align: center;
+}
+.foot_two image{
+  width: 400rpx;
+  height: 400rpx;
+}

@@ -1,0 +1,112 @@
+<view>
+   <view class='top'>
+      <view class='top_one'>
+         <image src="{{userInfo.avatarUrl}}"></image>
+         <!-- <button open-type='getUserInfo'>获取用户登录信息</button> -->
+      </view>
+      <view class='top_two'>
+        <view  class='name'>
+           <text>{{userInfo. nickName}}</text>
+       </view>
+          <view class='store'>
+             <text>当前店铺：{{shopName}}</text>
+          </view>
+      <view class='cent'>
+        <text class='cent_one'>自购分佣</text>
+        <text class='cent_two'>分销员间绑定</text>    
+      </view>
+      </view>
+   </view>
+   <view class='middel'>
+      <view class='middel_one'>  
+        <view class="total_one">
+            <text>当前店铺累计收益（元）</text>
+        </view>
+        <view class='total_two'>
+            <text>{{dataInfo.profit}}</text>
+        </view>
+         <!-- <view class='total_three'>
+            <text>包含待结算{{dataInfo.profit}}元</text>
+         </view> -->
+      </view>
+      <view class='middel_two'>
+         <view class='earning'>
+           <view class="earning_one">
+             <text>昨日收益（元）</text>
+           </view>
+           <view class='earning_two'>
+             <text>{{dataInfo.zrprofit}}</text>
+           </view>
+           <!-- <view class='earning_three'>
+             <text>待结算{{dataInfo.zrprofit}}元</text>
+           </view> -->
+         </view>
+         <view class='client' wx:if="{{usertype=='3'}}">
+           <view class="client_one">
+             <text>昨日新增分销员(人)</text>
+           </view>
+           <view class='client_two'>
+             <text>{{dataInfo.newsalanums}}</text>
+           </view>
+           <!-- <view class='client_three'>
+             <text>待结算0.00元</text>
+           </view> -->
+         </view>
+         <view class='client' wx:if="{{usertype=='2'}}">
+           <view class="client_one">
+             <text>昨日新增代理(人)</text>
+           </view>
+           <view class='client_two'>
+             <text>{{dataInfo.newsalanums}}</text>
+           </view>
+           <!-- <view class='client_three'>
+             <text>待结算0.00元</text>
+           </view> -->
+         </view>
+         <view class='client' wx:if="{{usertype=='4'}}">
+           <view class="client_one">
+             <text>昨日新增客户(人)</text>
+           </view>
+           <view class='client_two'>
+             <text>{{dataInfo.newsalanums}}</text>
+           </view>
+           <!-- <view class='client_three'>
+             <text>待结算0.00元</text>
+           </view> -->
+         </view>
+      </view>
+      <view class='middel_three'>
+        <text>可提现佣金{{dataInfo.cashmonys}}元</text>
+        <text>立即提现></text>
+      </view>
+   </view>
+   <view class='accumulate'>
+      <view class='accumulate_one' wx:if="{{usertype!='4'}}">
+         <view style='color:#38f;'>{{dataInfo.ljsalanums}}</view>
+         <view>累计分销员</view>
+      </view>
+      <view class='accumulate_one'>
+         <view style='color:#38f;'>{{dataInfo.customer}}</view>
+         <view>累计客户</view>
+      </view>
+      <view class='accumulate_one'>
+         <view style='color:#38f;'>{{dataInfo.tgordernums}}</view>
+         <view>推广订单</view>
+      </view>
+   </view>
+   <view class='popularize'>
+     <view class='popularize_one' catchtap='earnCommission'>
+        <image src='{{Images[0]}}'></image>
+     </view>
+     <view class='popularize_two' catchtap='goPromotion'>
+         <image src='{{Images[1]}}'></image>
+     </view>
+   </view>
+   <view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
+      <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
+      <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
+    </view>
+  </view>
+</view>

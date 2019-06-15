@@ -1,0 +1,52 @@
+.logon image{
+  width: 100%;
+}
+.denglu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ margin: 30rpx 100rpx 20rpx 120rpx;
+  border-bottom: 1px solid lightgrey;
+}
+.denglu input{
+  margin-left: 40rpx;
+  font-size: 28rpx;
+}
+.denglu image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.mima{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ margin: 30rpx 100rpx 20rpx 120rpx;
+  border-bottom: 1px solid lightgrey;
+}
+.mima input{
+  margin-left: 40rpx;
+  font-size: 28rpx;
+}
+.mima image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.mima button{
+  font-size: 24rpx; 
+  background-color: #8b8b8b;
+  color: white;
+  width: 40%;
+  margin-bottom: 10rpx;
+  padding: 0;
+}
+.enter{
+   margin: 30rpx 100rpx 20rpx 120rpx;
+   text-align: center;
+   background-color: #8b8b8b;
+   padding: 30rpx;
+   border-radius: 64rpx;
+   color: white;
+}
+.enter text{
+  text-align: center;
+}

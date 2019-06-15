@@ -1,0 +1,40 @@
+
+<view class='all'>
+  <view class='binding'>
+    <image src='http://tx.haiqq.com/uploads/allimg/170602/0214433264-9.jpg'></image>
+    <text>人二小木四点水</text>
+    <text>邀请你成为分销员</text> 
+  </view>
+  <view>
+    <view class='denglu'>
+      <image src='{{bindingImage[0]}}'></image>
+      <input name="mobile" class="center" placeholder="店铺名称" placeholder-class="wen" bindinput='changeInput' data-types='name' />
+    </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[1]}}'></image>
+      <input name="mobile" class="center" placeholder="店铺地址" placeholder-class="wen" bindinput='changeInput' data-types='address' />
+    </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[2]}}'></image>
+      <input name="mobile" type="number" class="center" maxlength="11" placeholder="请输入常用手机号" placeholder-class="wen" bindinput='changeInput' data-types='phone' />
+    </view>
+    <view class='mima'>
+      <image src='{{bindingImage[3]}}'></image>
+      <input class="center" maxlength="6" placeholder="请输入验证码" placeholder-class="wen" bindinput='changeInput' data-types='code' />
+      <button catchtap="{{codeSubmit?'':'sumbitCode'}}" style="background:{{codeSubmit?'#CFCECD':'#BC9360'}}">{{submitTimeNum>0?'重新获取':'获取验证码'}}{{submitTimeNum>0&&codeSubmit?('('+submitTime+')'):''}}</button>
+    </view>
+  </view>
+  <view class='footer' catchtap='bindingPhone'>
+    <view>绑定手机号，成为分销员</view>
+  </view>
+</view>
+<view class='win' wx:if='{{isLogin}}'>
+  <view class='win-top'>
+    <view class='win-title'>
+      请先授权
+    </view>
+    <view class='win-btn'>
+      <button open-type='getUserInfo' bindgetuserinfo="getInfo">登录授权</button>
+    </view>
+  </view>
+</view>

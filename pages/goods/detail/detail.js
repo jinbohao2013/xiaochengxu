@@ -69,9 +69,34 @@ Page({
     }
     console.log("传过来的商品id是:---" + goodsId)
     this.setData({
-      
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
+    })
+    //首先登录，获取用户的类型，判断是不是客户--储存购买用户的id
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+      data: {
+        openid: wx.getStorageSync("openid"),
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        _this.setData({
+          loading: true
+        })
+        if (res.data.Success) {
+          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+          if (res.data.Data.usertype == 1) {
+            //1为普通用户 2为经销商 3为店长 4为分销员
+            //1--隐藏底部导航
+            _this.setData({
+              hideBotom: false
+            })
+          }
+        }
+      }
     })
     //下面是调取详情接口--展示商品信息
     wx.request({
