@@ -59,15 +59,28 @@ Page({
     console.log(decodeURIComponent(options.q))
     let _this=this;
     var goodsId = options.id;
-    if (!goodsId){
-      if (decodeURIComponent(options.q).split("?")[1].split("goodsid=").indexOf("&")>=0){
-        goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=").split("&")[0]
+    if (!goodsId){ 
+      //此时是从分享页面进来的?useridsaleman=0&goodsid=2471&shopid=0
+      //2471&shopid=0
+      if (decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1].indexOf("&")>=0){
+        goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1].split("&")[0]
       }else{
         goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1]
       }
-      
+      if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
+        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0]) 
+      } else {
+        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+      }
+      if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
+        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
+      } else {
+        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1])
+      }
     }
     console.log("传过来的商品id是:---" + goodsId)
+    console.log(wx.getStorageSync("useridsaleman"))
+    console.log(wx.getStorageSync("shopid"))
     this.setData({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
@@ -83,9 +96,6 @@ Page({
         'content-type': 'application/json',
       },
       success(res) {
-        _this.setData({
-          loading: true
-        })
         if (res.data.Success) {
           wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
           if (res.data.Data.usertype == 1) {
@@ -171,7 +181,7 @@ Page({
       height: _this.data.widthCord,
       canvasId: 'myQrcode',
       ctx: ctx,
-      text: 'https://www.yqcoffee.cn/goods/detail/?shopid=0&distributorid=0&salapersonid=0&goodsid=0',
+      text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=0&goodsid=2471&shopid=0',
     })
   },
   saveImgBtn(){

@@ -18,6 +18,9 @@
     <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
       我到底了
     </view>
+    <view style='color:#999;text-align:center;' wx:if="{{ajaxData.length==0}}">
+      无记录
+    </view>
     </view>
   </scroll-view>
     

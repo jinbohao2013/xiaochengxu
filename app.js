@@ -59,6 +59,7 @@ App({
                   }else{
                     //储存--用于购买支付的经销商的id、店长的id、分销员的id
                     wx.setStorageSync("useridsaleman", res.data.Data.user_id);
+                    wx.setStorageSync("usertype", res.data.Data.usertype);
                   }
                   console.log("111111111111111111111", _this.data.hideBotom)
                 } else {
@@ -102,9 +103,6 @@ App({
     updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
-  },
-  globalData: {
-    userInfo: null
   },
   postData: function (url, data) {
     var that = this;

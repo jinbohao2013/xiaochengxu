@@ -46,7 +46,7 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/dester/v1/getdetailedinfo', // 收支明细
       data: {
-        userid: 6,///wx.getStorageSync("openid"),
+        userid: wx.getStorageSync("useridsaleman"),
         pageindex: this.data.pageindex,
         pagesize: this.data.pagesize,
       },
@@ -80,7 +80,9 @@ Page({
           }
           console.log("111111111111111111111", _this.data.hideLoading)
         } else {
-
+          _this.setData({
+            hideLoading: false
+          })
         }
       }
     })
@@ -227,50 +229,7 @@ Page({
   onClose() {
     this.setData({ show: !this.data.show });
   },
-  showBottomBuy(e) {
-    let _this = this;
-    //初始化弹框的信息，先判断商品是否与上次点击不同
-    if (e.currentTarget.dataset.id != this.data.firstId) {
-      _this.setData({
-        value1: 1,
-        acticeInxex: null
-      })
-    }
-    this.setData({
-      firstId: e.currentTarget.dataset.id
-    })
-    //调取详情 接口--id--e.currentTarget.dataset.id
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.request({
-      url: app.data.hostAjax + '/api/user/v1/getgoodsdetail', // 获取商品详情
-      data: {
-        goods_id: e.currentTarget.dataset.id
-      },
-      method: "get",
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
-        wx.hideLoading();//关闭加载按钮--弹出口味选择--下一步点击下一步
-        _this.onClose();
-        if (res.data.Success) {
-          console.log(res.data);
-          _this.setData({
-            ajaxGood: res.data.Data
-          })
-
-
-
-        } else {
-
-        }
-
-      }
-    })
-
-  },
+  
   /**
    * 用户点击右上角分享
    */

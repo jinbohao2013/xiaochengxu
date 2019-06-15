@@ -43,6 +43,13 @@ Page({
               url: '/pages/home/home',
             })
           },1500)
+          if (res.data.Data.usertype == 1) {
+            //1为普通用户 2为经销商 3为店长 4为分销员
+          } else {
+            //储存--用于购买支付的经销商的id、店长的id、分销员的id
+            wx.setStorageSync("useridsaleman", res.data.Data.user_id);
+            wx.setStorageSync("usertype", res.data.Data.usertype);
+          }
         }else{
           wx.showToast({
             title: res.data.Msg,
