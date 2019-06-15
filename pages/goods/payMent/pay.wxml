@@ -14,7 +14,7 @@
     
   </view>
   <view class='main' style='margin-bottom:0;'>
-    <view style='padding: 0 30rpx;margin-top:20rpx;'>口味：{{ajaxData.taste}}</view>
+    <view style='padding: 0 30rpx;margin-top:20rpx;'>分类：{{ajaxData.taste}}</view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{tools.floatPrice(ajaxData.totle)}}</text></view>
     <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{tools.floatPrice(ajaxData.totle)}}</view>
   </view><!-- mian结束 -->
@@ -24,7 +24,7 @@
     button-text="提价订单"
     bind:submit="onClickButton"
     custom-class="van-submit-bar"
-    safe-area-inset-bottom="{{ false }}"
+    safe-area-inset-bottom="{{ true }}"
   />
   </view>
   <view class='buy' wx:if="{{loading}}">
@@ -32,9 +32,31 @@
     loading
     price="{{ajaxData.totle}}"
     button-text="提价订单"
-    bind:submit="onClickButton"
     custom-class="van-submit-bar"
-    safe-area-inset-bottom="{{ false }}"
+    safe-area-inset-bottom="{{ true }}"
   />
   </view>
+</view>
+<view class='buySucess'>
+  <van-popup
+  position="bottom"
+  show="{{ show }}"
+  overlay="{{ true }}"
+  bind:close="onClose"
+>
+  <view class='text-center' style='background-color:#fff;height:{{windowHeight}}px;'>
+    <view  style='padding-top:148rpx;color:#4BBA03;'><van-icon
+        name="wechat"
+        size="42px"
+        custom-class="icon"
+        style='color:#4BBA03;'
+        safe-area-inset-top="{{true}}"
+      />
+      <view style='margin-bottom:230rpx;margin-top:30rpx;font-size:22px;'>支付成功</view>
+      </view>
+    <view style='font-size:19px;font-weight:900;'>雪加平台</view>
+    <view style='margin-bottom:400rpx;margin-top:30rpx;'>￥<text style='font-size:50rpx;'>{{tools.floatPrice(ajaxData.totle)}}</text></view>
+    <button style='color:#4BBA03;border:1px solid #4BBA03;border-radius:5px;background-color:#fff;width:196rpx;height:48rpx;line-height:48rpx;font-size:16px;' bindtap='returnGoodsList'>返回商家</button>
+  </view>
+</van-popup>
 </view>

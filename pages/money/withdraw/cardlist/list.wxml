@@ -5,20 +5,20 @@
     </view>
     
   </van-cell-group>
-  <view  class="card-section">
+  <!-- <view  class="card-section">
     <van-cell  id="微信钱包" title="微信钱包" value="添加" bind:click="changeAccount1" />
-    </view>
+    </view> -->
   <view class="card-section" bindtap='changeAccount2'><!-- 一种情况 -->
     <ul class="card-section__list">
       <view class="van-hairline card-section__list-item card-section__list-item-wechat">
         <image src="//b.yzcdn.cn/h5/withdraw/wechat-wallet@2x.png" class="card-section__list-item-icon"></image>
-        <div class="card-section__list-item-content">
-          <p class="card-section__list-item-name">
-            情谊べ永恒
+        <view class="card-section__list-item-content">
+          <view class="card-section__list-item-name">
+            <open-data style='font-size: 14px;' type="userNickName"></open-data>
             <text class="card-section__list-item-label">默认</text>
-          </p>
-          <p class="card-section__list-item-detail">尾号rDYg 微信钱包 (私)</p>
-        </div>
+          </view>
+          <view class="card-section__list-item-detail">尾号rDYg 微信钱包 (私)</view>
+        </view>
         <span class="card-section__list-item-check"></span>
       </view>
     </ul>

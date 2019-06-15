@@ -61,7 +61,9 @@
 
 
 
-<van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
+<van-popup show="{{ show }}"  position="bottom" bind:close="onClose" safe-area-inset-bottom="{{false}}">
+  <view style='max-height:{{windowHeight-50}}px;overflow:auto;padding-top:20rpx;'>
+<view style='background-color:#fff;padding-bottom:{{isIphoneX?"34px":0}};'>
   <view class="top" style='padding-left:33rpx'>
     <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
@@ -72,7 +74,7 @@
     <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
   <view class='c' style='clear:both;'>
-    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>口味分类</view>
+    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>分类</view>
     <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
       <block wx:for="{{ajaxData.tastename}}" wx:key="*">
         <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' data-name='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>{{item.names}}</button>
@@ -87,6 +89,8 @@
     </view>
   </view>
   <view class='bottom' style='margin-top:20rpx;'><button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button></view> 
+  </view>
+  </view>
 </van-popup>
 <!-- 弹出分享图片 -->
 <view id='imgPop'> 

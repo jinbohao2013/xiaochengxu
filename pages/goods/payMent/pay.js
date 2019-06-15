@@ -4,6 +4,11 @@ import Toast from '../../../dist/toast/toast';
 import drawQrcode from '../../../utils/weapp.qrcode.esm.js'
 var app = getApp();
 Page({
+  returnGoodsList(){
+    wx.reLaunch({
+      url: '/pages/goods/index/index?'
+    })
+  },
   /**
    * 页面的初始数据
    */
@@ -11,32 +16,19 @@ Page({
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
     ajaxData: {
-      id:"",
+      id:"2471",
       title: "snow+",//标题
       desc: "",//描述
       img:"/image/demo_1.jpg",
       price: "39.00",//单价
-      num: "2",//数量
+      num: 2,//数量
       taste: "甜甜的口味",//口味
-      tasteId: null,//口味id
+      tasteId: 17,//口味id
       totle: 3900,//总金额
     },
     isIphoneX: app.data.isIphoneX,
     loading: false,
-    show: false,//选择口味的弹出层
-    show1: false,//保存图片的弹出层
-    acticeInxex: null,//口味的顺序index值0开始SystemInfoSync().windowWidth,//二维码的px值（转换之后的）
-  },
-  changeIndex(e) {
-    console.log(e)
-    this.setData({
-      acticeInxex: e.currentTarget.dataset.index
-    })
-  },
-  changeSwiper(e) {
-    this.setData({
-      current: e.detail.current
-    })
+    show: false,//支付结束弹框
   },
   /**
    * 生命周期函数--监听页面加载
@@ -58,14 +50,6 @@ Page({
     this.setData({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
-    })
-    // 绘制图片到canvas中
-    drawQrcode({
-      width: _this.data.widthCord,
-      height: _this.data.widthCord,
-      canvasId: 'myQrcode',
-      // ctx: wx.createCanvasContext('myQrcode'),
-      text: 'https://github.com/yingye',
     })
   },
 
@@ -161,51 +145,111 @@ Page({
   onClose() {
     this.setData({ show: !this.data.show });
   },
-  togglePopup() {
-    this.setData({ show1: !this.data.show1 });
-  },
   onClickButton() {//提交订单--吊起支付
     let _this=this;
     this.setData({ loading: true });
     wx.request({
-      url: app.data.hostAjax + "/api/transaction/v1/orderpayinfo",
+      url: app.data.hostAjax + "/api/transaction/v1/buynow",
       data: {
-        userid: wx.getStorageSync("uid"),
-        goodsid: _this.data.goodsId,
-        salapersonid: wx.getStorageSync("couponsName").split('&')[1],//分销员id
-        // shopid:"",//店铺id
-        num: parseFloat(_this.data.needPay),
-        tasteid: this.data.tasteid,//商品口味
+        userid: wx.getStorageSync("userIdBuyGood"),
+        goodsid: _this.data.ajaxData.id,
+        salapersonid: 6,//wx.getStorageSync("couponsName").split('&')[1],//分销员id
+        shopid:"1",//店铺id
+        num: this.data.ajaxData.num,
+        tasteid: this.data.ajaxData.tasteId,//商品口味
       },
       method: "get",
       header: {
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
       success(res) {
-        try{
-          console.log(JSON.parse(res.data.Data));
-          wx.requestPayment({
-            timeStamp: JSON.parse(res.data.Data).timeStamp,
-            nonceStr: JSON.parse(res.data.Data).nonceStr,
-            package: JSON.parse(res.data.Data).package,
-            signType: 'MD5',
-            paySign: JSON.parse(res.data.Data).paySign,
-            success(res) {//支付成功
-              //消除优惠券
-              wx.removeStorageSync("couponsName");
-              wx.removeStorageSync("couponPrice");
-              //展示支付成功的界面
-              _this.setData({
-                testFloat1: false
-              })
+        if(res.data.Success){
+          //订单确认
+          wx.request({
+            url: app.data.hostAjax + '/api/transaction/v1/confirmationorder',
+            data: {
+              user_id: wx.getStorageSync("userIdBuyGood"),
             },
-            fail(res) { console.log(res) }
-          })
-        }catch(e){
+            method: "get",
+            header: {
+              'content-type': 'application/json',
+            },
+            success(res) {
 
+              if (res.data.Success) {
+                //调取提交订单接口
+                wx.request({
+                  url: app.data.hostAjax + '/api/transaction/v1/orderpayinfo',
+                  data: {
+                    userid: wx.getStorageSync("userIdBuyGood"),
+                    orderid: res.data.Data.orderid,
+                    total_fee: res.data.Data.sumprice,
+                  },
+                  method: "get",
+                  header: {
+                    'content-type': 'application/json',
+                  },
+                  success(res) {
+
+                    if (res.data.Success) {
+                      try {
+                        console.log(JSON.parse(res.data.Data));
+                        wx.requestPayment({
+                          timeStamp: JSON.parse(res.data.Data).timeStamp,
+                          nonceStr: JSON.parse(res.data.Data).nonceStr,
+                          package: JSON.parse(res.data.Data).package,
+                          signType: 'MD5',
+                          paySign: JSON.parse(res.data.Data).paySign,
+                          success(res) {//支付成功
+                            //消除优惠券
+                            wx.removeStorageSync("couponsName");
+                            wx.removeStorageSync("couponPrice");
+                            //展示支付成功的界面
+                            _this.setData({
+                              testFloat1: false
+                            })
+                          },
+                          fail(res) { console.log(res)
+                            if (res.errMsg =="requestPayment:fail cancel"){
+                              wx.showToast({
+                                title: "支付已取消",
+                                icon: 'none'
+                              })
+                              _this.onClose();
+                          }
+                            
+                           }
+                        })
+                        _this.setData({ loading: false });
+                      } catch (e) {
+                        _this.setData({ loading: false });
+                      }
+
+                    } else {
+                      wx.showToast({
+                        title: res.data.Msg,
+                        icon: 'none'
+                      })
+                    }
+                  }
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.Msg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.Msg,
+            icon: 'none'
+          })
         }
         
-        _this.setData({ loading: false });
+        
+        
       }
     })
 

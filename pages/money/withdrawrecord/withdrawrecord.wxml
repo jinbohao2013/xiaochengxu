@@ -8,31 +8,27 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#07BF05;margin-right:28rpx;'>0.01</text></view>
-      <text style='color:#aaa;'>2019-01-03 21:37:31</text>
-    </view>
-    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#EC5050;margin-right:28rpx;'>0.01</text></view>
+      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#{{1?"07BF05":"EC5050"}};margin-right:28rpx;'>0.01</text></view>
       <text style='color:#aaa;'>2019-01-03 21:37:31</text>
     </view>
     </block>
-    <view style='color:#999;text-align:center;'>
+    <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
     <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
     </view>
-    <view style='color:#999;text-align:center;'>
-      没有更多了
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
+      我到底了
     </view>
     </view>
   </scroll-view>
     
   </view>
-  <view class='footer'>
+  <!-- <view class='footer'>
     <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
       <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
       <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
       <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
     </view>
-  </view>
+  </view> -->
 </view>
 <van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
   <view class="top" style='padding-left:33rpx'>

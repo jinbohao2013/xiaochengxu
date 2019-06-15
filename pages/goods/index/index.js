@@ -22,6 +22,7 @@ Page({
     scroolHeight:200,
     loading:true,
     hideLoading:true,//隐藏底部加载
+    hideBotom: true,//隐藏底部导航
     show: false,
     acticeInxex:null,//口味的index,从0开始
     pageindex:1,
@@ -44,10 +45,40 @@ Page({
     // })
     console.log(app.data.windowHeight)
     this.setData({
+      windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
     let _this = this;
-    
+    //首先登录，获取用户的类型，判断是不是客户
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+      data: {
+        openid: wx.getStorageSync("openid"),
+        
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        _this.setData({
+          loading: true
+        })
+        if (res.data.Success) {
+          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+         if(res.data.Data.usertype==1){
+           //1为普通用户 2为经销商 3为店长 4为分销员
+           //1--隐藏底部导航
+           _this.setData({
+             hideBotom:false
+           })
+         }
+          
+        } else {
+
+        }
+      }
+    })
     //下面是调取列表接口--展示商品信息
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/getgoodslist', // 获取商品列表
@@ -84,12 +115,9 @@ Page({
               hideLoading:false
             })
           }
+          console.log("111111111111111111111",_this.data.hideLoading)
         } else {
-          wx.showToast({
-            title: "数据信息展示失败",
-            icon: 'none',
-            duration: 2000
-          })
+         
         }
       }
     })
@@ -113,7 +141,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.hideLoading()
   },
 
   /**
@@ -144,6 +172,8 @@ Page({
   },
   onSearch(e){
     this.setData({
+      ajaxData:[],
+      hideLoading: true,
       goodsValue:e.detail
     })
     this.onLoad();
@@ -176,14 +206,14 @@ Page({
         loading:false
 
       })
-      setTimeout(function(){
-        _this.setData({
-          loading: true
+      // setTimeout(function(){
+      //   _this.setData({
+      //     loading: true
 
-        })
-      },1000)
+      //   })
+      // },1000)
       console.log("在我这里调取加载数据")
-      if (this.data.hideLoading){
+      if (!this.data.hideLoading){
         return
       }
       this.setData({
@@ -193,7 +223,10 @@ Page({
     }
     
   },
-  onGotUserInfo: function (e) {
+  onGotUserInfo: function (e) {//点击下一步
+  wx.showLoading({
+    title: '稍等',
+  })
     console.log(e)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
@@ -269,11 +302,7 @@ Page({
           
           
         } else {
-          wx.showToast({
-            title: "数据信息展示失败",
-            icon: 'none',
-            duration: 2000
-          })
+          
         }
         
       }

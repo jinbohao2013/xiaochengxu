@@ -1,20 +1,82 @@
 // pages/money/withdraw/withdraw.js
+var app=getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    money: 0,//提现金额
+    getMoney: 0,//可提现金额
   },
-
+  setmoney(e){
+    this.setData({
+      money:e.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取可以 提现的金额 
+    let _this=this;
+    wx.request({
+      url: app.data.hostAjax + '/api/dester/v1/getsettlementcenter',
+      data: {
+        userid: 3,//wx.getStorageSync("uid"),
+        usertype:3,
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
 
+        if (res.data.Success) {
+            _this.setData({
+              getMoney: res.data.Data.cashmonys
+            })
+        } else {
+
+        }
+      }
+    })
   },
+  submit(){
+    //申请提现
+    let _this = this;
+    wx.request({
+      url: app.data.hostAjax + '/api/transaction/v1/addapplicationcash',
+      data: {
+        userid: 3,//wx.getStorageSync("uid"),
+        usertype: 3,
+        Cashmonys:0
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
 
+        if (res.data.Success) {
+          _this.setData({
+            money: 0,//提现金额
+            getMoney: 0,//可提现金额
+          })
+          _this.onLoad();
+          wx.showToast({
+            title: "提交成功",
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.Msg,
+            icon:'none'
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -59,6 +121,11 @@ Page({
   skipToAccount(){
     wx.navigateTo({
       url: 'cardlist/list',
+    })
+  },
+  getAllMoney(){
+    this.setData({
+      money:this.data.getMoney
     })
   },
   /**
