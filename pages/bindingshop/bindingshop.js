@@ -9,7 +9,7 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:null,
+    distributorid:5,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -57,22 +57,24 @@ Page({
       }
     })
   },
+  
   // 绑定手机号
   bindingPhone:function(){
+    console.log('开始绑定', app.globalData.openid)
     if (this.data.name.length>0){
       if (this.data.address.length > 0) {
         if (this.data.phone.length > 0) {
           if (this.data.code.length > 0) {
-            console.log('开始绑定')
+            
             wx.request({
-              url: config.apiHost + '/api/user/v1/addshopowner_manager',
+              url:  'http://39.106.49.173:8084/api/user/v1/addshopowner_manager',
               method: "POST",
               data: {
-                distributorid: this.data.distributorid,
+                distributorid: this.data.distributorid,//经销商id
                 phone: this.data.phone,
                 code: this.data.code,
                 shopname: this.data.name,
-                openid: app.globalData.openid,
+                openid:wx.getStorageSync("openid"),
                 Address: this.data.address
               },
               success: (res) => { 
@@ -208,23 +210,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
-      this.data.setData({
-        distributorid : decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
-      })
-      
-    } else {
-      this.setData({
-        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
-      })
-     
+    try{
+      if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
+        this.setData({
+          distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
+        })
+      } else {
+        this.setData({
+          distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
+        })
+      }
+    }catch(e){
+
     }
+    
     wx.getUserInfo({
       success: (data) => {
         console.log(data);
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
         this.login()
+        this.setData({
+          isLogin: false
+        })
       },
       fail: () => {
         this.setData({
@@ -233,7 +241,24 @@ Page({
       }
     })
   },
-
+  getInfo() {
+    wx.getUserInfo({
+      success: (data) => {
+        console.log(data);
+        //更新data中的userInfo
+        app.globalData.userInfo = data.userInfo
+        this.login()
+        this.setData({
+          isLogin: false
+        })
+      },
+      fail: () => {
+        this.setData({
+          isLogin: true
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

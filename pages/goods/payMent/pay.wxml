@@ -21,7 +21,7 @@
   <view class='buy' wx:if="{{!loading}}">
     <van-submit-bar
     price="{{ajaxData.totle}}"
-    button-text="提价订单"
+    button-text="提交订单"
     bind:submit="onClickButton"
     custom-class="van-submit-bar"
     safe-area-inset-bottom="{{ true }}"
@@ -31,7 +31,7 @@
     <van-submit-bar
     loading
     price="{{ajaxData.totle}}"
-    button-text="提价订单"
+    button-text="提交订单"
     custom-class="van-submit-bar"
     safe-area-inset-bottom="{{ true }}"
   />

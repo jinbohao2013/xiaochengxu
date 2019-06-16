@@ -15,10 +15,10 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
-      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.englishname}} {{item.name}}</view>
+      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.name}}</view>
       <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{tools.imgFirst(item.imgurl)[0]}}' style='width:684rpx;height:456rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
-        <view>{{item.englishname}} {{item.name}}</view>
+        <view>{{item.name}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
           <text>￥{{item.e_price}}</text><view data-id='{{item.id}}' bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
         </view>
@@ -49,7 +49,7 @@
   <view class="top" style='padding-left:33rpx'>
     <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxGood.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-      <view>{{ajaxGood.englishname}}</view>
+      <view>{{ajaxGood.englishname}} {{ajaxGood.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxGood.e_price}}</text></view>
     </view>

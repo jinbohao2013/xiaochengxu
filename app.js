@@ -60,8 +60,9 @@ App({
                     //储存--用于购买支付的经销商的id、店长的id、分销员的id
                     wx.setStorageSync("useridsaleman", res.data.Data.user_id);
                     wx.setStorageSync("usertype", res.data.Data.usertype);
+                    //后续可能会在这里调取每个人的shopid用于分享
                   }
-                  console.log("111111111111111111111", _this.data.hideBotom)
+                  console.log("111111我是appjs的储存111111111111111", _this.data.hideBotom)
                 } else {
 
                 }

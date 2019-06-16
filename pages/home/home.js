@@ -47,7 +47,7 @@ Page({
     })
   },
   // 数据加载
-  getData: function(v,e){
+  getData: function(v,e,type){
     console.log(config.apiHost + v)
     wx.request({
       url: config.apiHost + v,
@@ -57,6 +57,13 @@ Page({
       },
       success: (res) => {
         console.log(res)
+        if (type==2){//如果是分销商
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+        }else if (3) {//如果是店长
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+        } else {//如果是分销员
+          
+        }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
         this.getShopData(res.data.Data.shopid)
         this.setData({
@@ -82,13 +89,13 @@ Page({
     })
     switch (app.globalData.usertype){
       case '3':
-        this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id)
+        this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id, app.globalData.usertype)
         break;
       case '2':
-        this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id)
+        this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, app.globalData.usertype)
         break;
       case '4':
-        this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id)
+        this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id, app.globalData.usertype)
         break;
       default:
         break;

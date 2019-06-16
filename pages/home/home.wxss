@@ -144,7 +144,6 @@
   height: 130rpx;
 }
 .popularize view image{
-  width: 90%;
   height:130rpx;
 }
 .accumulate_one{

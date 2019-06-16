@@ -57,10 +57,12 @@ Page({
     // wx.reLaunch({//重定向到登录页面
     //   url: '/pages/home/home'
     // })
-    console.log(decodeURIComponent(options.q))
     let _this=this;
     var goodsId = options.id;
-    if (!goodsId){ 
+    if (!goodsId){
+      _this.setData({
+        hideBotom: false
+      })
       //此时是从分享页面进来的?useridsaleman=0&goodsid=2471&shopid=0
       //2471&shopid=0
       if (decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1].indexOf("&")>=0){
@@ -69,19 +71,19 @@ Page({
         goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1]
       }
       if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
-        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0]) 
+        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
       } else {
         wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
       }
       if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
         wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
+        //为了跟appjs的uid冲突，制作一个顶级的分享人的uid
+        
       } else {
         wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1])
       }
     }
     console.log("传过来的商品id是:---" + goodsId)
-    console.log(wx.getStorageSync("useridsaleman"))
-    console.log(wx.getStorageSync("shopid"))
     this.setData({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
@@ -105,7 +107,10 @@ Page({
             _this.setData({
               hideBotom: false
             })
+          }else{
+            //2019-6-16，，专门为扫码进来的分销商、店长、分销员、制作分享页--帮助分享
           }
+          console.log("22222222我是商品的储存22222222", _this.data.hideBotom)
         }
       }
     })
@@ -187,7 +192,7 @@ Page({
           height: _this.data.widthCord,
           canvasId: 'myQrcode',
           ctx: ctx,
-          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=0&goodsid=2471&shopid=0',
+          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=22&goodsid=2471&shopid=9',
         })
       }
     })

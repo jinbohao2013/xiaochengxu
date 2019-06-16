@@ -43,6 +43,24 @@ Page({
     // wx.reLaunch({//重定向到登录页面
     //   url: '/pages/home/home'
     // })
+    let _this = this;
+    console.log(JSON.stringify(options))
+    var goodsId = JSON.stringify(options);
+    if (goodsId!="{}") {
+      //此时是从分享页面进来的?useridsaleman=0&shopid=0
+      if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
+        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
+      } else {
+        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+      }
+      if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
+        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
+        //为了跟appjs的uid冲突，制作一个顶级的分享人的uid--但是顶级分享人会一直保留
+        
+      } else {
+        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1])
+      }
+    }
     //如果不是客戶，進來
     wx.hideShareMenu({
       success: function () {
@@ -54,7 +72,6 @@ Page({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
-    let _this = this;
     //首先登录，获取用户的类型，判断是不是客户
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
@@ -88,7 +105,7 @@ Page({
       url: app.data.hostAjax + '/api/user/v1/getgoodslist', // 获取商品列表
       data: {
         id:null,
-        orderby: 0,//0:默认时间排序 1:排序号排序
+        orderby: 1,//0:默认时间排序 1:排序号排序
         search: this.data.goodsValue,
         pageindex: this.data.pageindex,
         pagesize: this.data.pagesize,

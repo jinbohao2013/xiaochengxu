@@ -18,7 +18,7 @@
   <view class='main' style='margin-bottom:100rpx;'>
     <view class="top" style='padding-left:33rpx'>
       <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-        <view>{{ajaxData.englishname}}</view>
+        <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
         <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
       </view>
@@ -38,7 +38,7 @@
           title="{{ '商品详情'}}"
         >
           <view class="content">
-            <image src='{{ajaxData.synopsisimg}}' style='width:100%;' mode='widthFix'></image>
+            <image wx:for="{{tools.imgFirst(ajaxData.synopsisimg)}}"  src='{{item}}' style='width:100%;' mode='widthFix'></image>
           </view>
         </van-tab>
       </van-tabs>
@@ -66,7 +66,7 @@
   <view class="top" style='padding-left:33rpx'>
     <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-      <view>{{ajaxData.englishname}}</view>
+      <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
     </view>

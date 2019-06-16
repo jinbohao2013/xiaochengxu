@@ -1,4 +1,5 @@
-<view>
+
+<wxs src="../../utils/tools.wxs" module="tools" /><view>
    <view class='top'>
       <view class='top_one'>
          <image src="{{userInfo.avatarUrl}}"></image>
@@ -23,7 +24,7 @@
             <text>当前店铺累计收益（元)</text>
         </view>
         <view class='total_two'>
-            <text>{{dataInfo.profit}}.00</text>
+            <text>{{tools.fixd2(dataInfo.profit)}}</text>
         </view>
          <!-- <view class='total_three'>
             <text>包含待结算{{dataInfo.profit}}元</text>
@@ -35,7 +36,7 @@
              <text>昨日收益（元)</text>
            </view>
            <view class='earning_two'>
-             <text>{{dataInfo.zrprofit}}.00</text>
+             <text>{{tools.fixd2(dataInfo.zrprofit)}}</text>
            </view>
            <!-- <view class='earning_three'>
              <text>待结算{{dataInfo.zrprofit}}元</text>
@@ -46,51 +47,42 @@
              <text>昨日新增分销员(人)</text>
            </view>
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums}}.00</text>
+             <text>{{dataInfo.newsalanums}}</text>
            </view>
-           <!-- <view class='client_three'>
-             <text>待结算0.00元</text>
-           </view> -->
          </view>
          <view class='client' wx:if="{{usertype=='2'}}">
            <view class="client_one">
              <text>昨日新增代理(人)</text>
            </view>
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums}}.00</text>
+             <text>{{dataInfo.newsalanums||0}}</text>
            </view>
-           <!-- <view class='client_three'>
-             <text>待结算0.00元</text>
-           </view> -->
          </view>
          <view class='client' wx:if="{{usertype=='4'}}">
            <view class="client_one">
-             <text>昨日新增客户(人).00</text>
+             <text>昨日新增客户(人)</text>
            </view>
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums}}.00</text>
+             <text>{{dataInfo.newsalanums}}</text>
            </view>
-           <!-- <view class='client_three'>
-             <text>待结算0.00元</text>
-           </view> -->
          </view>
       </view>
       <view class='middel_three' catchtap='gowithdrawal'>
-        <text>可提现佣金{{dataInfo.cashmonys}}.00元</text>
+        <text>可提现佣金{{tools.fixd2(dataInfo.cashmonys)}}元</text>
         <text>立即提现></text>
       </view>
    </view>
    <view class='accumulate'>
       <view class='accumulate_one' wx:if="{{usertype!='4'}}">
-         <view style='color:#38f;'>{{dataInfo.ljsalanums}}.00</view>
+         <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
          <view>累计分销员</view>
       </view>
       <view class='accumulate_one'>
-         <view style='color:#38f;'>{{dataInfo.customer}}.00</view>
+         <view style='color:#38f;'>{{dataInfo.customer||0}}</view>
          <view>累计客户</view>
       </view>
       <view class='accumulate_one'>
-         <view style='color:#38f;'>{{dataInfo.tgordernums}}.00</view>
+         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
          <view>推广订单</view>
       </view>
    </view>

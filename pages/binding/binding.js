@@ -8,8 +8,8 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:null,
-    shopid:null,
+    distributorid:5,
+    shopid:7,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -73,7 +73,7 @@ Page({
                 phone: this.data.phone,
                 code: this.data.code,
                 shopname: this.data.name,
-                openid: app.globalData.openid,
+                openid: wx.getStorageSync("openid"),
                 Address: this.data.address
               },
               success: (res) => {
@@ -209,34 +209,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
-      this.data.setData({
-        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
-      })
-
-    } else {
-      this.setData({
-        distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
-      })
+    try{
+      if (decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].indexOf("&") >= 0) {
+        this.setData({
+          distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1].split("&")[0]
+        })
+      } else {
+        this.setData({
+          distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
+        })
+      }
+      if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
+        this.setData({
+          shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0]
+        })
+      } else {
+        this.setData({
+          shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1]
+        })
+      }
+    }catch(e){
 
     }
-    if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
-      this.data.setData({
-        shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0]
-      })
-
-    } else {
-      this.setData({
-        shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1]
-      })
-
-    }
+   
     wx.getUserInfo({
       success: (data) => {
         console.log(data);
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
         this.login()
+        this.setData({
+          isLogin: false
+        })
       },
       fail: () => {
         this.setData({
@@ -245,7 +249,24 @@ Page({
       }
     })
   },
-
+  getInfo(e){
+    wx.getUserInfo({
+      success: (data) => {
+        console.log(data);
+        //更新data中的userInfo
+        app.globalData.userInfo = data.userInfo
+        this.login()
+        this.setData({
+          isLogin: false
+        })
+      },
+      fail: () => {
+        this.setData({
+          isLogin: true
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
