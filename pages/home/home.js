@@ -18,9 +18,18 @@ Page({
       url: '/pages/invite/invite',
     })
   },
+  //去立即提现
+  gowithdrawal: function () {
+    wx.navigateTo({
+      url: '/pages/money/index/index',
+    })
+  },
+
   // 赚佣金
   earnCommission:function(){
-    
+    wx.navigateTo({
+      url: '/pages/goods/index/index',
+    })
   },
   // 获取店铺信息
   getShopData:function(v){

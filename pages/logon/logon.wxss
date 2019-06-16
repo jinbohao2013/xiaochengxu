@@ -50,3 +50,35 @@
 .enter text{
   text-align: center;
 }
+.failure{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+.failure-hint{
+  width: 600rpx;
+  border-radius: 20rpx;
+  background: white;
+}
+.failure-hint view:first-child{
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-weight: bold;
+}
+.failure-hint view:nth-child(2){
+  width: 100%;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  color: #8b8b8b;
+  padding-bottom: 50rpx;
+}

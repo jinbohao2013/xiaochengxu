@@ -10,5 +10,8 @@
       <view class='foot_two'>
          <canvas style="width: 400rpx; height: 400rpx;margin:auto;" canvas-id="myQrcode"></canvas>
       </view>
+      <view class='yaoqing'>
+         <text>邀请你一起加入，推广赢奖励</text>
+      </view>
    </view>
 </view> 

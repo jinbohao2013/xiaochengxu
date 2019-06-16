@@ -28,3 +28,7 @@ page{
   width: 400rpx;
   height: 400rpx;
 }
+.yaoqing{
+  text-align: center;
+  margin-top:25rpx;
+}
