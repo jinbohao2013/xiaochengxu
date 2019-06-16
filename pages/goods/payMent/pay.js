@@ -201,13 +201,9 @@ Page({
                           signType: 'MD5',
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
-                            //消除优惠券
-                            wx.removeStorageSync("couponsName");
-                            wx.removeStorageSync("couponPrice");
                             //展示支付成功的界面
-                            _this.setData({
-                              testFloat1: false
-                            })
+                            console.log(res)
+                            // _this.onClose();
                           },
                           fail(res) { console.log(res)
                             if (res.errMsg =="requestPayment:fail cancel"){
@@ -215,7 +211,7 @@ Page({
                                 title: "支付已取消",
                                 icon: 'none'
                               })
-                              _this.onClose();
+                             
                           }
                             
                            }

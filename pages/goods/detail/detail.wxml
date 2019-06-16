@@ -22,7 +22,7 @@
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
         <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
       </view>
-      <view style='float:right;padding:20rpx;' bindtap="togglePopup"><van-icon name="share" size='25px'/></view>
+      <view wx:if="{{hideBotom}}" style='float:right;padding:20rpx;' bindtap="togglePopup"><van-icon name="share" size='25px'/></view>
     </view>  <!-- top结束 -->
     <view style='background-color:#F8F8F8;height:20rpx;'></view>
     <van-cell-group>
@@ -44,9 +44,8 @@
       </van-tabs>
     </view><!-- 商品详情结束 -->
   </view><!-- mian结束 -->
-  <view class='buy' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;'>
+  <view class='buy' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;z-index:1'>
   <view class="">
-    
     <button style='height:90rpx;line-height:90rpx;' class="bg-red submit" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">立即购买</button>
   </view>
     <!-- <van-submit-bar

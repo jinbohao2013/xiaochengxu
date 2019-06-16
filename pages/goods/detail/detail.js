@@ -36,6 +36,7 @@ Page({
     // productName:"SNOW＋橘子汽水",
     loading:false,//保存按钮的加载动画
     openset: false,//打开设置的判断
+    hideBotom: true,//此时为了隐藏分享按钮，当时普通用户的时候
   },
   changeIndex(e) {
     console.log(e)
@@ -159,30 +160,38 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
-    var shareImg = _this.data.ajaxData.imgurl.split("|")[0]
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8084","https://www.yqcoffee.cn:2019");
+    console.log(shareImg)
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
-    ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
-    //加入商品名字到canvas中
-    ctx.setFontSize(s)
-    ctx.fillText(_this.data.ajaxData.name, e, f)
-    //加入价钱到canvas中
-    ctx.setFontSize(ss)
-    ctx.fillText('￥', a, b)
-    ctx.setFontSize(s)
-    ctx.fillText(_this.data.ajaxData.e_price, a + 15, b)
-    // 绘制图片到canvas中
-    drawQrcode({
-      x: 211 / 750 * wx.getSystemInfoSync().windowWidth,
-      y: 479 / 750 * wx.getSystemInfoSync().windowWidth,
-      width: _this.data.widthCord,
-      height: _this.data.widthCord,
-      canvasId: 'myQrcode',
-      ctx: ctx,
-      text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=0&goodsid=2471&shopid=0',
+    wx.downloadFile({
+      url: shareImg,
+      success:(res)=>{
+        shareImg=res.tempFilePath;
+        ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
+        //加入商品名字到canvas中
+        ctx.setFontSize(s)
+        ctx.fillText(_this.data.ajaxData.name, e, f)
+        //加入价钱到canvas中
+        ctx.setFontSize(ss)
+        ctx.fillText('￥', a, b)
+        ctx.setFontSize(s)
+        ctx.fillText(_this.data.ajaxData.e_price, a + 15, b)
+        // 绘制图片到canvas中
+        drawQrcode({
+          x: 211 / 750 * wx.getSystemInfoSync().windowWidth,
+          y: 479 / 750 * wx.getSystemInfoSync().windowWidth,
+          width: _this.data.widthCord,
+          height: _this.data.widthCord,
+          canvasId: 'myQrcode',
+          ctx: ctx,
+          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=0&goodsid=2471&shopid=0',
+        })
+      }
     })
+    
   },
   saveImgBtn(){
     let _this = this;
