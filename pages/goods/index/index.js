@@ -41,7 +41,7 @@ Page({
    */
   onLoad: function (options) {
     // wx.reLaunch({//重定向到登录页面
-    //   url: '/pages/index/index'
+    //   url: '/pages/home/home'
     // })
     //如果不是客戶，進來
     wx.hideShareMenu({

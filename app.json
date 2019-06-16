@@ -14,6 +14,7 @@
     "pages/money/withdraw/cardlist/list",
     "pages/money/withdraw/withdraw",
     "pages/help/help",
+    "pages/help/cardlist/help",
     "pages/money/withdrawrecord/withdrawrecord",
     "pages/money/tradingrecord/tradingrecord",
     "pages/bindingshop/bindingshop",

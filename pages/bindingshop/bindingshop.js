@@ -82,11 +82,11 @@ Page({
                     title: '绑定成功',
                     icon: 'success',
                   })
+                  app.globalData.user_id = res.data.Data.user_id
                   setTimeout(()=>{
                     wx.redirectTo({
                       url: '/pages/home/home',
                     })
-                    app.globalData.user_id = res.data.Data.user_id
                   },1500)
                 }else{
                   wx.showToast({

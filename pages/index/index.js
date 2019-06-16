@@ -438,14 +438,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    let _this = this;
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-    return {
-      path: '/pages/index/index?stop=1'
-    }
+    // let _this = this;
+    // if (res.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   console.log(res.target)
+    // }
+    // return {
+    //   path: '/pages/index/index?stop=1'
+    // }
   }
 
 })

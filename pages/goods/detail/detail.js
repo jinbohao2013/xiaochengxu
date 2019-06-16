@@ -55,7 +55,7 @@ Page({
    */
   onLoad: function (options) {
     // wx.reLaunch({//重定向到登录页面
-    //   url: '/pages/index/index'
+    //   url: '/pages/home/home'
     // })
     console.log(decodeURIComponent(options.q))
     let _this=this;

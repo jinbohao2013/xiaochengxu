@@ -104,7 +104,7 @@
    </view>
    <view class='footer'>
     <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
-      <navigator open-type="navigate" url='/pages/index/index'>首页</navigator>
+      <navigator open-type="navigate" url=''>首页</navigator>
       <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
       <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
     </view>

@@ -25,7 +25,7 @@
   </view><!-- 一种情况 -->
   
   <view class="card-list__tips">到账账户相关疑问，
-    <a>点击查看</a>
+    <navigator url='/pages/help/cardlist/help' style='display:inline-block;color:#38f;'>点击查看</navigator>
   </view>
 </view>
 
