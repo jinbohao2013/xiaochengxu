@@ -17,7 +17,10 @@ Page({
     name: '',
     code: '',
     address: '',
-    isLogin: false
+    isLogin: false,
+    uid: 70,
+    userInfoName: "",
+    userInfoImg: "",
   },
   // 登录
   login: function () {
@@ -226,6 +229,34 @@ Page({
           distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
         })
       }
+      if (decodeURIComponent(options.q).split("?")[1].split("uid=")[1].indexOf("&") >= 0) {
+        this.setData({
+          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1].split("&")[0]
+        })
+      } else {
+        this.setData({
+          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1]
+        })
+      }
+      let _this = this;
+      //获取用户登录信息
+      wx.request({
+        url: config.apiHost + "/api/user/v1/info",
+        data: {
+          user_id: this.data.uid,
+          curr_id: this.data.uid,
+        },
+        success: (res) => {
+          try {
+            _this.setData({
+              userInfoName: res.data.Data.nickname,
+              userInfoImg: res.data.Data.imgurl
+            })
+          } catch (e) {
+
+          }
+        }
+      })
     }catch(e){
 
     }
