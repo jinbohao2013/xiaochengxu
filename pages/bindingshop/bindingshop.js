@@ -9,7 +9,7 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:5,
+    distributorid:9,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -67,7 +67,7 @@ Page({
           if (this.data.code.length > 0) {
             
             wx.request({
-              url:  'http://39.106.49.173:8084/api/user/v1/addshopowner_manager',
+              url: config.apiHost+ '/api/user/v1/addshopowner_manager',
               method: "POST",
               data: {
                 distributorid: this.data.distributorid,//经销商id
@@ -84,7 +84,13 @@ Page({
                     title: '绑定成功',
                     icon: 'success',
                   })
-                  app.globalData.user_id = res.data.Data.user_id
+                  wx.setStorageSync("usertype",3);
+                  try {
+                    wx.setStorageSync("userid", res.data.Data.user_id);
+                    app.globalData.user_id = res.data.Data.user_id
+                  } catch (e) {
+
+                  }
                   setTimeout(()=>{
                     wx.redirectTo({
                       url: '/pages/home/home',
@@ -132,7 +138,7 @@ Page({
         url: config.apiHost + '/api/user/v1/sms',
         method: "POST",
         data: {
-          type: 0,
+          type: 5,
           account: phone
         },
         success: (res) => {
@@ -223,7 +229,7 @@ Page({
     }catch(e){
 
     }
-    
+    console.log("distributorid=", this.data.distributorid)
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

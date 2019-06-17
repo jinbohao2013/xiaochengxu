@@ -53,7 +53,7 @@ Page({
                 imgurl: app.globalData.userInfo.avatarUrl,
                 nickname: app.globalData.userInfo.nickName
               },
-              success: (ress) => {
+              success: (ress) => { 
                 console.log(ress)
                 let usertype = ress.data.Data.usertype
                 app.globalData.usertype = ress.data.Data.usertype

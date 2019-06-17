@@ -8,8 +8,8 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:5,
-    shopid:7,
+    distributorid:9,
+    shopid:25,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -83,11 +83,18 @@ Page({
                     title: '绑定成功',
                     icon: 'success',
                   })
+                  wx.setStorageSync("usertype", 4);
+                  try{
+                    wx.setStorageSync("userid", res.data.Data.user_id);
+                    app.globalData.user_id = res.data.Data.user_id
+                  }catch(e){
+
+                  }
+                  
                   setTimeout(() => {
                     wx.redirectTo({
                       url: '/pages/home/home',
                     })
-                    app.globalData.user_id = res.data.Data.user_id
                   }, 1500)
                 } else {
                   wx.showToast({
@@ -131,7 +138,7 @@ Page({
         url: config.apiHost + '/api/user/v1/sms',
         method: "POST",
         data: {
-          type: 0,
+          type: 5,
           account: phone
         },
         success: (res) => {
@@ -231,7 +238,7 @@ Page({
     }catch(e){
 
     }
-   
+    console.log(this.data.distributorid, "-------------", this.data.shopid)
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

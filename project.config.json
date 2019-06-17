@@ -4,13 +4,13 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
+		"autoAudits": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.4",
+	"libVersion": "2.4.4",
 	"appid": "wx8d7691a1be11d3ea",
 	"projectname": "demo",
 	"debugOptions": {
@@ -74,7 +74,7 @@
 				{
 					"id": 3,
 					"name": "1",
-					"pathName": "pages/bindingshop/bindingshop",
+					"pathName": "pages/binding/binding",
 					"query": "",
 					"scene": null
 				},
@@ -82,6 +82,13 @@
 					"id": -1,
 					"name": "邀请二维码",
 					"pathName": "pages/invite/invite",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/home/home",
 					"query": "",
 					"scene": null
 				}
