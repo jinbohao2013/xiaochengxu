@@ -17,7 +17,7 @@
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
       <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.name}}</view>
-      <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{item.smallimg}}' style='width:684rpx;height:456rpx;'></image>
+      <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{item.smallimg}}' style='width:684rpx;height:640rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
         <view>{{item.name}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>

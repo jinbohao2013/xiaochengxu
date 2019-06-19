@@ -23,13 +23,13 @@ Page({
     if (wx.getStorageSync("usertype")=="2") {
       //2为经销商 3为店长 4为分销员
       //申请店长的链接，后面的参数是分销商的id
-      shareUrl ="https://www.yqcoffee.cn/userbind/?distributorid=9";
+      shareUrl = "https://www.yqcoffee.cn/userbind/?distributorid=" + wx.getStorageSync("fenxiaoshangid");
     } else if (wx.getStorageSync("usertype") == "3"){
       //申请分销员的链接，后面的参数是经销商的id和店长的id
-      shareUrl = "https://www.yqcoffee.cn/usebind/?distributorid=9&shopid=25";
+      shareUrl = "https://www.yqcoffee.cn/usebind/?distributorid=" + wx.getStorageSync("fenxiaoshangid") + "&shopid=" + wx.getStorageSync("shopid");
     } else if (wx.getStorageSync("usertype") == "4") {
       //分享商品列表---后面的参数是分销员的id和店铺的id
-      shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=9&shopid=25";
+      shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=" + wx.getStorageSync("fenxiaoshangid")+"&shopid=" + wx.getStorageSync("shopid");
     }
     var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')

@@ -131,7 +131,7 @@ Page({
           _this.setData({
             ajaxData: res.data.Data
           })
-          _this.drawImg();
+          _this.drawImg(goodsId);
         } else {
           wx.showToast({
             title: "数据信息展示失败",
@@ -150,7 +150,7 @@ Page({
     })
     
   },
-  drawImg(){
+  drawImg(goodsId){
     let _this=this;
     //禁止页面分享
     var w = 451 / 750 * wx.getSystemInfoSync().windowWidth;
@@ -171,6 +171,7 @@ Page({
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
+    const imgUrl = 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid")
     wx.downloadFile({
       url: shareImg,
       success:(res)=>{ 
@@ -178,7 +179,13 @@ Page({
         ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
         //加入商品名字到canvas中
         ctx.setFontSize(s)
-        ctx.fillText(_this.data.ajaxData.name, e, f)
+        if (_this.data.ajaxData.name.length>11){
+          var str=_this.data.ajaxData.name.substr(1, 11)
+          ctx.fillText(str + "..." , e, f)
+        }else{
+          ctx.fillText(_this.data.ajaxData.name , e, f)
+        }
+        
         //加入价钱到canvas中
         ctx.setFontSize(ss)
         ctx.fillText('￥', a, b)
@@ -192,7 +199,7 @@ Page({
           height: _this.data.widthCord,
           canvasId: 'myQrcode',
           ctx: ctx,
-          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=9&goodsid=2473&shopid=25',
+          text: imgUrl,
         })
       }
     })

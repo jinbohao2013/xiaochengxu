@@ -16,7 +16,7 @@
     <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{tools.imgList(ajaxData.imgurl).length}}</van-tag></view>
   </view>
   <view class='main' style='margin-bottom:100rpx;'>
-    <view class="top" style='padding-left:33rpx'>
+    <view class="top" style='padding-left:33rpx;display:flex;justify-content:space-between;'>
       <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
         <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
