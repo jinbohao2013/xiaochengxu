@@ -23,7 +23,7 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/dester/v1/getsettlementcenter',
       data: {
-        userid: wx.getStorageSync("userid"),
+        userid: wx.getStorageSync("useridsaleman"),
         usertype: wx.getStorageSync("usertype"),//角色类型 2为经销商 3为店长 4为分销员
       },
       method: "get",

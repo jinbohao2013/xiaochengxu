@@ -46,8 +46,8 @@ Page({
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
           } else {
-            //储存--的经销商的用户id、店长的用户id、分销员的用户id--用于购买支付的id是分销员id不是用户id
-            wx.setStorageSync("userid", res.data.Data.user_id);
+            //储存--用于购买支付的经销商的id、店长的id、分销员的id
+            wx.setStorageSync("useridsaleman", res.data.Data.user_id);
             wx.setStorageSync("usertype", res.data.Data.usertype);
           }
         }else{

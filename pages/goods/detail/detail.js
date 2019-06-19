@@ -173,7 +173,7 @@ Page({
     //加入图片到canvas中
     wx.downloadFile({
       url: shareImg,
-      success:(res)=>{ 
+      success:(res)=>{
         shareImg=res.tempFilePath;
         ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
         //加入商品名字到canvas中
@@ -192,7 +192,7 @@ Page({
           height: _this.data.widthCord,
           canvasId: 'myQrcode',
           ctx: ctx,
-          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=9&goodsid=2473&shopid=25',
+          text: 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=22&goodsid=2471&shopid=9',
         })
       }
     })

@@ -8,8 +8,8 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:9,
-    shopid:25,
+    distributorid:5,
+    shopid:7,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -17,10 +17,7 @@ Page({
     name: '',
     code: '',
     address: '',
-    isLogin: false,
-    uid:70,
-    userInfoName: "",
-    userInfoImg:"",
+    isLogin: false
   },
   // 登录
   login: function () {
@@ -86,18 +83,11 @@ Page({
                     title: '绑定成功',
                     icon: 'success',
                   })
-                  wx.setStorageSync("usertype", 4);
-                  try{
-                    wx.setStorageSync("userid", res.data.Data.user_id);
-                    app.globalData.user_id = res.data.Data.user_id
-                  }catch(e){
-
-                  }
-                  
                   setTimeout(() => {
                     wx.redirectTo({
                       url: '/pages/home/home',
                     })
+                    app.globalData.user_id = res.data.Data.user_id
                   }, 1500)
                 } else {
                   wx.showToast({
@@ -141,7 +131,7 @@ Page({
         url: config.apiHost + '/api/user/v1/sms',
         method: "POST",
         data: {
-          type: 5,
+          type: 0,
           account: phone
         },
         success: (res) => {
@@ -238,38 +228,10 @@ Page({
           shopid: decodeURIComponent(options.q).split("?")[1].split("shopid=")[1]
         })
       }
-      if (decodeURIComponent(options.q).split("?")[1].split("uid=")[1].indexOf("&") >= 0) {
-        this.setData({
-          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1].split("&")[0]
-        })
-      } else {
-        this.setData({
-          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1]
-        })
-      }
-      let _this = this;
-      //获取用户登录信息
-      wx.request({
-        url: config.apiHost + "/api/user/v1/info",
-        data: {
-          user_id: this.data.uid,
-          curr_id: this.data.uid,
-        },
-        success: (res) => {
-          try {
-            _this.setData({
-              userInfoName: res.data.Data.nickname,
-              userInfoImg: res.data.Data.imgurl
-            })
-          } catch (e) {
-
-          }
-        }
-      })
     }catch(e){
 
     }
-    console.log(this.data.distributorid, "-------------", this.data.shopid)
+   
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

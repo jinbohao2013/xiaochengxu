@@ -23,59 +23,30 @@ Page({
     if (wx.getStorageSync("usertype")=="2") {
       //2为经销商 3为店长 4为分销员
       //申请店长的链接，后面的参数是分销商的id
-      shareUrl ="https://www.yqcoffee.cn/userbind/?distributorid=9";
+      shareUrl ="https://www.yqcoffee.cn/userbind/?distributorid=22";
     } else if (wx.getStorageSync("usertype") == "3"){
       //申请分销员的链接，后面的参数是经销商的id和店长的id
-      shareUrl = "https://www.yqcoffee.cn/usebind/?distributorid=9&shopid=25";
+      shareUrl = "https://www.yqcoffee.cn/usebind/?distributorid=22&shopid=2";
     } else if (wx.getStorageSync("usertype") == "4") {
       //分享商品列表---后面的参数是分销员的id和店铺的id
-      shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=9&shopid=25";
+      shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=22&shopid=9";
     }
-    var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
-    const ctx = wx.createCanvasContext('myQrcode')
-    wx.downloadFile({
-      url: shareUrl,
-      success: (res) => {
-        // ctx.drawImage(shareImg, 0, 0, w, w)
-        console.log(res)
-        // 绘制图片到canvas中
-        drawQrcode({
-          width: 400 / 750 * wx.getSystemInfoSync().windowWidth,
-          height: 400 / 750 * wx.getSystemInfoSync().windowWidth,
-          canvasId: 'myQrcode',
-          ctx: ctx,
-          text: shareUrl,
-        })
-      }
-    })
-
     
+
+    // 绘制图片到canvas中
+    drawQrcode({
+      width: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+      height: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+      canvasId: 'myQrcode',
+      text: shareUrl,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
     this.setData({
-     
-    })
-    this.onLoad();
-    let _this = this;
-    //获取用户登录信息
-    wx.request({
-      url: config.apiHost + "/api/user/v1/info",
-      data: {
-        user_id: wx.getStorageSync("userid"),
-        curr_id: wx.getStorageSync("userid"),
-      },
-      success: (res) => {
-        try {
-          _this.setData({
-            userInfo: res.data.Data
-          })
-        } catch (e) {
-
-        }
-      }
+      userInfo: app.globalData.userInfo
     })
   },
 
@@ -83,14 +54,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.onLoad();
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.onLoad();
+    
   },
 
   /**

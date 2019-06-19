@@ -2,8 +2,8 @@
 
 <view class='all'>
   <view class='binding'>
-    <image src='{{userInfoImg}}'></image>
-    <text>{{userInfoName}}</text>
+    <image src='http://tx.haiqq.com/uploads/allimg/170602/0214433264-9.jpg'></image>
+    <text>人二小木四点水</text>
     <text>邀请你成为店长</text>
   </view>
   <view>

@@ -9,7 +9,7 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:9,
+    distributorid:5,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -17,10 +17,7 @@ Page({
     name: '',
     code: '',
     address: '',
-    isLogin: false,
-    uid: 70,
-    userInfoName: "",
-    userInfoImg: "",
+    isLogin: false
   },
   // 登录
   login: function () {
@@ -70,7 +67,7 @@ Page({
           if (this.data.code.length > 0) {
             
             wx.request({
-              url: config.apiHost+ '/api/user/v1/addshopowner_manager',
+              url:  'http://39.106.49.173:8084/api/user/v1/addshopowner_manager',
               method: "POST",
               data: {
                 distributorid: this.data.distributorid,//经销商id
@@ -87,13 +84,7 @@ Page({
                     title: '绑定成功',
                     icon: 'success',
                   })
-                  wx.setStorageSync("usertype",3);
-                  try {
-                    wx.setStorageSync("userid", res.data.Data.user_id);
-                    app.globalData.user_id = res.data.Data.user_id
-                  } catch (e) {
-
-                  }
+                  app.globalData.user_id = res.data.Data.user_id
                   setTimeout(()=>{
                     wx.redirectTo({
                       url: '/pages/home/home',
@@ -141,7 +132,7 @@ Page({
         url: config.apiHost + '/api/user/v1/sms',
         method: "POST",
         data: {
-          type: 5,
+          type: 0,
           account: phone
         },
         success: (res) => {
@@ -229,38 +220,10 @@ Page({
           distributorid: decodeURIComponent(options.q).split("?")[1].split("distributorid=")[1]
         })
       }
-      if (decodeURIComponent(options.q).split("?")[1].split("uid=")[1].indexOf("&") >= 0) {
-        this.setData({
-          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1].split("&")[0]
-        })
-      } else {
-        this.setData({
-          uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1]
-        })
-      }
-      let _this = this;
-      //获取用户登录信息
-      wx.request({
-        url: config.apiHost + "/api/user/v1/info",
-        data: {
-          user_id: this.data.uid,
-          curr_id: this.data.uid,
-        },
-        success: (res) => {
-          try {
-            _this.setData({
-              userInfoName: res.data.Data.nickname,
-              userInfoImg: res.data.Data.imgurl
-            })
-          } catch (e) {
-
-          }
-        }
-      })
     }catch(e){
 
     }
-    console.log("distributorid=", this.data.distributorid)
+    
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

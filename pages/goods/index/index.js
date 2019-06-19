@@ -31,6 +31,7 @@ Page({
     firstId: 0,//上一次选择的商品id
   },
   changeIndex(e){
+    console.log(e)
     this.setData({
       acticeInxex: e.currentTarget.dataset.index
     })
@@ -43,7 +44,7 @@ Page({
     //   url: '/pages/home/home'
     // })
     let _this = this;
-    // console.log(JSON.stringify(options))
+    console.log(JSON.stringify(options))
     var goodsId = JSON.stringify(options);
     if (goodsId!="{}") {
       //此时是从分享页面进来的?useridsaleman=0&shopid=0
@@ -66,12 +67,39 @@ Page({
         console.log("禁止了分享按钮的现实！")
       }
     })
-    
+    console.log(app.data.windowHeight)
     this.setData({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
-    
+    //首先登录，获取用户的类型，判断是不是客户
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+      data: {
+        openid: wx.getStorageSync("openid"),
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        _this.setData({
+          loading: true
+        })
+        if (res.data.Success) {
+          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+         if(res.data.Data.usertype==1){
+           //1为普通用户 2为经销商 3为店长 4为分销员
+           //1--隐藏底部导航
+           _this.setData({
+             hideBotom:false
+           })
+         }
+        } else {
+
+        }
+      }
+    })
     //下面是调取列表接口--展示商品信息
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/getgoodslist', // 获取商品列表
@@ -89,14 +117,17 @@ Page({
       success(res) {
 
         if (res.data.Success) {
+          console.log(res.data);
           let arr = _this.data.ajaxData;
           try {
             if (res.data.Data.list) {
               arr = arr.concat(res.data.Data.list)
             }
+
           } catch (e) {
             console.log("出错了");
           }
+
           _this.setData({
             ajaxData: arr
           })
@@ -105,7 +136,7 @@ Page({
               hideLoading:false
             })
           }
-          // console.log("111111111111111111111",_this.data.hideLoading)
+          console.log("111111111111111111111",_this.data.hideLoading)
         } else {
          
         }
@@ -117,59 +148,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    let _this=this;
     
-    //首先登录，获取用户的类型，判断是不是客户
-    if (wx.getStorageSync("openid") == "") {
-      console.log("我进来了啊")
-      //此时是页面加载早了，而微信appjs还没加载--导致openid为undefined
-      app.readyCallback = (hostAjax) =>{
-        wx.request({
-          url: hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
-          data: {
-            openid: wx.getStorageSync("openid"),
-          },
-          method: "get",
-          header: {
-            'content-type': 'application/json',
-          },
-          success(res) {
-            if (res.data.Success) {
-              wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
-            }
-          }
-        })
-      }
-      return false;
-    }
-    console.log("我没进来", wx.getStorageSync("openid") == "")
-    wx.request({
-      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
-      data: {
-        openid: wx.getStorageSync("openid"),
-      },
-      method: "get",
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
-        _this.setData({
-          loading: true
-        })
-        if (res.data.Success) {
-          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
-          if (res.data.Data.usertype == 1) {
-            //1为普通用户 2为经销商 3为店长 4为分销员
-            //1--隐藏底部导航
-            _this.setData({
-              hideBotom: false
-            })
-          }
-        } else {
-
-        }
-      }
-    })
   },
 
   /**
@@ -207,7 +186,7 @@ Page({
 
   },
   onChange(event) {
-    // console.warn(`change: ${event.detail}`);
+    console.warn(`change: ${event.detail}`);
     this.setData({
       value1: event.detail
     })
@@ -254,7 +233,7 @@ Page({
 
       //   })
       // },1000)
-      // console.log("在我这里调取加载数据")
+      console.log("在我这里调取加载数据")
       if (!this.data.hideLoading){
         return
       }
@@ -269,11 +248,13 @@ Page({
   wx.showLoading({
     title: '稍等',
   })
-    
-    // console.log("登录信息获取，然后跳转到详情页面--调起支付")
+    console.log(e)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    console.log("登录信息获取，然后跳转到详情页面--调起支付")
     //判断口味是否选择
-    // console.log("口味：", this.data.acticeInxex)
-    // console.log(this.data.value1 * this.data.ajaxGood.e_price)
+    console.log("口味：", this.data.acticeInxex)
+    console.log(this.data.value1 * this.data.ajaxGood.e_price)
     if (this.data.acticeInxex!=null) {
       //提交到订单确认
       wx.navigateTo({
@@ -334,7 +315,7 @@ Page({
         wx.hideLoading();//关闭加载按钮--弹出口味选择--下一步点击下一步
         _this.onClose();
         if (res.data.Success) {
-          // console.log(res.data);
+          console.log(res.data);
           _this.setData({
             ajaxGood: res.data.Data
           })

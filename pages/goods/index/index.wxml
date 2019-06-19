@@ -1,6 +1,5 @@
 <!--推广商品-->
 <view class='body'>
- <wxs src="../../../utils/tools.wxs" module="tools" />
   <view class='header text-center' style='margin-bottom:10rpx;'>
     <van-search
       value="{{ goodsValue }}"
@@ -12,12 +11,12 @@
   </view>
   <view class='main' style='margin-bottom:0;'>
   <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
-  
+   <wxs src="../../../utils/tools.wxs" module="tools" />
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
       <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.name}}</view>
-      <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{item.smallimg}}' style='width:684rpx;height:456rpx;'></image>
+      <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{tools.imgFirst(item.imgurl)[0]}}' style='width:684rpx;height:456rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
         <view>{{item.name}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
@@ -48,7 +47,7 @@
 <view style='max-height:{{windowHeight-50}}px;overflow:auto;padding-top:20rpx;'>
 <view style='background-color:#fff;padding-bottom:{{isIphoneX?"34px":0}};'>
   <view class="top" style='padding-left:33rpx'>
-    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{ajaxGood.smallimg}}' mode="aspectFill"></image>
+    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxGood.imgurl)[0]}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
       <view>{{ajaxGood.englishname}} {{ajaxGood.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->

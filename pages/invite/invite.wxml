@@ -4,8 +4,8 @@
    </view>
    <view class='invite_footer'>
       <view class='foot_one'>
-         <image src='{{userInfo.imgurl}}'></image>
-         <text>{{userInfo.nickname}}</text>
+         <image src='{{userInfo.avatarUrl}}'></image>
+         <text>{{userInfo.nickName}}</text>
       </view>
       <view class='foot_two'>
          <canvas style="width: 400rpx; height: 400rpx;margin:auto;" canvas-id="myQrcode"></canvas>

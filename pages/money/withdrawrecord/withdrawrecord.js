@@ -46,7 +46,7 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/dester/v1/getapplicationcashinfo', // 提现记录
       data: {
-        userid: wx.getStorageSync("userid"),
+        userid: wx.getStorageSync("useridsaleman"),
         pageindex: this.data.pageindex,
         pagesize: this.data.pagesize,
       },

@@ -153,7 +153,7 @@ Page({
       data: {
         userid: wx.getStorageSync("userIdBuyGood"),
         goodsid: _this.data.ajaxData.id,
-        salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid"),//分销商的id分销员id
+        salapersonid: wx.getStorageSync("useridsaleman"),//分销商的id分销员id
         shopid: wx.getStorageSync("shopid")||0,//店铺id--每个人都有一个店铺
         num: this.data.ajaxData.num,
         tasteid: this.data.ajaxData.tasteId,//商品口味

@@ -2,12 +2,12 @@
 <wxs src="../../utils/tools.wxs" module="tools" /><view>
    <view class='top'>
       <view class='top_one'>
-         <image src="{{userInfoImg}}"></image>
+         <image src="{{userInfo.avatarUrl}}"></image>
          <!-- <button open-type='getUserInfo'>获取用户登录信息</button> -->
       </view>
       <view class='top_two'>
         <view  class='name'>
-           <text>{{userInfoName}}</text>
+           <text>{{userInfo. nickName}}</text>
        </view>
           <view class='store'>
              <text>当前店铺：{{shopName}}</text>
@@ -24,7 +24,7 @@
             <text>当前店铺累计收益（元)</text>
         </view>
         <view class='total_two'>
-            <text>{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
+            <text>{{tools.fixd2(dataInfo.profit)}}</text>
         </view>
          <!-- <view class='total_three'>
             <text>包含待结算{{dataInfo.profit}}元</text>
@@ -36,7 +36,7 @@
              <text>昨日收益（元)</text>
            </view>
            <view class='earning_two'>
-             <text>{{tools.fixd2(dataInfo.zrprofit||"0.00")}}</text>
+             <text>{{tools.fixd2(dataInfo.zrprofit)}}</text>
            </view>
            <!-- <view class='earning_three'>
              <text>待结算{{dataInfo.zrprofit}}元</text>
@@ -47,7 +47,7 @@
              <text>昨日新增分销员(人)</text>
            </view>
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums||0}}</text>
+             <text>{{dataInfo.newsalanums}}</text>
            </view>
          </view>
          <view class='client' wx:if="{{usertype=='2'}}">
@@ -63,7 +63,7 @@
              <text>昨日新增客户(人)</text>
            </view>
            <view class='client_two'>
-             <text>{{dataInfo.zrcustomer}}</text>
+             <text>{{dataInfo.newsalanums}}</text>
            </view>
          </view>
       </view>

@@ -46,18 +46,8 @@ var fixd2 = function (s) {
 }
 
 var imgFirst = function (s) {
-  if(s){
-    var imgArr = s.split("|")[0];
-    return imgArr
-  }
-  return
-}
-var imgList = function (s) {
-  if (s) {
-    var imgArr = s.split("|");
-    return imgArr
-  }
-  return
+  var imgArr = s.split("|")
+  return imgArr
 }
 module.exports = {
   bar: bar,
@@ -69,6 +59,5 @@ module.exports = {
   showTime: showTime,
   floatPrice: floatPrice,
   imgFirst: imgFirst,
-  imgList: imgList,
   fixd2: fixd2
 };
