@@ -7,13 +7,13 @@
     bindchange="changeSwiper"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
       style='height:750rpx;'>
-      <block wx:for="{{tools.imgFirst(ajaxData.imgurl)}}" wx:key="*">
+      <block wx:for="{{tools.imgList(ajaxData.imgurl)}}" wx:key="*">
         <swiper-item>
           <image src="{{item}}" class="slide-image" style='width:750rpx;height:750rpx;'/>
         </swiper-item>
       </block>
     </swiper>
-    <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{tools.imgFirst(ajaxData.imgurl).length}}</van-tag></view>
+    <view style='position:absolute;bottom:20rpx;right:40rpx;'> <van-tag class="demo-margin-right" round>{{current+1}}/{{tools.imgList(ajaxData.imgurl).length}}</van-tag></view>
   </view>
   <view class='main' style='margin-bottom:100rpx;'>
     <view class="top" style='padding-left:33rpx'>
@@ -38,7 +38,7 @@
           title="{{ '商品详情'}}"
         >
           <view class="content">
-            <image wx:for="{{tools.imgFirst(ajaxData.synopsisimg)}}"  src='{{item}}' style='width:100%;' mode='widthFix'></image>
+            <image wx:for="{{tools.imgList(ajaxData.synopsisimg)}}" wx:key="*" src='{{item}}' style='width:100%;' mode='widthFix'></image>
           </view>
         </van-tab>
       </van-tabs>
@@ -64,7 +64,7 @@
   <view style='max-height:{{windowHeight-50}}px;overflow:auto;padding-top:20rpx;'>
 <view style='background-color:#fff;padding-bottom:{{isIphoneX?"34px":0}};'>
   <view class="top" style='padding-left:33rpx'>
-    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)[0]}}' mode="aspectFill"></image>
+    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
       <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->

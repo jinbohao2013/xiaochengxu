@@ -5,39 +5,41 @@
   display: flex;
   flex-direction: row;
   align-items: center;
- margin: 30rpx 100rpx 20rpx 120rpx;
+ margin: 56rpx 90rpx 0rpx 90rpx;
+ padding-bottom: 20rpx;
   border-bottom: 1px solid lightgrey;
 }
 .denglu input{
   margin-left: 40rpx;
-  font-size: 28rpx;
+  font-size: 35rpx;
 }
 .denglu image{
-  width: 35rpx;
-  height: 35rpx;
+  width: 40rpx;
+  height: 45rpx;
 }
 .mima{
   display: flex;
   flex-direction: row;
   align-items: center;
- margin: 30rpx 100rpx 20rpx 120rpx;
+ margin: 0 90rpx 0 90rpx;
+ padding: 24rpx 0 12rpx 0;
   border-bottom: 1px solid lightgrey;
 }
 .mima input{
   margin-left: 40rpx;
-  font-size: 28rpx;
+  font-size: 35rpx;
 }
 .mima image{
-  width: 35rpx;
-  height: 35rpx;
+  width: 45rpx;
+  height: 40rpx;
 }
 .mima button{
-  font-size: 24rpx; 
-  background-color: #8b8b8b;
+  font-size: 28rpx; 
   color: white;
-  width: 40%;
+  min-width: 200rpx;
+  line-height: 68rpx;
   margin-bottom: 10rpx;
-  padding: 0;
+  padding: 0 20rpx;
 }
 .enter{
    margin: 30rpx 100rpx 20rpx 120rpx;
@@ -46,6 +48,7 @@
    padding: 30rpx;
    border-radius: 64rpx;
    color: white;
+   font-size: 35rpx;
 }
 .enter text{
   text-align: center;
@@ -78,7 +81,7 @@
   width: 100%;
   text-align: center;
   line-height: 100rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
   color: #8b8b8b;
   padding-bottom: 50rpx;
 }

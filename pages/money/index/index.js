@@ -12,7 +12,7 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/dester/v1/getsettlementcenter',
       data: {
-        userid: wx.getStorageSync("useridsaleman"),
+        userid: wx.getStorageSync("userid"),
         usertype: wx.getStorageSync("usertype"),//角色类型 2为经销商 3为店长 4为分销员
       },
       method: "get",
@@ -23,7 +23,7 @@ Page({
 
         if (res.data.Success) {
           _this.setData({
-            getMoney: parseFloat(res.data.Data.cashmonys).toFixed(2)
+            getMoney: parseFloat(res.data.Data.cashmonys||0.00).toFixed(2)
           })
         } else {
 

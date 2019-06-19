@@ -10,7 +10,9 @@ Page({
       "../../image/pic1.png",
       "../../image/pic2.png"
     ],
-    userInfo: {}
+    userInfo: {},
+    userInfoImg:"",
+    userInfoName: "",
   },
   // 去推广
   goPromotion:function(){
@@ -48,21 +50,20 @@ Page({
   },
   // 数据加载
   getData: function(v,e,type){
-    console.log(config.apiHost + v)
     wx.request({
       url: config.apiHost + v,
       data: {
         // userid: app.globalData.user_id
-        userid: e
+        userid: wx.getStorageSync("userid"),
       },
       success: (res) => {
         console.log(res)
         if (type==2){//如果是分销商
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
-        }else if (3) {//如果是店长
+        } else if (type ==3) {//如果是店长
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
-        } else {//如果是分销员
-          
+        } else if (type == 4){//如果是分销员
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
         this.getShopData(res.data.Data.shopid)
@@ -76,76 +77,48 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let _this=this;
     //获取用户登录信息
+    wx.request({
+      url: config.apiHost + "/api/user/v1/info",
+      data: {
+        user_id: wx.getStorageSync("userid"),
+        curr_id: wx.getStorageSync("userid"),
+      },
+      success: (res) => {
+        console.log(res)
+        try {
+          _this.setData({
+            userInfoName: res.data.Data.nickname,
+            userInfoImg: res.data.Data.imgurl,
+            usertype: res.data.Data.usertype,
+          })
+        } catch (e) {
+
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady:function(){
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      usertype: app.globalData.usertype
-    })
-    switch (app.globalData.usertype){
-      case '3':
+  onShow:function(){
+    
+    var type = Number(wx.getStorageSync("usertype"))
+    console.log(type)
+    switch (type){
+      case 3:
         this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id, app.globalData.usertype)
         break;
-      case '2':
+      case 2:
         this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, app.globalData.usertype)
         break;
-      case '4':
+      case 4:
         this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id, app.globalData.usertype)
         break;
       default:
         break;
     }
-    console.log(app.globalData.usertype)
-    console.log(app.globalData.user_id)
-    // this.getData('/api/dester/v1/getdistributordester', 2)
-    // this.getData('/api/dester/v1/getshopownerdester', 3)
-    // this.getData('/api/dester/v1/getsalespersondester', 6)
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })
