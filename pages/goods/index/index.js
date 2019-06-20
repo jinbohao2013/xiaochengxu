@@ -279,7 +279,7 @@ Page({
       wx.navigateTo({
         url: '../payMent/pay?ajaxData=' + JSON.stringify({
           id: this.data.firstId,//商品id
-          title: this.data.ajaxGood.englishname + this.data.ajaxData.name,//标题
+          title: this.data.ajaxGood.englishname + this.data.ajaxGood.name,//标题
           desc: this.data.ajaxGood.synopsis,//描述
           img: this.data.ajaxGood.smallimg,
           price: this.data.ajaxGood.e_price,//单价

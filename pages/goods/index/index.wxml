@@ -16,10 +16,10 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
-      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.name}}</view>
+      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.synopsis}}</view>
       <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{item.smallimg}}' style='width:684rpx;height:640rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
-        <view>{{item.name}}</view>
+        <view>{{item.synopsis}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
           <text>￥{{item.e_price}}</text><view data-id='{{item.id}}' bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
         </view>
@@ -47,14 +47,14 @@
 <van-popup show="{{ show }}"  position="bottom" bind:close="onClose" safe-area-inset-bottom="{{false}}">
 <view style='max-height:{{windowHeight-50}}px;overflow:auto;padding-top:20rpx;'>
 <view style='background-color:#fff;padding-bottom:{{isIphoneX?"34px":0}};'>
-  <view class="top" style='padding-left:33rpx'>
+  <view class="top" style='padding-left:33rpx;position:relative;'>
     <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{ajaxGood.smallimg}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
       <view>{{ajaxGood.englishname}} {{ajaxGood.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxGood.e_price}}</text></view>
     </view>
-    <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
+    <view style='position:absolute;right:0;top:0;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
   <view class='c' style='clear:both;'>
     <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>分类</view>

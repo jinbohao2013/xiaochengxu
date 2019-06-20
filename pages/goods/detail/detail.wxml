@@ -18,7 +18,7 @@
   <view class='main' style='margin-bottom:100rpx;'>
     <view class="top" style='padding-left:33rpx;display:flex;justify-content:space-between;'>
       <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-        <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
+        <view>{{ajaxData.synopsis}}</view>
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
         <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
       </view>
@@ -63,14 +63,14 @@
 <van-popup show="{{ show }}"  position="bottom" bind:close="onClose" safe-area-inset-bottom="{{false}}">
   <view style='max-height:{{windowHeight-50}}px;overflow:auto;padding-top:20rpx;'>
 <view style='background-color:#fff;padding-bottom:{{isIphoneX?"34px":0}};'>
-  <view class="top" style='padding-left:33rpx'>
+  <view class="top" style='padding-left:33rpx;position:relative;'>
     <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='{{tools.imgFirst(ajaxData.imgurl)}}' mode="aspectFill"></image>
     <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
       <view>{{ajaxData.englishname}} {{ajaxData.name}}</view>
       <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       <view style='font-size:25rpx;'>¥ <text class='price'>{{ajaxData.e_price}}</text></view>
     </view>
-    <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
+    <view style='position:absolute;right:0;top:0;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
   <view class='c' style='clear:both;'>
     <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>分类</view>
