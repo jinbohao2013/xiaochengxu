@@ -336,15 +336,15 @@ fieldset {
     line-height: 26px;
     text-align: right;
 }
-.withdraw-account__content::after {
+/* .withdraw-account__content::after {
       content: '';
       position: absolute;
       top: 8px;
       right: 8px;
       width: 6px;
       height: 10px;
-      background: url("//b.yzcdn.cn/h5/withdraw/arrow-right@2x.png") 0/100% no-repeat;
-}
+      background: url("http://b.yzcdn.cn/h5/withdraw/arrow-right@2x.png") 0/100% no-repeat;
+} */
 .withdraw-account__icon {
     display: inline-block;
     width: 20px;

@@ -34,7 +34,7 @@ Page({
 
         if (res.data.Success) {
             _this.setData({
-              getMoney: res.data.Data.cashmonys
+              getMoney: res.data.Data.cashmonys||0
             })
         } else {
 
@@ -48,9 +48,9 @@ Page({
     wx.request({
       url: app.data.hostAjax + '/api/transaction/v1/addapplicationcash',
       data: {
-        userid: 3,//wx.getStorageSync("uid"),
-        usertype: 3,
-        Cashmonys:0
+        userid: wx.getStorageSync("userid"),
+        usertype: wx.getStorageSync("usertype"),//角色类型 2为经销商 3为店长 4为分销员
+        Cashmonys:this.data.money
       },
       method: "get",
       header: {

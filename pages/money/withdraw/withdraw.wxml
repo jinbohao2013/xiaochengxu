@@ -1,8 +1,15 @@
 <view class="withdraw__wrapper">
+  
   <view class="withdraw-account">
     <view class="withdraw-account__main">
       <label class="withdraw-account__label">到账账户</label>
       <view class="withdraw-account__content" bindtap='skipToAccount'>
+      <view class='' style='position: absolute;top: 4px;right: 0;'><van-icon
+        name="arrow"
+        size="20px"
+        color="#999"
+        custom-class="icon"
+      /></view>
         <view class="withdraw-account__account">
         <van-icon
         name="wechat"

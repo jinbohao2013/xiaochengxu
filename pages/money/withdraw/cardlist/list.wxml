@@ -11,7 +11,7 @@
   <view class="card-section" bindtap='changeAccount2'><!-- 一种情况 -->
     <ul class="card-section__list">
       <view class="van-hairline card-section__list-item card-section__list-item-wechat">
-        <image src="//b.yzcdn.cn/h5/withdraw/wechat-wallet@2x.png" class="card-section__list-item-icon"></image>
+        <image src="http://b.yzcdn.cn/h5/withdraw/wechat-wallet@2x.png" class="card-section__list-item-icon"></image>
         <view class="card-section__list-item-content">
           <view class="card-section__list-item-name">
             <open-data style='font-size: 14px;' type="userNickName"></open-data>
