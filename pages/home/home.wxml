@@ -10,7 +10,9 @@
            <text>{{userInfoName}}</text>
        </view>
           <view class='store'>
-             <text>当前店铺：{{shopName}}</text>
+             <text wx:if="{{usertype=='2'}}">经销商：{{userInfoName}}</text>
+             <text wx:elif="{{usertype=='3'}}">店长：{{userInfoName}}</text>
+             <text wx:else>分销员：{{userInfoName}}</text>
           </view>
       <view class='cent'>
         <text class='cent_one'>自购分佣</text>
@@ -73,7 +75,11 @@
       </view>
    </view>
    <view class='accumulate'>
-      <view class='accumulate_one' wx:if="{{usertype!='4'}}">
+      <view class='accumulate_one' wx:if="{{usertype=='2'}}">
+         <view style='color:#38f;'>{{dataInfo.ljshops||0}}</view>
+         <view>累计店长</view>
+      </view>
+      <view class='accumulate_one' wx:if="{{usertype=='3'}}">
          <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
          <view>累计分销员</view>
       </view>

@@ -16,12 +16,12 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>
-      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.synopsis}}</view>
+      <view class='goods_title' style='font-size:37rpx;margin-bottom:35rpx;'>{{item.englishname}} {{item.name}}</view>
       <image data-id='{{item.id}}' bindtap='skipNextPage' src='{{item.smallimg}}' style='width:684rpx;height:640rpx;'></image>
       <view class='goods_detail' style='margin-top:20rpx;'>
         <view>{{item.synopsis}}</view>
         <view class='goods_footer' style='display:flex;justify-content:space-between;margin:20rpx 10rpx 0 10rpx;'>
-          <text>￥{{item.e_price}}</text><view data-id='{{item.id}}' bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
+          <text style='color:#de1010;'>￥{{item.e_price}}</text><view data-id='{{item.id}}' bindtap='showBottomBuy'><van-icon name="add-o" size="21px"/></view>
         </view>
       </view>
     </view>
