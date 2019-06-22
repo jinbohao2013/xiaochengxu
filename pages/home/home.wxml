@@ -23,10 +23,14 @@
    <view class='middel'>
       <view class='middel_one'>  
         <view class="total_one">
-            <text>当前店铺累计收益（元)</text>
+            <text wx:if="{{usertype=='2'}}">当前累计收益（元)</text>
+            <text wx:elif="{{usertype=='3'}}">当前店铺累计收益（元)</text>
+             <text wx:else>我的收益（元)</text>
         </view>
         <view class='total_two'>
-            <text>{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
+            <text wx:if="{{usertype=='2'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
+            <text wx:elif="{{usertype=='3'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
+             <text wx:else>{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
         </view>
          <!-- <view class='total_three'>
             <text>包含待结算{{dataInfo.profit}}元</text>
@@ -70,7 +74,7 @@
          </view>
       </view>
       <view class='middel_three' catchtap='gowithdrawal'>
-        <text>可提现佣金{{tools.fixd2(dataInfo.cashmonys)}}元</text>
+        <text>可提现佣金{{tools.fixd2(dataInfo.cashmonys||0)}}元</text>
         <text>立即提现></text>
       </view>
    </view>

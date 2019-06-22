@@ -8,8 +8,8 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:9,
-    shopid:25,
+    distributorid:16,
+    shopid:38,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,

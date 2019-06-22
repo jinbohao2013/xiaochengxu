@@ -165,7 +165,7 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
-    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8084","https://www.yqcoffee.cn:2019");
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8088","https://www.yqcoffee.cn:2019");
     console.log(shareImg)
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)

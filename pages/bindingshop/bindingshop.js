@@ -9,7 +9,7 @@ Page({
       "../../image/phone.png",
       "../../image/yanzheng.png"
     ],
-    distributorid:9,
+    distributorid:16,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
