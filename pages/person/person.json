@@ -1,7 +1,3 @@
 {
-  "navigationStyle": "custom",
-  "navigationBarTitleText": "个人中心",
-  "usingComponents": {
-    "i-icon": "../../../dist/icon/index"
-  }
+  "navigationBarTitleText": "我的主页"
 }

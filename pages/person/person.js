@@ -14,11 +14,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!wx.getStorageSync("token")) {
-      wx.reLaunch({
-        url: '../../pages/index/index'
-      })
-    }
+    // if (!wx.getStorageSync("openid")) {
+    //   wx.reLaunch({
+    //     url: '/pages/index/index'
+    //   })
+    // }
     let _this=this;
     wx.request({
       url: app.data.hostAjax +'/api/Account/GetCurrentCustomer', // 获取用户信息

@@ -36,10 +36,18 @@
   </scroll-view>
     
   </view>
-  <view class='footer' wx:if="{{hideBotom}}">
+   <!-- hideBotom为true 是经销商、店长、分销员 -->
+  <view class='footer' wx:if="{{!hideBotom}}">
     <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
       <navigator open-type="navigate" url='/pages/home/home'>首页</navigator>
-      <navigator open-type="navigate" >推广商品</navigator>
+      <navigator open-type="navigate" >全部商品</navigator>
+      <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
+    </view>
+  </view>
+  <view class='footer' wx:else>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="navigate" url='/pages/person/person'>我的主页</navigator>
+      <navigator open-type="navigate" >全部商品</navigator>
       <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
     </view>
   </view>

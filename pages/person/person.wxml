@@ -1,26 +1,87 @@
-<!--标题栏-->
-<view class='aaaa' style='height:{{statusBarHeight}}px;background: linear-gradient(to left,#f9bb00,#fdd000);'></view>
-<view class='topBar' style='text-align:center;position:relative;font-size:33rpx;color:#444;height:44px;line-height:44px;background: linear-gradient(to left,#f9bb00,#fdd000);'>
-  <!-- <view class='return' style='position:absolute;left:20rpx;' bindtap='return'><i-icon style='position:relative;top:-1.5px' size="20" type="return" /> 返回</view> -->
-  <view style='position:absolute;left:20rpx;'>个人中心</view>
-</view>
+
 <view class="content">
-<view class="header" style="height: 330rpx;">
+<view class="header" style="height: 190rpx;background-color:#424454;">
 <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
     <view>	
-    <!-- <open-data class="name" type="userNickName"></open-data> -->
-    <view wx-if="{{userInfo}}">{{userInfo.name}} ({{userInfo.customerTypeName}})</view>
-    <view wx-if="{{userInfo}}">{{userInfo.factoryCode=="0"?"郑州厂区":"成都厂区"}}</view>
+      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间:{{userInfo.customerTypeName}}</view>
     </view>
   </view>
-  <view class="line" style="background-color: #eee;height: 0.25rem;"></view>
-  <view class="main">
-    <view bindtap="logOut" class="list">退出登录</view>
-    
-    <!-- <navigator url="../jinbi/jinbo" class="list" >List2</navigator>
-    <navigator url="../tree/tree" class="list">List3</navigator>
-    <navigator url="../coupons/coupons" class="list">List4</navigator>
-    <navigator url="../donation/kaipiao/kaipiao" class="list">List5</navigator> -->
+  <view class="main" style='margin:26rpx;'>
+  <!--  -->
+    <view class='top' style='background-color:#FDFDFD;border-radius:5px;'>
+    <view style='padding:25rpx 28rpx;'> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
+        name="arrow"
+        size="10px"
+        color="#999"
+        custom-class="icon"
+      /></view> </view>
+      <view class='line' style='height:1rpx;background-color:#CFCFCF;'></view>
+      <view class='lists'>
+          <view class=''>
+            <navigator url=''>
+              <van-icon
+                name="arrow"
+                size="10px"
+                color="#999"
+                custom-class="icon"
+              />
+              <view class='text'>待付款</view>
+              <view class="cu-tag badge">99+</view>
+            </navigator>
+          </view>
+          <view>
+            <navigator url=''>
+              <van-icon
+                name="arrow"
+                size="10px"
+                color="#999"
+                custom-class="icon"
+              />
+              <view>待付款</view>
+            </navigator>
+          </view>
+          <view>
+            <navigator url=''>
+              <van-icon
+                name="arrow"
+                size="10px"
+                color="#999"
+                custom-class="icon"
+              />
+              <view>待付款</view>
+            </navigator>
+          </view>
+          <view>
+            <navigator url=''>
+              <van-icon
+                name="arrow"
+                size="10px"
+                color="#999"
+                custom-class="icon"
+              />
+              <view>待付款</view>
+            </navigator>
+          </view>
+          <view>
+            <navigator url=''>
+              <van-icon
+                name="arrow"
+                size="10px"
+                color="#999"
+                custom-class="icon"
+              />
+              <view>待付款</view>
+            </navigator>
+          </view>
+      </view>
+    </view>
+    <view class='c'>
+      <view  bindtap="couponCenter">
+        <view class='iconfont iconquan num' style='color:#000;font-size:33rpx;'></view>
+        <view>领券中心</view>
+      </view>
+    </view>
   </view>
 </view>
 

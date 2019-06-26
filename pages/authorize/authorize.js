@@ -62,28 +62,14 @@ Page({
                 app.globalData.token = ress.data.Data.token
                 if (app.globalData.usertype == '2' || app.globalData.usertype == '3' || app.globalData.usertype == '4'){
                   wx.redirectTo({
-                    url: '/pages/home/home',
+                    // url: '/pages/home/home',
+                    url: '/pages/goods/index/index'
                   })
                 }else{
                   wx.redirectTo({
-                    url: '/pages/logon/logon',
+                    url: '/pages/goods/index/index',
                   })
                 }
-                // wx.redirectTo({
-                //   url: '/pages/home/home',
-                // })
-                // wx.redirectTo({
-                //   url: '/pages/bindingshop/bindingshop',
-                // })
-                // wx.redirectTo({
-                //   url: '/pages/binding/binding',
-                // })
-                // wx.redirectTo({
-                //   url: '/pages/invite/invite',
-                // })
-                // wx.redirectTo({
-                //   url: '/pages/logon/logon',
-                // })
               }
             })
           }
