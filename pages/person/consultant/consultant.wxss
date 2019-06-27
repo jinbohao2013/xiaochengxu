@@ -1,0 +1,60 @@
+/* pages/src/person/index/index.wxss */
+.header{
+				padding: 38rpx 45rpx 0 45rpx;
+				background-color: #fff;
+				box-shadow: 2px 2px 6px #eee ;
+        color: white;
+			}
+			.header .img{
+        display: inline-block;
+				width: 120rpx;
+        height: 120rpx;
+				border-radius: 100rpx;
+				overflow: hidden;
+				margin-bottom: 20rpx;
+        float: left;
+        margin-right:50rpx;
+			}
+			.list{
+				height: 90rpx;
+				line-height: 90rpx;
+				background-color: #fff;
+				padding-left: 20rpx;
+				border-bottom: 1px solid #eee;
+			}
+.lists{
+  text-align: center;
+  display: flex;
+  padding: 28rpx 0 40rpx 0;
+}
+.lists>view{
+  width: 20%;
+  position:relative;
+}
+navigator .text{
+  margin-top: 15rpx;
+}
+.lists .t{
+  display:inline-block;
+  position: relative;
+}
+.num{
+  font-size: 30rpx;
+  font-weight: 900;
+  line-height: 45rpx;
+}
+.lists>view{
+  flex-grow: 2;
+}
+.c .text{
+  margin-top: 15rpx;
+}
+.iconfont{
+  -webkit-text-stroke-width:0
+}
+.c navigator{
+  margin-bottom: 35rpx;
+  width: 25%;
+  display: inline-block;
+  text-align: center;
+}

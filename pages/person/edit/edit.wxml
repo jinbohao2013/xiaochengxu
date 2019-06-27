@@ -1,0 +1,38 @@
+
+<view class="content">
+<view class="header" style="height: 190rpx;background-color:#424454;">
+<view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
+    <view>	
+      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间:{{userInfo.customerTypeName}}</view>
+    </view>
+  </view>
+  <view class="main" style='margin:26rpx;'>
+  <!--  -->
+    <view class='top' style='background-color:#F2F2F2;border-radius:5px;padding: 0 0 25rpx 0'>
+    <view style='padding:25rpx 28rpx'> <text>个人信息</text></view>
+      <view class="cu-form-group">
+        <view class="title">姓名:</view>
+        <input placeholder="请填写"></input> 
+      </view>
+      <view class="cu-form-group">
+        <view class="title">手机号:</view>
+        <input type='number' placeholder="请填写"></input> 
+      </view>
+      <view class="cu-form-group">
+        <view class="title">姓别:</view>
+        <input placeholder="请填写"></input> 
+      </view>
+      <view class="cu-form-group">
+        <view class="title">生日:</view>
+        <input placeholder="请填写"></input> 
+      </view>
+      <view class="cu-form-group">
+        <view class="title">地区:</view>
+        <input placeholder="请填写"></input> 
+      </view>
+    </view>
+  </view>
+</view>
+
+

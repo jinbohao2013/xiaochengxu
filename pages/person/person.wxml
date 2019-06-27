@@ -1,7 +1,7 @@
 
 <view class="content">
-<view class="header" style="height: 190rpx;background-color:#424454;">
-<view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
+  <view class="header" style="height: 190rpx;background-color:#424454;">
+    <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
     <view>	
       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
       <view style='font-size:25rpx;margin-top:25rpx;'>注册时间:{{userInfo.customerTypeName}}</view>
@@ -9,7 +9,7 @@
   </view>
   <view class="main" style='margin:26rpx;'>
   <!--  -->
-    <view class='top' style='background-color:#FDFDFD;border-radius:5px;'>
+    <view class='top' style='background-color:#F2F2F2;border-radius:5px;'>
     <view style='padding:25rpx 28rpx;'> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
         name="arrow"
         size="10px"
@@ -20,67 +20,71 @@
       <view class='lists'>
           <view class=''>
             <navigator url=''>
-              <van-icon
-                name="arrow"
-                size="10px"
-                color="#999"
-                custom-class="icon"
-              />
+              <view class='t'>
+                <van-icon name="todo-list-o" size="26px" color="#999" custom-class="icon" />
+                <view class="cu-tag badge">{{1}}</view>
+              </view>
               <view class='text'>待付款</view>
-              <view class="cu-tag badge">99+</view>
             </navigator>
           </view>
           <view>
             <navigator url=''>
-              <van-icon
-                name="arrow"
-                size="10px"
-                color="#999"
-                custom-class="icon"
-              />
-              <view>待付款</view>
+              <view class='t'>
+                <van-icon name="records" size="26px" color="#999" custom-class="icon" />
+                <view class="cu-tag badge">{{1}}</view>
+              </view>
+              <view class='text'>待发货</view>
             </navigator>
           </view>
           <view>
             <navigator url=''>
-              <van-icon
-                name="arrow"
-                size="10px"
-                color="#999"
-                custom-class="icon"
-              />
-              <view>待付款</view>
+              <view class='t'>
+                <van-icon name="logistics" size="26px" color="#999" custom-class="icon" />
+                <view class="cu-tag badge">{{1}}</view>
+              </view>
+              <view class='text'>待收货</view>
             </navigator>
           </view>
           <view>
             <navigator url=''>
-              <van-icon
-                name="arrow"
-                size="10px"
-                color="#999"
-                custom-class="icon"
-              />
-              <view>待付款</view>
-            </navigator>
-          </view>
-          <view>
-            <navigator url=''>
-              <van-icon
-                name="arrow"
-                size="10px"
-                color="#999"
-                custom-class="icon"
-              />
-              <view>待付款</view>
+              <view class='t'>
+                <van-icon name="gold-coin-o" size="26px" color="#999" custom-class="icon" />
+                <view class="cu-tag badge">{{1}}</view>
+              </view>
+              <view class='text'>退款/售后</view>
             </navigator>
           </view>
       </view>
     </view>
-    <view class='c'>
-      <view  bindtap="couponCenter">
-        <view class='iconfont iconquan num' style='color:#000;font-size:33rpx;'></view>
-        <view>领券中心</view>
-      </view>
+    <view class='c ' style='height:526rpx;padding:44rpx;background-color:#F2F2F2;margin-top:45rpx;border-radius:5px;'>
+    <navigator url='/pages/person/edit/edit'>
+        <van-icon name="user-circle-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>信息修改</view>
+      </navigator>
+      <navigator url=''>
+        <van-icon name="coupon-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>我的优惠券</view>
+      </navigator>
+      <navigator url=''>
+        <van-icon name="newspaper-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>收货地址</view>
+      </navigator>
+      <navigator url='/pages/person/consultant/consultant'>
+        <van-icon name="smile-comment-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>专属顾问</view>
+      </navigator>
+      <navigator url=''>
+        <van-icon name="balance-pay" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>领券中心</view>
+      </navigator>
+      <navigator url=''>
+        <van-icon name="shopping-cart-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>我的购物车</view>
+      </navigator>
+      <navigator url='/pages/logon/logon'>
+        <van-icon name="manager-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>成为经销商</view>
+      </navigator>
     </view>
   </view>
 </view>

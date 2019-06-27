@@ -37,6 +37,7 @@ Page({
     loading:false,//保存按钮的加载动画
     openset: false,//打开设置的判断
     hideBotom: true,//此时为了隐藏分享按钮，当时普通用户的时候
+    buyType:2,//1为加入购物车，2为购买
   },
   changeIndex(e) {
     console.log(e)
@@ -421,9 +422,10 @@ this.setData({
     this.setData({ show1: !this.data.show1 });
   },
   onGotUserInfo: function (e) {
-    console.log(e)
-    console.log(e.detail.userInfo)
-    console.log(e.detail.rawData)
+    console.log(e.currentTarget)
+    this.setData({
+      buyType: e.currentTarget.dataset.index
+    })
     this.onClickButton()
   },
   onClickButton() {//立即购买
@@ -431,6 +433,11 @@ this.setData({
     console.log("口味：",this.data.acticeInxex)
     console.log(this.data.value1 * this.data.ajaxData.e_price)
     if (this.data.acticeInxex != null){
+      if(parseInt(this.data.buyType)==1){
+        //如果是加入购物车
+        console.log("在这里加入购物车")
+        return
+      }
       //提交到订单确认
       wx.navigateTo({
         url: '../payMent/pay?ajaxData='+JSON.stringify({

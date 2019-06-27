@@ -1,5 +1,5 @@
 // pages/person/person.js
-var app= getApp();
+var app = getApp();
 Page({
 
   /**
@@ -7,7 +7,7 @@ Page({
    */
   data: {
     statusBarHeight: app.data.statusBarHeight,
-    userInfo:null,
+    userInfo: null,
   },
 
   /**
@@ -19,7 +19,7 @@ Page({
     //     url: '/pages/index/index'
     //   })
     // }
-    let _this=this;
+    let _this = this;
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
       data: {
@@ -62,7 +62,7 @@ Page({
   onReady: function () {
 
   },
-  editUser(){
+  editUser() {
     //信息修改的
   },
   /**

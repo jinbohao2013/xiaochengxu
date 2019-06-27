@@ -7,3 +7,10 @@
   line-height: 100rpx;
   font-size: 33rpx;
 }
+text[class*="icon-"],
+view[class*="icon-"],
+button[class*="icon-"] {
+    font-family: "cuIcon";
+    font-size: inherit;
+    font-style: normal;
+}

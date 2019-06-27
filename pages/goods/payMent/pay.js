@@ -19,7 +19,7 @@ Page({
       id:"2471",
       title: "snow+",//标题
       desc: "",//描述
-      img:"/image/demo_1.jpg",
+      img:"",
       price: "39.00",//单价
       num: 2,//数量
       taste: "甜甜的口味",//口味
@@ -29,6 +29,14 @@ Page({
     isIphoneX: app.data.isIphoneX,
     loading: false,
     show: false,//支付结束弹框
+    checked:2,//
+  },
+  radioChange: function (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    this.setData({
+      checked: parseInt(e.detail.value)
+    })
+    console.log(this.data.checked)
   },
   /**
    * 生命周期函数--监听页面加载

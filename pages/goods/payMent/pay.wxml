@@ -1,5 +1,28 @@
 <!--推广商品-->
 <wxs src="../../../utils/tools.wxs" module="tools" />
+<!-- 二期新加的头部 -->
+<view class='add_header'>
+  <view>
+    <radio-group class="block" bindchange="radioChange" style="font-size:33rpx;line-height:100rpx;">
+      <view class="cu-form-group margin-top" style='width:50%;display:inline-block;padding-left:35px;'>
+        <radio  value="1"></radio>
+        <text class="title text-bold margin-left-sm">自提</text>
+      </view>
+      <view class="cu-form-group" style='width:50%;display:inline-block;padding-left:35px;'>
+        <radio checked value="2"></radio>
+        <text class="title text-bold margin-left-sm">快递</text>
+      </view>
+    </radio-group>
+  </view>
+  <view style='height:1rpx;background-color:#eee;'></view>
+  
+  <view class='c' wx:if="{{checked==2}}" style='min-height:154rpx;padding:40rpx 60rpx;line-height:45rpx;'> 
+    <!-- <view class='text-bold'>收货人：王一一 <text style='float:right'>15836859494</text></view>
+    <text>收货地址：上海市闵行区</text> -->
+    <view style='color:#999;'>请选择收货地址 ></view>
+  </view>
+</view>
+<image mode='widthFix' style='width:100%;' src='/image/demo_2_line.png'></image>
 <view class='body'>
   <view class='header ' style='position:relative;'>
   <view class='title'>商品信息</view>
@@ -16,6 +39,8 @@
   <view class='main' style='margin-bottom:0;'>
     <view style='padding: 0 30rpx;margin-top:20rpx;'>分类：{{ajaxData.taste}}</view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{tools.floatPrice(ajaxData.totle)}}</text></view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
     <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{tools.floatPrice(ajaxData.totle)}}</view>
   </view><!-- mian结束 -->
   <view class='buy' wx:if="{{!loading}}">

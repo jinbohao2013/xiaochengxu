@@ -8,8 +8,7 @@ Page({
    */
   data: {
     inviteImage:[
-      "../../image/yaoqing.jpg",
-      "../../image/erweima.jpg"
+      "../../image/yaoqing.jpg"
     ],
     userInfo: {}
   },

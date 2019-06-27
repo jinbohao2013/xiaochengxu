@@ -5,8 +5,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
- margin: 56rpx 90rpx 0rpx 90rpx;
- padding-bottom: 20rpx;
+  padding: 0 50rpx;
+ margin: 0 22rpx 0rpx 22rpx;
+ padding-top: 20rpx;
+ padding-bottom: 12rpx;
+  border-top: 1px solid lightgrey;
   border-bottom: 1px solid lightgrey;
 }
 .denglu input{
@@ -18,11 +21,13 @@
   height: 45rpx;
 }
 .mima{
+   padding: 0 50rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
- margin: 0 90rpx 0 90rpx;
- padding: 24rpx 0 12rpx 0;
+ margin: 0 22rpx 0 22rpx;
+ padding-top: 24rpx;
+ padding-bottom: 12rpx;
   border-bottom: 1px solid lightgrey;
 }
 .mima input{
@@ -46,7 +51,7 @@
    text-align: center;
    background-color: #8b8b8b;
    padding: 30rpx;
-   border-radius: 64rpx;
+   border-radius: 20rpx;
    color: white;
    font-size: 35rpx;
 }

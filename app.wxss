@@ -1,8 +1,14 @@
 @import "./utils/animate.wxss";
 /* @import "./utils/icon.wxss"; */
 @import "colorui/main.wxss";
-/* @import "colorui/icon.wxss"; */
+@import "colorui/icon.wxss";
 @import "/dist/common/index.wxss";
+.jinbohao{
+    font-family: "cuIcon";
+    font-size: inherit;
+    font-style: normal;
+}
+
 /* //底部导航样式 */
 .Bottom-Tabbar{
   position: fixed;

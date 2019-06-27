@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -97,6 +97,12 @@
 					"name": "登录页",
 					"pathName": "pages/logon/logon",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "购物车",
+					"pathName": "pages/person/cart/cart",
 					"scene": null
 				}
 			]

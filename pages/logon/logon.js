@@ -7,7 +7,7 @@ Page({
    */
   data: {
     logonImage: [
-      "../../image/logo.png",
+      "../../image/demo_1.jpg",
       "../../image/denglu.png",
       "../../image/mima.png"
     ],

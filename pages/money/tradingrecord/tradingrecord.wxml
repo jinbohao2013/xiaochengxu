@@ -33,29 +33,3 @@
     </view>
   </view> -->
 </view>
-<van-popup show="{{ show }}"  position="bottom" bind:close="onClose">
-  <view class="top" style='padding-left:33rpx'>
-    <image style='width:163rpx;height:163rpx;position:relative;top:-20rpx;float:left;margin-right:20rpx;' src='/image/demo_1.jpg' mode="aspectFill"></image>
-    <view  style='display:inline-block;line-height:50rpx;margin-top:20rpx;'>
-      <view>snow+</view>
-      <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view>
-    </view>
-    <view style='float:right;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
-  </view>
-  <view class='c' style='clear:both;'>
-    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>口味分类</view>
-    <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
-      <block wx:for="{{ajaxData}}" wx:key="*">
-        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>橘子汽水</button>
-      </block>
-    </view>
-    <!--  -->
-    <view style='padding:0 12px' class="van-hairline--top">
-    <van-cell title="购买数量：">
-  <van-stepper value="{{ value1 }}" bind:change="onChange"/>
-
-</van-cell>
-    </view>
-  </view>
-  <view class='bottom' bindtap='skipToconfirmOrder' style='margin-top:20rpx;'><van-button id='custom-class' size="large" type="default" style='background-color:#333333;'>下一步</van-button></view>
-</van-popup>

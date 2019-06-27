@@ -5,6 +5,7 @@
     "pages/logs/logs",
     "pages/logs/search",
     "pages/person/person",
+    "pages/person/cart/cart",
     "pages/index/setPasswords/setPasswords",
     "pages/logs/orderDetail/orderDetail",
     "pages/money/index/index",
@@ -21,7 +22,9 @@
     "pages/invite/invite",
     "pages/home/home",
     "pages/binding/binding",
-    "pages/logon/logon"
+    "pages/logon/logon",
+    "pages/person/edit/edit",
+    "pages/person/consultant/consultant"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,8 +1,9 @@
 <view>
   <view class='logon'>
-    <image src='{{logonImage[0]}}'></image>
+    <image src='{{logonImage[0]}}' mode='widthFix'></image>
   </view>
   <view>
+    <view style='margin: 60rpx 90rpx 20rpx 50rpx;'>欢迎加入<text style='font-size:35rpx;font-weight:900;'>雪加</text>,请填写手机号码进行验证</view>
     <view class='denglu'>
       <image src='{{logonImage[1]}}'></image>
       <input name="mobile" type="number" class="center" maxlength="11" placeholder="账号" placeholder-class="wen" bindinput='changeInput' data-types='phone' />
@@ -16,12 +17,16 @@
     </view>
   </view>
   <view class='enter' catchtap="{{phone.length==11&&code.length==6?'login':''}}" style="background:{{phone.length==11&&code.length==6?'#3C3C3C':'#3C3C3C'}}">
-    <text>登录</text>
+    <text>申请成为经销商</text>
   </view>
 </view>
-<!-- <view class='failure' wx:if="{{usertype=='1'}}">
-  <view class='failure-hint'>
-    <view>提示</view>
-    <view>当前用户暂无登录权限</view>
-  </view>
-</view> -->
+<view style='margin: 60rpx 90rpx 20rpx 70rpx;'><text style='font-weight:900;'>经销商特权</text></view>
+<view class='denglu'>
+  <van-icon name="gold-coin-o" size="20px" color="#999" custom-class="icon" />
+  <text style='margin-left:25rpx;'>成为经销商后卖出商品，您可以获取佣金</text>
+</view>
+<view class='legal_notice text-center' style='margin:165rpx 0 100rpx 0;font-size:26rpx;line-height:45rpx;'>
+  <view>本平台暂不支持自主注册成为经销商</view>
+  <view>如有疑问请联系您的专属客服</view>
+  <view>或拨打我们的客服电话0000-8888888</view>
+</view>

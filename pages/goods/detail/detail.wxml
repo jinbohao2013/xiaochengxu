@@ -46,7 +46,23 @@
   </view><!-- mian结束 -->
   <view class='buy' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;z-index:1'>
   <view class="">
-    <button style='height:90rpx;line-height:90rpx;' class="bg-red submit" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">立即购买</button>
+    <!-- <button style='height:90rpx;line-height:90rpx;' class="bg-red submit" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">立即购买</button> -->
+    <view class="cu-bar bg-white tabbar border shop">
+      <button class="action" style='opacity:0'>
+        <view class="icon-service text-green jinbohao">
+          <view class="cu-tag badge"></view>
+        </view>
+        客服
+      </button>
+      <view class="action">
+        <view class="icon-cart jinbohao">
+          <view class="cu-tag badge">99</view>
+        </view>
+        购物车
+      </view>
+      <view class="bg-orange submit" data-index='1' bindtap='onGotUserInfo'>加入购物车</view>
+      <view class="bg-red submit" data-index='2' bindtap='onGotUserInfo'>立即购买</view>
+    </view>
   </view>
     <!-- <van-submit-bar
     price=""
@@ -87,7 +103,25 @@
 </van-cell>
     </view>
   </view>
-  <view class='bottom' style='margin-top:20rpx;'><button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button></view> 
+  <view class='bottom' style='margin-top:20rpx;'>
+  <!-- <button  lang="zh_CN" bindtap="onClickButton" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button> -->
+   <view class="cu-bar bg-white tabbar border shop">
+      <button class="action" style='opacity:0'>
+        <view class="icon-service text-green jinbohao">
+          <view class="cu-tag badge"></view>
+        </view>
+        客服
+      </button>
+      <view class="action">
+        <view class="icon-cart jinbohao" style='opacity:0'>
+          <view class="cu-tag badge">99</view>
+        </view>
+        购物车
+      </view>
+      <view class="bg-orange submit" data-index='1' bindtap='onGotUserInfo'>加入购物车</view>
+      <view class="bg-red submit" data-index='2' bindtap='onGotUserInfo'>立即购买</view>
+    </view>
+  </view> 
   </view>
   </view>
 </van-popup>
