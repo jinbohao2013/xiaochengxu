@@ -1,1 +1,19 @@
-/* pages/person/cart/carBuy/carBuy.wxss */
+/* pages/goods/payMent/pay.wxss */
+page{
+  padding-bottom: 100px;
+}
+.header .van-card__title ,.header .van-card__bottom{
+  line-height: 45rpx;
+}
+.header .title{
+  padding: 0 30rpx;
+  line-height: 100rpx;
+  font-size: 33rpx;
+}
+text[class*="icon-"],
+view[class*="icon-"],
+button[class*="icon-"] {
+    font-family: "cuIcon";
+    font-size: inherit;
+    font-style: normal;
+}

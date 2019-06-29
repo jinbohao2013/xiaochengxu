@@ -4,6 +4,7 @@ var util = require('../../../utils/util.js');
 Page({
   data: {
     cartGoods: [],
+    loading: false,
     cartTotal: {
       "goodsCount": 0,
       "goodsAmount": 0.00,
@@ -35,6 +36,9 @@ Page({
     // });
   },
   onShow: function () {
+    this.setData({
+      loading: false
+    })
     // 页面显示
     let that = this;
     util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
@@ -52,32 +56,130 @@ Page({
       
     });
   },
-  onClickButton(){//购物车结算
+  onClickButton() {//购物车结算//提交订单--吊起支付
+    let _this = this;
+    this.setData({ loading: true });
+    wx.request({
+      url: app.data.hostAjax + "/api/transaction/v1/setorder",
+      data: {
+        userid: wx.getStorageSync("userIdBuyGood"),
+        salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid") || 0,//分销商的id分销员id
+        shopid: wx.getStorageSync("shopid") || 0,//店铺id--每个人都有一个店铺
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      },
+      success(res) {
+        if (res.data.Success) {
+          //订单确认
+          wx.request({
+            url: app.data.hostAjax + '/api/transaction/v1/confirmationorder',
+            data: {
+              user_id: wx.getStorageSync("userIdBuyGood"),
+            },
+            method: "get",
+            header: {
+              'content-type': 'application/json',
+            },
+            success(res) {
+              
+              if (res.data.Success) {
+                wx.navigateTo({
+                  url: 'carBuy/carBuy',
+                })
+                return
+                //调取提交订单接口
+                wx.request({
+                  url: app.data.hostAjax + '/api/transaction/v1/orderpayinfo',
+                  data: {
+                    userid: wx.getStorageSync("userIdBuyGood"),
+                    orderid: res.data.Data.orderid,
+                    total_fee: res.data.Data.sumprice,
+                    addressid: 0,//收货地址id 自提传0
+                  },
+                  method: "get",
+                  header: {
+                    'content-type': 'application/json',
+                  },
+                  success(res) {
 
-  },
-  // onchange(event){
-  //   let _this = this;
-  //   console.warn(`change: ${event.detail}`);
-  //   console.log(event)
-  //   if (event.detail == 0) {
-  //     util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "delete", id: event.currentTarget.dataset.id }).then(function (res) {
+                    if (res.data.Success) {
+                      try {
+                        console.log(JSON.parse(res.data.Data));
+                        wx.requestPayment({
+                          timeStamp: JSON.parse(res.data.Data).timeStamp,
+                          nonceStr: JSON.parse(res.data.Data).nonceStr,
+                          package: JSON.parse(res.data.Data).package,
+                          signType: 'MD5',
+                          paySign: JSON.parse(res.data.Data).paySign,
+                          success(res) {//支付成功
+                            //展示支付成功的界面
+                            console.log(res)
+                            // _this.onClose();
+                          },
+                          fail(res) {
+                            console.log(res)
+                            if (res.errMsg == "requestPayment:fail cancel") {
+                              wx.showToast({
+                                title: "支付已取消",
+                                icon: 'none'
+                              })
+                              wx.redirectTo({
+                                url: '/pages/person/order/order',
+                              })
+                            }
+                          }
+                        })
+                        _this.setData({ loading: false });
+                      } catch (e) {
+                        _this.setData({ loading: false });
+                      }
 
-  //       _this.onShow();
-  //     })
-  //   }
-  // },
-  minus(event) {
-    let _this=this;
-    console.warn(`change: ${event.detail}`);
-    console.log(event.detail)
-    util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "reduce", id: event.currentTarget.dataset.id}).then(function (res) {
-
-        _this.onShow();
+                    } else {
+                      wx.showToast({
+                        title: res.data.Msg,
+                        icon: 'none'
+                      })
+                    }
+                  }
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.Msg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.Msg,
+            icon: 'none'
+          })
+        }
+      }
     })
-  },
-  plus(event) {
-    
 
+  },
+  onchange(event){
+   
+    let _this = this, add ="reduce";
+    console.warn(`change: ${event.detail[0]}`);
+    console.log(event.detail)
+    // if (event.detail[0] == 0) {
+    //   util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "delete", id: event.currentTarget.dataset.id }).then(function (res) {
+
+    //     _this.onShow();
+    //   })
+    // }else
+    if(event.detail[1]){
+      add = "add"
+    }
+    util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: add, id: event.currentTarget.dataset.id }).then(function (res) {
+
+         _this.onShow();
+       })
   },
   onHide: function () {
     // 页面隐藏

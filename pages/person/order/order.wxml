@@ -14,7 +14,7 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/person/order/details/details?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view style='display:flex;justify-content:space-between;padding:20rpx; align-items:center;'>
-        <view>订单:{{item.ordernumber}} ><view>日期:{{item.statusStr}}</view></view>
+        <view>订单:{{item.ordernumber}} ><view>日期:{{item.createdat}}</view></view>
         <view style='color:red;font-size:32rpx;'>{{item.status}}</view>
       </view>
         
@@ -31,8 +31,7 @@
       </block>
       <view class="goods-price" style='padding-right:20rpx;'>
         共 {{item.goodslist.length}} 件商品 合计：
-        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.sumprice}}</text>
-        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.sumprice}} </text>
+        <text class="p">¥ {{item.sumprice}}</text>
       </view>
       <!-- <view class="goods-info">
         <view class="goods-des">
@@ -41,8 +40,8 @@
         </view>
       </view> -->
       <view class="price-box" style='padding-right:20rpx;'>
-        <view class="btn" hidden="{{item.status==1? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==1? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
+        <view class="btn" hidden="{{item.status=='待付款'? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
+        <view class="btn active" hidden="{{item.status=='待付款'? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.sumprice}}" data-score="{{item.score}}">马上付款</view>
         <view class="btn active" hidden="{{(item.status==4) ? false : true}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换详情</view>
         <view class="btn" hidden="{{(item.status==4) ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">取消退款</view>
         <view class="btn" hidden="{{(item.status==2) ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">查看订单</view>

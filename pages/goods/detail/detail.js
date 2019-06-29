@@ -371,10 +371,10 @@ this.setData({
 
   },
   onChange(event) {
-    console.warn(`change: ${event.detail}`);
-    console.log(event.detail)
+    console.warn(`change: ${event.detail[0]}`);
+    console.log(event.detail[0])
     this.setData({
-      value1:  event.detail 
+      value1:  event.detail[0]
     })
   },
   onSearch(e) {

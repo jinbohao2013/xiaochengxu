@@ -30,10 +30,8 @@ page{
 }
 
 .add-address .form-default{
-    border-bottom: 1px solid #d9d9d9;
-    height: 96rpx;
-    background: #fafafa;
-    padding-top: 28rpx;
+    
+    padding: 28rpx;
     font-size: 28rpx;
 }
 

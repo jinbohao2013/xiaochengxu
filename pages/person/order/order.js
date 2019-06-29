@@ -36,8 +36,11 @@ Page({
       content: '',
       success: function (res) {
         if (res.confirm) {
-          WXAPI.orderClose(orderId, wx.getStorageSync('token')).then(function (res) {
-            if (res.code == 0) {
+          util.request(app.data.hostAjax + '/api/transaction/v1/deleteorderinfo',{
+            user_id: wx.getStorageSync("userIdBuyGood"),
+            orderid: orderId
+            }).then(function (res) {
+            if (res.Code == "200") {
               that.onShow();
             }
           })
@@ -54,52 +57,12 @@ Page({
     })
   },
   toPayTap: function (e) {
-    const that = this;
+    const _this = this;
     const orderId = e.currentTarget.dataset.id;
-    let money = e.currentTarget.dataset.money;
-    const needScore = e.currentTarget.dataset.score;
-    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        // 增加提示框
-        if (res.data.score < needScore) {
-          wx.showToast({
-            title: '您的积分不足，无法支付',
-            icon: 'none'
-          })
-          return;
-        }
-        let _msg = '订单金额: ' + money + ' 元'
-        if (res.data.balance > 0) {
-          _msg += ',可用余额为 ' + res.data.balance + ' 元'
-          if (money - res.data.balance > 0) {
-            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
-          }
-        }
-        if (needScore > 0) {
-          _msg += ',并扣除 ' + money + ' 积分'
-        }
-        money = money - res.data.balance
-        wx.showModal({
-          title: '请确认支付',
-          content: _msg,
-          confirmText: "确认支付",
-          cancelText: "取消支付",
-          success: function (res) {
-            console.log(res);
-            if (res.confirm) {
-              that._toPayTap(orderId, money)
-            } else {
-              console.log('用户点击取消支付')
-            }
-          }
-        });
-      } else {
-        wx.showModal({
-          title: '错误',
-          content: '无法获取用户资金信息',
-          showCancel: false
-        })
-      }
+    const total_fee = e.currentTarget.dataset.money;
+    //调取提交订单接口--跳转到购物车结算页
+    wx.navigateTo({
+      url: '/pages/person/cart/carBuy/carBuy',
     })
   },
   _toPayTap: function (orderId, money) {
@@ -181,37 +144,7 @@ Page({
   onShow: function () {
     // 获取订单列表
     var that = this;
-    that.setData({
-      orderList: [{
-        orderNumber:12346544646,
-        statusStr:"状态",
-        goodsNumber:5,
-        amountReal:100,
-        // remark:"备注",
-        // dateAdd:"dateAdd",
-        status:4,
-        score:4
-      }, {
-          orderNumber: 12346544646,
-          statusStr: "状态",
-          goodsNumber: 5,
-          amountReal: 100,
-          remark: "备注",
-          dateAdd: "dateAdd",
-          status: 1,
-          score: 4
-        }, {
-          orderNumber: 12346544646,
-          statusStr: "状态",
-          goodsNumber: 5,
-          amountReal: 100,
-          remark: "备注",
-          dateAdd: "dateAdd",
-          status: 2,
-          score: 4
-        }]
-    });
-    // return
+   
     util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist',{//用户订单列表
       userid: wx.getStorageSync("userIdBuyGood"),
       ordertype:this.data.searchType,
@@ -219,11 +152,10 @@ Page({
       pageindex: this.data.pageindex,
       searchtxt: this.data.searchtxt
     }).then(function (res) {
-      if (res.code == 200) {
+      console.log()
+      if (res.Code == "200") {
         that.setData({
-          orderList: res.data,
-          logisticsMap: res.data.logisticsMap,
-          goodsMap: res.data.goodsMap
+          orderList: res.Data.list,
         });
       } else {
         that.setData({

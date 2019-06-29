@@ -78,7 +78,7 @@ VantComponent({
             }
             const diff = type === 'minus' ? -this.data.step : +this.data.step;
             const value = Math.round((this.data.value + diff) * 100) / 100;
-            this.triggerInput(this.range(value));
+          this.triggerInput(this.range(value), type === 'minus'?0:1);
             this.$emit(type);
         },
         onMinus() {
@@ -87,11 +87,11 @@ VantComponent({
         onPlus() {
             this.onChange('plus');
         },
-        triggerInput(value) {
-            this.set({
-                value: this.data.asyncChange ? this.data.value : value
-            });
-            this.$emit('change', value);
+        triggerInput(value,add) {
+            // this.set({
+            //     value: this.data.asyncChange ? this.data.value : value
+            // });
+          this.$emit('change', [value,add]);
         }
     }
 });

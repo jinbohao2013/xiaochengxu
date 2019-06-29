@@ -247,7 +247,9 @@ Page({
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
                             //展示支付成功的界面
-                            console.log(res)
+                            wx.redirectTo({
+                              url: '/pages/person/order/order',
+                            })
                             // _this.onClose();
                           },
                           fail(res) { console.log(res)

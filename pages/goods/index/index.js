@@ -209,7 +209,7 @@ Page({
   onChange(event) {
     // console.warn(`change: ${event.detail}`);
     this.setData({
-      value1: event.detail
+      value1: event.detail[0]
     })
   },
   onSearch(e){

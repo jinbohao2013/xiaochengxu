@@ -25,7 +25,7 @@
                 <view>分类：{{item.tastname}}</view>
                 <view class="b" style='display:flex;justify-content:space-between;align-items:center;'>
                   <text class="price">￥{{item.e_price}}</text>
-                  <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-id="{{item.id}}" value="{{ item.nums }}" bind:plus="plus" bind:minus="minus"/>
+                  <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-id="{{item.id}}" value="{{ item.nums }}"/>
                 </view>
               </view>
             </view>
@@ -69,14 +69,25 @@
       <view class="delete" bindtap="editCart">{{!isEditCart ? '编辑' : '完成'}}</view>
       <view class="checkout" bindtap="deleteCart" wx:if="{{isEditCart}}">删除所选</view>
       <view class="checkout" bindtap="checkoutOrder" wx:if="{{!isEditCart}}">下单</view> -->
-      <!-- <view wx:loading></view> -->
-      <van-submit-bar
-        price="{{ cartTotal }}"
-        button-text="购物车结算"
-        bind:submit="onClickButton"
-        custom-class="van-submit-bar"
-        safe-area-inset-bottom="{{ false }}"
-      />
+      <view wx:if="{{loading}}">
+        <van-submit-bar
+          loading
+          price="{{ cartTotal }}"
+          button-text="下单"
+          bind:submit="onClickButton"
+          custom-class="van-submit-bar"
+          safe-area-inset-bottom="{{ false }}"
+        />
+      </view>
+      <view wx:else>
+        <van-submit-bar
+          price="{{ cartTotal }}"
+          button-text="下单"
+          bind:submit="onClickButton"
+          custom-class="van-submit-bar"
+          safe-area-inset-bottom="{{ false }}"
+        />
+      </view>
     </view>
   </view>
   <!-- 底部的推荐商品 -->

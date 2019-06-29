@@ -13,12 +13,15 @@
         <view class="form-item">
             <input class="input" bindinput="bindinputAddress" value="{{address.address}}" placeholder="详细地址, 如街道、楼盘号等"/>
         </view>
-        <view class="form-default">
+        <view style='display:flex;justify-content:space-around;border-bottom: 1px solid #d9d9d9;background: #fafafa;'>
+          <view class="form-default" style='display:flex; align-items:center;justify-content:center;'>
             <text bindtap="bindIsDefault" class="default-input {{address.is_default == 1 ? 'selected' : ''}}">设为默认地址</text>
+          </view>
+          <view class='form-default text-center' style='display:flex; align-items:center;justify-content:center;' wx:if="{{addressId}}">
+            <image catchtap="deleteAddress" data-userbankid="{{address.id}}" class="del" src="http://www.yqcoffee.cn/image/del-address.png"></image> <text>删除地址</text> 
+          </view>
         </view>
-        <view class='form-default text-center' style='display:flex; align-items:center;justify-content:center;'>
-        <image catchtap="deleteAddress" data-userbankid="{{address.id}}" class="del" src="http://www.yqcoffee.cn/image/del-address.png"></image> <text>删除地址</text> 
-        </view>
+        
     </view>
 
     <view class="btns">
