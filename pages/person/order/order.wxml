@@ -1,4 +1,5 @@
 <view class="container">
+  
   <view wx:if='{{!hasRefund}}' class="status-box">
     <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
       {{item}}
@@ -13,23 +14,25 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/person/order/details/details?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view style='display:flex;justify-content:space-between;padding:20rpx; align-items:center;'>
-        <view>订单:{{item.orderNumber}} ><view>日期:{{item.statusStr}}</view></view>
-        <view style='color:red;font-size:32rpx;'>等待卖家付款</view>
+        <view>订单:{{item.ordernumber}} ><view>日期:{{item.statusStr}}</view></view>
+        <view style='color:red;font-size:32rpx;'>{{item.status}}</view>
       </view>
         
       </navigator>
       <!-- 商品的内容 -->
-      <van-card
-        num="2"
-        price="2.00"
-        desc=""
-        title="2018秋冬新款男士休闲时尚军绿飞行夹克秋冬新款男"
-        thumb="//img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg"
-      />
+      <block wx:for='{{item.goodslist}}'  wx:key="*this">
+        <van-card
+          num="{{item.num}}"
+          price="{{item.price}}"
+          desc="{{item.testename}}"
+          title="{{item.name}}"
+          thumb="{{item.smallimg}}"
+        />
+      </block>
       <view class="goods-price" style='padding-right:20rpx;'>
-        共 {{item.goodsNumber}} 件商品 合计：
-        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
-        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} </text>
+        共 {{item.goodslist.length}} 件商品 合计：
+        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.sumprice}}</text>
+        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.sumprice}} </text>
       </view>
       <!-- <view class="goods-info">
         <view class="goods-des">

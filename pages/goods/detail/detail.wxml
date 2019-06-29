@@ -54,7 +54,7 @@
         </view>
         客服
       </button>
-      <view class="action">
+      <view class="action" style='opacity:0'>
         <view class="icon-cart jinbohao">
           <view class="cu-tag badge">99</view>
         </view>
@@ -112,8 +112,8 @@
         </view>
         客服
       </button>
-      <view class="action">
-        <view class="icon-cart jinbohao" style='opacity:0'>
+      <view class="action" style='opacity:0'>
+        <view class="icon-cart jinbohao">
           <view class="cu-tag badge">99</view>
         </view>
         购物车

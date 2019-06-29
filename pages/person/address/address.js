@@ -1,38 +1,46 @@
 
 var app = getApp();
-
+var util = require('../../../utils/util.js');
 Page({
   data: {
-    addressList: [{
-      id:1,
-      mobile:1583685959,
-      name:"靳博昊",
-      address:"世界的垃圾对家垃圾打算建立大数据的垃圾数量单价数量较多世界的垃圾对家垃圾打算建立大数据的垃圾数量单价数量较多",
-      is_default:true
-    }, {
-        id: 1,
-        mobile: 1583685959,
-        name: "靳博昊",
-        address: "世界的垃圾对家垃圾打算建立大数据的垃圾数量单价数量较多",
-        is_default: true
-      }, {
-        id: 1,
-        mobile: 1583685959,
-        name: "靳博昊",
-        address: "世界的垃圾对家垃圾打算建立大数据的垃圾数量单价数量较多",
-        is_default: true
-      }],
+    addressList: [],
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    // this.getAddressList();
+    this.getAddress();
   },
-  onReady: function () {
-    // 页面渲染完成
+  getAddress() {
+    let _this = this;
+    wx.request({
+      url: app.data.hostAjax + '/api/my/v1/selectreceivingaddress', // 收支明细
+      data: {
+        user_id: wx.getStorageSync("userIdBuyGood")
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+
+        if (res.data.Data.list.length) {
+          for (var i = 0; i < res.data.Data.list.length; i++) {
+
+          }
+          _this.setData({
+            addressList: res.data.Data.list
+          })
+        } else {
+          wx.showToast({
+            title: '请添加收货地址',
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
   onShow: function () {
     // 页面显示
-
+    this.getAddress();
   },
   getAddressList (){
     let that = this;
@@ -44,32 +52,18 @@ Page({
       }
     });
   },
-  addressAddOrUpdate (event) {
+  addressAddOrUpdate1 (event) {
     console.log(event)
     wx.navigateTo({
-      url: '../addressAdd/addressAdd?id=' + event.currentTarget.dataset.addressId
+      url: '../addressAdd/addressAdd?id=' + event.currentTarget.dataset.userbankid
     })
   },
-  deleteAddress(event){
-    console.log(event.target)
-    let that = this;
-    wx.showModal({
-      title: '',
-      content: '确定要删除地址？',
-      success: function (res) {
-        if (res.confirm) {
-          let addressId = event.target.dataset.addressId;
-          util.request(api.AddressDelete, { id: addressId }, 'POST').then(function (res) {
-            if (res.errno === 0) {
-              that.getAddressList();
-            }
-          });
-          console.log('用户点击确定')
-        }
-      }
+  addressAddOrUpdate(event) {
+    console.log(event)
+    wx.setStorageSync("addressid", event.currentTarget.dataset.addressId)
+    wx.navigateBack({
+      delta: 1
     })
-    return false;
-    
   },
   onHide: function () {
     // 页面隐藏

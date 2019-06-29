@@ -1,16 +1,28 @@
-// const wxpay = require('../../utils/pay.js')
+var util = require('../../../utils/util.js');
 const app = getApp()
 // const WXAPI = require('../../wxapi/main')
 Page({
   data: {
-    statusType: ["全部","待付款", "待发货", "已发货", "退换货"],
+    statusType: ["全部","待付款", "待发货", "待收货", "退换货"],
     hasRefund: false,
     currentType: 0,
-    tabClass: ["", "", "", "", ""]
+    tabClass: ["", "", "", "", ""],
+    pageindex:1,
+    pagesize:20,
+    searchtxt:""
   },
   statusTap: function (e) {
     const curType = e.currentTarget.dataset.index;
     this.data.currentType = curType
+    if (curType==0){
+      this.setData({
+        searchType: 100
+      });
+    }else{
+      this.setData({
+        searchType: parseInt(curType)-1
+      });
+    }
     this.setData({
       currentType: curType
     });
@@ -103,17 +115,26 @@ Page({
   },
   onLoad: function (options) {
     if (options && options.type) {
-      if (options.type == 99) {
+
+      if (options.type == 100) {
         this.setData({
-          hasRefund: true,
-          currentType: options.type
+          hasRefund: false,
+          currentType: options.type,
+          searchType: parseInt(options.type)
         });
       } else {
         this.setData({
           hasRefund: false,
-          currentType: options.type
+           currentType: options.type,
+          searchType: parseInt(options.type)-1
         });
       }
+    }else{
+      this.setData({
+        hasRefund: false,
+        currentType: 0,
+        searchType: 100
+      });
     }
   },
   onReady: function () {
@@ -190,11 +211,17 @@ Page({
           score: 4
         }]
     });
-    return
-    WXAPI.orderList(postData).then(function (res) {
-      if (res.code == 0) {
+    // return
+    util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist',{//用户订单列表
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordertype:this.data.searchType,
+      pagesize: this.data.pagesize,
+      pageindex: this.data.pageindex,
+      searchtxt: this.data.searchtxt
+    }).then(function (res) {
+      if (res.code == 200) {
         that.setData({
-          orderList: res.data.orderList,
+          orderList: res.data,
           logisticsMap: res.data.logisticsMap,
           goodsMap: res.data.goodsMap
         });
@@ -205,7 +232,7 @@ Page({
           goodsMap: {}
         });
       }
-    })
+    });
   },
   onHide: function () {
     // 生命周期函数--监听页面隐藏

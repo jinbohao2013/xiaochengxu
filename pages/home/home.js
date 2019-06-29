@@ -15,6 +15,7 @@ Page({
     userInfo: {},
     userInfoImg:"",
     userInfoName: "",
+    usertype:2,
   },
   // 去推广
   goPromotion:function(){

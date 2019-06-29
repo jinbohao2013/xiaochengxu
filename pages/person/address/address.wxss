@@ -77,10 +77,10 @@ page{
 }
 
 .address-list .r{
-    width: 52rpx;
+    /* width: 52rpx; */
     height: auto;
     overflow: hidden;
-    margin-right: 16.5rpx;
+    padding:20rpx;
 }
 
 .address-list .del{

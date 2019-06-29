@@ -29,7 +29,11 @@
     "pages/logon/logon",
     "pages/person/edit/edit",
     "pages/person/consultant/consultant",
-    "pages/home/newagent/newagent"
+    "pages/home/newagent/newagent",
+    "pages/person/cart/carBuy/carBuy",
+    "pages/home/check",
+    "pages/home/dianzhang/dianzhang",
+    "pages/home/dianzhang/proportion/proportion"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,6 +1,6 @@
 
 var app = getApp();
-
+var util = require('../../../utils/util.js');
 Page({
   data: {
     cartGoods: [],
@@ -21,10 +21,36 @@ Page({
   },
   onReady: function () {
     // 页面渲染完成
-
+    // this.setData({
+    //   cartGoods:[{
+    //     checked:false,
+    //     list_pic_url:"http://www.yqcoffee.cn/image/show_iogo.png",
+    //     goods_name:"我是行频沙隆达加法拉盛记李将军了",
+    //     number:2,
+    //     isEditCart:false,
+    //     goods_specifition_name_value:"11111111",
+    //     retail_price:22
+    //   }],
+    //   cartTotal: 200
+    // });
   },
   onShow: function () {
     // 页面显示
+    let that = this;
+    util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      
+      that.setData({
+        cartGoods: res.Data.list,
+        cartTotal: res.Data.sumprice
+      })
+    });
+  },
+  onClickButton(){//购物车结算
+
+  },
+  onChange(event) {
+    console.warn(`change: ${event.detail}`);
+    console.log(event)
     
   },
   onHide: function () {
@@ -66,18 +92,8 @@ Page({
     let that = this;
 
     if (!this.data.isEditCart) {
-      util.request(api.CartChecked, { productIds: that.data.cartGoods[itemIndex].product_id, isChecked: that.data.cartGoods[itemIndex].checked ? 0 : 1 }, 'POST').then(function (res) {
-        if (res.errno === 0) {
-          console.log(res.data);
-          that.setData({
-            cartGoods: res.data.cartList,
-            cartTotal: res.data.cartTotal
-          });
-        }
-
-        that.setData({
-          checkedAllStatus: that.isCheckedAll()
-        });
+      that.setData({
+        checkedAllStatus: that.isCheckedAll()
       });
     } else {
       //编辑状态
@@ -228,7 +244,7 @@ Page({
 
 
     wx.navigateTo({
-      url: '../shopping/checkout/checkout'
+      url: 'carBuy/carBuy'
     })
   },
   deleteCart: function () {

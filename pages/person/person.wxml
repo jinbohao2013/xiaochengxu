@@ -19,37 +19,37 @@
       <view class='line' style='height:1rpx;background-color:#CFCFCF;'></view>
       <view class='lists'>
           <view class=''>
-            <navigator url=''>
+            <navigator url='/pages/person/order/order?type=1'>
               <view class='t'>
                 <van-icon name="todo-list-o" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge">{{1}}</view>
+                <!-- <view class="cu-tag badge">{{1}}</view> -->
               </view>
               <view class='text'>待付款</view>
             </navigator>
           </view>
           <view>
-            <navigator url=''>
+            <navigator url='/pages/person/order/order?type=2'>
               <view class='t'>
                 <van-icon name="records" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge">{{1}}</view>
+                <!-- <view class="cu-tag badge">{{1}}</view> -->
               </view>
               <view class='text'>待发货</view>
             </navigator>
           </view>
           <view>
-            <navigator url=''>
+            <navigator url='/pages/person/order/order?type=3'>
               <view class='t'>
                 <van-icon name="logistics" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge">{{1}}</view>
+                <!-- <view class="cu-tag badge">{{1}}</view> -->
               </view>
               <view class='text'>待收货</view>
             </navigator>
           </view>
           <view>
-            <navigator url=''>
+            <navigator url='/pages/person/order/order?type=4'>
               <view class='t'>
                 <van-icon name="gold-coin-o" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge">{{1}}</view>
+                <!-- <view class="cu-tag badge">{{1}}</view> -->
               </view>
               <view class='text'>退款/售后</view>
             </navigator>

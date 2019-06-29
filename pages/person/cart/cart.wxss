@@ -95,9 +95,9 @@ page{
 }
 
 .cart-view .item{
-    height: 164rpx;
     width: 100%;
     overflow: hidden;
+    padding: 20rpx;
 }
 .cart-view .item .checkbox{
     float: left;
@@ -116,14 +116,13 @@ page{
 .cart-view .item .cart-goods{
     float: left;
     height: 164rpx;
-    width: 672rpx;
     border-bottom: 1px solid #f4f4f4;
 }
 
 .cart-view .item .img{
     float: left;
     height:125rpx;
-    width: 125rpx;
+    width: 176rpx;
     background: #f4f4f4;
     margin: 19.5rpx 18rpx 19.5rpx 0;
 }
@@ -131,7 +130,6 @@ page{
 .cart-view .item .info{
     float: left;
     height:125rpx;
-    width: 503rpx;
     margin: 19.5rpx 26rpx 19.5rpx 0;
 }
 
@@ -169,8 +167,6 @@ page{
 }
 
 .cart-view .item .b{
-    height: 28rpx;
-    line-height: 28rpx;
     font-size: 25rpx;
     color: #333;
     overflow: hidden;
@@ -318,6 +314,7 @@ page{
     width: 100%;
     background: #fff;
     display: flex;
+    z-index: 1;
 }
 
 .cart-bottom .checkbox{

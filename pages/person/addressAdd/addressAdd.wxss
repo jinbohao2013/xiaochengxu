@@ -8,7 +8,11 @@ page{
     height: auto;
     overflow: hidden;
 }
-
+.del{
+    display: inline-block;
+    width: 52rpx;
+    height: 52rpx;
+}
 .add-address .form-item{
     height: 116rpx;
     padding-left: 31.25rpx;
@@ -146,6 +150,8 @@ page{
   height: 492rpx;
   width: 100%;
   padding: 0 30rpx;
+  overflow:auto;
+
 }
 
 .region-select .region-list{

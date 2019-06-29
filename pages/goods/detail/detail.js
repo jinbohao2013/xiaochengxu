@@ -18,6 +18,7 @@ Page({
     scroolHeight: 200,
     show: false,//选择口味的弹出层
     show1:false,//保存图片的弹出层
+    goodsid:0,
     imgUrls: [
       
     ],
@@ -85,7 +86,9 @@ Page({
       }
     }
     console.log("传过来的商品id是:---" + goodsId)
+
     this.setData({
+      goodsid: goodsId,
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
@@ -436,6 +439,28 @@ this.setData({
       if(parseInt(this.data.buyType)==1){
         //如果是加入购物车
         console.log("在这里加入购物车")
+        util.request(app.data.hostAjax + '/api/transaction/v1/addshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"),
+          goodsid: this.data.goodsid,
+          num: this.data.value1,
+          tasteid:this.data.ajaxData.tastename[this.data.acticeInxex].id
+
+         }).then(function (res) {
+           console.log(res)
+           if(res.Code=="200"){
+             wx.showToast({
+               title: "已加入购物车",
+               icon: 'none',
+               duration: 2000
+             })
+           }else{
+             wx.showToast({
+               title: res.Msg,
+               icon: 'none',
+               duration: 2000
+             })
+           }
+          
+        });
         return
       }
       //提交到订单确认

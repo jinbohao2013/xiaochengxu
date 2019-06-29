@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -86,9 +86,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "首页",
-					"pathName": "pages/home/home",
+					"id": 5,
+					"name": "首页-审核",
+					"pathName": "pages/home/dianzhang/proportion/proportion",
 					"query": "",
 					"scene": null
 				},
@@ -109,7 +109,14 @@
 				{
 					"id": 8,
 					"name": "用户订单",
-					"pathName": "pages/person/order/details/details",
+					"pathName": "pages/person/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "添加地址",
+					"pathName": "pages/person/address/address",
 					"query": "",
 					"scene": null
 				}

@@ -2,15 +2,16 @@
     <view class="address-list" wx:if="{{ addressList.length > 0 }}">
         <view class="item" wx:for="{{addressList}}" wx:key="{{item.id}}" bindtap="addressAddOrUpdate" data-address-id="{{item.id}}">
             <view class="l">
-                <view class="name">{{item.name}}</view>
-                <view class="default" wx:if="{{item.is_default}}">默认</view>
+                <view class="name">{{item.NAME}}</view>
+                <view class="default" wx:if="{{item.state=='2'}}">默认</view>
             </view>
             <view class="c">
-                <view class="mobile">{{item.mobile}}</view>
-                <view class="address">{{item.full_region + item.address}}</view>
+                <view class="mobile">{{item.phone}}</view>
+                <view class="address">{{item.provincename+item.cityname+item.areaname + item.address}}</view>
             </view>
-            <view class="r">
-                <image catchtap="deleteAddress" data-address-id="{{item.id}}" class="del" src="http://www.yqcoffee.cn/image/del-address.png"></image>
+            <view class="r" data-userbankid="{{item.id}}" catchtap="addressAddOrUpdate1">
+                <!-- <image catchtap="deleteAddress"  class="del" src="http://www.yqcoffee.cn/image/del-address.png"></image> -->
+                <text class='' >编辑</text>
             </view>
         </view>
     </view>

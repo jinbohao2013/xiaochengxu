@@ -86,12 +86,14 @@
    </view>
    <view class='accumulate'>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
+      <navigator url='dianzhang/dianzhang'>
          <view style='color:#38f;'>{{dataInfo.ljshops||0}}</view>
-         <view>累计店长</view>
+         <view>累计店长</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'}}">
+      <navigator url='fenxiaoyuan/fenxiaoyuan'>
          <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
-         <view>累计分销员</view>
+         <view>累计分销员</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
          <view style='color:#38f;'>{{dataInfo.customer||0}}</view>

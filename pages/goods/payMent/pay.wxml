@@ -17,12 +17,16 @@
   <view style='height:1rpx;background-color:#eee;'></view>
   
   <view class='c' wx:if="{{checked==2}}" style='min-height:154rpx;padding:40rpx 60rpx;line-height:45rpx;'> 
-    <!-- <view class='text-bold'>收货人：王一一 <text style='float:right'>15836859494</text></view>
-    <text>收货地址：上海市闵行区</text> -->
-    <navigator style='color:#999;height:100%' url='/pages/person/address/address'>请选择收货地址 ></navigator>
+    <navigator url='/pages/person/address/address' wx:if="{{address}}">
+      <view class='text-bold'>收货人：{{address.NAME}} <text style='float:right'>{{address.phone}}</text></view>
+      <text>{{ address.provincename + address.cityname +address.areaname+address.address}}</text> 
+    </navigator>
+    
+    <navigator wx:else style='color:#999;height:100%' url='/pages/person/address/address'>请选择收货地址 ></navigator>
   </view>
 </view>
 <image mode='widthFix' style='width:100%;' src='http://www.yqcoffee.cn/image/demo_2_line.png'></image>
+
 <view class='body'>
   <view class='header ' style='position:relative;'>
   <view class='title'>商品信息</view>

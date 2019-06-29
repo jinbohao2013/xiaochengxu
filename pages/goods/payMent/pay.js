@@ -30,6 +30,7 @@ Page({
     loading: false,
     show: false,//支付结束弹框
     checked:2,//
+    address:null,//获取默认地址
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -59,19 +60,55 @@ Page({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
+    this.getAddress()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  getAddress(){
+    let _this = this, ajaxData={
+      user_id: wx.getStorageSync("userIdBuyGood"),
+        id: 0,//state为2时收货地址id传0查询默认地址
+          state: 2
+  };
+    //获取默认地址，如果没有默认地址就
+    if(wx.getStorageSync("addressid")){
+      ajaxData = {
+        user_id: wx.getStorageSync("userIdBuyGood"),
+        id: wx.getStorageSync("addressid")
+      };
+    }
+    wx.request({
+      url: app.data.hostAjax + '/api/my/v1/selectreceivingaddress', 
+      data: ajaxData,
+      method: "get",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        if (res.data.Data.list.length) {
+            _this.setData({
+              address: res.data.Data.list[0]
+            })
+        } else {
+          _this.setData({
+            address: null
+          })
+          wx.showToast({
+            title: '请选择收货地址',
+            icon:'none'
+          })
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getAddress()
     wx.hideShareMenu({
       success: function () {
         console.log("禁止了分享按钮的现实！")
@@ -138,7 +175,6 @@ Page({
       let _this = this
       this.setData({
         loading: false
-
       })
       setTimeout(function () {
         _this.setData({
@@ -161,7 +197,7 @@ Page({
       data: {
         userid: wx.getStorageSync("userIdBuyGood"),
         goodsid: _this.data.ajaxData.id,
-        salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid"),//分销商的id分销员id
+        salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid")||0,//分销商的id分销员id
         shopid: wx.getStorageSync("shopid")||0,//店铺id--每个人都有一个店铺
         num: this.data.ajaxData.num,
         tasteid: this.data.ajaxData.tasteId,//商品口味
@@ -192,6 +228,7 @@ Page({
                     userid: wx.getStorageSync("userIdBuyGood"),
                     orderid: res.data.Data.orderid,
                     total_fee: res.data.Data.sumprice,
+                    addressid: 0,//收货地址id 自提传0
                   },
                   method: "get",
                   header: {
@@ -219,9 +256,10 @@ Page({
                                 title: "支付已取消",
                                 icon: 'none'
                               })
-                             
+                             wx.redirectTo({
+                               url: '/pages/person/order/order',
+                             })
                           }
-                            
                            }
                         })
                         _this.setData({ loading: false });
