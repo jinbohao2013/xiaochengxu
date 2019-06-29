@@ -6,11 +6,12 @@
       <view class="{{tabClass[index]}}"></view>
     </view>
   </view>
-  <view class="no-order" hidden="{{orderList ? true : false}}">
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <view class="no-order" hidden="{{orderList.length ? true : false}}">
     <image src="http://www.yqcoffee.cn/image/empty_order.png" class="no-order-img"></image>
     <view class="text">暂无订单</view>
   </view>
-  <view class="order-list" hidden="{{orderList ? false : true}}">
+  <view class="order-list" hidden="{{orderList.length ? false : true}}">
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/person/order/details/details?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view style='display:flex;justify-content:space-between;padding:20rpx; align-items:center;'>
@@ -48,6 +49,12 @@
         <view class="btn" hidden="{{(item.status==3) ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">查看物流</view>
       </view>
     </view>
-
   </view>
+  <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+      <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&orderList.length>10}}">
+      我到底了
+    </view>
+  </scroll-view>
 </view>

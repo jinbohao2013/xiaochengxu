@@ -7,8 +7,11 @@ Page({
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""],
+    orderList: [],
     pageindex:1,
     pagesize:20,
+    hideLoading: true,//隐藏底部加载
+    loading:true,
     searchtxt:""
   },
   statusTap: function (e) {
@@ -24,6 +27,10 @@ Page({
       });
     }
     this.setData({
+      orderList: [],
+      pageindex: 1,
+      hideLoading: true,//隐藏底部加载
+      loading: true,
       currentType: curType
     });
     this.onShow();
@@ -76,7 +83,38 @@ Page({
       wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
     }
   },
+  scroll() {//滚动时触发
+
+  },
+  scrolltolower() {
+    
+    if (this.data.loading) {
+      let _this = this
+      this.setData({
+        loading: false
+
+      })
+      // setTimeout(function(){
+      //   _this.setData({
+      //     loading: true
+
+      //   })
+      // },1000)
+      console.log("在我这里调取加载数据")
+      if (!this.data.hideLoading) {
+        return
+      }
+      this.setData({
+        pageindex: this.data.pageindex + 1
+      })
+      this.onShow();
+    }
+
+  },
   onLoad: function (options) {
+    this.setData({
+      scroolHeight: app.data.windowHeight-40
+    })
     if (options && options.type) {
 
       if (options.type == 100) {
@@ -154,15 +192,22 @@ Page({
     }).then(function (res) {
       console.log()
       if (res.Code == "200") {
+        var arr = that.data.orderList.concat(res.Data.list);
+        
         that.setData({
-          orderList: res.Data.list,
+          orderList: arr,
+          loading: true,
         });
+        if (res.Data.list.length < 10) {
+          that.setData({
+            hideLoading: false
+          })
+        }
+        
       } else {
         that.setData({
-          orderList: null,
-          logisticsMap: {},
-          goodsMap: {}
-        });
+          hideLoading: false
+        })
       }
     });
   },
