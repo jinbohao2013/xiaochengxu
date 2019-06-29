@@ -38,20 +38,46 @@ Page({
     // 页面显示
     let that = this;
     util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if(res.Code=="200"){
+        that.setData({
+          cartGoods: res.Data.list,
+          cartTotal: res.Data.sumprice * 100
+        })
+      }else{
+        that.setData({
+          cartGoods: [],
+          cartTotal:0
+        })
+      }
       
-      that.setData({
-        cartGoods: res.Data.list,
-        cartTotal: res.Data.sumprice
-      })
     });
   },
   onClickButton(){//购物车结算
 
   },
-  onChange(event) {
+  // onchange(event){
+  //   let _this = this;
+  //   console.warn(`change: ${event.detail}`);
+  //   console.log(event)
+  //   if (event.detail == 0) {
+  //     util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "delete", id: event.currentTarget.dataset.id }).then(function (res) {
+
+  //       _this.onShow();
+  //     })
+  //   }
+  // },
+  minus(event) {
+    let _this=this;
     console.warn(`change: ${event.detail}`);
-    console.log(event)
+    console.log(event.detail)
+    util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "reduce", id: event.currentTarget.dataset.id}).then(function (res) {
+
+        _this.onShow();
+    })
+  },
+  plus(event) {
     
+
   },
   onHide: function () {
     // 页面隐藏
