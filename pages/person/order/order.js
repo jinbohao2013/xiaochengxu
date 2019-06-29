@@ -1,206 +1,226 @@
-
-var qrcode;
-exports.default = Page({
-    data: {
-        NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT + 'px',
-        WIN_HEIGHT: wx.DEFAULT_CONTENT_HEIGHT - wx.DEFAULT_HEADER_HEIGHT + 20,
-        current: 0,
-        fahuo: 0,
-        share: 0,
-        showMask: false,
-        customStyle: {
-            'background': 'rgba(51, 51, 51, 0.9)'
-        }
-    },
-    onshow: function onshow() {
-        // var that = this;
-        // var data = that.data.setDataE;
-        // if (data) {
-        //     that.onLoad(that.data.setDataE);
-        // }
-    },
-    onLoad: function onLoad(e) {
-        // var that = this;
-        // that.setData({ setDataE: e });
-        // that.handleChangeBtn(e.id);
-        // if (e.share) {
-        //     that.setData({ share: e.share });
-        // }
-    },
-    getOrderList: function getOrderList(e) {
-        var that = this;
-        wx.showLoading({ title: "\u52A0\u8F7D\u4E2D..." });
-        var postData = {
-            token: wx.getStorageSync('__appUserInfo').token
-        };
-        //全部订单
-        if (e == 0) {
-            postData.status = '-1,1,2,3,4,5,6,7';
-        }
-        //待付款
-        if (e == 1) {
-            postData.status = '1';
-        }
-        //待发货、部分发货
-        if (e == 2) {
-            postData.status = '2,3';
-        }
-        //待收货、待自提
-        if (e == 3) {
-            postData.status = '4,5';
-        }
-        //待评价
-        if (e == 4) {
-            postData.status = '6';
-        }
-        _server2.default.get(_urls2.default.links[0].orderslist, postData).then(function (res) {
-            wx.hideLoading();
+// const wxpay = require('../../utils/pay.js')
+const app = getApp()
+// const WXAPI = require('../../wxapi/main')
+Page({
+  data: {
+    statusType: ["全部","待付款", "待发货", "已发货", "退换货"],
+    hasRefund: false,
+    currentType: 0,
+    tabClass: ["", "", "", "", ""]
+  },
+  statusTap: function (e) {
+    const curType = e.currentTarget.dataset.index;
+    this.data.currentType = curType
+    this.setData({
+      currentType: curType
+    });
+    this.onShow();
+  },
+  cancelOrderTap: function (e) {
+    const that = this;
+    const orderId = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '确定要取消该订单吗？',
+      content: '',
+      success: function (res) {
+        if (res.confirm) {
+          WXAPI.orderClose(orderId, wx.getStorageSync('token')).then(function (res) {
             if (res.code == 0) {
-                that.setData({ orderList: res.data });
+              that.onShow();
+            }
+          })
+        }
+      }
+    })
+  },
+  refundApply(e) {
+    // 申请售后
+    const orderId = e.currentTarget.dataset.id;
+    const amount = e.currentTarget.dataset.amount;
+    wx.navigateTo({
+      url: "/pages/order/refundApply?id=" + orderId + "&amount=" + amount
+    })
+  },
+  toPayTap: function (e) {
+    const that = this;
+    const orderId = e.currentTarget.dataset.id;
+    let money = e.currentTarget.dataset.money;
+    const needScore = e.currentTarget.dataset.score;
+    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        // 增加提示框
+        if (res.data.score < needScore) {
+          wx.showToast({
+            title: '您的积分不足，无法支付',
+            icon: 'none'
+          })
+          return;
+        }
+        let _msg = '订单金额: ' + money + ' 元'
+        if (res.data.balance > 0) {
+          _msg += ',可用余额为 ' + res.data.balance + ' 元'
+          if (money - res.data.balance > 0) {
+            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+          }
+        }
+        if (needScore > 0) {
+          _msg += ',并扣除 ' + money + ' 积分'
+        }
+        money = money - res.data.balance
+        wx.showModal({
+          title: '请确认支付',
+          content: _msg,
+          confirmText: "确认支付",
+          cancelText: "取消支付",
+          success: function (res) {
+            console.log(res);
+            if (res.confirm) {
+              that._toPayTap(orderId, money)
             } else {
-                that.setData({ orderList: '' });
+              console.log('用户点击取消支付')
             }
+          }
         });
-    },
-    handleChangeBtn: function handleChangeBtn(e) {
-        var btnIndex = e;
-        this.data.current = btnIndex;
-        this.setData({
-            current: this.data.current
-        });
-        this.getOrderList(btnIndex);
-    },
-    handleContentChange: function handleContentChange(e) {
-        var current = e.detail.current;
-        this.setData({
-            current: current
-        });
-        this.getOrderList(e.detail.current);
-    },
-    handleChange: function handleChange(e) {
-        var btnIndex = e.target.dataset.index;
-        var index = e.detail.index;
-        this.data.current = index;
-        this.setData({
-            current: this.data.current
-        });
-        this.getOrderList(index);
-    },
-    bindtimeup: function bindtimeup(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        that.getOrderList(id);
-    },
-    getOrderCancelTap: function getOrderCancelTap(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        var current = that.data.current;
-        var token = wx.getStorageSync('__appUserInfo').token;
-        wx.showConfirm({
-            content: "\u786E\u5B9A\u8981\u53D6\u6D88\u6B64\u5355\uFF1F",
-            cancelColor: "#999999",
-            confirmColor: "#ffd305",
-            confirmText: "\u786E\u5B9A",
-            cancelText: '取消',
-            success: function success(res) {
-                if (res.confirm) {
-                    _server2.default.get(_urls2.default.links[0].ordercance, { token: token, id: id }).then(function (res) {
-                        if (res.code == 0) {
-                            wx.showToast({
-                                title: '订单取消成功',
-                                icon: 'success',
-                                duration: 2000
-                            });
-                            that.getOrderList(current);
-                        }
-                    });
-                }
-            }
-        });
-    },
-    getOrderDelTap: function getOrderDelTap(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        var token = wx.getStorageSync('__appUserInfo').token;
-        var current = that.data.current;
-        wx.showConfirm({
-            content: "\u5220\u9664\u540E\u4E0D\u53EF\u6062\u590D\r\n\u786E\u5B9A\u8981\u5220\u9664\u6B64\u5355\uFF1F",
-            cancelColor: "#999999",
-            confirmColor: "#ffd305",
-            confirmText: "\u786E\u5B9A",
-            cancelText: '取消',
-            success: function success(res) {
-                if (res.confirm) {
-                    _server2.default.get(_urls2.default.links[0].orderdelet, { token: token, id: id }).then(function (res) {
-                        if (res.code == 0) {
-                            wx.showToast({
-                                title: '订单删除成功',
-                                icon: 'success',
-                                duration: 2000
-                            });
-                            that.getOrderList(current);
-                        }
-                    });
-                }
-            }
-        });
-    },
-    handleShowMask: function handleShowMask(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        var show = e.currentTarget.dataset.show;
-        var status = e.currentTarget.dataset.status;
-        if (id) {
-            qrcode = new _qrcode2.default('canvas', {
-                text: id,
-                width: 150,
-                height: 150,
-                colorDark: "#27323f",
-                colorLight: "white",
-                correctLevel: _qrcode2.default.CorrectLevel.H
-            });
-            qrcode.makeCode(id);
-            that.setData({ codeStatus: status });
-        }
-        that.setData({ showMask: show });
-    },
-    getFahuoTips: function getFahuoTips() {
-        var that = this;
-        var code = that.data.fahuo;
-        if (code == 0) {
-            wx.showToast({
-                title: "\u63D0\u9192\u5546\u5BB6\u53D1\u8D27\u6210\u529F",
-                icon: 'none',
-                duration: 2000
-            });
-            that.setData({ fahuo: 1 });
-        } else {
-            wx.showToast({
-                title: "\u60A8\u5DF2\u7ECF\u63D0\u9192\u8FC7\u5566\uFF5E",
-                icon: 'none',
-                duration: 2000
-            });
-        }
-    },
-    getDetailsTap: function getDetailsTap(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: "/pages/pages/user/order/details/details?id=" + id
-        });
-    },
-    getPayOrderTap: function getPayOrderTap(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.redirectTo({
-            url: "/pages/pages/payorder/paypal/paypal?id=" + id
-        });
-    },
-    getHomeTap: function getHomeTap() {
-        console.log('sadasdas');
-        wx.switchTab({
-            url: "/pages/pages/home/home"
-        });
-    },
-    navigateBack: function navigateBack() {
-        wx.navigateBack();
+      } else {
+        wx.showModal({
+          title: '错误',
+          content: '无法获取用户资金信息',
+          showCancel: false
+        })
+      }
+    })
+  },
+  _toPayTap: function (orderId, money) {
+    const _this = this
+    if (money <= 0) {
+      // 直接使用余额支付
+      WXAPI.orderPay(orderId, wx.getStorageSync('token')).then(function (res) {
+        _this.onShow();
+      })
+    } else {
+      wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
     }
-});
+  },
+  onLoad: function (options) {
+    if (options && options.type) {
+      if (options.type == 99) {
+        this.setData({
+          hasRefund: true,
+          currentType: options.type
+        });
+      } else {
+        this.setData({
+          hasRefund: false,
+          currentType: options.type
+        });
+      }
+    }
+  },
+  onReady: function () {
+    // 生命周期函数--监听页面初次渲染完成
+
+  },
+  getOrderStatistics: function () {
+    var that = this;
+    WXAPI.orderStatistics(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        var tabClass = that.data.tabClass;
+        if (res.data.count_id_no_pay > 0) {
+          tabClass[0] = "red-dot"
+        } else {
+          tabClass[0] = ""
+        }
+        if (res.data.count_id_no_transfer > 0) {
+          tabClass[1] = "red-dot"
+        } else {
+          tabClass[1] = ""
+        }
+        if (res.data.count_id_no_confirm > 0) {
+          tabClass[2] = "red-dot"
+        } else {
+          tabClass[2] = ""
+        }
+        if (res.data.count_id_no_reputation > 0) {
+          tabClass[3] = "red-dot"
+        } else {
+          tabClass[3] = ""
+        }
+        if (res.data.count_id_success > 0) {
+          //tabClass[4] = "red-dot"
+        } else {
+          //tabClass[4] = ""
+        }
+
+        that.setData({
+          tabClass: tabClass,
+        });
+      }
+    })
+  },
+  onShow: function () {
+    // 获取订单列表
+    var that = this;
+    that.setData({
+      orderList: [{
+        orderNumber:12346544646,
+        statusStr:"状态",
+        goodsNumber:5,
+        amountReal:100,
+        // remark:"备注",
+        // dateAdd:"dateAdd",
+        status:4,
+        score:4
+      }, {
+          orderNumber: 12346544646,
+          statusStr: "状态",
+          goodsNumber: 5,
+          amountReal: 100,
+          remark: "备注",
+          dateAdd: "dateAdd",
+          status: 1,
+          score: 4
+        }, {
+          orderNumber: 12346544646,
+          statusStr: "状态",
+          goodsNumber: 5,
+          amountReal: 100,
+          remark: "备注",
+          dateAdd: "dateAdd",
+          status: 2,
+          score: 4
+        }]
+    });
+    return
+    WXAPI.orderList(postData).then(function (res) {
+      if (res.code == 0) {
+        that.setData({
+          orderList: res.data.orderList,
+          logisticsMap: res.data.logisticsMap,
+          goodsMap: res.data.goodsMap
+        });
+      } else {
+        that.setData({
+          orderList: null,
+          logisticsMap: {},
+          goodsMap: {}
+        });
+      }
+    })
+  },
+  onHide: function () {
+    // 生命周期函数--监听页面隐藏
+
+  },
+  onUnload: function () {
+    // 生命周期函数--监听页面卸载
+
+  },
+  onPullDownRefresh: function () {
+    // 页面相关事件处理函数--监听用户下拉动作
+
+  },
+  onReachBottom: function () {
+    // 页面上拉触底事件的处理函数
+
+  }
+})

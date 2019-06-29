@@ -10,7 +10,7 @@
   <view class="main" style='margin:26rpx;'>
   <!--  -->
     <view class='top' style='background-color:#F2F2F2;border-radius:5px;'>
-    <view style='padding:25rpx 28rpx;'> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
+    <view style='padding:25rpx 28rpx;' bindtap='go_order'> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
         name="arrow"
         size="10px"
         color="#999"

@@ -107,9 +107,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "用户订单",
-					"pathName": "pages/person/order/order",
+					"pathName": "pages/person/order/details/details",
 					"query": "",
 					"scene": null
 				}

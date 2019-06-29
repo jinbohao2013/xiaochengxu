@@ -1,207 +1,127 @@
-/* 1像素解决方案 */
-/*
- * 清除1px
- */
-/*
- * 清除浮动
- */
-/*
- * mobile
- */
-/*
- * 1px
- */
-/*
- * text
- */
-/* 垂直居中 */
-/* 水平居中 */
-/* 水平垂直居中 */
-/* 超出部分出省略号 */
-/* 多行文本超出部分省略号 */
-page {
-  background-color: #ffffff;
+.container{
+    width: 100%;
+    background-color: #F2f2f2;
 }
-.order-content-box swiper-item {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+.status-box{
+    width:100%;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
 }
-.order-header-box {
-  height: 90rpx;
-  background-color: #fff;
-  position: fixed;
-  z-index: 9;
+.status-box .status-label{
+    width: 150rpx;
+    height: 100%;
+    text-align: center;
+    font-size:28rpx;
+    color:#353535;
+    box-sizing: border-box;
+    position: relative;
 }
-.ui-tabs {
-  height: 90rpx;
-  border-bottom: 2rpx solid #f5f5f5;
+.status-box .status-label.active{
+    color:#e64340;
+    border-bottom: 6rpx solid #e64340;
 }
-.order-content-box {
-  padding-top: 90rpx;
+.no-order{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 88rpx;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 203rpx;
+    background-color: #F2f2f2;
 }
-.order-content-box swiper {
-  background-color: #f5f5f5;
+.no-order-img{
+    width: 200rpx;
+    height: 200rpx;
+    margin-bottom: 31rpx;
 }
-.order-list {
-  color: #27323f;
-  background-color: #ffffff;
-  border-bottom: 20rpx solid #f5f5f5;
+.no-order .text{
+    font-size:28rpx;
+    color:#999999;
+    text-align: center
 }
-.order-list .order-ui-row {
-  border-bottom: 2rpx solid #f5f5f5;
+.order-list{
+    width: 100%;
 }
-.order-list .order-ui-row .order-goods-name {
-  width: 95%;
-  font-size: 30rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.order-list .a-order{
+    
+    background-color: #fff;
+    margin: 20rpx;
+    border-radius: 5px;
 }
-.order-list .order-ui-row .order-goods-info {
-  width: 95%;
-  padding-top: 12rpx;
-  color: #7b8196;
-  font-size: 26rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.a-order  .goods-info,
+.goods-img-container{
+    width: 720rpx;
+    margin-left: 30rpx;
+    border-top: 1rpx solid #eee;
+    padding: 30rpx 0;
+    display: flex;
+    align-items: center;
 }
-.order-list .order-button-time {
-  display: flex;
-  height: 60rpx;
-  background-color: #ffd305;
-  color: #27323f;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  border-radius: 4rpx;
-  padding-left: 8rpx;
-  padding-right: 8rpx;
-  min-width: 160rpx;
-}
-.order-list .order-button-time text {
-  width: 60rpx;
-  padding-right: 6rpx;
-}
-.order-list .order-button {
-  border: 2rpx solid #e2e2e2;
-  margin-right: 26rpx;
-  color: #27323f;
-  padding: 10rpx 20rpx;
-  border-radius: 6rpx;
-  font-size: 26rpx;
-  margin-left: 10rpx;
-}
-.order-list .order-cancel {
-  color: #7b8196;
-}
-.order-one-img {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.order-one-img image {
-  width: 130rpx;
-  height: 130rpx;
-  border-radius: 4rpx;
-}
-.order-two-box {
-  width: 100%;
-  white-space: nowrap;
-  overflow: scroll;
-  margin-top: 6rpx;
-}
-.order-two-box .order-two-img {
-  width: 150rpx;
-  height: 150rpx;
-  display: inline-block;
-  margin-left: 40rpx;
-  margin-right: -10rpx;
-}
-.no-more-goods {
-  width: 100%;
-  height: 500rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.no-more-goods .no-order-img {
-  width: 200rpx;
-  height: 200rpx;
-}
-.no-more-goods .text {
-  font-size: 26rpx;
-  color: #bfbfbf;
-}
-.mask_wrap .photo {
-  padding: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 45%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-}
-.mask_wrap .photo image {
-  display: block;
-  width: 100%;
-}
-.mask_wrap .photo .ui-icon {
-  display: block;
-  text-align: center;
-  font-size: 96rpx;
-  color: #fff;
-}
-.mask_wrap .photo .icon_top {
+.goods-price {
+  font-size:26rpx;
   text-align: right;
+  margin-bottom:30rpx;
 }
-.mask_wrap .photo .top_view {
-  position: relative;
+.goods-price .p {
+  font-size:36rpx;
+  color:#e64340;
 }
-.mask_wrap .photo .top_view .top_line {
-  position: absolute;
-  bottom: 0px;
-  right: 24px;
-  width: 2px;
-  height: 15px;
-  background-color: #fff;
+.goods-info .img-box{
+    width: 120rpx;
+    height: 120rpx;
+    overflow: hidden;
+    margin-right: 30rpx;
+    background-color: #f7f7f7;
 }
-.order-qrcode-box {
-  width: 520rpx;
-  height: 600rpx;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.goods-info .img-box .goods-img,
+.goods-img-container .img-box .goods-img{
+    width: 120rpx;
+    height: 120rpx;
 }
-.order-qrcode-box .qrcode-title {
-  font-size: 32rpx;
-  height: 130rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #27323f;
+.goods-info  .goods-des{
+    font-size:26rpx;
+    color:#000000;
 }
-.order-qrcode-box .canvas {
-  width: 300rpx;
-  height: 300rpx;
-  margin-top: 10rpx;
-  transition: opacity 0.25s ease-in;
+.goods-img-container{
+    height: 180rpx;
+    box-sizing: border-box;
+    white-space: nowrap;
 }
-.order-qrcode-box .qrcode-state {
-  color: #7b8196;
-  font-size: 26rpx;
-  display: flex;
-  height: 150rpx;
-  align-items: center;
-  justify-content: center;
+.goods-img-container .img-box{
+    width: 120rpx;
+    height: 120rpx;
+    overflow: hidden;
+    margin-right: 20rpx;
+    background-color: #f7f7f7;
+    display: inline-block;
 }
-.order-qrcode-box .qrcode-state .a {
-  color: #6ca423;
+.price-box{
+    display: flex;
+    flex-direction:row-reverse;
+    padding-bottom: 30rpx;
 }
-.order-qrcode-box .qrcode-state .b {
-  color: #d75a4c;
+.price-box .btn{
+    width: 166rpx;
+    height: 60rpx;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 60rpx;
+    border: 1rpx solid #ccc;
+    border-radius: 6rpx;
+    margin-left: 20rpx;
+    font-size:26rpx;
+}
+.price-box .active{
+    border:1px solid #e64340;
+    color: #e64340;
+}
+.remark {
+  color:#e64340;
+  margin-bottom: 20rpx;
 }

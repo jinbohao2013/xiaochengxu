@@ -8,15 +8,19 @@ Page({
    */
   data: {
     inviteImage:[
-      "../../image/yaoqing.jpg"
+      "http://www.yqcoffee.cn/image/yaoqing.jpg"
     ],
-    userInfo: {}
+    userInfo: {},
+    options:null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      options: options
+    })
     var shareUrl="";
     //判断店长和经销商的身份
     if (wx.getStorageSync("usertype")=="2") {
@@ -29,6 +33,12 @@ Page({
     } else if (wx.getStorageSync("usertype") == "4") {
       //分享商品列表---后面的参数是分销员的id和店铺的id
       shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=" + wx.getStorageSync("fenxiaoshangid")+"&shopid=" + wx.getStorageSync("shopid");
+    }
+    if (options.id){
+      wx.showToast({
+        title: '买断店长',
+      })
+      // shareUrl=
     }
     var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
@@ -57,7 +67,7 @@ Page({
     this.setData({
      
     })
-    this.onLoad();
+    this.onLoad(this.data.options);
     let _this = this;
     //获取用户登录信息
     wx.request({
@@ -82,14 +92,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.onLoad();
+    this.onLoad(this.data.options);
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.onLoad();
+    this.onLoad(this.data.options);
   },
 
   /**

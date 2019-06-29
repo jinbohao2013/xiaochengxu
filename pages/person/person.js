@@ -76,7 +76,11 @@ Page({
       })
     }
   },
-
+  go_order(){
+    wx.navigateTo({
+      url: '/pages/person/order/order',
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

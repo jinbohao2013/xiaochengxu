@@ -3,7 +3,7 @@
 <view class='container'>
   <view class='content'>
     <view class='logo'>
-    <image src='../../image/show_iogo.png' mode='aspectFill'></image>
+    <image src='http://www.yqcoffee.cn/image/show_iogo.png' mode='aspectFill'></image>
   </view>
   <button class='login-btn' open-type='getUserInfo' bindgetuserinfo="getInfo" wx:if='{{isLogin}}'>登录授权</button>
   </view>

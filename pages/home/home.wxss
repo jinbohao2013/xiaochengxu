@@ -58,6 +58,9 @@
   overflow: hidden;
   margin-bottom: 35rpx;
 }
+.middel_two .text{
+  margin-top:15rpx;
+}
 .total_one{
   font-size: 34rpx;
 }
@@ -132,19 +135,18 @@
 }
 .popularize  {
   width: 100%;
-  float: left;
   /* border-bottom: 20rpx solid #eeeeee; */
-   border-top: 20rpx solid #eeeeee;
+   
    height:276rpx;
 }
 .popularize view{
-  width: 47%;
-  padding: 20rpx 0rpx 20rpx 20rpx;
+  
+  padding: 50rpx 0rpx;
   float: left;
   height: 130rpx;
 }
-.popularize view image{
-  height:130rpx;
+.popularize_one+.popularize_one{
+  margin-left:50rpx; 
 }
 .accumulate_one{
   font-size: 40rpx;

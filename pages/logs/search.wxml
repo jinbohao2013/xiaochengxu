@@ -43,7 +43,7 @@
     <view style='height:20rpx;background-color:#F0F0F0;'></view>
   </block>
    <view  style='font-size:30rpx;text-align:center;margin-top:30%;display:{{totleNum ==0&&doOnce&&noOrder?"block":"none"}};color:#cccccc;'>
-  <!-- <image  style='width:200rpx;height:200rpx;' src='../../image/meiyoudingdan.png'></image> -->
+  <!-- <image  style='width:200rpx;height:200rpx;' src='http://www.yqcoffee.cn/image/meiyoudingdan.png'></image> -->
   <view class='iconfont icontubiao---' style='font-size:62px;color:#cccccc;'></view>
   <view>没有订单</view></view>
 <view wx-if="{{orderLists.length!=0&&showLoade}}"><i-load-more /></view>

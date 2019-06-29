@@ -7,8 +7,10 @@ Page({
    */
   data: {
     Images: [
-      "../../image/pic1.png",
-      "../../image/pic2.png"
+      "http://www.yqcoffee.cn/image/pic1.png",
+      "http://www.yqcoffee.cn/image/pic2.png",
+      "http://www.yqcoffee.cn/image/pic3.png",
+      "http://www.yqcoffee.cn/image/pic4.png",
     ],
     userInfo: {},
     userInfoImg:"",
@@ -31,6 +33,22 @@ Page({
   earnCommission:function(){
     wx.navigateTo({
       url: '/pages/goods/index/index',
+    })
+  },
+  
+  go_byout(){
+    wx.navigateTo({
+      url: '/pages/invite/invite?id=1',//买断店长
+    })
+  },
+  godatastatistics: function () {
+    wx.showToast({
+      title: '暂未开放',
+      icon:'none'
+    })
+    return
+    wx.navigateTo({
+      url: '/pages/goods/index/index',//数据统计
     })
   },
   // 获取店铺信息
@@ -105,7 +123,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onShow:function(){
-    
     var type = Number(wx.getStorageSync("usertype"))
     console.log(type)
     switch (type){

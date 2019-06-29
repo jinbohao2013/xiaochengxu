@@ -66,3 +66,6 @@ navigator .text{
 .cu-form-group+.cu-form-group {
   border-top: 1rpx solid #D5D5D5;
 }
+.cu-form-group .title {
+  min-width: calc(3.5em + 30rpx);
+}

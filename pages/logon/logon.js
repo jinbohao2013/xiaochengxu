@@ -7,9 +7,9 @@ Page({
    */
   data: {
     logonImage: [
-      "../../image/demo_1.jpg",
-      "../../image/denglu.png",
-      "../../image/mima.png"
+      "http://www.yqcoffee.cn/image/demo_1.jpg",
+      "http://www.yqcoffee.cn/image/denglu.png",
+      "http://www.yqcoffee.cn/image/mima.png"
     ],
     codeSubmit: false,
     phone: '',

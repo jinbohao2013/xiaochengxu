@@ -1,238 +1,164 @@
+const app = getApp();
+Page({
+  data: {
+    orderId: 0,
+    goodsList: [],
+    yunPrice: "0.00",
+    appid: ""
+  },
+  onLoad: function (e) {
+    var orderId = e.id;
+    this.data.orderId = orderId;
+    this.setData({
+      orderId: orderId
+    });
+  },
+  onShow: function () {
+    var that = this;
+    that.setData({
+      orderDetail: {
+        orderInfo:{
+          status:3,
+          amount:888,
+          amountLogistics:0.00,
+          amountReal:"888"
+        },
+        statusStr:"请马上支付状态",
+        logistics:{
+          trackingNumber:13132464564,
+          linkMan:"快递员",
+          mobile:141654131,
+          provinceStr:"河南省",
+          cityStr:"郑州市",
+          address:"地址家律师代快乐就好看了看"
+        },
+        
+        goods:[{
+          goodsName:"商品1",
+          amount:122,
+          property:"property",
+          number:2,
 
-var qrcode;
-exports.default = Page({
-    data: {
-        width: wx.WIN_WIDTH,
-        NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT + 'px',
-        share: 0,
-        showMask: false,
-        fahuo: 0,
-        customStyle: {
-            'background': 'rgba(51, 51, 51, 0.9)'
-        }
-
-    },
-    onShow: function onShow() {
-        var that = this;
-        var id = that.data.id;
-        that.orderDetailsTap(id);
-    },
-    onLoad: function onLoad(e) {
-        var that = this;
-        that.setData({ id: e.id });
-        that.orderDetailsTap(e.id);
-        _server2.default.get(_urls2.default.links[0].mlshopinfo, {}).then(function (res) {
-            if (res.code == 0) {
-                var shopInfo = res.data.shopInfo;
-                that.setData({ shopInfo: shopInfo });
-                if (shopInfo.order_type == 0) {
-                    _server2.default.get(_urls2.default.links[0].mlgoodlist, {}).then(function (res) {
-                        if (res.code == 0) {
-                            that.setData({ sales: res.data });
-                        }
-                    });
-                } else if (shopInfo.order_type == 1) {
-                    _server2.default.get(_urls2.default.links[0].mlgoodlist, { status: 1 }).then(function (res) {
-                        if (res.code == 0) {
-                            that.setData({ sales: res.data });
-                        }
-                    });
-                } else if (shopInfo.order_type == 2) {
-                    that.setData({ sales: res.data.orderGoods });
-                }
-            }
-        });
-    },
-    orderDetailsTap: function orderDetailsTap(e) {
-        var that = this;
-        var token = wx.getStorageSync('__appUserInfo').token;
-        wx.showLoading();
-        _server2.default.get(_urls2.default.links[0].orderdetas, { token: token, id: e }).then(function (res) {
-            console.log(res);
-            if (res.code == 0) {
-                wx.hideLoading();
-                that.setData({
-                    orderDetails: res.data
-                });
-                if (res.data.shopinfo) {
-                    wx.getLocation({
-                        type: 'wgs84', // 默认wgs84
-                        success: function success(gps) {
-                            that.mapCTX = new _qqmapWxJssdkMin2.default({ key: _urls2.default.mapkey });
-                            that.mapCTX.calculateDistance({
-                                from: {
-                                    latitude: res.data.shopinfo.longitude,
-                                    longitude: res.data.shopinfo.latitude
-                                },
-                                to: [{
-                                    location: {
-                                        lat: gps.latitude,
-                                        lng: gps.longitude
-                                    }
-                                }],
-                                success: function success(ctx) {
-                                    that.setData({ distance: ctx.result.elements[0].distance });
-                                }
-                            });
-                        }
-                    });
-                }
-                if (res.data.pick_number) {
-                    qrcode = new _qrcode2.default('canvas', {
-                        text: res.data.pick_number,
-                        width: 150,
-                        height: 150,
-                        colorDark: "#27323f",
-                        colorLight: "white",
-                        correctLevel: _qrcode2.default.CorrectLevel.H
-                    });
-                }
-            }
-        });
-    },
-    getOrderCancelTap: function getOrderCancelTap(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        var token = wx.getStorageSync('__appUserInfo').token;
-        wx.showConfirm({
-            content: "\u786E\u5B9A\u8981\u53D6\u6D88\u6B64\u5355\uFF1F",
-            cancelColor: "#999999",
-            confirmColor: "#ffd305",
-            confirmText: "\u786E\u5B9A",
-            cancelText: '取消',
-            success: function success(res) {
-                if (res.confirm) {
-                    _server2.default.get(_urls2.default.links[0].ordercance, { token: token, id: id }).then(function (res) {
-                        if (res.code == 0) {
-                            wx.showToast({
-                                title: '订单取消成功',
-                                icon: 'success',
-                                duration: 2000
-                            });
-                            that.orderDetailsTap(id);
-                        }
-                    });
-                }
-            }
-        });
-    },
-    getLocationTap: function getLocationTap(e) {
-        var that = this;
-        var latitude = e.currentTarget.dataset.latitude;
-        var longitude = e.currentTarget.dataset.longitude;
-        wx.openLocation({
-            latitude: latitude,
-            longitude: longitude,
-            name: that.data.orderDetails.shopinfo.cname,
-            address: that.data.orderDetails.shopinfo.address,
-            scale: 18
-        });
-    },
-    getCopyNmuber: function getCopyNmuber(e) {
-        wx.setClipboardData({
-            data: e.currentTarget.dataset.id,
-            success: function success(res) {
-                //内容已经复制
-            }
-        });
-    },
-    getFahuoTips: function getFahuoTips() {
-        var that = this;
-        var code = that.data.fahuo;
-        if (code == 0) {
-            wx.showToast({
-                title: "\u63D0\u9192\u5546\u5BB6\u53D1\u8D27\u6210\u529F",
-                icon: 'none',
-                duration: 2000
-            });
-            that.setData({ fahuo: 1 });
-        } else {
-            wx.showToast({
-                title: "\u60A8\u5DF2\u7ECF\u63D0\u9192\u8FC7\u5566\uFF5E",
-                icon: 'none',
-                duration: 2000
-            });
-        }
-    },
-    getCallTap: function getCallTap(e) {
-        wx.makePhoneCall({
-            phoneNumber: e.currentTarget.dataset.phone
-        });
-    },
-    handleShowMask: function handleShowMask(e) {
-        var that = this;
-        var show = e.currentTarget.dataset.show;
-        qrcode.makeCode(that.data.orderDetails.pick_number);
-        that.setData({
-            showMask: show
-        });
-    },
-    getHomeTap: function getHomeTap() {
-        wx.switchTab({
-            url: "/pages/pages/home/home"
-        });
-    },
-    toDetailsTap: function toDetailsTap(e) {
-        wx.navigateTo({
-            url: "/pages/pages/goods/goods?id=" + e.currentTarget.dataset.id
-        });
-    },
-    getPayOrderTap: function getPayOrderTap(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: "/pages/pages/payorder/paypal/paypal?id=" + id
-        });
-    },
-    getWuLiuTap: function getWuLiuTap(e) {
-        var id = e.currentTarget.dataset.id;
-        var name = e.currentTarget.dataset.name;
-        wx.navigateTo({
-            url: "/pages/pages/user/order/wuliu/wuliu?id=" + id + '&name=' + name
-        });
-    },
-    geiPingjiaTap: function geiPingjiaTap(e) {
-        var id = e.currentTarget.dataset.id;
-        var kuaid = e.currentTarget.dataset.kuaid;
-        if (kuaid) {
-            wx.navigateTo({
-                url: "/pages/pages/user/order/pingjia/pingjia?id=" + id + '&kid=' + kuaid
-            });
-        } else {
-            wx.navigateTo({
-                url: "/pages/pages/user/order/pingjia/pingjia?id=" + id
-            });
-        }
-    },
-    getReceivingTap: function getReceivingTap(e) {
-        var that = this;
-        var id = e.currentTarget.dataset.id;
-        var kuaid = e.currentTarget.dataset.kuaid;
-        var kname = e.currentTarget.dataset.kname;
-        var token = wx.getStorageSync('__appUserInfo').token;
-        wx.showConfirm({
-            content: "\u786E\u5B9A\u5DF2\u7ECF\u6536\u5230\u8D27\uFF1F",
-            cancelColor: "#999999",
-            confirmColor: "#ffd305",
-            confirmText: "\u786E\u5B9A",
-            cancelText: '取消',
-            success: function success(res) {
-                if (res.confirm) {
-                    _server2.default.get(_urls2.default.links[0].ordereceiv, { token: token, id: id, kuaname: kname, kuaid: kuaid }).then(function (res) {
-                        console.log(res);
-                        if (res.code == 0) {
-                            wx.showToast({
-                                title: '确认收货成功',
-                                icon: 'success',
-                                duration: 2000
-                            });
-                            that.orderDetailsTap(id);
-                        }
-                    });
-                }
-            }
-        });
-    },
-    navigateBack: function navigateBack() {
-        wx.navigateBack();
+        }],
+      }
+    });
+    return
+    WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
+      if (res.code != 0) {
+        wx.showModal({
+          title: '错误',
+          content: res.msg,
+          showCancel: false
+        })
+        return;
+      }
+      that.setData({
+        orderDetail: res.data
+      });
+    })
+    var yunPrice = parseFloat(this.data.yunPrice);
+    var allprice = 0;
+    var goodsList = this.data.goodsList;
+    for (var i = 0; i < goodsList.length; i++) {
+      allprice += parseFloat(goodsList[0].price) * goodsList[0].number;
     }
-});
+    this.setData({
+      allGoodsPrice: allprice,
+      yunPrice: yunPrice
+    });
+  },
+  wuliuDetailsTap: function (e) {
+    var orderId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/wuliu/index?id=" + orderId
+    })
+  },
+  confirmBtnTap: function (e) {
+    let that = this;
+    let orderId = this.data.orderId;
+    WXAPI.addTempleMsgFormid({
+      token: wx.getStorageSync('token'),
+      type: 'form',
+      formId: e.detail.formId
+    })
+    wx.showModal({
+      title: '确认您已收到商品？',
+      content: '',
+      success: function (res) {
+        if (res.confirm) {
+          WXAPI.orderDelivery(orderId, wx.getStorageSync('token')).then(function (res) {
+            if (res.code == 0) {
+              that.onShow();
+              // 模板消息，提醒用户进行评价
+              let postJsonString = {};
+              postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
+              let keywords2 = '您已确认收货，期待您的再次光临！';
+              if (app.globalData.order_reputation_score) {
+                keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score + '积分奖励。';
+              }
+              postJsonString.keyword2 = { value: keywords2, color: '#173177' }
+              WXAPI.sendTempleMsg({
+                module: 'immediately',
+                postJsonString: JSON.stringify(postJsonString),
+                template_id: 'uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco',
+                type: 0,
+                token: wx.getStorageSync('token'),
+                url: '/pages/order-details/index?id=' + orderId
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  submitReputation: function (e) {
+    let that = this;
+    WXAPI.addTempleMsgFormid({
+      token: wx.getStorageSync('token'),
+      type: 'form',
+      formId: e.detail.formId
+    })
+    let postJsonString = {};
+    postJsonString.token = wx.getStorageSync('token');
+    postJsonString.orderId = this.data.orderId;
+    let reputations = [];
+    let i = 0;
+    while (e.detail.value["orderGoodsId" + i]) {
+      let orderGoodsId = e.detail.value["orderGoodsId" + i];
+      let goodReputation = e.detail.value["goodReputation" + i];
+      let goodReputationRemark = e.detail.value["goodReputationRemark" + i];
+
+      let reputations_json = {};
+      reputations_json.id = orderGoodsId;
+      reputations_json.reputation = goodReputation;
+      reputations_json.remark = goodReputationRemark;
+
+      reputations.push(reputations_json);
+      i++;
+    }
+    postJsonString.reputations = reputations;
+    WXAPI.orderReputation({
+      postJsonString: JSON.stringify(postJsonString)
+    }).then(function (res) {
+      if (res.code == 0) {
+        that.onShow();
+        // 模板消息，通知用户已评价
+        let postJsonString = {};
+        postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
+        let keywords2 = '感谢您的评价，期待您的再次光临！';
+        if (app.globalData.order_reputation_score) {
+          keywords2 += app.globalData.order_reputation_score + '积分奖励已发放至您的账户。';
+        }
+        postJsonString.keyword2 = { value: keywords2, color: '#173177' }
+        WXAPI.sendTempleMsg({
+          module: 'immediately',
+          postJsonString: JSON.stringify(postJsonString),
+          template_id: 'uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco',
+          type: 0,
+          token: wx.getStorageSync('token'),
+          url: '/pages/order-details/index?id=' + that.data.orderId
+        })
+      }
+    })
+  }
+})

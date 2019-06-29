@@ -10,7 +10,7 @@
                 <view class="address">{{item.full_region + item.address}}</view>
             </view>
             <view class="r">
-                <image catchtap="deleteAddress" data-address-id="{{item.id}}" class="del" src="/image/del-address.png"></image>
+                <image catchtap="deleteAddress" data-address-id="{{item.id}}" class="del" src="http://www.yqcoffee.cn/image/del-address.png"></image>
             </view>
         </view>
     </view>

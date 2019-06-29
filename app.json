@@ -8,20 +8,8 @@
     "pages/person/cart/cart",
     "pages/person/address/address",
     "pages/person/addressAdd/addressAdd",
-
     "pages/person/order/order",
-    // "pages/person/order/service/service",
-    // "pages/person/order/service/tuikuan/list",
-    // "pages/person/order/service/tuikuan/record",
-    // "pages/person/order/service/tuikuan/tuikuan",
-    // "pages/person/order/service/shouhou/list",
-    // "pages/person/order/service/shouhou/record",
-    // "pages/person/order/service/shouhou/shouhou",
-    // "pages/person/order/service/shouhou/goods/goods",
-    // "pages/person/order/details/details",
-    // "pages/person/order/wuliu/wuliu",
-    // "pages/person/order/pingjia/pingjia",
-
+    "pages/person/order/details/details",
     "pages/index/setPasswords/setPasswords",
     "pages/logs/orderDetail/orderDetail",
     "pages/money/index/index",
@@ -40,7 +28,8 @@
     "pages/binding/binding",
     "pages/logon/logon",
     "pages/person/edit/edit",
-    "pages/person/consultant/consultant"
+    "pages/person/consultant/consultant",
+    "pages/home/newagent/newagent"
   ],
   "window": {
     "backgroundTextStyle": "light",

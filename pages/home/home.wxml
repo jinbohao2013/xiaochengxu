@@ -44,6 +44,7 @@
            <view class='earning_two'>
              <text>{{tools.fixd2(dataInfo.zrprofit||"0.00")}}</text>
            </view>
+           <view class='text' style='color:#999;font-size:24rpx;'>待结算 {{0.00}} 元</view>
            <!-- <view class='earning_three'>
              <text>待结算{{dataInfo.zrprofit}}元</text>
            </view> -->
@@ -51,19 +52,24 @@
          <view class='client' wx:if="{{usertype=='3'}}">
            <view class="client_one">
              <text>昨日新增分销员(人)</text>
+           
            </view>
+           
            <view class='client_two'>
              <text>{{dataInfo.newsalanums||0}}</text>
            </view>
+           <view class='text' style='color:#999;font-size:24rpx;'>待审核 {{0}} 人</view>
          </view>
-         <view class='client' wx:if="{{usertype=='2'}}">
+         <navigator url='newagent/newagent' class='client' wx:if="{{usertype=='2'}}">
            <view class="client_one">
              <text>昨日新增代理(人)</text>
            </view>
+           
            <view class='client_two'>
              <text>{{dataInfo.newsalanums||0}}</text>
            </view>
-         </view>
+           <view class='text' style='color:#999;font-size:24rpx;'>店长申请 {{3}} 人</view>
+         </navigator >
          <view class='client' wx:if="{{usertype=='4'}}">
            <view class="client_one">
              <text>昨日新增客户(人)</text>
@@ -83,26 +89,59 @@
          <view style='color:#38f;'>{{dataInfo.ljshops||0}}</view>
          <view>累计店长</view>
       </view>
-      <view class='accumulate_one' wx:if="{{usertype=='3'}}">
+      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'}}">
          <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
          <view>累计分销员</view>
       </view>
-      <view class='accumulate_one'>
+      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
          <view style='color:#38f;'>{{dataInfo.customer||0}}</view>
          <view>累计客户</view>
       </view>
-      <view class='accumulate_one'>
+      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
          <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
          <view>推广订单</view>
       </view>
+      <view class='accumulate_one' wx:if="{{usertype=='2'}}">
+        <!-- 设置 -->
+         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
+         <view>全部订单</view>
+      </view>
+      <view class='accumulate_one' wx:if="{{usertype=='2'}}">
+        <!-- 设置 -->
+         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
+         <view>待发货订单</view>
+      </view>
    </view>
-   <view class='popularize'>
-     <view class='popularize_one' catchtap='earnCommission'>
-        <image src='{{Images[0]}}'></image>
-     </view>
-     <view class='popularize_two' catchtap='goPromotion'>
-         <image src='{{Images[1]}}'></image>
-     </view>
+   <!-- earnCommission是商品推广跳转商品列表 -->
+   <view style='display:flex;justify-content:space-around;border-top: 20rpx solid #eeeeee;'>
+    <view wx:if="{{usertype=='2'||usertype=='3'}}">
+        <view class='popularize'>
+          <view class='popularize_one' catchtap='goPromotion'>
+              <image style='width:182rpx;height:87rpx' src='{{Images[0]}}'></image>
+          </view>
+          <view class='popularize_one' wx:if="{{usertype=='2'}}" catchtap='go_byout'>
+          <!-- 经销商的买断店长 -->
+              <image style='width:182rpx;height:87rpx' src='{{Images[2]}}'></image>
+          </view>
+          <view class='popularize_one' wx:if="{{usertype=='3'}}" catchtap='earnCommission'>
+          <!-- 店长的商品推广 -->
+              <image style='width:182rpx;height:87rpx' src='{{Images[3]}}'></image>
+          </view>
+          <view class='popularize_one' catchtap='godatastatistics'>
+              <image style='width:182rpx;height:87rpx' src='{{Images[1]}}'></image>
+          </view>
+        </view>
+    </view>
+    <view wx:if="{{usertype=='4'}}">
+        <view class='popularize'>
+          <view class='popularize_one' catchtap='earnCommission'>
+              <image style='width:233rpx;height:111rpx' src='{{Images[3]}}'></image>
+          </view>
+          <view class='popularize_one' catchtap='godatastatistics'>
+              <image style='width:233rpx;height:111rpx' src='{{Images[1]}}'></image>
+          </view>
+        </view>
+    </view>
    </view>
    <view class='footer'>
     <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>

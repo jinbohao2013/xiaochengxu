@@ -4,7 +4,7 @@
     <view>	
       <view style='padding-top:25rpx;'><open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data></view>
       <view style='font-size:25rpx;margin-top:25rpx;text-align:center;position:absolute;width:100%;left:0;'>
-        <image style='width:205rpx;height:205rpx;' src='/image/demo_1.jpg'></image>
+        <image style='width:205rpx;height:205rpx;' src='http://www.yqcoffee.cn/image/demo_1.jpg'></image>
         <view style='margin-top:25rpx;'>扫一扫添加顾问微信</view>
       </view>
     </view>

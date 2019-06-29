@@ -1,0 +1,35 @@
+<!--推广商品-->
+<view class='body'>
+  <view class='header text-center' style='margin-bottom:0rpx;'>
+    
+  </view>
+  <view class='main' style='margin-bottom:0;'>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+    <view class='lists' style='padding-bottom:50rpx;'>
+    <block wx:for="{{ajaxData}}" wx:key>
+    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
+      <view style='margin:30rpx 0 15rpx 0;'>{{item.channel}}<text style='float:right;color:#{{item.gettype=="收入"?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.num}}</text></view>
+      <text style='color:#aaa;'>{{item.createdate}}</text>
+    </view>
+    </block>
+    <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+    <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
+      我到底了
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{ajaxData.length==0}}">
+      无记录
+    </view>
+    </view>
+  </scroll-view>
+    
+  </view>
+  <!-- <view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="navigate" url='/pages/home/home'>首页</navigator>
+      <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
+      <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
+    </view>
+  </view> -->
+</view>

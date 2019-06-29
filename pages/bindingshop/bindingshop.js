@@ -4,10 +4,10 @@ const app = getApp()
 Page({
   data: {
     bindingImage: [
-      "../../image/dianpu.png",
-      "../../image/dizhi.png",
-      "../../image/phone.png",
-      "../../image/yanzheng.png"
+      "http://www.yqcoffee.cn/image/dianpu.png",
+      "http://www.yqcoffee.cn/image/dizhi.png",
+      "http://www.yqcoffee.cn/image/phone.png",
+      "http://www.yqcoffee.cn/image/yanzheng.png"
     ],
     distributorid:16,
     submitTimeNum: 0,
