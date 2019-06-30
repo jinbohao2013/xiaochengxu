@@ -265,8 +265,7 @@ Page({
                    });
                  }
                }
-               console.log(arr)
-                console.log(new Date("2019-04-10T19:31:10") > new Date("2019-04-10T21:15:02.827"));//时间越新就越大
+              //时间越新就越大
                 if (res.data.success) {
                   for (let i = 0; i < arr.length - 1; i++){
                     for (let j = 0; j < arr.length - 1 - i; j++){

@@ -9,7 +9,7 @@
                 <view class="status red">已付款</view>
                 <view class="des" hidden="">等待商家发货</view>
             </view>
-            <view class="right-text text-bold"  wx:if="{{orderDetail.status=='已完成'}}">
+            <view class="right-text text-bold"  wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='已完成'}}">
                 <view class="status ">快递公司：{{orderDetail.shipname}}</view>
                 <view class="des" hidden="">快递单号：{{orderDetail.shipnumber}}</view>
             </view>
@@ -18,26 +18,12 @@
                 <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
             </view>
         </view>
-        <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status=='已完成'||orderDetail.status==4}}">
+        <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='退换货'||orderDetail.status=='已完成'}}">
           <view class="status red">订单：{{orderDetail.ordernumber}}</view>
           <view class="des" hidden="">日期：{{orderDetail.createdat}}</view>
         </view>
-        <block wx:if="{{orderDetail.logisticsTraces}}">
-          <view wx:if="{{orderDetail.logisticsTraces}}" class="wuliu-box">
-              <view class="icon-box">
-                  <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
-              </view>
-              <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail.id}}">
-                  <view class="order-number">快递单号：{{orderDetail.shipnumber}}</view>
-                  <block >
-                  <view class="wuliu-text">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
-                  <view class="wuliu-date">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptTime}}</view>
-                  </block>
-              </view>
-              <view class="arrow-right">
-                  <image class="arrow" src="/images/arrow-right.png"></image>
-              </view>
-          </view>
+        <block wx:if="{{1}}">
+          
           <!-- <view wx:else class="wuliu-box">
               <view class="icon-box">
                   <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
@@ -47,25 +33,25 @@
                   <view class="wuliu-text">暂无物流信息</view>
               </view>
           </view> -->
-          <view class="address-sec"  wx:if="{{orderDetail.address}}">
+          <view class="address-sec"  wx:if="{{orderDetail.deliverytype==1}}">
               <view class="icon-box">
                   <image class="icon" src="http://www.yqcoffee.cn/image/icon-address.png"></image>
               </view>
               <view class="right-box">
-                  <view class="name-tel">{{orderDetail.logistics.linkMan}}  {{orderDetail.logistics.mobile}}</view>
+                  <view class="name-tel">{{orderDetail.nickname}}  {{orderDetail.phone}}</view>
                   <view class="text">
-                    {{orderDetail.logistics.provinceStr}}
-                    {{orderDetail.logistics.cityStr}}
-                    {{orderDetail.logistics.areaStr}}
-                    {{orderDetail.logistics.address}}
+                    {{orderDetail.provincename}}
+                    {{orderDetail.cityname}}
+                    {{orderDetail.areaname}}
+                    {{orderDetail.address}}
                   </view>
               </view>
           </view>
-
+          <view class='address-sec' wx:if="{{orderDetail.deliverytype==0}}">
+            自提
+          </view>
         </block>
-        <view class='address-sec' wx:else>
-          自提
-        </view>
+        
     </view>
     <view class="goods-list">
             <view class="list-title">商品信息</view>
@@ -91,12 +77,12 @@
             </form>
             
         </view>
-        <view class="goods-info" wx:if="{{orderDetail.status!=4}}">
+        <view class="goods-info" wx:if="{{orderDetail.status!='退换货'}}">
             <view class="row-box">
                 <view class="row-label">商品金额</view>
                 <view class="right-text">¥ {{orderDetail.sumprice}}</view>
             </view>
-            <view class="row-box">
+            <view class="row-box" wx:if="{{orderDetail.deliverytype==1}}">
                 <view class="row-label">运费</view>
                 <view class="right-text">+ ¥ {{0.00}}</view>
             </view>
@@ -105,27 +91,49 @@
                 <view class="right-text">¥ {{orderDetail.sumprice}}</view>
             </view>
         </view>
-        <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status==4}}">
-          <view>退款原因：缺货</view>
-          <view>退款金额：￥298.00</view>
-          <view>退款时间：2019-06-05  13:08</view>
+        <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'}}">
+          <view>退款原因：{{orderDetail.reason}}</view>
+          <view>退款金额：￥{{orderDetail.sumprice}}</view>
+          <view>退款时间：{{orderDetail.sqcreatedat}}</view>
         </view>
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
         <view  class='bbbb' >
           <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">
                 <button class="confirm-btn" bindtap=''>确认收货</button>
             </view>
-            <view class="btn-row"  wx:if="{{orderDetail.status=='待发货'}}">
-                <button class="confirm-btn" bindtap='tuihuo'>申请退货</button>
+            <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
+                <button class="confirm-btn"  bindtap="hideModal">申请退货</button>
             </view>
             <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status=='退换货'}}">
                 <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn" formType="submit">联系客服</navigator>
             </view>
            
-            <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">
-                <navigator url='' class="confirm-btn" formType="submit">取消退款</navigator>
-            </view>
+            <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">
+                <button class="confirm-btn" bindtap="canceltuihuo">取消退款</button>
+            </view> -->
         </view>
             
             </form>
+</view>
+
+<view class="cu-modal {{ifshow?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">退款原因</view>
+      <view class="action" bindtap="hideModal">
+        <text class="icon-close text-red jinbohao"></text>
+      </view>
+    </view>
+    <view class=" text-left">
+        <textarea wx:if="{{ifshow}}" placeholder="请输入退款原因" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class="placeholder" class="{{textareaAValue?'value':''}}" bindinput="textareaAInput" style='width:100%;padding:35rpx;font-size:18px;'></textarea>
+      
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-black text-green" bindtap="hideModal">取消</button>
+        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="hideModal1">确定</button>
+
+      </view>
+    </view>
+  </view>
 </view>

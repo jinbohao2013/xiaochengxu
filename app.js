@@ -172,6 +172,7 @@ App({
         // console.log(res)
         if (type == 2) {//如果是分销商
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
+          // wx.setStorageSync("state", res.data.Data.qrurl.split("state=")[1].split("&")[0]);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
         } else if (type == 4) {//如果是分销员

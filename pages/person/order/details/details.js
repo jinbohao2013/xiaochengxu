@@ -6,7 +6,9 @@ Page({
     goodsList: [],
     orderDetail:null,
     yunPrice: "0.00",
-    appid: ""
+    appid: "",
+    ifshow:false,//退款框
+    textareaAValue:"",//退款str
   },
   onLoad: function (e) {
     var orderId = e.id;
@@ -33,7 +35,6 @@ Page({
           icon:"none"
         })
       }
-
     });
   },
   onShow: function () {
@@ -136,6 +137,46 @@ Page({
           })
         }
       }
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      ifshow: !this.data.ifshow
+    })
+  },
+  canceltuihuo(){
+    
+  },
+  hideModal1(e) {
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/transaction/v1/addreturngoods', {
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordernumber: e.currentTarget.dataset.id,
+      reason:this.data.textareaAValue,
+      imgurl:""
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: '提交成功',
+          icon: "none"
+        })
+        _this.setData({
+          ifshow: false
+        })
+      } else {
+        
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
+      }
+    });
+    
+  },
+
+  textareaAInput(e) {
+    this.setData({
+      textareaAValue: e.detail.value
     })
   },
   submitReputation: function (e) {
