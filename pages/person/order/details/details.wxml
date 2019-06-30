@@ -9,16 +9,16 @@
                 <view class="status red">已付款</view>
                 <view class="des" hidden="">等待商家发货</view>
             </view>
-            <view class="right-text text-bold"  wx:if="{{orderDetail.status==3}}">
-                <view class="status ">快递公司：韵达快递</view>
-                <view class="des" hidden="">快递单号：54645423151211</view>
+            <view class="right-text text-bold"  wx:if="{{orderDetail.status=='已完成'}}">
+                <view class="status ">快递公司：{{orderDetail.shipname}}</view>
+                <view class="des" hidden="">快递单号：{{orderDetail.shipnumber}}</view>
             </view>
-            <view class="right-text "  wx:if="{{orderDetail.status==4}}">
+            <view class="right-text "  wx:if="{{orderDetail.status=='退换货'}}">
                 <view class="status text-bold">退款中</view>
                 <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
             </view>
         </view>
-        <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status==3||orderDetail.status==4}}">
+        <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status=='已完成'||orderDetail.status==4}}">
           <view class="status red">订单：{{orderDetail.ordernumber}}</view>
           <view class="des" hidden="">日期：{{orderDetail.createdat}}</view>
         </view>
@@ -112,17 +112,17 @@
         </view>
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
         <view  class='bbbb' >
-          <view class="btn-row"  wx:if="{{orderDetail.status==3}}">
+          <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">
                 <button class="confirm-btn" bindtap=''>确认收货</button>
             </view>
             <view class="btn-row"  wx:if="{{orderDetail.status=='待发货'}}">
                 <button class="confirm-btn" bindtap='tuihuo'>申请退货</button>
             </view>
-            <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status==4}}">
-                <navigator url='/pages/person/consultant/consultant' class="confirm-btn" formType="submit">联系客服</navigator>
+            <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status=='退换货'}}">
+                <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn" formType="submit">联系客服</navigator>
             </view>
            
-            <view class="btn-row"  wx:if="{{orderDetail.status==4}}">
+            <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">
                 <navigator url='' class="confirm-btn" formType="submit">取消退款</navigator>
             </view>
         </view>

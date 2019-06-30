@@ -31,6 +31,7 @@
     "pages/logon/logon",
     "pages/person/edit/edit",
     "pages/person/consultant/consultant",
+    "pages/person/consultant1/consultant1",
     "pages/home/newagent/newagent",
     "pages/person/cart/carBuy/carBuy",
     "pages/home/check",

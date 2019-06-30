@@ -3,36 +3,33 @@
   <view class='header text-center' style='margin-bottom:0rpx;'>
     <view style='height:243rpx;'>
       <view>店长申请（人）</view>
-      <view class='text-bold' style='font-size:35rpx;margin:20rpx 0;'>1</view>
+      <view class='text-bold' style='font-size:35rpx;margin:20rpx 0;'>{{sqshopownernums}}</view>
       <button class="cu-btn line-red" style='background-color:#FFECED'><navigator url='../check'>点击审核</navigator></button>
     </view>
     <view class='van-hairline--top-bottom' style='padding:25rpx 0;'>
       <view style='width:50%;display:inline-block;line-height:50rpx;'>
         <view>新增店长（人）</view>
-        <view>3</view>
+        <view>{{newshop}}</view>
       </view>
       <view style='width:50%;display:inline-block;line-height:50rpx;'>
         <view>新增分销员（人）</view>
-        <view>3</view>
+        <view>{{newsalaperson}}</view>
       </view>
     </view>
-    <view class='van-hairline--bottom' style='font-size:33rpx;line-height:120rpx;'>代理明细</view>
-    <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:100rpx;'>
+    <view class='van-hairline--bottom' hidden='{{ajaxData.length==0}}' style='font-size:33rpx;line-height:120rpx;'>代理明细</view>
+    
+    
+    <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:100rpx;' wx:for="{{ajaxData}}" wx:key="index">
       <view>
-        <view><text class='margin-right'>2019-6-14</text><text class='text-xl'>张三三</text></view>
-        <view class='text-df text-left margin-top-sm'>店长：王一一</view>
+        <view><text class='margin-right'>{{item.createdat}}</text><text class='text-xl'>{{item.nickname}}</text></view>
+        <view class='text-df text-left margin-top-sm'  wx:if="{{item.shopername}}">店长：{{item.shopername}}</view>
       </view>
-      <view class='text-xl'>分销员</view>
+      <view class='text-xl'>{{item.usertype}}</view>
     </view>
-    <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
-      <view>
-        <view><text class='margin-right'>2019-6-14</text><text class='text-xl'>张三三</text></view>
-      </view>
-      <view class='text-xl'>店长</view>
-    </view>
+    
   </view>
   <view class='main' style='margin-bottom:0;'>
-  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <!-- <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
@@ -50,7 +47,7 @@
       无记录
     </view>
     </view>
-  </scroll-view>
+  </scroll-view> -->
     
   </view>
   <!-- <view class='footer'>

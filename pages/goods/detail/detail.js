@@ -346,6 +346,7 @@ this.setData({
    */
   onHide: function () {
     this.setData({
+      show: false,
       autoplay: false,
     })
   },

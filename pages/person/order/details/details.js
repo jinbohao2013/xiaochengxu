@@ -22,7 +22,7 @@ Page({
       }).then(function (res) {
       if (res.Code == "200") {
         that.setData({
-          orderDetail: res.Data.list
+          orderDetail: res.Data
         })
       } else {
         that.setData({

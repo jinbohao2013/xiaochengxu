@@ -7,7 +7,12 @@ Page({
    */
   data: {
     statusBarHeight: app.data.statusBarHeight,
-    userInfo: null,
+    userInfo: {
+      nickname: "",
+      phone: "",
+      sex: "",
+      birthday: "",
+    },
   },
 
   /**
@@ -20,40 +25,59 @@ Page({
     //   })
     // }
     let _this = this;
+    
     wx.request({
-      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+      url: app.data.hostAjax + '/api/user/v1/info', // 获取用户信息
       data: {
-        openid: wx.getStorageSync("openid"),
+        user_id: wx.getStorageSync("userIdBuyGood"),
+        curr_id: wx.getStorageSync("userIdBuyGood"),
       },
       method: "get",
       header: {
         'content-type': 'application/json',
       },
       success(res) {
-        _this.setData({
-          loading: true
-        })
+        
         if (res.data.Success) {
-          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
-          if (res.data.Data.usertype == 1) {
-            //1为普通用户 2为经销商 3为店长 4为分销员
-            //1--隐藏底部导航
-            _this.setData({
-              hideBotom: false
-            })
-          }
-        } else {
-          wx.redirectTo({
-            url: '/pages/home/home',
+          var a = (res.data.Data.createdAt.split("Date(")[1].split(")")[0])
+          _this.setData({
+            userInfo: res.data.Data,
+            time: app.dateFmt(parseInt(a))
           })
+        } else {
+          
         }
       }
     })
   },
   logOut: function (options) {
-    wx.removeStorageSync("token");
-    wx.reLaunch({
-      url: '../index/index?showM=1'
+    //修改信息
+    let _this = this;
+    wx.request({
+      url: app.data.hostAjax + '/api/user/v1/modifyinfo', // 微信openid登录
+      data: {
+        user_id: wx.getStorageSync("userIdBuyGood"),
+        token :wx.getStorageSync("token"),
+        nickname: this.data.userInfo.nickname,
+        phone: this.data.userInfo.phone,
+        sex: this.data.userInfo.sex,
+        birthday: this.data.userInfo.birthday,
+        imgurl: this.data.userInfo.imgurl,
+        autograph:"",
+      },
+      method: "post",
+      header: {
+        'content-type': 'application/json',
+      },
+      success(res) {
+        
+        if (res.data.Success) {
+          wx.navigateBack({
+            delta: 1
+          })
+
+        }
+      }
     })
   },
   /**
@@ -80,10 +104,34 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
+  binname: function (e) {
+    console.log(e)
+    this.data.userInfo.nickname=e.detail.value
+    this.setData({
+      userInfo: this.data.userInfo
+    })
   },
-
+  binphone: function (e) {
+    console.log(e)
+    this.data.userInfo.phone = e.detail.value
+    this.setData({
+      userInfo: this.data.userInfo
+    })
+  },
+  binsex: function (e) {
+    console.log(e)
+    this.data.userInfo.sex = e.detail.value
+    this.setData({
+      userInfo: this.data.userInfo
+    })
+  },
+  binbirthday: function (e) {
+    console.log(e)
+    this.data.userInfo.birthday = e.detail.value
+    this.setData({
+      userInfo: this.data.userInfo
+    })
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

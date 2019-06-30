@@ -21,6 +21,7 @@ Page({
     uid: 70,
     userInfoName: "",
     userInfoImg: "",
+    state :1
   },
   // 登录
   login: function () {
@@ -78,7 +79,8 @@ Page({
                 code: this.data.code,
                 shopname: this.data.name,
                 openid:wx.getStorageSync("openid"),
-                Address: this.data.address
+                Address: this.data.address,
+                state: this.data.state
               },
               success: (res) => { 
                 console.log(res)
@@ -238,6 +240,17 @@ Page({
           uid: decodeURIComponent(options.q).split("?")[1].split("uid=")[1]
         })
       }
+      if (decodeURIComponent(options.q).split("?")[1].split("state=")[1].indexOf("&") >= 0) {
+        this.setData({
+          state: decodeURIComponent(options.q).split("?")[1].split("state=")[1].split("&")[0]
+        })
+      } else {
+        this.setData({
+          state: decodeURIComponent(options.q).split("?")[1].split("state=")[1]
+        })
+      }
+     
+     
       let _this = this;
       //获取用户登录信息
       wx.request({

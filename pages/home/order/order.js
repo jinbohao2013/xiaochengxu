@@ -3,7 +3,8 @@ const app = getApp()
 // const WXAPI = require('../../wxapi/main')
 Page({
   data: {
-    statusType: ["全部","待付款", "待发货", "待收货", "退换货"],
+    data:{},
+    statusType: ["全部", "待付款", "待发货", "待收货", "已完成", "退换货"],
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""],
@@ -14,10 +15,9 @@ Page({
     hideLoading: true,//隐藏底部加载
     loading:true,
     searchtxt:"",
-    hasOnShow: false
   },
   statusTap: function (e) {
-    const curType = e.currentTarget.dataset.index;
+    const curType = e.currentTarget ? e.currentTarget.dataset.index : e;
     this.data.currentType = curType
     if (curType==0){
       this.setData({
@@ -53,9 +53,73 @@ Page({
             }).then(function (res) {
             if (res.Code == "200") {
               that.onShow();
+              wx.showToast({
+                title: '删除成功',
+                icon: "none"
+              })
+            }else{
+              wx.showToast({
+                title: res.Msg,
+                icon: "none"
+              })
             }
           })
         }
+      }
+    })
+  },
+  shipname(e) {
+    this.data.data["shipname" + e.currentTarget.dataset.id]=e.detail.value;
+    this.setData({
+      data: this.data.data
+    })
+    console.log(this.data.data)
+  },
+  shipnumber(e) {
+    this.data.data["shipnumber" + e.currentTarget.dataset.id] = e.detail.value;
+    this.setData({
+      data: this.data.data
+    })
+    console.log(this.data.data)
+  },
+  fahuo(e){
+    var that = this;
+    //调取发货
+    if (this.data.data["shipname" + e.currentTarget.dataset.id]){
+
+    }else{
+      wx.showToast({
+        title: '请填写快递公司',
+        icon:"none"
+      })
+      return
+    }
+    if (this.data.data["shipnumber" + e.currentTarget.dataset.id]) {
+
+    } else {
+      wx.showToast({
+        title: '请填写快递单号',
+        icon: "none"
+      })
+      return
+    }
+    util.request(app.data.hostAjax + '/api/transaction/v1/adddelivergoods', {
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordernumber: e.currentTarget.dataset.ordernumber,
+      shipnumber: this.data.data["shipnumber" + e.currentTarget.dataset.id],
+      shipname: this.data.data["shipname" + e.currentTarget.dataset.id]
+    }).then(function (res) {
+      if (res.Code == "200") {
+        that.statusTap(2);
+        wx.showToast({
+          title: '发货成功',
+          icon: "none"
+        })
+      } else {
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
       }
     })
   },
@@ -190,7 +254,7 @@ Page({
     var that = this;
     
     util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist',{//用户订单列表
-      userid: wx.getStorageSync("userIdBuyGood"),
+      userid: wx.getStorageSync("userid"),
       ordertype:this.data.searchType,
       pagesize: this.data.pagesize,
       pageindex: this.data.pageindex,

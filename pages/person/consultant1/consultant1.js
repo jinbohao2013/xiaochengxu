@@ -1,6 +1,4 @@
 // pages/person/consultant/consultant.js
-var util = require('../../../utils/util.js');
-var app = getApp();
 Page({
 
   /**
@@ -14,15 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let _this=this;
-    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
-      if (res.Code == "200") {
-        _this.setData({
-          consultant: res.Data[0]
-        });
-      }
 
-    })
   },
 
   /**

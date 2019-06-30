@@ -56,7 +56,7 @@ App({
               },
               success(res) {
                 if (res.data.Success) {
-                  
+                  wx.setStorageSync("token", res.data.Data.token)
                   if (res.data.Data.usertype == 1) {
                     //1为普通用户 2为经销商 3为店长 4为分销员
                     //1--隐藏底部导航
@@ -171,9 +171,9 @@ App({
       success: (res) => {
         // console.log(res)
         if (type == 2) {//如果是分销商
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
         } else if (type == 3) {//如果是店长
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
         } else if (type == 4) {//如果是分销员
           wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
@@ -181,6 +181,16 @@ App({
       }
     })
   },
-  readyCallback:null
+  readyCallback:null,
+  dateFmt:function(val){
+    var date = new Date(val), Y , M , D , h , m , s;
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    D = date.getDate() > 9 ? date.getDate() + ' ' : '0' + date.getDate() + ' ';
+    h = date.getHours() > 9 ? date.getHours() + ':' : '0' + date.getHours() + ":";
+    m = date.getMinutes() > 9 ? date.getMinutes() + ':' : '0' + date.getMinutes() + ':';
+    s = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
+    return Y + M + D + h + m + s;
+  }
   
 })

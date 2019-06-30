@@ -1,8 +1,8 @@
 <view class="container">
   <view class="service-policy">
-    <view class="item">30天无忧退货</view>
+    <view class="item">7天无忧退货</view>
     <view class="item">48小时快速退款</view>
-    <view class="item">满1888元免邮费</view>
+    <view class="item">满188元免邮费</view>
   </view>
   <view class="no-cart" wx:if="{{cartGoods.length <= 0}}">
     <view class="c">

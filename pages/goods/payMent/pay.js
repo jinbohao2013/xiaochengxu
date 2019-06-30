@@ -30,7 +30,7 @@ Page({
     loading: false,
     show: false,//支付结束弹框
     checked:2,//
-    address:null,//获取默认地址
+    address:{},//获取默认地址
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -196,7 +196,8 @@ Page({
   },
   onClickButton() {//提交订单--吊起支付
     let _this=this;
-    
+    console.log("wx.getStorageSync(shopid)", wx.getStorageSync("shopid"))
+    console.log("wx.getStorageSync(useridsaleman)", wx.getStorageSync("useridsaleman"))
     if (_this.data.checked == 2 && !_this.data.address) {
       wx.showToast({
         title: '请选择收货地址',
@@ -241,7 +242,7 @@ Page({
                     userid: wx.getStorageSync("userIdBuyGood"),
                     orderid: res.data.Data.orderid,
                     total_fee: res.data.Data.sumprice,
-                    addressid: 0,//收货地址id 自提传0
+                    addressid: _this.data.address.id||0,//收货地址id 自提传0
                   },
                   method: "get",
                   header: {
@@ -260,6 +261,8 @@ Page({
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
                             //展示支付成功的界面
+                            wx.removeStorageSync('useridsaleman')
+                            wx.removeStorageSync('shopid')
                             wx.redirectTo({
                               url: '/pages/person/order/order',
                             })

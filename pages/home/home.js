@@ -1,5 +1,6 @@
 import config from '../../config'
 const app = getApp()
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -78,9 +79,9 @@ Page({
       success: (res) => {
         console.log(res)
         if (type==2){//如果是分销商
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
         } else if (type ==3) {//如果是店长
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
         } else if (type == 4){//如果是分销员
           wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
@@ -89,6 +90,7 @@ Page({
         this.setData({
           dataInfo:res.data.Data
         })
+        
       }
     })
   },  
@@ -124,6 +126,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onShow:function(){
+    // 获取订单列表
+    var that = this;
     var type = Number(wx.getStorageSync("usertype"))
     console.log(type)
     switch (type){
@@ -132,6 +136,20 @@ Page({
         break;
       case 2:
         this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, app.globalData.usertype)
+        //经销商GET /api/dester/v1/getdistributoryesterdayadd 经销商查看新增代理
+        util.request(app.data.hostAjax + '/api/dester/v1/getdistributoryesterdayadd', {
+          userid: wx.getStorageSync("userid"),
+        }).then(function (res) {
+          if (res.Code == "200") {
+            that.setData({
+              newsalaperson: res.Data.newsalaperson,
+              newshop: res.Data.newshop,
+              sqshopownernums: res.Data.sqshopownernums,
+            })
+          } else {
+            
+          }
+        });
         break;
       case 4:
         this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id, app.globalData.usertype)
@@ -139,5 +157,42 @@ Page({
       default:
         break;
     }
+
+
+    
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+      userid: wx.getStorageSync("userid"),
+      ordertype: 1,
+      pagesize: 1111111,
+      pageindex: 1,
+      searchtxt: ""
+    }).then(function (res) {
+      if (res.Code == "200") {
+        that.setData({
+          ordernum2: res.Data.record
+        });
+      } else {
+        that.setData({
+          ordernum2: 0
+        })
+      }
+    });
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+      userid: wx.getStorageSync("userid"),
+      ordertype: 100,
+      pagesize: 1111111,
+      pageindex: 1,
+      searchtxt: ""
+    }).then(function (res) {
+      if (res.Code == "200") {
+        that.setData({
+          ordernum1: res.Data.record
+        });
+      } else {
+        that.setData({
+          ordernum1: 0
+        })
+      }
+    });
   }
 })

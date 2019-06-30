@@ -1,11 +1,15 @@
 <view class="body">
 <view class="header" style="height:437rpx;background: linear-gradient(#5E6383, #A4A6BB);color:white;">
-    <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
+    <view class="cu-avatar xl round margin-left" style="background-image:url({{consultant.imgurl}});width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin:0 28rpx 20rpx 0;float:left;"></view>
     <view>	
-      <view style='padding-top:25rpx;'><open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data></view>
+      <view style='padding-top:25rpx;'><open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+        <view class='margin-top'>手机号：{{consultant.phone}}</view>
+      </view>
+      
       <view style='font-size:25rpx;margin-top:25rpx;text-align:center;position:absolute;width:100%;left:0;'>
-        <image style='width:205rpx;height:205rpx;' src='http://www.yqcoffee.cn/image/demo_1.jpg'></image>
-        <view style='margin-top:25rpx;'>扫一扫添加顾问微信</view>
+        <!-- <image style='width:205rpx;height:205rpx;' src='{{consultant.imgurl}}'></image> -->
+        <!-- <view style='margin-top:25rpx;'>扫一扫添加顾问微信</view> -->
+        
       </view>
     </view>
   </view>

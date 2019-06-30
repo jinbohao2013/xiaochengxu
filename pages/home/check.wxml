@@ -12,21 +12,20 @@
       <view>姓名</view><view>电话</view><view>店铺名称</view><view>是否通过</view>
     </view>
 
-    <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
-      <view style='white-space:nowrap;'>王一一</view><view>15836854498</view><view class='van-ellipsis'>店铺名称店铺名称</view>
-      <button class='cu-tag line-red'>同意</button>
-      <button class='cu-tag line-black'>不同意</button><view>
-      </view>
-    </view>
-    <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
-      <view style='white-space:nowrap;'>王一一</view><view>15836854498</view><view class='van-ellipsis'>店铺名称店铺名称</view>
+    <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;' wx:for="{{ajaxData}}" wx:key="index">
+      <view class='a' style='white-space:nowrap;'>{{item.nickname}}</view>
+      
+      <view  class='b'>{{item.phone}}</view>
+      <view class='van-ellipsis c'>{{item.shopname}}</view>
       <view>
-      <button class='cu-tag line-red'>已同意</button>
+      <button wx:if="{{item.phone}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
+      <button wx:if="{{item.phone}}" class='cu-tag line-black'  bindtap='noagree' data-id='{{item.id}}'>不同意</button>
       </view>
     </view>
+    
   </view>
   <view class='main' style='margin-bottom:0;'>
-  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <!-- <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
@@ -44,7 +43,7 @@
       无记录
     </view>
     </view>
-  </scroll-view>
+  </scroll-view> -->
     
   </view>
   <!-- <view class='footer'>

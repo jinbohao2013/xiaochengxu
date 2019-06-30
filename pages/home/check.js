@@ -43,60 +43,56 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.reLaunch({//重定向到登录页面
-    //   url: '/pages/index/index'
-    // })
-    console.log(app.data.windowHeight)
-    this.setData({
-      windowHeight: app.data.windowHeight,
-      scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 : app.data.windowHeight //- 59 - 51
-    })
     let _this = this;
-    wx.request({
-      url: app.data.hostAjax + '/api/dester/v1/getdetailedinfo', // 收支明细
-      data: {
-        userid: wx.getStorageSync("userid"),
-        pageindex: this.data.pageindex,
-        pagesize: this.data.pagesize,
-      },
-      method: "get",
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
+    util.request(app.data.hostAjax + '/api/user/v1/getshopownerauditlist', {
+      userid: wx.getStorageSync("userid"),
+      pageindex: this.data.pageindex,
+      pagesize: 30,
+    }).then(function (res) {
+      if (res.Code == "200") {
         _this.setData({
-          loading: true
+          ajaxData: res.Data.list
         })
-        if (res.data.Success) {
-          console.log(res.data);
-          let arr = _this.data.ajaxData;
-          try {
-            if (res.data.Data.list) {
-              arr = arr.concat(res.data.Data.list)
-            }
+      } else {
 
-          } catch (e) {
-            console.log("出错了");
-          }
-
-          _this.setData({
-            ajaxData: arr
-          })
-          if (res.data.Data.list.length < 10) {
-            _this.setData({
-              hideLoading: false
-            })
-          }
-          console.log("111111111111111111111", _this.data.hideLoading)
-        } else {
-          _this.setData({
-            hideLoading: false
-          })
-        }
       }
-    })
+    });
   },
-
+  noagree(e){
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
+      ids: e.currentTarget.dataset.id,
+      auditype: 3,
+      states: 0,
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: '已拒绝',
+          icon: "none"
+        })
+        _this.onLoad();
+      } else {
+        
+      }
+    });
+  },
+  agree(e) {
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
+      ids: e.currentTarget.dataset.id,
+      auditype: 3,
+      states: 1,
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.onLoad();
+        wx.showToast({
+          title: '已通过'
+        })
+      } else {
+        
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -138,101 +134,10 @@ Page({
   onReachBottom: function () {
 
   },
-  onChange(event) {
-    console.warn(`change: ${event.detail}`);
-    this.setData({
-      value1: event.detail
-    })
-  },
-  onSearch(e) {
-    this.setData({
-      ajaxData: [],
-      hideLoading: true,
-      goodsValue: e.detail
-    })
-    this.onLoad();
-  },
   onCancel() {//取消搜索搜索时触发
 
   },
   scroll() {//滚动时触发
-
-  },
-  onPullDownRefresh: function () {
-
-    wx.setBackgroundTextStyle({
-      textStyle: 'dark' // 下拉背景字体、loading 图的样式为dark
-    })
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-
-    setTimeout(function () {
-
-      wx.hideNavigationBarLoading() //完成停止加载
-
-      wx.stopPullDownRefresh() //停止下拉刷新
-
-    }, 1500);
-  },
-  scrolltolower() {
-    if (this.data.loading) {
-      let _this = this
-      this.setData({
-        loading: false
-
-      })
-      // setTimeout(function () {
-      //   _this.setData({
-      //     loading: true
-      //   })
-      // }, 1000)
-      console.log("在我这里调取加载数据")
-      if (!this.data.hideLoading) {
-        return
-      }
-      this.setData({
-        pageindex: this.data.pageindex + 1
-      })
-      this.onLoad();
-    }
-
-  },
-  onGotUserInfo: function (e) {//点击下一步
-    wx.showLoading({
-      title: '稍等',
-    })
-    console.log(e)
-    console.log(e.detail.userInfo)
-    console.log(e.detail.rawData)
-    console.log("登录信息获取，然后跳转到详情页面--调起支付")
-    //判断口味是否选择
-    console.log("口味：", this.data.acticeInxex)
-    console.log(this.data.value1 * this.data.ajaxGood.e_price)
-    if (this.data.acticeInxex != null) {
-      //提交到订单确认
-      wx.navigateTo({
-        url: '../payMent/pay?ajaxData=' + JSON.stringify({
-          id: this.data.firstId,//商品id
-          title: this.data.ajaxGood.englishname + this.data.ajaxData.name,//标题
-          desc: this.data.ajaxGood.synopsis,//描述
-          img: this.data.ajaxGood.smallimg,
-          price: this.data.ajaxGood.e_price,//单价
-          num: this.data.value1,//数量
-          taste: this.data.ajaxGood.tastename[this.data.acticeInxex].names,//口味名字
-          tasteId: this.data.ajaxGood.tastename[this.data.acticeInxex].id,//口味id
-          totle: this.data.value1 * this.data.ajaxGood.e_price * 100,//总金额=数量乘以单价==单位是分
-        }),
-      })
-    } else {
-      //提示选择口味
-      wx.showToast({
-        title: '请选择口味',
-        icon: "none"
-      })
-      if (this.data.show) {
-        return false
-      }
-      this.setData({ show: !this.data.show });
-    }
 
   },
   onClose() {

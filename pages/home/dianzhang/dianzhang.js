@@ -38,6 +38,7 @@ Page({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
+    console.log(this.data.TabCur)
   },
   /**
    * 生命周期函数--监听页面加载

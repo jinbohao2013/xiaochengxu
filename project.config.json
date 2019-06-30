@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 13,
 			"list": [
 				{
 					"id": 0,
@@ -118,6 +118,33 @@
 					"name": "添加地址",
 					"pathName": "pages/person/address/address",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "修改信息",
+					"pathName": "pages/person/consultant/consultant",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "修改信息",
+					"pathName": "pages/home/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "累计店长",
+					"pathName": "pages/home/dianzhang/dianzhang",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "新增店长",
+					"pathName": "pages/home/newagent/newagent",
 					"scene": null
 				}
 			]

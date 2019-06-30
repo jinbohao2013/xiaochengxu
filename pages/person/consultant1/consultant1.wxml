@@ -1,0 +1,34 @@
+<view class="body">
+<view style='padding:25rpx 25rpx 25rpx 35rpx;'><van-icon
+        name="star-o"
+        size="16px"
+        custom-class="icon"
+      />
+      
+
+      <text style='position:relative;left:10px;bottom:3px;'>客服联系方式</text>
+  
+</view>
+<image mode='widthFix' style='width:100%;' src='http://www.yqcoffee.cn/image/demo_2_line.png'></image>
+<view class="header" >
+    <view class="cu-bar bg-white margin-top  solid-bottom">
+      <view class="action">
+        <text class="icon-title text-black jinbohao"></text>微信：gl91taojiao
+      </view>
+    </view>
+
+    <view class="cu-bar bg-white margin-top  solid-bottom">
+      <view class="action">
+        <text class="icon-title text-black jinbohao"></text>手机号：13519161397
+      </view>
+    </view>
+
+    <!-- <view class="cu-bar bg-white margin-top  solid-bottom">
+      <view class="action">
+        <text class="icon-title text-black jinbohao"></text>座机：111111111111111111
+      </view>
+    </view> -->
+
+
+  </view>
+</view>

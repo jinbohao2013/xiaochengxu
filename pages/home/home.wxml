@@ -66,9 +66,9 @@
            </view>
            
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums||0}}</text>
+             <text>{{newshop||0}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>店长申请 {{3}} 人</view>
+           <view class='text' style='color:#999;font-size:24rpx;'>店长申请 {{sqshopownernums}} 人</view>
          </navigator >
          <view class='client' wx:if="{{usertype=='4'}}">
            <view class="client_one">
@@ -87,6 +87,7 @@
    <view class='accumulate'>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
       <navigator url='dianzhang/dianzhang'>
+      <!--  -->
          <view style='color:#38f;'>{{dataInfo.ljshops||0}}</view>
          <view>累计店长</view></navigator>
       </view>
@@ -107,13 +108,13 @@
         <!-- 设置 -->
         <navigator url='/pages/home/order/order'>
         
-         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
+         <view style='color:#38f;'>{{ordernum1||0}}</view>
          <view>全部订单</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order?type=2'>
-         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
+         <view style='color:#38f;'>{{ordernum2||0}}</view>
          <view>待发货订单</view></navigator>
       </view>
    </view>

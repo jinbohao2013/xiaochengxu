@@ -116,10 +116,13 @@ Page({
           _this.setData({
             address: null
           })
-          wx.showToast({
-            title: '请选择收货地址',
-            icon: 'none'
-          })
+          if (_this.data.checked == 2) {
+            wx.showToast({
+              title: '请选择收货地址',
+              icon: 'none'
+            })
+            return
+          }
         }
       }
     })
@@ -211,7 +214,16 @@ Page({
     this.setData({ show: !this.data.show });
   },
   onClickButton() {//提交订单--吊起支付
+    console.log("wx.getStorageSync(shopid)", wx.getStorageSync("shopid"))
+    console.log("wx.getStorageSync(useridsaleman)", wx.getStorageSync("useridsaleman"))
     let _this = this;
+    if (_this.data.checked == 2 && !_this.data.address) {
+      wx.showToast({
+        title: '请选择收货地址',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({ loading: true });
      
                 //调取提交订单接口

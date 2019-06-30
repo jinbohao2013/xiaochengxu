@@ -4,7 +4,7 @@
     <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
     <view>	
       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
-      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间:{{userInfo.customerTypeName}}</view>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
     </view>
   </view>
   <view class="main" style='margin:26rpx;'>
@@ -69,7 +69,7 @@
         <van-icon name="newspaper-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>收货地址</view>
       </navigator>
-      <navigator url='/pages/person/consultant/consultant'>
+      <navigator wx:if="{{consultant}}" url='/pages/person/consultant/consultant'>
         <van-icon name="smile-comment-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>专属顾问</view>
       </navigator>

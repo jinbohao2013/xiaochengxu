@@ -107,7 +107,10 @@ Page({
           }
           // console.log("111111111111111111111",_this.data.hideLoading)
         } else {
-         
+          _this.setData({
+            hideLoading: false
+          })
+          
         }
       }
     })
@@ -184,6 +187,9 @@ Page({
    */
   onHide: function () {
     wx.hideLoading()
+    this.setData({
+      show: false,
+    })
   },
 
   /**
@@ -218,10 +224,15 @@ Page({
       hideLoading: true,
       goodsValue:e.detail
     })
-    this.onLoad();
+    this.onLoad({});
   },
   onCancel() {//取消搜索搜索时触发
-    
+    this.setData({
+      ajaxData: [],
+      hideLoading: true,
+      goodsValue:""
+    })
+    this.onLoad({});
   },
   scroll() {//滚动时触发
 
@@ -261,7 +272,7 @@ Page({
       this.setData({
         pageindex:this.data.pageindex+1
       })
-      this.onLoad();
+      this.onLoad({});
     }
     
   },

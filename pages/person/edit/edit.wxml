@@ -3,8 +3,8 @@
 <view class="header" style="height: 190rpx;background-color:#424454;">
 <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
     <view>	
-      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
-      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间:{{userInfo.customerTypeName}}</view>
+       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
     </view>
   </view>
   <view class="main" style='margin:26rpx;'>
@@ -13,26 +13,28 @@
     <view style='padding:25rpx 28rpx'> <text>个人信息</text></view>
       <view class="cu-form-group">
         <view class="title">姓名:</view>
-        <input placeholder="请填写"></input> 
+        <input placeholder="请填写" value='{{userInfo.nickname}}' bindinput='binname'></input> 
       </view>
       <view class="cu-form-group">
         <view class="title">手机号:</view>
-        <input type='number' placeholder="请填写"></input> 
+        <input type='number' placeholder="请填写" value='{{userInfo.phone}}' bindinput='binphone'></input> 
       </view>
       <view class="cu-form-group">
         <view class="title">姓别:</view>
-        <input placeholder="请填写"></input> 
+        <input placeholder="请填写" value='{{userInfo.sex}}'  bindinput='binsex'></input> 
       </view>
       <view class="cu-form-group">
         <view class="title">生日:</view>
-        <input placeholder="请填写"></input> 
+        <input placeholder="请填写" value='{{userInfo.birthday}}'  bindinput='binbirthday'></input> 
       </view>
-      <view class="cu-form-group">
+      <!-- <view class="cu-form-group">
         <view class="title">地区:</view>
-        <input placeholder="请填写"></input> 
-      </view>
+        <input placeholder="请填写" value='{{userInfo.nickname}}'></input> 
+      </view> -->
     </view>
   </view>
 </view>
+<view class='padding flex flex-direction'><button class='cu-btn bg-black lg' bindtap='logOut'>保存</button></view>
+
 
 

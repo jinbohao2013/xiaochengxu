@@ -7,6 +7,7 @@ Page({
   },
   onLoad: function(options) {
     console.log(options)
+    
   },
   getInfo:function(){
     this.onReady()
@@ -66,6 +67,9 @@ Page({
                     url: '/pages/goods/index/index'
                   })
                 }else{
+                  //用户进来要清楚用户以前的销售信息
+                  wx.removeStorageSync('useridsaleman')
+                  wx.removeStorageSync('shopid')
                   wx.redirectTo({
                     url: '/pages/goods/index/index',
                   })

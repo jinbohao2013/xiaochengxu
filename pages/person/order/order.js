@@ -3,7 +3,7 @@ const app = getApp()
 // const WXAPI = require('../../wxapi/main')
 Page({
   data: {
-    statusType: ["全部","待付款", "待发货", "待收货", "退换货"],
+    statusType: ["全部", "待付款", "待发货", "待收货", "已完成", "退换货"],
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""],

@@ -1,1 +1,13 @@
 /* pages/home/check.wxss */
+.a{
+  width: 120rpx;
+}
+.b{
+   width: 200rpx;
+}
+.c{
+   width: 160rpx;
+}
+.d{
+   width: 200rpx;
+}

@@ -23,7 +23,7 @@
         </view>
       </view>
       <view class="action">
-        <navigator url='proportion/proportion' class="cu-tag bg-grey radius"style='margin-top:10rpx'>设置</navigator>
+        <navigator url='proportion/proportion' class="cu-tag bg-grey radius">设置</navigator>
         <navigator class="cu-tag bg-grey radius">查看</navigator>
         <navigator class="cu-tag bg-grey radius">删除</navigator>
       </view>

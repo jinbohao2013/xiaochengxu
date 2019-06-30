@@ -29,6 +29,7 @@
     <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
     <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
     </view>
+    <view wx:if="{{!hideLoading&&ajaxData.length==0}}" style='text-align:center;'>暂时没有数据</view>
     <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
       我到底了
     </view>

@@ -34,15 +34,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.reLaunch({//重定向到登录页面
-    //   url: '/pages/index/index'
-    // })
-    console.log(app.data.windowHeight)
+    let _this = this;
+    //经销商GET /api/dester/v1/getdistributoryesterdayadd 经销商查看新增代理
+    util.request(app.data.hostAjax + '/api/dester/v1/getdistributoryesterdayadd', {
+      userid: wx.getStorageSync("userid"),
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          ajaxData: res.Data.list,
+          newsalaperson: res.Data.newsalaperson,
+          newshop: res.Data.newshop,
+          sqshopownernums: res.Data.sqshopownernums,
+        })
+      } else {
+          
+      }
+    });
+    return
     this.setData({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 : app.data.windowHeight //- 59 - 51
     })
-    let _this = this;
+    
     wx.request({
       url: app.data.hostAjax + '/api/dester/v1/getdetailedinfo', // 收支明细
       data: {

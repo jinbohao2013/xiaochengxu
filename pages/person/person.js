@@ -1,5 +1,6 @@
 // pages/person/person.js
 var app= getApp();
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -8,6 +9,7 @@ Page({
   data: {
     statusBarHeight: app.data.statusBarHeight,
     userInfo:null,
+    consultant:false,
   },
 
   /**
@@ -49,6 +51,27 @@ Page({
         }
       }
     })
+    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood")}).then(function (res) {
+      if(res.Code=="200"){
+        _this.setData({
+          consultant:true
+        });
+      }
+      
+    })
+    util.request(app.data.hostAjax + '/api/user/v1/info', {
+      user_id: wx.getStorageSync("userIdBuyGood"),
+      curr_id: wx.getStorageSync("userIdBuyGood"), }).then(function (res) {
+      if (res.Code == "200") {
+        var a = (res.Data.createdAt.split("Date(")[1].split(")")[0])
+        _this.setData({
+          time: app.dateFmt(parseInt(a))
+        });
+        
+        console.log(app.dateFmt(parseInt(a)))
+      }
+
+    })
   },
   logOut: function (options) {
     wx.removeStorageSync("token");
@@ -60,7 +83,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
   editUser(){
     //信息修改的
@@ -69,7 +92,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(1212121231214343542352,"我是inshow 2次")
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({

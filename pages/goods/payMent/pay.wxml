@@ -43,8 +43,8 @@
   <view class='main' style='margin-bottom:0;'>
     <view style='padding: 0 30rpx;margin-top:20rpx;'>分类：{{ajaxData.taste}}</view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{tools.floatPrice(ajaxData.totle)}}</text></view>
-    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
-    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
+    <view wx:if="{{checked==2}}" style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
+    <view wx:if="{{checked==2}}" style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
     <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{tools.floatPrice(ajaxData.totle)}}</view>
   </view><!-- mian结束 -->
   <view class='buy' wx:if="{{!loading}}">
