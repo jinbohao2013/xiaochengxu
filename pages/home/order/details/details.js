@@ -16,7 +16,7 @@ Page({
     });
     // 用户订单详情
     let that = this;
-    util.request(app.data.hostAjax + '/api/transaction/v1/orderinfo', { 
+    util.request(app.data.hostAjax + '/api/transaction/v1/backorderinfo', { 
       userid: wx.getStorageSync("userIdBuyGood") ,
       orderid: orderId,
       }).then(function (res) {

@@ -105,13 +105,16 @@
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
+        <navigator url='/pages/home/order/order'>
+        
          <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
-         <view>全部订单</view>
+         <view>全部订单</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
+        <navigator url='/pages/home/order/order?type=2'>
          <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
-         <view>待发货订单</view>
+         <view>待发货订单</view></navigator>
       </view>
    </view>
    <!-- earnCommission是商品推广跳转商品列表 -->

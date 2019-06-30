@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -88,7 +88,7 @@
 				{
 					"id": 5,
 					"name": "首页-审核",
-					"pathName": "pages/home/dianzhang/proportion/proportion",
+					"pathName": "pages/home/home",
 					"query": "",
 					"scene": null
 				},

@@ -25,6 +25,8 @@
     "pages/bindingshop/bindingshop",
     "pages/invite/invite",
     "pages/home/home",
+    "pages/home/order/order",
+    "pages/home/order/details/details",
     "pages/binding/binding",
     "pages/logon/logon",
     "pages/person/edit/edit",

@@ -189,7 +189,7 @@ Page({
     // 获取订单列表
     var that = this;
     
-    util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist',{//用户订单列表
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist',{//用户订单列表
       userid: wx.getStorageSync("userIdBuyGood"),
       ordertype:this.data.searchType,
       pagesize: this.data.pagesize,

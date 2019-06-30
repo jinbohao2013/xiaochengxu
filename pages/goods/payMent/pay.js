@@ -95,10 +95,15 @@ Page({
           _this.setData({
             address: null
           })
-          wx.showToast({
-            title: '请选择收货地址',
-            icon:'none'
-          })
+          console.log("111111111111111111111-------------",_this.data.checked)
+          if (_this.data.checked==2){
+            wx.showToast({
+              title: '请选择收货地址',
+              icon: 'none'
+            })
+            return
+          }
+            
         }
       }
     })
@@ -191,6 +196,14 @@ Page({
   },
   onClickButton() {//提交订单--吊起支付
     let _this=this;
+    
+    if (_this.data.checked == 2 && !_this.data.address) {
+      wx.showToast({
+        title: '请选择收货地址',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({ loading: true });
     wx.request({
       url: app.data.hostAjax + "/api/transaction/v1/buynow",
@@ -250,6 +263,7 @@ Page({
                             wx.redirectTo({
                               url: '/pages/person/order/order',
                             })
+                            return
                             // _this.onClose();
                           },
                           fail(res) { console.log(res)
@@ -261,6 +275,7 @@ Page({
                              wx.redirectTo({
                                url: '/pages/person/order/order',
                              })
+                             return
                           }
                            }
                         })
