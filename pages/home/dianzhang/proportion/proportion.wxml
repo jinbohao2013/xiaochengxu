@@ -2,7 +2,7 @@
 <view class='body' style='background-color:#F8F8F8;padding:30rpx;'>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>销售员佣金比例： </view>
-      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput=''></input> <text>%</text>
+      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson'></input> <text>%</text>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center; margin:20rpx 0'>
     <view style='width:200rpx;opacity:0;'>销售员佣金比例： </view>
@@ -10,7 +10,7 @@
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>店长佣金比例： </view>
-      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput=''></input> <text>%</text>
+      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='shopowner'></input> <text>%</text>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center; margin:20rpx 0'>
     <view style='width:200rpx;opacity:0;'>店长佣金比例： </view>
@@ -19,13 +19,13 @@
   
    <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>经销商佣金比例： </view>
-      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput=''></input> <text>%</text>
+      <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='distributor'></input> <text>%</text>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center; margin:20rpx 0'>
     <view style='width:200rpx;opacity:0;'>经销商佣金比例： </view>
       <text>经销商能拿到的佣金比例</text>
   </view>
   <view style='padding-left:30rpx;'>注：经销员+店长+经销商的比例之和必须等于100%</view>
-  <view class='text-right margin'> <button class='cu-btn bg-black'>保存</button></view>
+  <view class='text-right margin'> <button class='cu-btn bg-black' bindtap='submit'>保存</button></view>
 </view>
 

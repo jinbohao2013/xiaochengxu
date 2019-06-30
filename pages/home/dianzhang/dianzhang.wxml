@@ -5,7 +5,7 @@
     </view>
   </view>
 </scroll-view>
-<view style='padding:30rpx;'>共 5 人</view>
+<view style='padding:30rpx;'>共 {{ajaxData.length}} 人</view>
 <!--推广商品-->
 <view class='body' style='background-color:white;'>
   <view class='header text-center' style='margin-bottom:0rpx;'>
@@ -14,37 +14,23 @@
   <view class='main ' style='margin-bottom:0;'>
   <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
     <view class='lists cu-list menu-avatar' style='padding-bottom:50rpx;'>
-    <view class="cu-item">
-      <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-      <view class="content">
-        <view class="text-grey">王一一</view>
-        <view class="text-gray text-sm flex">
-          成交额：3
-        </view>
-      </view>
-      <view class="action">
-        <navigator url='proportion/proportion' class="cu-tag bg-grey radius">设置</navigator>
-        <navigator class="cu-tag bg-grey radius">查看</navigator>
-        <navigator class="cu-tag bg-grey radius">删除</navigator>
-      </view>
-    </view>
-    <view class="cu-item">
-      <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-      <view class="content">
-        <view class="text-grey">王一一</view>
-        <view class="text-gray text-sm flex">
-          成交额：3
-        </view>
-      </view>
-      <view class="action">
-        <button class="cu-tag bg-grey radius">查看</button>
-      </view>
-    </view>
+   
     <block wx:for="{{ajaxData}}" wx:key>
-    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>{{item.channel}}<text style='float:right;color:#{{item.gettype=="收入"?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.num}}</text></view>
-      <text style='color:#aaa;'>{{item.createdate}}</text>
+     <view class="cu-item">
+      <view class="cu-avatar round lg" style="background-image:url({{item.imgurl}});"></view>
+      <view class="content">
+        <view class="text-grey">{{item.nickname}}</view>
+        <view class="text-gray text-sm flex">
+          成交额：{{item.sumprice}}
+        </view>
+      </view>
+      <view class="action">
+        <navigator url='proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-tag bg-grey radius">设置</navigator>
+        <!-- <navigator class="cu-tag bg-grey radius">查看</navigator>
+        <navigator class="cu-tag bg-grey radius">删除</navigator> -->
+      </view>
     </view>
+    
     </block>
     <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
     <van-loading size="20px" style="margin-right:20rpx;"/>加载中...

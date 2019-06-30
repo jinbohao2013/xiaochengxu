@@ -93,7 +93,7 @@
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'}}">
       <navigator url='fenxiaoyuan/fenxiaoyuan'>
-         <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
+         <view style='color:#38f;'>{{dataInfo.ljsalaperson||0}}</view>
          <view>累计分销员</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">

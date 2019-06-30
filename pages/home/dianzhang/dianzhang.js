@@ -25,7 +25,8 @@ Page({
     show: false,
     pageindex: 1,
     pagesize: 10,//每页的商品数量
-    tab_bur: ["分销店长", "买断店长","我的客户"]
+    tab_bur: ["分销店长", "买断店长"],
+    shoptype:1,
   },
   changeIndex(e) {
     console.log(e)
@@ -39,6 +40,19 @@ Page({
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
     console.log(this.data.TabCur)
+    if (this.data.TabCur==0){
+      this.setData({
+        shoptype: 1,
+      })
+      this.onLoad()
+    } else if (this.data.TabCur == 1){
+      this.setData({
+        shoptype: 3,
+      })
+      this.onLoad()
+    }else{//客户
+
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -53,49 +67,40 @@ Page({
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 : app.data.windowHeight //- 59 - 51
     })
     let _this = this;
-    wx.request({
-      url: app.data.hostAjax + '/api/dester/v1/getdetailedinfo', // 收支明细
-      data: {
-        userid: wx.getStorageSync("userid"),
-        pageindex: this.data.pageindex,
-        pagesize: this.data.pagesize,
-      },
-      method: "get",
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
+    util.request(app.data.hostAjax + '/api/dester/v1/getshopownerlist', {
+      userid: wx.getStorageSync("userid"),
+      shoptype: this.data.shoptype,//1为经销店长 3为买断店长
+      pageindex: this.data.pageindex,
+      pagesize: 30,
+    }).then(function (res) {
+      if (res.Code == "200") {
+        let arr = _this.data.ajaxData;
+        try {
+          if (res.Data.list) {
+            arr = arr.concat(res.Data.list)
+          }
+
+        } catch (e) {
+          console.log("出错了");
+        }
+
         _this.setData({
-          loading: true
+          ajaxData: arr
         })
-        if (res.data.Success) {
-          console.log(res.data);
-          let arr = _this.data.ajaxData;
-          try {
-            if (res.data.Data.list) {
-              arr = arr.concat(res.data.Data.list)
-            }
-
-          } catch (e) {
-            console.log("出错了");
-          }
-
-          _this.setData({
-            ajaxData: arr
-          })
-          if (res.data.Data.list.length < 10) {
-            _this.setData({
-              hideLoading: false
-            })
-          }
-          console.log("111111111111111111111", _this.data.hideLoading)
-        } else {
+        if (res.Data.list.length < 10) {
           _this.setData({
             hideLoading: false
           })
         }
+      } else {
+        _this.setData({
+          ajaxData: [],
+          hideLoading: false
+        })
       }
-    })
+    });
+    return
+    
   },
 
   /**

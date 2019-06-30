@@ -54,7 +54,9 @@ Page({
           ajaxData: res.Data.list
         })
       } else {
-
+        _this.setData({
+          ajaxData: []
+        })
       }
     });
   },
