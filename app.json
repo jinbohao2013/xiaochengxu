@@ -33,9 +33,16 @@
     "pages/person/consultant/consultant",
     "pages/person/consultant1/consultant1",
     "pages/home/newagent/newagent",
+    "pages/home/newfenxiaoyuan/newfenxiaoyuan",
     "pages/person/cart/carBuy/carBuy",
     "pages/home/check",
+    "pages/home/check1",
+    "pages/home/fenxiaoyuan/fenxiaoyuan",
+    "pages/home/fenxiaoyuan/proportion/proportion",
+    "pages/home/fenxiaoyuan2/fenxiaoyuan2",
     "pages/home/dianzhang/dianzhang",
+    "pages/home/customer/customer",
+    "pages/home/customer/see/see",
     "pages/home/dianzhang/proportion/proportion"
   ],
   "window": {

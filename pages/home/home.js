@@ -17,6 +17,7 @@ Page({
     userInfoImg:"",
     userInfoName: "",
     usertype:2,
+    allcustomer: 0,//累计客户
   },
   // 去推广
   goPromotion:function(){
@@ -133,6 +134,18 @@ Page({
     switch (type){
       case 3:
         this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id, app.globalData.usertype)
+        //店长查看新增代理
+        util.request(app.data.hostAjax + '/api/dester/v1/getshopowneryesterdayadd', {
+          userid: wx.getStorageSync("userid"),
+        }).then(function (res) {
+          if (res.Code == "200") {
+            that.setData({
+              sqsalespersonnums: res.Data.sqsalespersonnums,
+              newsalaperson: res.Data.newsalaperson,
+              newcustomer: res.Data.newcustomer,
+            })
+          }
+        });
         break;
       case 2:
         this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, app.globalData.usertype)
@@ -157,10 +170,25 @@ Page({
       default:
         break;
     }
-
+    util.request(app.data.hostAjax + '/api/dester/v1/getmycustomerlist', {//累计客户
+      userid: wx.getStorageSync("userid"),
+      usertype: wx.getStorageSync("usertype"),//用户角色 2为经销商 3为店长 4为分销员
+      pagesize: 1111111,
+      pageindex: 1,
+    }).then(function (res) {
+      if (res.Code == "200") {
+        that.setData({
+          allcustomer: res.Data.record
+        });
+      } else {
+        that.setData({
+          allcustomer: 0
+        })
+      }
+    });
 
     
-    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//订单列表
       userid: wx.getStorageSync("userid"),
       ordertype: 1,
       pagesize: 1111111,
@@ -177,7 +205,7 @@ Page({
         })
       }
     });
-    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//订单列表
       userid: wx.getStorageSync("userid"),
       ordertype: 100,
       pagesize: 1111111,

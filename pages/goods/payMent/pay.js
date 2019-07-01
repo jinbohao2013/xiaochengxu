@@ -93,7 +93,7 @@ Page({
             })
         } else {
           _this.setData({
-            address: null
+            address: {}
           })
           console.log("111111111111111111111-------------",_this.data.checked)
           if (_this.data.checked==2){
@@ -242,7 +242,7 @@ Page({
                     userid: wx.getStorageSync("userIdBuyGood"),
                     orderid: res.data.Data.orderid,
                     total_fee: res.data.Data.sumprice,
-                    addressid: _this.data.address.id||0,//收货地址id 自提传0
+                    addressid: _this.data.checked == 2 ? _this.data.address.id:0,//收货地址id 自提传0
                   },
                   method: "get",
                   header: {

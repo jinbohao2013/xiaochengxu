@@ -3,6 +3,8 @@ const app = getApp()
 // const WXAPI = require('../../wxapi/main')
 Page({
   data: {
+    usertype: 0,
+    ismaiduan: 0,
     data:{},
     statusType: ["全部", "待付款", "待发货", "待收货", "已完成", "退换货"],
     hasRefund: false,
@@ -182,6 +184,8 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
+      usertype: wx.getStorageSync("usertype") ,
+      ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0,
       scroolHeight: app.data.windowHeight-40
     })
     if (options && options.type) {

@@ -2,6 +2,8 @@ const app = getApp();
 var util = require('../../../../utils/util.js');
 Page({
   data: {
+    usertype: 0,
+    ismaiduan:  0,
     orderId: 0,
     goodsList: [],
     orderDetail:null,
@@ -9,6 +11,10 @@ Page({
     appid: ""
   },
   onLoad: function (e) {
+    this.setData({
+      usertype: wx.getStorageSync("usertype"),
+      ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
+    })
     var orderId = e.id;
     this.data.orderId = orderId;
     this.setData({

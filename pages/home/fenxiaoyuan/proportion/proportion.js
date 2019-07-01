@@ -32,20 +32,20 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   submit: function () {
-    if (parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson) + parseFloat(this.data.distributor) != 100) {
+    if(parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson)!=100){
       wx.showToast({
-        title: "经销员+店长+经销商的比例之和必须等于100%",
+        title: "经销员+店长的比例之和必须等于100%",
         icon: "none",
-        duration: 4000
+        duration:4000
       })
       return
     }
     let _this = this;
-    //分销商给店长设置
+    //买断店长给分销员设置
     util.request(app.data.hostAjax + '/api/user/v1/addsetpercents', {
-      userid: wx.getStorageSync("userid"), 
-      shopid: this.data.shopid,
-      distributor: this.data.distributor,
+      userid: wx.getStorageSync("userid"),
+      shopid: wx.getStorageSync("shopid"),
+      distributor: 0,
       shopowner: this.data.shopowner,
       salaperson: this.data.salaperson,
     }).then(function (res) {

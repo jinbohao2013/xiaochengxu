@@ -98,12 +98,12 @@
         </view>
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
         <view  class='bbbb' >
-          <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">
+          <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
                 <button class="confirm-btn" bindtap=''>确认收货</button>
-            </view>
-            <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
+            </view> -->
+            <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
                 <button class="confirm-btn"  bindtap="hideModal">申请退货</button>
-            </view>
+            </view> -->
             <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status=='退换货'}}">
                 <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn" formType="submit">联系客服</navigator>
             </view>

@@ -2,17 +2,23 @@
     <view class="sec-wrap">
         <view class="order-status">
             <view class="right-text"  wx:if="{{orderDetail.status=='待付款'}}">
-                <view class="status red">{{orderDetail.statusStr}}</view>
+                <view class="status red">{{orderDetail.status}}</view>
                 <!-- <view class="des" hidden="">请于11时59分59秒内付款，超时订单将自动关闭</view> -->
             </view>
             <view class="right-text"  wx:if="{{orderDetail.status=='待发货'}}">
                 <view class="status red">已付款</view>
                 <view class="des" hidden="">等待商家发货</view>
             </view>
-            <view class="right-text text-bold"  wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='已完成'}}">
-                <view class="status ">快递公司：{{orderDetail.shipname}}</view>
-                <view class="des" hidden="">快递单号：{{orderDetail.shipnumber}}</view>
+            <view wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='已完成'}}">
+              <view class="right-text text-bold"  wx:if="{{orderDetail.shipname}}" >
+                  <view class="status ">快递公司：{{orderDetail.shipname}}</view>
+                  <view class="des" hidden="">快递单号：{{orderDetail.shipnumber}}</view>
+              </view>
+              <view wx:else class='right-text text-bold'>
+                   <view class="status red">{{orderDetail.status}}</view>
+              </view>
             </view>
+            
             <view class="right-text "  wx:if="{{orderDetail.status=='退换货'}}">
                 <view class="status text-bold">退款中</view>
                 <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
@@ -33,7 +39,7 @@
                   <view class="wuliu-text">暂无物流信息</view>
               </view>
           </view> -->
-          <view class="address-sec"  wx:if="{{orderDetail.deliverytype==1}}">
+          <view class="address-sec"  wx:if="{{orderDetail.address}}">
               <view class="icon-box">
                   <image class="icon" src="http://www.yqcoffee.cn/image/icon-address.png"></image>
               </view>
@@ -47,7 +53,7 @@
                   </view>
               </view>
           </view>
-          <view class='address-sec' wx:if="{{orderDetail.deliverytype==0}}">
+          <view class='address-sec' wx:if="{{orderDetail.address==''}}">
             自提
           </view>
         </block>
@@ -97,7 +103,7 @@
           <view>退款时间：{{orderDetail.sqcreatedat}}</view>
         </view>
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
-        <view  class='bbbb' >
+        <view  class='bbbb'  wx:if="{{ismaiduan||usertype==2}}">
           <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">
                 <button class="confirm-btn" bindtap=''>确认收货</button>
             </view>
@@ -119,7 +125,7 @@
 <view class="cu-modal {{ifshow?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">退款原因</view>
+      <view class="content">审核</view>
       <view class="action" bindtap="hideModal">
         <text class="icon-close text-red jinbohao"></text>
       </view>
@@ -130,8 +136,8 @@
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">
-        <button class="cu-btn line-black text-green" bindtap="hideModal">取消</button>
-        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="hideModal1">确定</button>
+        <button class="cu-btn line-black text-green" bindtap="hideModal">驳回</button>
+        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="hideModal1">同意</button>
 
       </view>
     </view>

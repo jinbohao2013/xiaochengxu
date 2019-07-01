@@ -1,0 +1,10 @@
+/* pages/home/dianzhang/dianzhang.wxss */
+page{
+  background-color: #eee;
+}
+.cu-list.menu-avatar>.cu-item .action{
+  width: auto;
+}
+.cu-list.menu-avatar>.cu-item .content{
+  line-height: 16px;
+}

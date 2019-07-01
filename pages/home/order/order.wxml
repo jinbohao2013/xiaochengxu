@@ -40,15 +40,18 @@
           <view>{{item.dateAdd}} </view>
         </view>
       </view> -->
-      <view wx:if="{{item.status=='待发货'}}" style='padding:20rpx;'>
-        <view style='display:flex; align-items:center;'>
-          <text>快递公司：</text><input class='solid' data-id="{{item.id}}" style='width:222rpx;height:45rpx;' bindinput='shipname'></input>
-        </view>
-        <view class='margin-top' style='display:flex; align-items:center;'>
-          <text>快递单号：</text><input  class='solid' data-id="{{item.id}}" style='width:500rpx;height:45rpx;' bindinput='shipnumber'></input>
+      <view wx:if="{{ismaiduan||usertype==2}}">
+        <view wx:if="{{item.status=='待发货'}}" style='padding:20rpx;'>
+          <view style='display:flex; align-items:center;'>
+            <text>快递公司：</text><input class='solid' data-id="{{item.id}}" style='width:222rpx;height:45rpx;' bindinput='shipname'></input>
+          </view>
+          <view class='margin-top' style='display:flex; align-items:center;'>
+            <text>快递单号：</text><input  class='solid' data-id="{{item.id}}" style='width:500rpx;height:45rpx;' bindinput='shipnumber'></input>
+          </view>
         </view>
       </view>
-      <view class="price-box" style='padding-right:20rpx;'>
+      
+      <view class="price-box" style='padding-right:20rpx;' wx:if="{{ismaiduan||usertype==2}}">
         <view class="btn" hidden="{{item.status=='待付款'||item.status=='已完成'? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
         <!-- <view class="btn active" hidden="{{item.status=='待付款'? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.sumprice}}" data-score="{{item.score}}">马上付款</view> -->
         <view class="btn active" hidden="{{(item.status==4) ? false : true}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退货详情</view>

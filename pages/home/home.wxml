@@ -49,17 +49,17 @@
              <text>待结算{{dataInfo.zrprofit}}元</text>
            </view> -->
          </view>
-         <view class='client' wx:if="{{usertype=='3'}}">
+         <navigator url='newfenxiaoyuan/newfenxiaoyuan' class='client' wx:if="{{usertype=='3'}}">
            <view class="client_one">
              <text>昨日新增分销员(人)</text>
            
            </view>
            
            <view class='client_two'>
-             <text>{{dataInfo.newsalanums||0}}</text>
+             <text>{{newsalaperson||0}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>待审核 {{0}} 人</view>
-         </view>
+           <view class='text' style='color:#999;font-size:24rpx;'>待审核 {{sqsalespersonnums}} 人</view>
+         </navigator>
          <navigator url='newagent/newagent' class='client' wx:if="{{usertype=='2'}}">
            <view class="client_one">
              <text>昨日新增代理(人)</text>
@@ -92,18 +92,23 @@
          <view>累计店长</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'}}">
-      <navigator url='fenxiaoyuan/fenxiaoyuan'>
-         <view style='color:#38f;'>{{dataInfo.ljsalaperson||0}}</view>
-         <view>累计分销员</view></navigator>
+        <navigator url='fenxiaoyuan2/fenxiaoyuan2' wx:if="{{usertype=='2'}}">
+            <view style='color:#38f;'>{{dataInfo.ljsalaperson||0}}</view>
+            <view>累计分销员</view>
+        </navigator>
+        <navigator url='fenxiaoyuan/fenxiaoyuan' wx:if="{{usertype=='3'}}">
+            <view style='color:#38f;'>{{dataInfo.ljsalanums||0}}</view>
+            <view>累计分销员</view>
+        </navigator>
       </view>
-      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
-         <view style='color:#38f;'>{{dataInfo.customer||0}}</view>
+      <navigator url='customer/customer' class='accumulate_one'>
+         <view style='color:#38f;'>{{allcustomer||0}}</view>
          <view>累计客户</view>
-      </view>
-      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
-         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
+      </navigator>
+      <navigator url='/pages/home/order/order' class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
+         <view style='color:#38f;'>{{ordernum1||0}}</view>
          <view>推广订单</view>
-      </view>
+      </navigator>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order'>
