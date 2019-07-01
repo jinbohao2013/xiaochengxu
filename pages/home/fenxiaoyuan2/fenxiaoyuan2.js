@@ -44,11 +44,13 @@ Page({
     if (this.data.TabCur==0){
       this.setData({
         shoptype: 1,
+        ajaxData: [],
       })
       this.onLoad()
     } else if (this.data.TabCur == 1){
       this.setData({
         shoptype: 3,
+        ajaxData: [],
       })
       this.onLoad()
     }else{//客户
@@ -102,7 +104,7 @@ Page({
   },
   see() {
     wx.showToast({
-      title: '暂时不支持查看',
+      title: '功能开发中',
       icon: "none"
     })
   },

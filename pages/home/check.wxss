@@ -1,13 +1,19 @@
 /* pages/home/check.wxss */
+.a,.b,.c,.d{
+  display: inline-block
+}
+.a,.b,.c{
+  margin-right: 20rpx;
+}
 .a{
-  width: 120rpx;
+  
 }
 .b{
-   width: 200rpx;
+   
 }
 .c{
-   width: 160rpx;
+  
 }
 .d{
-   width: 200rpx;
+   
 }

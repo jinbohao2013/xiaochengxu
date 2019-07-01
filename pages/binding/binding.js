@@ -21,6 +21,7 @@ Page({
     uid:70,
     userInfoName: "",
     userInfoImg:"",
+    ifskip:false,//跳转到商品列表
   },
   // 登录
   login: function () {
@@ -62,6 +63,7 @@ Page({
   },
   // 绑定手机号
   bindingPhone: function () {
+    let _this=this;
     if (this.data.name.length > 0) {
       if (this.data.address.length > 0) {
         if (this.data.phone.length > 0) {
@@ -83,7 +85,7 @@ Page({
                 console.log(res)
                 if (res.data.Msg == '操作成功') {
                   wx.showToast({
-                    title: '绑定成功',
+                    title: '您的申请已提交，请等待经销商审核',
                     icon: 'success',
                   })
                   wx.setStorageSync("usertype", 4);
@@ -93,12 +95,14 @@ Page({
                   }catch(e){
 
                   }
-                  
-                  setTimeout(() => {
-                    wx.redirectTo({
-                      url: '/pages/home/home',
-                    })
-                  }, 1500)
+                  _this.setData({
+                    ifskip: false,
+                  })
+                  // setTimeout(() => {
+                  //   wx.redirectTo({
+                  //     url: '/pages/home/home',
+                  //   })
+                  // }, 1500)
                 } else {
                   wx.showToast({
                     title: res.data.Msg,

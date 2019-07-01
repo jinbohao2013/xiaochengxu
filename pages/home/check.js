@@ -80,20 +80,29 @@ Page({
   },
   agree(e) {
     let _this = this;
-    util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
-      ids: e.currentTarget.dataset.id,
-      auditype: 3,
-      states: 1,
-    }).then(function (res) {
-      if (res.Code == "200") {
-        _this.onLoad();
-        wx.showToast({
-          title: '已通过'
-        })
-      } else {
-        
+    wx.showModal({
+      title: '',
+      content: '是否确定同意',
+      success(res) {
+        if (res.confirm) {
+          util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
+            ids: e.currentTarget.dataset.id,
+            auditype: 3,
+            states: 1,
+          }).then(function (res) {
+            if (res.Code == "200") {
+              _this.onLoad();
+              wx.showToast({
+                title: '已通过'
+              })
+            }
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
-    });
+    })
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

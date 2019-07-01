@@ -7,20 +7,20 @@
 </scroll-view> -->
 <!--推广商品-->
 <view class='body'>
-  <view class='header text-center' style='margin-bottom:0rpx;'>
+  <view class='header' style='margin-bottom:0rpx;'>
     <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
       <view>姓名</view><view>电话</view><view>店铺名称</view><view>是否通过</view>
     </view>
 
-    <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;' wx:for="{{ajaxData}}" wx:key="index">
+    <view class='van-hairline--bottom text-xl' style='display:;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;padding-right:0;' wx:for="{{ajaxData}}" wx:key="index">
       <view class='a' style='white-space:nowrap;'>{{item.nickname}}</view>
       
       <view  class='b'>{{item.phone}}</view>
-      <view class='van-ellipsis c'>{{item.shopname}}</view>
-      <view>
-      <button wx:if="{{item.phone}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
-      <button wx:if="{{item.phone}}" class='cu-tag line-black'  bindtap='noagree' data-id='{{item.id}}'>不同意</button>
-      </view>
+     {{item.shopname}}
+      
+      <button wx:if="{{item.nickname}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
+      <button wx:if="{{item.nickname}}" class='cu-tag line-black'  bindtap='noagree' data-id='{{item.id}}'>不同意</button>
+      
     </view>
     
   </view>

@@ -52,7 +52,7 @@
       </view>
       
       <view class="price-box" style='padding-right:20rpx;' wx:if="{{ismaiduan||usertype==2}}">
-        <view class="btn" hidden="{{item.status=='待付款'||item.status=='已完成'? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
+        <!-- <view class="btn" hidden="{{item.status=='待付款'||item.status=='已完成'? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view> -->
         <!-- <view class="btn active" hidden="{{item.status=='待付款'? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.sumprice}}" data-score="{{item.score}}">马上付款</view> -->
         <view class="btn active" hidden="{{(item.status==4) ? false : true}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退货详情</view>
         <view class="btn active" hidden="{{(item.status=='待发货') ? false : true}}" bindtap="fahuo"  data-id="{{item.id}}" data-shipname="{{item.id}}" data-ordernumber="{{item.ordernumber}}">标记发货</view>

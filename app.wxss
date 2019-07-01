@@ -23,5 +23,8 @@
   line-height:103rpx;
   position: relative;
 }
+.navActiveBottom{
+  background-color: #eee;
+}
 .Bottom-Tabbar navigator::before{content:" ";position:absolute;pointer-events:none;box-sizing:border-box;-webkit-transform-origin:center;transform-origin:center;top:0;left:0;right:0;bottom:auto;-webkit-transform:scaleY(.5);transform:scaleY(.5);border-top:1px solid #eee}
 .Bottom-Tabbar navigator:nth-child(1)::after,.Bottom-Tabbar navigator:nth-child(2)::after{content:" ";position:absolute;pointer-events:none;box-sizing:border-box;-webkit-transform-origin:center;transform-origin:center;top:0;left:auto;right:0;bottom:0;-webkit-transform:scaleX(.5);transform:scaleX(.5);border-left:1px solid #eee}

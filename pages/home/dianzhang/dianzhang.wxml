@@ -25,7 +25,8 @@
         </view>
       </view>
       <view class="action">
-        <navigator url='proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-tag bg-grey radius">设置</navigator>
+        <navigator wx:if="{{TabCur==0}}" url='proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-tag bg-grey radius">设置</navigator>
+        <navigator bindtap='see' class="cu-tag bg-grey radius">查看</navigator>
         <!-- <navigator class="cu-tag bg-grey radius">查看</navigator>
         <navigator class="cu-tag bg-grey radius">删除</navigator> -->
       </view>

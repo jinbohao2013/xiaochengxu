@@ -7,7 +7,7 @@ App({
     usertype:null
   },
   data:{
-    hostAjax: "https://www.yqcoffee.cn:2020",
+    hostAjax: "https://www.yqcoffee.cn:2019",
     // hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),

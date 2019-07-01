@@ -9,6 +9,12 @@ Page({
       url: '../detail/detail?id=' + e.currentTarget.dataset.id
     })
   },
+  see() {
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none'
+    })
+  },
   /**
    * 页面的初始数据
    */
@@ -43,11 +49,13 @@ Page({
     if (this.data.TabCur==0){
       this.setData({
         shoptype: 1,
+        ajaxData: [],
       })
       this.onLoad()
     } else if (this.data.TabCur == 1){
       this.setData({
         shoptype: 3,
+        ajaxData: [],
       })
       this.onLoad()
     }else{//客户

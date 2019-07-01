@@ -25,7 +25,8 @@
     </view>
   </view>
   <view class='footer' catchtap='bindingPhone'>
-    <view>绑定手机号，成为分销员</view>
+    <view wx:if="{{!ifskip}}">绑定手机号，申请成为分销员</view>
+    <navigator url='/pages/goods/index/index' wx:else>申请已提交，去商城看看</navigator>
   </view>
 </view>
 <view class='win' wx:if='{{isLogin}}'>
