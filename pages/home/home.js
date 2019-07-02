@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ismaiduan: 0,
     Images: [
       "http://www.yqcoffee.cn/image/pic1.png",
       "http://www.yqcoffee.cn/image/pic2.png",
@@ -66,6 +67,9 @@ Page({
         this.setData({
           shopName: res.data.Data.shopname
         })
+        if (Number(wx.getStorageSync("usertype"))==3){
+          wx.setStorageSync("logo", res.data.Data.shoplog);
+        }
       }
     })
   },
@@ -81,8 +85,10 @@ Page({
         console.log(res)
         if (type==2){//如果是分销商
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
+          wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type ==3) {//如果是店长
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
+          console.log(res.data.Data)
         } else if (type == 4){//如果是分销员
           wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
@@ -99,7 +105,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+    this.setData({
+      ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
+    })
     let _this=this;
     //获取用户登录信息
     wx.request({

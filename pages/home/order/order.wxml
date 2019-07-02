@@ -18,7 +18,6 @@
         <view>订单:{{item.ordernumber}} ><view>日期:{{item.createdat}}</view></view>
         <view style='color:red;font-size:32rpx;'>{{item.status}}</view>
       </view>
-        
       </navigator>
       <!-- 商品的内容 -->
       <block wx:for='{{item.goodslist}}'  wx:key="*this">
@@ -54,7 +53,7 @@
       <view class="price-box" style='padding-right:20rpx;' wx:if="{{ismaiduan||usertype==2}}">
         <!-- <view class="btn" hidden="{{item.status=='待付款'||item.status=='已完成'? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view> -->
         <!-- <view class="btn active" hidden="{{item.status=='待付款'? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.sumprice}}" data-score="{{item.score}}">马上付款</view> -->
-        <view class="btn active" hidden="{{(item.status==4) ? false : true}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退货详情</view>
+        <view class="btn active" hidden="{{(item.status==4) ? false : true}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退款详情</view>
         <view class="btn active" hidden="{{(item.status=='待发货') ? false : true}}" bindtap="fahuo"  data-id="{{item.id}}" data-shipname="{{item.id}}" data-ordernumber="{{item.ordernumber}}">标记发货</view>
         <!-- <view class="btn" hidden="{{(item.status==4) ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">取消退款</view> -->
         <navigator url='/pages/home/order/details/details?id={{item.id}}' class="btn" hidden="{{(item.status=='待发货') ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">查看订单</navigator>

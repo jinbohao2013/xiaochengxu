@@ -98,11 +98,14 @@
         </view>
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
         <view  class='bbbb' >
-          <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
-                <button class="confirm-btn" bindtap=''>确认收货</button>
-            </view> -->
-            <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
-                <button class="confirm-btn"  bindtap="hideModal">申请退货</button>
+          <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
+            <button class="confirm-btn" bindtap='getgoods'>确认收货</button>
+          </view> 
+            <view class="btn-row"  wx:if="{{orderDetail.status=='待发货'}}">
+              <button class="confirm-btn"  bindtap="hideModal" data-type='1'>申请退款</button>
+            </view>
+            <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='已完成'}}">
+              <button class="confirm-btn"  bindtap="huanhuo">申请换货</button>
             </view> -->
             <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status=='退换货'}}">
                 <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn" formType="submit">联系客服</navigator>
@@ -111,6 +114,8 @@
             <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">
                 <button class="confirm-btn" bindtap="canceltuihuo">取消退款</button>
             </view> -->
+            <!-- 退换货应该是待发货状态下，用户申请退款可办理退款。已发货状态下不支持退款仅支持换货，用户申请换货，需将货物寄回，输入寄回货物物流方式、物流单号，提交申请。然后对应经销商收到用户寄回的货物后，点击确认换货，输入物流名称、物流单号进行提交。用户的对应订单变更为申请换货成功，您的货物正在路上。 -->
+            <!-- 逻辑改一下，只有待发货状态下的订单接受退款，已发货的订单不支持退换货。这样简单点 -->
         </view>
             
             </form>
@@ -132,6 +137,40 @@
       <view class="action">
         <button class="cu-btn line-black text-green" bindtap="hideModal">取消</button>
         <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="hideModal1">确定</button>
+
+      </view>
+    </view>
+  </view>
+</view>
+
+      
+
+
+<view class="cu-modal {{ifshow1?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">换货原因</view>
+      <view class="action" bindtap="huanhuo">
+        <text class="icon-close text-red jinbohao"></text>
+      </view>
+    </view>
+    <view class=" text-left">
+      <textarea wx:if="{{ifshow1}}" placeholder="请输入换货原因" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class="placeholder" class="{{textareaAValue1?'value':''}}" bindinput="textareaAInput1" style='width:100%;padding:35rpx;font-size:16px;height:83px'></textarea>
+       <view>
+        <view style='padding:20rpx;font-size:16px;'>
+          <view style='display:flex; align-items:center;'>
+            <text>快递公司：</text><input class='solid' data-id="{{item.id}}" style='width:222rpx;height:45rpx;' bindinput='shipname'></input>
+          </view>
+          <view class='margin-top' style='display:flex; align-items:center;'>
+            <text>快递单号：</text><input  class='solid' data-id="{{item.id}}" style='width:500rpx;height:45rpx;' bindinput='shipnumber'></input>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-black text-green" bindtap="huanhuo">取消</button>
+        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="huanhuo1">确定</button>
 
       </view>
     </view>

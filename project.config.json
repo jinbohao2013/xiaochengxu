@@ -48,12 +48,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "结算中心",
-					"pathName": "pages/money/tradingrecord/tradingrecord",
+					"pathName": "pages/money/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -152,6 +152,7 @@
 					"id": -1,
 					"name": "查看详情",
 					"pathName": "pages/home/customer/see/see",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -1,9 +1,20 @@
 <view class="card-list">
+  
   <van-cell-group>
-    <view>
-      <van-cell id="银行卡" title="银行卡" value="添加" bind:click="changeAccount1" />
+    <view class="van-hairline card-section__list-item" >
+      <image src="https://img.yzcdn.cn/upload_files/2015/12/24/FkpISwatWww586j207aQe0kaAbXY.jpg!200x200.jpg" class="card-section__list-item-icon"></image><view class="card-section__list-item-content"><view class="card-section__list-item-name">
+        中国银行<!----></view><view class="card-section__list-item-detail">尾号5568 储蓄卡 (私)</view></view>
+        <text class="card-section__list-item-check"></text>
     </view>
-    
+      
+    <view class="card-section">
+    </view>
+  </van-cell-group>
+
+  <van-cell-group>
+   <view>
+      <van-cell id="银行卡" title="银行卡" value="添加" data-name="银行卡添加" bind:click="changeAccount1" />
+    </view> 
   </van-cell-group>
   <!-- <view  class="card-section">
     <van-cell  id="微信钱包" title="微信钱包" value="添加" bind:click="changeAccount1" />
@@ -62,7 +73,7 @@
   </van-popup>
 </view>
 <view>
-<!--底部的弹出（删除。设置默认） -->
+<!--底部的弹出（删除。设置默认）微信账户 -->
 <van-action-sheet
     show="{{ show1 }}"
     actions="{{ actions }}"
@@ -78,8 +89,8 @@
     show="{{ show2}}"
     actions="{{ actions1 }}"
     cancel-text="取消"
-    bind:close="toggleActionSheet2"
-    bind:cancel="toggleActionSheet2"
+    bind:close="changeAccount2"
+    bind:cancel="changeAccount2"
     bind:select="toggleActionSheet2"
   />
 </view>

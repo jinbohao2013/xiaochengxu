@@ -7,7 +7,7 @@ App({
     usertype:null
   },
   data:{
-    hostAjax: "https://www.yqcoffee.cn:2019",
+    hostAjax: "https://www.yqcoffee.cn:2020",
     // hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
@@ -172,7 +172,7 @@ App({
         // console.log(res)
         if (type == 2) {//如果是分销商
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
-          
+          wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
           wx.setStorageSync("isoverpay", res.data.Data.isoverpay);

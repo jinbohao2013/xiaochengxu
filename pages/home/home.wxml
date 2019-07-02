@@ -1,24 +1,24 @@
 
 <wxs src="../../utils/tools.wxs" module="tools" /><view>
-   <view class='top'>
+   <view class='top' style='position:relative;'>
       <view class='top_one'>
          <image src="{{userInfoImg}}"></image>
-         <!-- <button open-type='getUserInfo'>获取用户登录信息</button> -->
       </view>
       <view class='top_two'>
         <view  class='name'>
-           <text>{{userInfoName}}</text>
-       </view>
-          <view class='store'>
-             <text wx:if="{{usertype=='2'}}">经销商：{{userInfoName}}</text>
-             <text wx:elif="{{usertype=='3'}}">店长：{{userInfoName}}</text>
-             <text wx:else>分销员：{{userInfoName}}</text>
-          </view>
-      <view class='cent'>
-        <text class='cent_one'>自购分佣</text>
-        <text class='cent_two'>分销员间绑定</text>    
+          <text>{{userInfoName}}</text>
+        </view>
+        <view class='store'>
+          <text wx:if="{{usertype=='2'}}">经销商：{{userInfoName}}</text>
+          <text wx:elif="{{usertype=='3'}}">店长：{{userInfoName}}</text>
+          <text wx:else>分销员：{{userInfoName}}</text>
+        </view>
+        <view class='cent'>
+          <text class='cent_one'>自购分佣</text>
+          <text class='cent_two'>分销员间绑定</text>    
+        </view>
       </view>
-      </view>
+       <navigator wx:if="{{1}}" style='position:absolute;top:31px;right:50rpx;color:red;' url='/pages/home/fenxiaoyuan/proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-btn round bg-gray">佣金设置</navigator>
    </view>
    <view class='middel'>
       <view class='middel_one'>  

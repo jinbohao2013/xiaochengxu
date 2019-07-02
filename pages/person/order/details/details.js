@@ -2,18 +2,23 @@ const app = getApp();
 var util = require('../../../../utils/util.js');
 Page({
   data: {
+    e:null,
     orderId: 0,
     goodsList: [],
     orderDetail:null,
     yunPrice: "0.00",
     appid: "",
     ifshow:false,//退款框
+    ifshow1: false,//换货
     textareaAValue:"",//退款str
+    shipnumber:"",
+    shipname: "",
   },
   onLoad: function (e) {
     var orderId = e.id;
     this.data.orderId = orderId;
     this.setData({
+      e:e,
       orderId: orderId
     });
     // 用户订单详情
@@ -98,6 +103,37 @@ Page({
       url: "/pages/wuliu/index?id=" + orderId
     })
   },
+  getgoods() {
+    // 确认收货
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否确定',
+      success(res) {
+        if (res.confirm) {
+          util.request(app.data.hostAjax + '/api/transaction/v1/addbuyerreceiving', {
+            userid: wx.getStorageSync("userIdBuyGood"),
+            ordernumber: that.data.orderDetail.ordernumber,
+          }).then(function (res) {
+            if (res.Code == "200") {
+
+              that.onLoad(that.data.e)
+            } else {
+
+              wx.showToast({
+                title: '网络错误，情稍后重试！',
+                icon: "none"
+              })
+            }
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+    
+  },
   tuihuo(){
     
   },
@@ -139,6 +175,11 @@ Page({
       }
     })
   },
+  huanhuo(e) {
+    this.setData({
+      ifshow1: !this.data.ifshow1
+    })
+  },
   hideModal(e) {
     this.setData({
       ifshow: !this.data.ifshow
@@ -171,12 +212,50 @@ Page({
         })
       }
     });
-    
   },
+  huanhuo1(e) {//换货-确认
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/transaction/v1/addreturngoods', {
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordernumber: e.currentTarget.dataset.id,
+      reason: this.data.textareaAValue,
+      imgurl: ""
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: '提交成功',
+          icon: "none"
+        })
+        _this.setData({
+          ifshow: false
+        })
+      } else {
 
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
+      }
+    });
+  },
+  shipname(e) {
+    this.setData({
+      shipname: e.detail.value
+    })
+  },
+  shipnumber(e) {
+    this.setData({
+      shipnumber: e.detail.value
+    })
+  },
   textareaAInput(e) {
     this.setData({
       textareaAValue: e.detail.value
+    })
+  },
+  textareaAInput1(e) {
+    this.setData({
+      textareaAValue1: e.detail.value
     })
   },
   submitReputation: function (e) {

@@ -1,6 +1,7 @@
 <view class='all'>
-   <view class='invite_img'>
+   <view class='invite_img' style='position:relative;'>
      <image src='{{inviteImage[0]}}'></image>
+      <image src='{{inviteImage[1]}}' style='position:absolute;right:20rpx;top:20rpx;width:120rpx;height:120rpx;'></image>
    </view>
    <view class='invite_footer'>
       <view class='foot_one'>

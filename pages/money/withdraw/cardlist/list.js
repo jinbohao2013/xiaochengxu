@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    type:"",//我是type，控制接受短信的类型
     doRequeset:true,//控制所有的数据请求不能连点
     ifCode:true,//走每一步都要短息验证--默认是true--需要
     show: false,//判断显示--短信验证的弹框
@@ -23,20 +24,20 @@ Page({
     ],
     actions1: [
       { name: '设置默认账户' },
-      { name: '删除微信钱包' }
+      { name: '使用微信钱包' }
     ],
   },
   changeAccount1(e){//银行卡
-    console.log(e)
-    if (e.currentTarget.id=="银行卡"){
-      wx.showToast({
-        title: '暂不支持提现至银行卡功能',
-        icon:"none"
-      })
-      return 
-    }
+    console.log(e.currentTarget.dataset.name)
+    // if (e.currentTarget.id=="银行卡"){
+    //   wx.showToast({
+    //     title: '暂不支持提现至银行卡功能',
+    //     icon:"none"
+    //   })
+    //   return 
+    // }
     if (this.data.ifCode){//如果没有短信验证--进入短信验证弹框
-      this.setData({ show: !this.data.show });
+      this.onClose(e.currentTarget.dataset.name)
       return false;
     }
     this.setData({ show1: !this.data.show1 });
@@ -56,11 +57,33 @@ Page({
     }catch(e){
 
     }
-    
     this.setData({ show1: !this.data.show1 });
   },
-  onClose() {
-    this.setData({ show: !this.data.show });
+  toggleActionSheet2(e) {//微信账户
+    console.log(e)
+    try {
+      if (e.detail.name == "设置默认账户") {
+        this.onClose("微信设置默认账户")
+      } else if (e.detail.name == "使用微信钱包") {
+        this.onClose("使用微信钱包")
+      }
+    } catch (e) {
+
+    }
+    this.setData({ show2: !this.data.show2 });
+  },
+  onClose(typename) {
+    this.setData({ 
+      show: !this.data.show
+    });
+    if (typename){
+      this.setData({
+        type: typename,//银行卡添加
+      });
+    }
+  },
+  changeAccount2(){
+    this.setData({ show2: !this.data.show2 });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -114,8 +137,13 @@ Page({
     console.log("取消")
   },
   confirm(){
-    console.log("确认")
-
+    let _this=this;
+    console.log(this.data.type)
+    this.onClose();
+    //短信验证通过
+    // _this.setData({
+    //   ifCode:false
+    // })
   },
   
   catchCode: function () {

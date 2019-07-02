@@ -176,6 +176,7 @@ Page({
     ctx.setFillStyle('#000')
     //加入图片到canvas中
     const imgUrl = 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid")
+    console.log(imgUrl)
     wx.downloadFile({
       url: shareImg,
       success:(res)=>{ 

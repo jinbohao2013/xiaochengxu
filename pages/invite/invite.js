@@ -8,7 +8,8 @@ Page({
    */
   data: {
     inviteImage:[
-      "http://www.yqcoffee.cn/image/yaoqing.jpg"
+      "http://www.yqcoffee.cn/image/yaoqing.jpg",
+      "http://www.yqcoffee.cn/image/xuejia.png"
     ],
     userInfo: {},
     options:null
@@ -54,6 +55,13 @@ Page({
           canvasId: 'myQrcode',
           ctx: ctx,
           text: shareUrl,
+          image: {
+            imageResource: wx.getStorageSync("logo"),
+            dx: 150 / 750 * wx.getSystemInfoSync().windowWidth,
+            dy: 150 / 750 * wx.getSystemInfoSync().windowWidth,
+            dWidth: 100 / 750 * wx.getSystemInfoSync().windowWidth,
+            dHeight: 100 / 750 * wx.getSystemInfoSync().windowWidth
+          }
         })
       }
     })
