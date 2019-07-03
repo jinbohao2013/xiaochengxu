@@ -11,3 +11,9 @@
 .d{
    width: 200rpx;
 }
+.cu-tag {
+}
+.text-xl{
+  display:flex;
+  flex-wrap:wrap;
+}

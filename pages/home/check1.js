@@ -26,7 +26,10 @@ Page({
     show: false,
     pageindex: 1,
     pagesize: 10,//每页的商品数量
-    tab_bur:["teb1","teb2"]
+    tab_bur: ["teb1", "teb2"],
+    ifshow: false,
+    textareaAValue: "",//同意和驳回的原因
+
   },
   changeIndex(e) {
     console.log(e)
@@ -70,17 +73,42 @@ Page({
       icon: "none"
     })
   },
+  hideModal(e) {
+    this.setData({
+      ifshow: !this.data.ifshow
+    })
+    if (e.currentTarget.dataset.id) {
+      this.setData({
+        ids: e.currentTarget.dataset.id
+      })
+    }
+  },
+  textareaAInput(e) {
+    this.setData({
+      textareaAValue: e.detail.value
+    })
+  },
   noagree(e){
     let _this = this;
+    if (this.data.textareaAValue == "") {
+      wx.showToast({
+        title: '请填写驳回理由',
+        icon: "none"
+      })
+    }
     util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
-      ids: e.currentTarget.dataset.id,
+      ids: this.data.ids,
       auditype: 4,
       states: 0,
+      reason: _this.data.textareaAValue
     }).then(function (res) {
       if (res.Code == "200") {
         wx.showToast({
           title: '已拒绝',
           icon: "none"
+        })
+        _this.setData({
+          ifshow: false
         })
         _this.onLoad();
       } else {
@@ -90,20 +118,31 @@ Page({
   },
   agree(e) {
     let _this = this;
-    util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
-      ids: e.currentTarget.dataset.id,
-      auditype: 4,
-      states: 1,
-    }).then(function (res) {
-      if (res.Code == "200") {
-        _this.onLoad();
-        wx.showToast({
-          title: '已通过'
-        })
-      } else {
-        
+    wx.showModal({
+      title: '',
+      content: '是否确定同意',
+      success(res) {
+        if (res.confirm) {
+          util.request(app.data.hostAjax + '/api/user/v1/updateapplicationlist', {
+            ids: e.currentTarget.dataset.id,
+            auditype: 4,
+            states: 1,
+          }).then(function (res) {
+            if (res.Code == "200") {
+              _this.onLoad();
+              wx.showToast({
+                title: '已通过'
+              })
+            } else {
+
+            }
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
-    });
+    })
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

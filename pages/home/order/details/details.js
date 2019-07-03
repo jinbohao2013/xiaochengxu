@@ -2,6 +2,7 @@ const app = getApp();
 var util = require('../../../../utils/util.js');
 Page({
   data: {
+    userid:0,//该订单的uid
     usertype: 0,
     ismaiduan:  0,
     orderId: 0,
@@ -31,7 +32,8 @@ Page({
       }).then(function (res) {
       if (res.Code == "200") {
         that.setData({
-          orderDetail: res.Data
+          orderDetail: res.Data,
+          userid: res.Data.userid
         })
       } else {
         that.setData({
@@ -119,7 +121,7 @@ Page({
       })
     }
     util.request(app.data.hostAjax + '/api/transaction/v1/updatereturngoodsstates', {//退款申请---审批
-      userid: wx.getStorageSync("userIdBuyGood"),
+      userid: this.data.userid,
       ordernumber: e.currentTarget.dataset.id,
       remark: this.data.textareaAValue,
       states: e.currentTarget.dataset.states

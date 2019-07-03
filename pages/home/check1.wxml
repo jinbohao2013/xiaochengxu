@@ -9,7 +9,7 @@
 <view class='body'>
   <view class='header text-center' style='margin-bottom:0rpx;'>
     <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
-      <view>姓名</view><view>电话</view><view>店铺名称</view><view>是否通过</view>
+      <view>姓名</view><view>电话</view><view style='opacity:0'></view><view>是否通过</view>
     </view>
 
     <view class='van-hairline--bottom text-xl' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;' wx:for="{{ajaxData}}" wx:key="index">
@@ -18,8 +18,10 @@
       <view  class='b'>{{item.phone}}</view>
       <view class='van-ellipsis c'>{{item.shopname}}</view>
       <view>
-        <button wx:if="{{item.phone}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
-        <button wx:if="{{item.phone}}" class='cu-tag line-black'  bindtap='noagree' data-id='{{item.id}}'>不同意</button>
+        <button wx:if="{{item.states=='已通过'}}" class='cu-tag line-red' data-id='{{item.id}}'>{{item.states}}</button>
+        <button wx:if="{{item.states=='已驳回'}}" class='cu-tag line-black' data-id='{{item.id}}'>{{item.states}}</button>
+        <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
+        <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" style='margin-left: 20rpx;' class='cu-tag line-black'  bindtap='hideModal' data-id='{{item.id}}'>不同意</button>
       </view>
     </view>
     
@@ -46,11 +48,25 @@
   </scroll-view> -->
     
   </view>
-  <!-- <view class='footer'>
-    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
-      <navigator open-type="navigate" url='/pages/home/home'>首页</navigator>
-      <navigator open-type="navigate" url='/pages/goods/index/index'>推广商品</navigator>
-      <navigator open-type="navigate" url='/pages/money/index/index'>结算中心</navigator>
+  <view class="cu-modal {{ifshow?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">驳回</view>
+        <view class="action" bindtap="hideModal">
+          <text class="icon-close text-red jinbohao"></text>
+        </view>
+      </view>
+      <view class=" text-left">
+          <textarea wx:if="{{ifshow}}" placeholder="请填写驳回理由" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class="placeholder" class="{{textareaAValue?'value':''}}" bindinput="textareaAInput" style='width:100%;padding:35rpx;font-size:18px;'></textarea>
+        
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-black text-green" data-id='{{orderDetail.ordernumber}}' data-states="2" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' data-states="1" bindtap="noagree">驳回</button>
+
+        </view>
+      </view>
     </view>
-  </view> -->
+  </view>
 </view>

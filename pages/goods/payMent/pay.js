@@ -198,7 +198,7 @@ Page({
     let _this=this;
     console.log("wx.getStorageSync(shopid)", wx.getStorageSync("shopid"))
     console.log("wx.getStorageSync(useridsaleman)", wx.getStorageSync("useridsaleman"))
-    if (_this.data.checked == 2 && !_this.data.address) {
+    if (_this.data.checked == 2 && !_this.data.address.id) {
       wx.showToast({
         title: '请选择收货地址',
         icon: 'none'

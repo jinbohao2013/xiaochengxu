@@ -275,6 +275,7 @@ Page({
         console.log("that.data.pageindex=", that.data.pageindex )
         console.log(that.data.pageindex == that.data.ajaxpageindex)
         if (that.data.pageindex == that.data.ajaxpageindex) {
+          that.getOrder(that.data.orderList.length)
           return;
         }
         that.setData({
@@ -295,8 +296,35 @@ Page({
       }
     });
   },
-  onHide: function () {
-    // 生命周期函数--监听页面隐藏
+  getOrder: function (pagesize) {
+    // 获取订单列表
+    var that = this;
+    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+      userid: wx.getStorageSync("userid"),
+      ordertype: this.data.searchType,
+      pagesize: pagesize,
+      pageindex: 1,
+      searchtxt: this.data.searchtxt
+    }).then(function (res) {
+      console.log()
+      if (res.Code == "200") {
+        that.setData({
+          orderList: res.Data.list,
+          loading: true,
+          ajaxpageindex: that.data.pageindex
+        });
+        if (res.Data.list.length < 10) {
+          that.setData({
+            hideLoading: false
+          })
+        }
+
+      } else {
+        that.setData({
+          hideLoading: false
+        })
+      }
+    });
 
   },
   onUnload: function () {

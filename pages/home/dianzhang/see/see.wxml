@@ -1,0 +1,18 @@
+<view class="body">
+<view class="header" style="height:auto;">
+    <view class="cu-avatar xl round margin-left" style="background-image:url({{consultant.imgurl}});width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin:0 28rpx 20rpx 0;float:left;"></view>
+    <view>	
+      <view style='padding-top:25rpx;'><view class="name" style="font-size:35rpx;">我是昵称</view>
+        <view class='margin-top-xs'>绑定时间：{{51121212211212}}</view>
+      </view>
+      <view style='clear: both;'>
+       
+      </view>
+    </view>
+  </view>
+  <view style='clear: both;border-top:12px solid #fafafa;border-bottom:12px solid #fafafa;'>
+        <view class='list'>分销员数量： <text>王一一</text></view>
+        <view class='list'>订单数量（笔）： <text>1212</text></view>
+        <view class='list'>成交金额（元）： <text>199.22</text></view>
+      </view>
+</view>

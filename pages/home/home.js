@@ -87,7 +87,7 @@ Page({
           wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
           wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type ==3) {//如果是店长
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
+          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("shopqrurl=")[1]);//获取储存分享出去的经销商id
           console.log(res.data.Data)
         } else if (type == 4){//如果是分销员
           wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id

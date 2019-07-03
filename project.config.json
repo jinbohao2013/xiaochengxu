@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 14,
 			"list": [
 				{
 					"id": 0,
@@ -128,9 +128,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "修改信息",
-					"pathName": "pages/home/order/order",
+					"id": 11,
+					"name": "审核店长--分销员",
+					"pathName": "pages/home/check1",
 					"query": "",
 					"scene": null
 				},
@@ -149,9 +149,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "查看详情",
-					"pathName": "pages/home/customer/see/see",
+					"pathName": "pages/home/fenxiaoyuan/see/see",
 					"query": "",
 					"scene": null
 				},

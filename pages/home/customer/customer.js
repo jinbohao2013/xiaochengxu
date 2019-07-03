@@ -25,7 +25,7 @@ Page({
     show: false,
     pageindex: 1,
     pagesize: 10,//每页的商品数量
-    tab_bur: ["分销店长", "买断店长"],
+    tab_bur: [],
     shoptype:1,
   },
   changeIndex(e) {
