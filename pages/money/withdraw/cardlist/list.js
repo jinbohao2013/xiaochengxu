@@ -1,4 +1,4 @@
-// pages/money/withdraw/cardlist/list.js
+const util = require('../../../../utils/util.js');
 var app=getApp();
 Page({
 
@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userbankid:0,//银行卡id--用作于处理银行卡的业务
     type:"",//我是type，控制接受短信的类型
     doRequeset:true,//控制所有的数据请求不能连点
     ifCode:true,//走每一步都要短息验证--默认是true--需要
@@ -26,16 +27,13 @@ Page({
       { name: '设置默认账户' },
       { name: '使用微信钱包' }
     ],
+    weixinshow: false,//默认是不显示微信钱包默认-只有银行卡没有默认时才显示
+    cardlist:[],//获取银行卡的列表显示
+    selectid:false,//用于判断选择的银行卡id--默认是微信，--如果银行卡是默认-就设置银行卡的id
   },
-  changeAccount1(e){//银行卡
+  changeAccount1(e){//银行卡--选择银行卡处理的类型
     console.log(e.currentTarget.dataset.name)
-    // if (e.currentTarget.id=="银行卡"){
-    //   wx.showToast({
-    //     title: '暂不支持提现至银行卡功能',
-    //     icon:"none"
-    //   })
-    //   return 
-    // }
+    
     if (this.data.ifCode){//如果没有短信验证--进入短信验证弹框
       this.onClose(e.currentTarget.dataset.name)
       return false;
@@ -43,16 +41,23 @@ Page({
     this.setData({ show1: !this.data.show1 });
   },
   toggleActionSheet1(e) {//银行卡
-    console.log(e)
+  
+    
     try{
+      console.log(e.detail.name)
+      if (e.currentTarget.dataset.name == "银行卡处理") {
+        this.setData({
+          userbankid: e.currentTarget.dataset.id,
+        })
+      }
       if (e.detail.name == "设置默认账户") {
-
+        this.onClose(e.detail.name)
       } else if (e.detail.name == "使用银行卡") {
-
+        this.onClose(e.detail.name)
       } else if (e.detail.name == "修改银行卡") {
-
+        this.onClose(e.detail.name)
       } else if (e.detail.name == "删除银行卡") {
-
+        this.onClose(e.detail.name)
       }
     }catch(e){
 
@@ -89,7 +94,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      phone: wx.getStorageSync("phone")
+    })
   },
 
   /**
@@ -103,16 +110,89 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      selectid: wx.getStorageSync("userbankid")
+    })
+    console
+    let _this = this;
+    //每次进来都查询银行卡列表
+    util.request(app.data.hostAjax + '/api/my/v1/selectuserbank', {
+      user_id: wx.getStorageSync("userid"),
+      // id: 0,//state为2时银行卡id传0查询默认绑定银行卡
+      // state: 2,//默认的银行卡，要是没有
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          cardlist: res.Data.list
+        })
+      } else {
+        _this.setData({
+          weixinshow: true
+        })
+      }
+    });
+    //每次进来都查询默认
+    util.request(app.data.hostAjax + '/api/my/v1/selectuserbank', {
+      user_id: wx.getStorageSync("userid"),
+      id: 0,//state为2时银行卡id传0查询默认绑定银行卡
+      state: 2,//默认的银行卡，要是没有
+    }).then(function (res) {
+      if (res.Data.list.length !=0) {
+        
+      }else{
+        if (wx.getStorageSync("useweixin")){
+          _this.setData({
+            weixinshow: true
+          })
+        }else{
+          
+        }
+        
+      }
+    });
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
+  delet: function () {
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/my/v1/deleteuserbank', {
+      user_id: wx.getStorageSync("userid"),
+      userbankid: this.data.userbankid,//	银行卡id
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: "删除成功",
+        })
+        _this.onShow();
+      } else {
+        wx.showToast({
+          title: res.Msg,
+          icon:"none"
+        })
+      }
+    });
   },
-
+  carddefault: function () {
+    let _this = this;
+    util.request(app.data.hostAjax + '/api/my/v1/defaultuserbank', {
+      user_id: wx.getStorageSync("userid"),
+      userbankid: this.data.userbankid,//	银行卡id
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: "设置成功",
+        })
+        _this.onShow();
+      } else {
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -138,12 +218,51 @@ Page({
   },
   confirm(){
     let _this=this;
+    util.request(app.data.hostAjax + '/api/my/v1/verificationcode', {
+      code: this.data.tel,
+      phone: this.data.phone,//	银行卡id
+    }, ).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: "验证成功",
+        })
+        if (_this.data.type == "银行卡添加") {
+          wx.navigateTo({
+            url: '../cardbind/cardbind?code=' + _this.data.tel,
+          })
+        } else if (_this.data.type == "设置默认账户") {
+          _this.carddefault();
+        } else if (_this.data.type == "使用银行卡") {
+          wx.setStorageSync("userbankid", _this.data.userbankid);//用作于提现页面的使用
+          _this.onShow();
+        } else if (_this.data.type == "修改银行卡") {
+          wx.navigateTo({
+            url: '../cardbind/cardbind?code=' + _this.data.tel + "&userbankid=" + _this.data.userbankid,
+          })
+        } else if (_this.data.type == "删除银行卡") {
+          _this.delet();
+        } else if (_this.data.type == "使用微信钱包") {
+          wx.setStorageSync("useweixin", "yes");
+          wx.removeStorageSync("userbankid");//删除之后刷新一下，默认的就是微信钱包
+          _this.onShow();
+        } else if (_this.data.type == "微信设置默认账户") {
+          wx.removeStorageSync("userbankid");//
+          _this.onShow();
+        } 
+      } else {
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
+      }
+    });
     console.log(this.data.type)
     this.onClose();
-    //短信验证通过
-    // _this.setData({
-    //   ifCode:false
-    // })
+    
+    this.setData({
+      tel: "",
+    })
+    
   },
   
   catchCode: function () {
@@ -154,17 +273,11 @@ Page({
       this.setData({
         doRequeset:false
       })
-      _this.setData({
-        interval: setInterval(function () {
-          _this.setTime();
-        }, 1000)
-      })
-      return;
-      wx.request({//获取短信验证--金币支付
+      wx.request({//获取短信验证
 
         url: app.data.hostAjax + "/api/user/v1/sms",
         data: {
-          type: 3,
+          type: 4,
           account: wx.getStorageSync("phone")
         },
         method: "post",
@@ -181,20 +294,17 @@ Page({
             icon: 'none',
             duration: 2000
           })
-          if (res.data.Code == 0) {
-
+          if (res.data.Code == 200) {
             _this.setData({
               interval: setInterval(function () {
                 _this.setTime();
               }, 1000)
             })
-
           } else {
             clearInterval(_this.data.interval);
             _this.setData({
               time: 60
             })
-
           }
         }
       })
@@ -231,6 +341,7 @@ Page({
         tel:this.data.tel.substr(0,this.data.tel.length-1)
       })
     }
+    
   },
   /**
    * 用户点击右上角分享

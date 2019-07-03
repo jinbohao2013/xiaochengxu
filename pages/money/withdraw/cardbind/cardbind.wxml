@@ -1,0 +1,32 @@
+<view class='body'>
+<view class="cu-form-group margin-top">
+    <view class="title">银行名称</view>
+    <picker bindchange="PickerChange" value="{{index}}" range="{{arr1}}">
+      <view class="picker" style='text-align:left'>
+        {{index!=null?arr1[index]:'请选择'}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <view class="title">卡号</view>
+    <input bindinput="bindcardnumber" type='number' placeholder="请输入" value='{{cardnumber}}'></input> 
+  </view>
+  <view class="cu-form-group">
+    <view class="title">持卡人</view>
+    <input bindinput='bindinputName' placeholder="请输入" maxlength="{{4}}" value='{{name}}'></input> 
+  </view>
+  <view class="cu-form-group">
+    <view class="title">开户行</view>
+    <input bindinput='bindadress' placeholder="请输入" value='{{openerregion}}'></input> 
+  </view>
+  <view class="cu-form-group">
+    <view class="title">手机号</view>
+    <input bindinput='bindinputMobile' type='number' placeholder="请输入" value='{{phone}}'></input> 
+  </view>
+  <view class="cu-form-group">
+    <view class="title">验证码</view>
+    <input type='number' placeholder="请输入" value='{{code}}'></input> 
+  </view>
+</view>
+<button wx:if="{{money==0}}" class="cu-btn block bg-green margin lg" disabled type="">提交</button>
+  <button wx:else class="cu-btn block bg-green margin lg"  bindtap='submit'>提交</button>

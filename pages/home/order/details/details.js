@@ -8,10 +8,13 @@ Page({
     goodsList: [],
     orderDetail:null,
     yunPrice: "0.00",
-    appid: ""
+    appid: "",
+    ifshow: false,//退款框--审批
+    textareaAValue:"",//同意和驳回的原因
   },
   onLoad: function (e) {
     this.setData({
+      e:e,
       usertype: wx.getStorageSync("usertype"),
       ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
     })
@@ -97,11 +100,47 @@ Page({
       yunPrice: yunPrice
     });
   },
-  wuliuDetailsTap: function (e) {
-    var orderId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: "/pages/wuliu/index?id=" + orderId
+  hideModal(e) {
+    this.setData({
+      ifshow: !this.data.ifshow
     })
+  },
+  textareaAInput(e) {
+    this.setData({
+      textareaAValue: e.detail.value
+    })
+  },
+  hideModal1(e) {
+    let _this = this;
+    if (this.data.textareaAValue == "" && e.currentTarget.dataset.states=="2") {
+      wx.showToast({
+        title: '请填写驳回理由',
+        icon: "none"
+      })
+    }
+    util.request(app.data.hostAjax + '/api/transaction/v1/updatereturngoodsstates', {//退款申请---审批
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordernumber: e.currentTarget.dataset.id,
+      remark: this.data.textareaAValue,
+      states: e.currentTarget.dataset.states
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.showToast({
+          title: '操作成功',
+          icon: "none"
+        })
+        _this.onLoad(_this.data.e)
+        _this.setData({
+          ifshow: false
+        })
+      } else {
+
+        wx.showToast({
+          title: res.Msg,
+          icon: "none"
+        })
+      }
+    });
   },
   tuihuo(){
     

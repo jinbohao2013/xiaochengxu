@@ -1,0 +1,7 @@
+/* pages/money/withdraw/cardbind/cardbind.wxss */
+page{
+  background-color: #fafafa;
+}
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+}

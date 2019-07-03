@@ -1,7 +1,7 @@
 <view class="withdraw__wrapper">
-  
+  <wxs src="../../../utils/tools.wxs" module="tools" />
   <view class="withdraw-account">
-    <view class="withdraw-account__main">
+    <view class="withdraw-account__main"  wx:if="{{cardlist.length==0}}">
       <label class="withdraw-account__label">到账账户</label>
       <view class="withdraw-account__content" bindtap='skipToAccount'>
       <view class='' style='position: absolute;top: 4px;right: 0;'><van-icon
@@ -23,6 +23,21 @@
         <view class="withdraw-account__tips">1-3个工作日到账</view>
       </view>
     </view>
+    <view class="withdraw-account__main"  wx:else>
+      <label class="withdraw-account__label">到账账户</label>
+      <view class="withdraw-account__content" bindtap='skipToAccount'>
+      <view class='' style='position: absolute;top: 4px;right: 0;'><van-icon
+        name="arrow"
+        size="20px"
+        color="#999"
+        custom-class="icon"
+      /></view>
+        <view class="withdraw-account__account">
+          <text style='font-size: 14px;'>{{cardlist[0].bankname}}</text>
+        </view>
+        <view class="withdraw-account__tips">尾号{{tools.cardnum(cardlist[0].cardnumber)}}  (私)</view>
+      </view>
+    </view>
   </view>
   <view class="withdraw-amount">
     <header class="withdraw-amount__header">
@@ -31,7 +46,7 @@
     <view class="withdraw-amount__main">
       <span class="withdraw-amount__symbol">¥</span>
       <input wx:if="{{getMoney==0}}" type='digit' disabled='{{true}}' class="withdraw-amount__input" value='{{money==0?"":money}}' bindinput='setmoney'></input>
-      <input wx:else type='digit' class="withdraw-amount__input" value='{{money==0?"":money}}' bindinput='setmoney'></input>
+      <input wx:else type='digit' class="withdraw-amount__input" value='{{money}}' bindinput='setmoney'></input>
     </view>
     <footer class="withdraw-amount__footer">
       <i class="withdraw-amount__tip van-icon van-icon-info-o" style="color: rgb(68, 187, 0);">

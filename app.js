@@ -57,6 +57,7 @@ App({
               success(res) {
                 if (res.data.Success) {
                   wx.setStorageSync("token", res.data.Data.token)
+                  wx.setStorageSync("phone", res.data.Data.phone)
                   if (res.data.Data.usertype == 1) {
                     //1为普通用户 2为经销商 3为店长 4为分销员
                     //1--隐藏底部导航

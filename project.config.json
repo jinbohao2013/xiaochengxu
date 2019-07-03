@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 15,
 			"list": [
 				{
 					"id": 0,
@@ -152,6 +152,13 @@
 					"id": -1,
 					"name": "查看详情",
 					"pathName": "pages/home/customer/see/see",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "选择账户",
+					"pathName": "pages/money/withdraw/withdraw",
 					"query": "",
 					"scene": null
 				}

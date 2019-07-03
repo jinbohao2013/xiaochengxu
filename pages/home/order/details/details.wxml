@@ -23,6 +23,10 @@
                 <view class="status text-bold">退款中</view>
                 <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
             </view>
+            <view class="right-text "  wx:elif="{{orderDetail.returntype=='退款'}}">
+                <view class="status text-bold">退款中</view>
+                <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
+            </view>
         </view>
         <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='退换货'||orderDetail.status=='已完成'}}">
           <view class="status red">订单：{{orderDetail.ordernumber}}</view>
@@ -115,7 +119,10 @@
             </view> -->
            
             <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">
-                <button class="confirm-btn" bindtap="canceltuihuo">审批</button>
+                <button class="confirm-btn" bindtap="hideModal">审批</button>
+            </view>
+            <view class="btn-row"  wx:elif="{{orderDetail.returntype=='退款'}}">
+                <button class="confirm-btn" bindtap="hideModal">审批</button>
             </view>
         </view>
             
@@ -125,19 +132,19 @@
 <view class="cu-modal {{ifshow?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">审核</view>
+      <view class="content">审批</view>
       <view class="action" bindtap="hideModal">
         <text class="icon-close text-red jinbohao"></text>
       </view>
     </view>
     <view class=" text-left">
-        <textarea wx:if="{{ifshow}}" placeholder="请输入退款原因" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class="placeholder" class="{{textareaAValue?'value':''}}" bindinput="textareaAInput" style='width:100%;padding:35rpx;font-size:18px;'></textarea>
+        <textarea wx:if="{{ifshow}}" placeholder="如果驳回，请填写驳回理由" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class="placeholder" class="{{textareaAValue?'value':''}}" bindinput="textareaAInput" style='width:100%;padding:35rpx;font-size:18px;'></textarea>
       
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">
-        <button class="cu-btn line-black text-green" bindtap="hideModal">驳回</button>
-        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' bindtap="hideModal1">同意</button>
+        <button class="cu-btn line-black text-green" data-id='{{orderDetail.ordernumber}}' data-states="2" bindtap="hideModal1">驳回</button>
+        <button class="cu-btn bg-black margin-left" data-id='{{orderDetail.ordernumber}}' data-states="1" bindtap="hideModal1">同意</button>
 
       </view>
     </view>

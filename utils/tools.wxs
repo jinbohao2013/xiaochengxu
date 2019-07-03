@@ -59,7 +59,12 @@ var imgList = function (s) {
   }
   return
 }
+var cardnum=function(e){
+  var str = e.toString();
+  return str.substring(str.length - 4, str.length)
+}
 module.exports = {
+  cardnum: cardnum,
   bar: bar,
   bar1: bar1,
   bar2: bar2,

@@ -11,6 +11,7 @@ Page({
     ifshow:false,//退款框
     ifshow1: false,//换货
     textareaAValue:"",//退款str
+    textareaAValue1: "",//换货理由
     shipnumber:"",
     shipname: "",
   },
@@ -190,16 +191,21 @@ Page({
   },
   hideModal1(e) {
     let _this = this;
-    util.request(app.data.hostAjax + '/api/transaction/v1/addreturngoods', {
+    if (this.data.textareaAValue==""){
+      wx.showToast({
+        title: '请填写退款原因',
+        icon: "none"
+      })
+    }
+    util.request(app.data.hostAjax + '/api/transaction/v1/addreturnmoneys', {//退款申请
       userid: wx.getStorageSync("userIdBuyGood"),
       ordernumber: e.currentTarget.dataset.id,
       reason:this.data.textareaAValue,
-      imgurl:""
     }).then(function (res) {
       if (res.Code == "200") {
+        that.onLoad(that.data.e)
         wx.showToast({
-          title: '提交成功',
-          icon: "none"
+          title: '提交成功'
         })
         _this.setData({
           ifshow: false

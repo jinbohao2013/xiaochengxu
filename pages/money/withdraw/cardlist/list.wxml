@@ -1,20 +1,25 @@
 <view class="card-list">
   
-  <van-cell-group>
-    <view class="van-hairline card-section__list-item" >
-      <image src="https://img.yzcdn.cn/upload_files/2015/12/24/FkpISwatWww586j207aQe0kaAbXY.jpg!200x200.jpg" class="card-section__list-item-icon"></image><view class="card-section__list-item-content"><view class="card-section__list-item-name">
-        中国银行<!----></view><view class="card-section__list-item-detail">尾号5568 储蓄卡 (私)</view></view>
-        <text class="card-section__list-item-check"></text>
-    </view>
-      
-    <view class="card-section">
-    </view>
-  </van-cell-group>
-
+ 
+ <wxs src="../../../../utils/tools.wxs" module="tools" />
   <van-cell-group>
    <view>
       <van-cell id="银行卡" title="银行卡" value="添加" data-name="银行卡添加" bind:click="changeAccount1" />
     </view> 
+  </van-cell-group>
+   <van-cell-group>
+    <view class="van-hairline card-section__list-item"  wx:for="{{cardlist}}" wx:key="index" data-id='{{item.id}}'data-name="银行卡处理" bindtap="toggleActionSheet1" >
+      <image style='opacity:0' src="https://img.yzcdn.cn/upload_files/2015/12/24/FkpISwatWww586j207aQe0kaAbXY.jpg!200x200.jpg" class="card-section__list-item-icon"></image>
+      <view class="card-section__list-item-content">
+        <view class="card-section__list-item-name">{{item.bankname}} <text class="card-section__list-item-label" wx:if="{{item.state==2}}">默认</text></view>
+        <view class="card-section__list-item-detail">尾号{{tools.cardnum(item.cardnumber)}}  (私)</view>
+        
+      </view>
+      <text wx:if="{{item.id==selectid}}" class="card-section__list-item-check"></text>
+    </view>
+      
+    <view class="card-section">
+    </view>
   </van-cell-group>
   <!-- <view  class="card-section">
     <van-cell  id="微信钱包" title="微信钱包" value="添加" bind:click="changeAccount1" />
@@ -26,11 +31,11 @@
         <view class="card-section__list-item-content">
           <view class="card-section__list-item-name">
             <open-data style='font-size: 14px;' type="userNickName"></open-data>
-            <text class="card-section__list-item-label">默认</text>
+            <text class="card-section__list-item-label" wx:if="{{weixinshow}}">默认</text>
           </view>
-          <view class="card-section__list-item-detail">尾号rDYg 微信钱包 (私)</view>
+          <!-- <view class="card-section__list-item-detail">尾号rDYg 微信钱包 (私)</view> -->
         </view>
-        <span class="card-section__list-item-check"></span>
+        <text wx:if="{{!selectid}}" class="card-section__list-item-check"></text>
       </view>
     </ul>
   </view><!-- 一种情况 -->
@@ -48,7 +53,7 @@
       <text bindtap='confirm' class="captcha-validator__confirm">确认</text>
     </view>
     <view class="captcha-validator__tips">
-      为保障你的账户安全，已发送短信验证码到你登录的手机号：+86-{{hideTel}}进行验证
+      为保障您的账户安全，请获取短信验证码到您登录的手机号：{{phone}} 进行验证
     </view>
     <view class="captcha-validator__captcha">
       <view class="captcha-validator__input">{{tel}}</view>

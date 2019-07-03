@@ -43,7 +43,8 @@
     "pages/home/dianzhang/dianzhang",
     "pages/home/customer/customer",
     "pages/home/customer/see/see",
-    "pages/home/dianzhang/proportion/proportion"
+    "pages/home/dianzhang/proportion/proportion",
+    "pages/money/withdraw/cardbind/cardbind"
   ],
   "window": {
     "backgroundTextStyle": "light",

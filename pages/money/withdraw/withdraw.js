@@ -1,13 +1,16 @@
 // pages/money/withdraw/withdraw.js
 var app=getApp();
+var util = require('../../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    money: 0,//提现金额
+    money: "",//提现金额
     getMoney: 0,//可提现金额
+    ajaxcard:null,//默认是微信，选择了银行卡优先
+    cardlist:[],
   },
   setmoney(e){
     this.setData({
@@ -49,8 +52,9 @@ Page({
       url: app.data.hostAjax + '/api/transaction/v1/addapplicationcash',
       data: {
         userid: wx.getStorageSync("userid"),
-        usertype: wx.getStorageSync("usertype"),//角色类型 2为经销商 3为店长 4为分销员
-        Cashmonys:this.data.money
+        cashtype: this.data.cardlist.length==0?2:1,//提现类型 1为银行卡 2为钱包
+        Cashmonys:this.data.money,
+        cardid: this.data.cardlist.length == 0 ? undefined : wx.getStorageSync("userbankid")
       },
       method: "get",
       header: {
@@ -60,7 +64,7 @@ Page({
 
         if (res.data.Success) {
           _this.setData({
-            money: 0,//提现金额
+            money: "",//提现金额
             getMoney: 0,//可提现金额
           })
           _this.onLoad();
@@ -88,7 +92,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let _this=this;
+    //先判断选择使用的微信
+    if (wx.getStorageSync("useweixin")){
+      _this.setData({
+        cardlist: []
+      })
+      return
+    }
+    //先查询选择的银行卡
+    //每次进来都查询默认的账户-银行卡
+    util.request(app.data.hostAjax + '/api/my/v1/selectuserbank', {
+      user_id: wx.getStorageSync("userid"),
+      id: wx.getStorageSync("userbankid")||0,//userbankid
+      state: wx.getStorageSync("userbankid")?undefined:2
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          cardlist:res.Data.list
+        })
+        wx.setStorageSync("userbankid", res.Data.list[0].id)
+      }
+    });
   },
 
   /**
