@@ -199,10 +199,20 @@ Page({
     let regionIndex = event.target.dataset.regionIndex;
     //查询市
     util.request(app.data.hostAjax + '/api/user/v1/pcd', { prov: regionIndex }).then(function (res) {
-      // that.data.address.province_id = regionIndex
-      // that.data.address.city_id = 0
-      // that.data.address.district_id = 0
-      let arr= that.data.addvalues
+      let arr = that.data.addvalues
+      if (res.Data.length == 0) {
+        that.data.address.full_region = event.target.dataset.name
+        that.data.address.province_id = regionIndex
+        that.data.address.city_id = 0
+        that.data.address.district_id = 0
+        that.setData({
+          address: that.data.address,
+          openSelectRegion: false
+        })
+        
+        return
+      }
+     
       arr[0] = {
         id: regionIndex,
         name: event.target.dataset.name
@@ -214,6 +224,7 @@ Page({
         regionType: 2,
         // address: that.data.address
       })
+      
     });
   },
   selectRegion1(event) {
@@ -229,12 +240,10 @@ Page({
         id: regionIndex,
         name: event.target.dataset.name
       } 
-      // arr.push(event.target.dataset.name)
       that.setData({
         addvalues: arr,
         regionList: res.Data,
         regionType: 3,
-        // address: that.data.address
       })
     });
   },
@@ -243,9 +252,7 @@ Page({
     let that = this;
     let regionIndex = event.target.dataset.regionIndex;
     //设置地区
-    // that.data.address.district_id = regionIndex
     let arr = that.data.addvalues
-    // arr.push(event.target.dataset.name)
     arr[2] = {
       id: regionIndex,
       name: event.target.dataset.name
@@ -258,9 +265,6 @@ Page({
       addvalues: arr,
       address: that.data.address,
     })
-    console.log(arr)
-   
-    console.log(this.data.address.full_region)
     this.cancelSelectRegion();
   },
   doneSelectRegion() {

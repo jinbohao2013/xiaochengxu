@@ -133,6 +133,13 @@ Page({
               wx.showToast({
                 title: '已通过'
               })
+              //判断时候设置过比例--跳转设置页
+              if (e.currentTarget.dataset.percentstates !="已设置"){
+                wx.navigateTo({
+                  url: '/pages/home/fenxiaoyuan/proportion/proportion',
+                })
+              }
+              
             } else {
 
             }

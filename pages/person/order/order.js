@@ -147,48 +147,38 @@ Page({
     // 生命周期函数--监听页面初次渲染完成
 
   },
-  getOrderStatistics: function () {
-    var that = this;
-    WXAPI.orderStatistics(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        var tabClass = that.data.tabClass;
-        if (res.data.count_id_no_pay > 0) {
-          tabClass[0] = "red-dot"
-        } else {
-          tabClass[0] = ""
-        }
-        if (res.data.count_id_no_transfer > 0) {
-          tabClass[1] = "red-dot"
-        } else {
-          tabClass[1] = ""
-        }
-        if (res.data.count_id_no_confirm > 0) {
-          tabClass[2] = "red-dot"
-        } else {
-          tabClass[2] = ""
-        }
-        if (res.data.count_id_no_reputation > 0) {
-          tabClass[3] = "red-dot"
-        } else {
-          tabClass[3] = ""
-        }
-        if (res.data.count_id_success > 0) {
-          //tabClass[4] = "red-dot"
-        } else {
-          //tabClass[4] = ""
-        }
-
-        that.setData({
-          tabClass: tabClass,
-        });
-      }
-    })
-  },
-  onShow: function () {
-    
+  getOrder: function (pagesize) {
     // 获取订单列表
     var that = this;
-    
+    util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist', {//用户订单列表
+      userid: wx.getStorageSync("userIdBuyGood"),
+      ordertype: this.data.searchType,
+      pagesize: pagesize,
+      pageindex: 1,
+      searchtxt: this.data.searchtxt
+    }).then(function (res) {
+      console.log()
+      if (res.Code == "200") {
+        that.setData({
+          orderList: res.Data.list,
+          loading: true,
+          ajaxpageindex: that.data.pageindex
+        });
+        if (res.Data.list.length < 10) {
+          that.setData({
+            hideLoading: false
+          })
+        }
+      } else {
+        that.setData({
+          hideLoading: false
+        })
+      }
+    });
+  },
+  onShow: function () {
+    // 获取订单列表
+    var that = this;
     util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist',{//用户订单列表
       userid: wx.getStorageSync("userIdBuyGood"),
       ordertype:this.data.searchType,
@@ -202,6 +192,7 @@ Page({
         console.log("that.data.pageindex=", that.data.pageindex )
         console.log(that.data.pageindex == that.data.ajaxpageindex)
         if (that.data.pageindex == that.data.ajaxpageindex) {
+          that.getOrder(that.data.orderList.length)
           return;
         }
         that.setData({
@@ -214,7 +205,6 @@ Page({
             hideLoading: false
           })
         }
-        
       } else {
         that.setData({
           hideLoading: false

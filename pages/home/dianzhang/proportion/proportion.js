@@ -18,11 +18,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
-    console.log(options.shopid)
 // /api/user/v1/addsetpercents
       this.setData({
-        id: options.id,
         shopid: options.shopid,
       })
 

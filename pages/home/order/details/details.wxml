@@ -101,11 +101,17 @@
                 <view class="right-text">¥ {{orderDetail.sumprice}}</view>
             </view>
         </view>
-        <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'}}">
+        <!-- <view class='goods-info' style='padding:30rpx;line-height:40rpx;'>
+          <view wx:if="{{orderDetail.status=='退换货'}}">分销员预计提成： <view style='float:right;'>{{orderDetail.reason}}元</view></view>
+          <view>店长预计提成：  <view style='float:right;'>{{orderDetail.reason}}元</view></view>
+          <view>经销商预计提成： <view style='float:right;'>{{orderDetail.reason}}元</view></view>
+        </view> -->
+        <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'||orderDetail.returntype=='退款'}}">
           <view>退款原因：{{orderDetail.reason}}</view>
           <view>退款金额：￥{{orderDetail.sumprice}}</view>
           <view>退款时间：{{orderDetail.sqcreatedat}}</view>
         </view>
+        
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
         <view  class='bbbb'  wx:if="{{ismaiduan||usertype==2}}">
           <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">

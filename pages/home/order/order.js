@@ -158,12 +158,10 @@ Page({
 
   },
   scrolltolower() {
-    
     if (this.data.loading) {
       let _this = this
       this.setData({
         loading: false
-
       })
       // setTimeout(function(){
       //   _this.setData({
@@ -180,7 +178,6 @@ Page({
       })
       this.onShow();
     }
-
   },
   onLoad: function (options) {
     this.setData({
@@ -258,10 +255,8 @@ Page({
     })
   },
   onShow: function () {
-    
     // 获取订单列表
     var that = this;
-    
     util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist',{//用户订单列表
       userid: wx.getStorageSync("userid"),
       ordertype:this.data.searchType,
