@@ -45,7 +45,7 @@
     </header>
     <view class="withdraw-amount__main">
       <span class="withdraw-amount__symbol">¥</span>
-      <input wx:if="{{getMoney==0}}" type='digit' disabled='{{true}}' class="withdraw-amount__input" value='{{money==0?"":money}}' bindinput='setmoney'></input>
+      <input wx:if="{{getMoney==0}}" type='digit' disabled='{{true}}' class="withdraw-amount__input" value='{{money==0?"":money}}' bindtap='nomoney'></input>
       <input wx:else type='digit' class="withdraw-amount__input" value='{{money}}' bindinput='setmoney'></input>
     </view>
     <footer class="withdraw-amount__footer">

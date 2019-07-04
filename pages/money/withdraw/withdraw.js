@@ -12,6 +12,12 @@ Page({
     ajaxcard:null,//默认是微信，选择了银行卡优先
     cardlist:[],
   },
+  nomoney(e) {
+    wx.showToast({
+      title: "您现在没有可提现金额",
+      icon: 'none'
+    })
+  },
   setmoney(e){
     this.setData({
       money:e.detail.value

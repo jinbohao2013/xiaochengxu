@@ -69,7 +69,7 @@ Page({
     
     this.setData({
       windowHeight: app.data.windowHeight,
-      scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
+      scroolHeight: app.data.isIphoneX ? app.data.windowHeight  - 68 : app.data.windowHeight  - 51
     })
     
     //下面是调取列表接口--展示商品信息

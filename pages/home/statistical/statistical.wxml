@@ -1,0 +1,100 @@
+<!--推广商品-->
+<view class='body'>
+<view class="flex text-center text-xl" style='height:90rpx;line-height:90rpx;position:relative;z-index:11;background-color: #fff;'>
+    <view class="cu-item flex-sub {{index==TabCur?'on':'c'}}" wx:for="{{tab_bur}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{item}}
+    </view>
+  </view>
+  <view class='header' style='margin-bottom:0rpx;'>
+    <view style='position:relative;'>
+      <view class='serch' style='display:flex;justify-content:space-between;align-items:center;padding:0 20rpx;position:relative;height:100rpx;z-index:11;background-color:#fff;'>
+        <view class='bts'>
+          <button bindtap='chooseT' data-id='1' class='cu-btn round {{chooseid==1?"line-red":"bg-gray"}}'>昨天</button>
+          <button bindtap='chooseT' data-id='2' class='cu-btn round {{chooseid==2?"line-red":"bg-gray"}}'>近七天</button>
+          <button bindtap='chooseT' data-id='3' class='cu-btn round {{chooseid==3?"line-red":"bg-gray"}}'>全部</button>
+        </view>
+        <view bindtap='showtop' style='height:100rpx;display:flex;justify-content:space-between;align-items:center;'>
+          <view wx:if="{{endtime&&starttime}}">{{starttime}}-<view>{{endtime}}</view></view>
+          <text wx:else>自定义时间 </text>
+          <text class="{{!topsearch?'icon-unfold':'icon-fold'}} jinbohao"></text>
+        </view>
+      </view>
+      <view bindtap='showtop' wx:if="{{topsearch}}" style='position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.5);z-index:1;'></view>
+      <view wx:if="{{topsearch}}" style='position:absolute;top:100rpx;width:100%;background-color:#fff;z-index:11;'>
+        <view>
+          <view class='{{selecttime=="starttime"?"active":""}}' style='width:50%;display:inline-block;line-height:50rpx;padding:0 0 20rpx 60rpx;' data-time='starttime' bindtap='selecttime'>
+            <view class='text-sm'>开始时间</view>
+            <view class='text-xl'>{{starttime?starttime:"请选择"}}</view>
+          </view>
+          <view class='{{selecttime=="endtime"?"active":""}}' style='width:50%;display:inline-block;line-height:50rpx;padding:0 0 20rpx 60rpx;' data-time='endtime' bindtap='selecttime'>
+            <view class='text-sm'>结束时间</view>
+            <view class='text-xl'>{{endtime?endtime:"请选择"}}</view>
+          </view>
+        </view>
+        <van-datetime-picker
+          type="date"
+          toolbar-class="aaa"
+          data-type="date"
+          value="{{ currentDate2 }}"
+          min-date="{{ minDate }}"
+         bind:input="onInput" 
+          bind:confirm="confirm"
+          formatter="{{ formatter }}"
+        />
+        <!--  -->
+      </view>
+    </view>
+    <view class='text-xl' style='padding:25rpx 0;'>
+     <view class="cu-list grid col-2 van-hairline--top">
+      <view class='cu-item'>
+        <view>总订单（笔）</view>
+        <view>8</view>
+      </view>
+      <view class='cu-item'>
+        <view>总订单金额（元）</view>
+        <view>822</view>
+      </view>
+      <view class='cu-item'>
+        <view>代付款订单（笔）</view>
+        <view>8</view>
+      </view>
+      <view class='cu-item'>
+        <view>代付款订单金额（元）</view>
+        <view>8888</view>
+      </view>
+      <view class='cu-item'>
+        <view>已成交订单（笔）</view>
+        <view>88</view>
+      </view>
+      <view class='cu-item'>
+        <view>已成交订单金额（元）</view>
+        <view>8888</view>
+      </view>
+     </view>
+    </view>
+    
+  </view>
+  <view class='main' style='margin-bottom:0;'>
+  <!-- <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+    <view class='lists' style='padding-bottom:50rpx;'>
+    <block wx:for="{{ajaxData}}" wx:key>
+    <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
+      <view style='margin:30rpx 0 15rpx 0;'>{{item.channel}}<text style='float:right;color:#{{item.gettype=="收入"?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.num}}</text></view>
+      <text style='color:#aaa;'>{{item.createdate}}</text>
+    </view>
+    </block>
+    <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+    <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&ajaxData.length>10}}">
+      我到底了
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{ajaxData.length==0}}">
+      无记录
+    </view>
+    </view>
+  </scroll-view> -->
+    
+  </view>
+  <van-toast id="van-toast" />
+</view>

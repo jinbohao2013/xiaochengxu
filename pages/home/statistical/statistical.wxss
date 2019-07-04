@@ -1,0 +1,48 @@
+/* pages/goods/index/index.wxss */
+page{
+  background-color: #fff;
+}
+.goods_list{
+  padding: 0 33rpx;
+}
+.price{
+  font-size: 37.5rpx;
+}
+#custom-class button{
+  background-color:#333333;
+  color: white;
+  border: 1px solid #333333;
+}
+.bts button+button{
+  margin-left: 20rpx;
+}
+.aaa {
+ height:70rpx!important;
+ line-height:70rpx!important;
+ background-color: red;
+ 
+}
+.van-picker__confirm{
+color: white!important;
+}
+.van-picker__confirm--hover,.van-picker__confirm:hover{
+  background-color: red;
+}
+.van-picker__toolbar{
+  display: block!important;
+  text-align: center;
+}
+.active{
+  border-bottom:2px solid red; 
+}
+.on{
+  border-radius: 5px;
+  background-color: #AAAAAA
+}
+.c{
+  border-radius: 5px;
+  background-color: #EDEDED
+}
+.grid.cu-item{
+  line-height: 63rpx;
+}

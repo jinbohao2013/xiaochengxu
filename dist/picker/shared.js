@@ -8,7 +8,7 @@ export const pickerProps = {
     },
     confirmButtonText: {
         type: String,
-        value: '确认'
+        value: '确定'
     },
     visibleItemCount: {
         type: Number,
@@ -16,6 +16,6 @@ export const pickerProps = {
     },
     itemHeight: {
         type: Number,
-        value: 44
+        value: 35
     }
 };

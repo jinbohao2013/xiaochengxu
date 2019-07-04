@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -130,14 +130,14 @@
 				{
 					"id": 11,
 					"name": "审核店长--分销员",
-					"pathName": "pages/home/check1",
+					"pathName": "pages/home/earnings/earnings",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "累计店长",
-					"pathName": "pages/home/dianzhang/dianzhang",
+					"id": 12,
+					"name": "数据统计",
+					"pathName": "pages/home/statistical/statistical",
 					"query": "",
 					"scene": null
 				},

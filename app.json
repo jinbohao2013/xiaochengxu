@@ -33,6 +33,8 @@
     "pages/person/consultant/consultant",
     "pages/person/consultant1/consultant1",
     "pages/home/newagent/newagent",
+    "pages/home/earnings/earnings",
+    "pages/home/statistical/statistical",
     "pages/home/newfenxiaoyuan/newfenxiaoyuan",
     "pages/person/cart/carBuy/carBuy",
     "pages/home/check",
