@@ -1,5 +1,7 @@
 <view class="body">
-<view style='padding:25rpx 25rpx 25rpx 35rpx;'><van-icon
+<image src='http://www.yqcoffee.cn/image/consultant.jpg' mode="widthFix" style='width:100%;'> </image>
+
+<!-- <view style='padding:25rpx 25rpx 25rpx 35rpx;'><van-icon
         name="star-o"
         size="16px"
         custom-class="icon"
@@ -23,12 +25,13 @@
       </view>
     </view>
 
-    <!-- <view class="cu-bar bg-white margin-top  solid-bottom">
+    
+
+
+  </view> -->
+  <!-- <view class="cu-bar bg-white margin-top  solid-bottom">
       <view class="action">
         <text class="icon-title text-black jinbohao"></text>座机：111111111111111111
       </view>
     </view> -->
-
-
-  </view>
 </view>

@@ -2,8 +2,11 @@
 var bar = function (d) {
   return d.split(".")[0].split("T");
 }
-var bar1 = function (d) {
-  return d.split(".")[0].split(" ");
+var goodsid = function (d) {
+  if(d){
+    return d.split("?goodsid=")[1];
+  }
+  
 }
 var bar2 = function (d) {
   var a = d.split(".")[0].split("T");
@@ -66,7 +69,7 @@ var cardnum=function(e){
 module.exports = {
   cardnum: cardnum,
   bar: bar,
-  bar1: bar1,
+  goodsid: goodsid,
   bar2: bar2,
   price1: price1,
   addmm: addmm,

@@ -1,5 +1,5 @@
 <!--推广商品-->
-<view class='body'>
+<view class='body' style='margin-bottom:120rpx;'>
  <wxs src="../../../utils/tools.wxs" module="tools" />
   <!-- <view class='header text-center' style='margin-bottom:10rpx;'>
     <van-search
@@ -10,24 +10,24 @@
       bind:cancel="onCancel"
     />
   </view> -->
-  
-  <view class='main' style='margin-bottom:0;'>
-  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
   <view class='banner'>
-  
     <swiper autoplay="{{true}}"
     circular="{{true}}"
+     style="height:{{bannerHeight}}rpx"
     >
-      <!-- <block wx:for="{{tools.imgList(ajaxData.imgurl)}}" wx:key="*"> -->
-        <swiper-item>
-          <image src="http://www.yqcoffee.cn/image/banner2.jpg" class="slide-image" style='width:750rpx;height:375rpx;'/>
+      <block wx:for="{{bannerList}}" wx:key="*">
+        <swiper-item style="height:100%">
+          <image id="banner{{index}}" src="{{item.images}}" class="slide-image" mode="widthFix" style='width:100%;'bindload="imageLoad"> </image>
         </swiper-item>
-        <swiper-item>
-          <image src="http://www.yqcoffee.cn/image/banner1.jpg" class="slide-image" style='width:750rpx;height:375rpx;'/>
-        </swiper-item>
-      <!-- </block> -->
+      </block> 
     </swiper>
   </view>
+  <view class='main'>
+  <navigator wx:for="{{ajaxData}}" wx:key="index" url='/pages/goods/detail/detail?id={{tools.goodsid(item.bannerurl)}}'> <image  src='{{item.images}}' mode="widthFix" style='width:100%;'> </image></navigator>
+  </view>
+  <view class='main' wx:if="{{false}}" style='margin-bottom:0;'>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='goods_list' style='margin-top:15rpx;'>

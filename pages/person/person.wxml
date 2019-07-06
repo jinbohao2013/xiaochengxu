@@ -85,6 +85,10 @@
         <van-icon name="manager-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>成为经销商</view>
       </navigator>
+      <navigator url='/pages/person/consultant1/consultant1'>
+        <van-icon name="service-o" size="26px" color="#999" custom-class="icon" />
+        <view class='text'>我的客服</view>
+      </navigator>
     </view>
   </view>
 </view>

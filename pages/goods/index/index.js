@@ -14,6 +14,7 @@ Page({
    */
   data: {
     true: true,
+    bannerList: [],
     goodsValue:"",
     ajaxData: [],
     value1:1,//商品数量
@@ -71,28 +72,37 @@ Page({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight  - 68 : app.data.windowHeight  - 51
     })
-    
-    //下面是调取列表接口--展示商品信息
+    //调取banner的接口
+    util.request(app.data.hostAjax + '/api/other/v1/banner', {
+      t:0
+    }).then(function (res) {
+      if (res.Code == "0") {
+        _this.setData({
+          bannerList: res.Data
+        })
+      } else {
+        _this.setData({
+          bannerList: []
+        })
+      }
+    });
+    //下面是调取列表接口--展示商品信息---现在换成banner接口
     wx.request({
-      url: app.data.hostAjax + '/api/user/v1/getgoodslist', // 获取商品列表
+      url: app.data.hostAjax + '/api/other/v1/banner', // 获取商品列表
       data: {
-        id:null,
-        orderby: 1,//0:默认时间排序 1:排序号排序
-        search: this.data.goodsValue,
-        pageindex: this.data.pageindex,
-        pagesize: this.data.pagesize,
+        t:1
       },
       method: "get",
       header: {
         'content-type': 'application/json',
       },
       success(res) {
-
+        
         if (res.data.Success) {
           let arr = _this.data.ajaxData;
           try {
-            if (res.data.Data.list) {
-              arr = arr.concat(res.data.Data.list)
+            if (res.data.Data) {
+              arr = arr.concat(res.data.Data)
             }
           } catch (e) {
             console.log("出错了");
@@ -100,7 +110,8 @@ Page({
           _this.setData({
             ajaxData: arr
           })
-          if (res.data.Data.list.length<10){
+          console.log(_this.data.ajaxData)
+          if (res.data.Data.length<10){
             _this.setData({
               hideLoading:false
             })
@@ -115,7 +126,12 @@ Page({
       }
     })
   },
-
+  imageLoad(e){
+    // console.log(e)
+    this.setData({
+      bannerHeight:e.detail.height
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -179,7 +195,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log(this.data.ajaxData)
   },
 
   /**
@@ -220,7 +236,7 @@ Page({
   },
   onSearch(e){
     this.setData({
-      ajaxData:[],
+      // ajaxData:[],
       hideLoading: true,
       goodsValue:e.detail
     })
@@ -228,7 +244,7 @@ Page({
   },
   onCancel() {//取消搜索搜索时触发
     this.setData({
-      ajaxData: [],
+      // ajaxData: [],
       hideLoading: true,
       goodsValue:""
     })
