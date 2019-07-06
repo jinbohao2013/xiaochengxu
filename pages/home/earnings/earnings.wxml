@@ -5,8 +5,8 @@
       <view class='serch' style='display:flex;justify-content:space-between;align-items:center;padding:0 20rpx;position:relative;height:100rpx;z-index:11;background-color:#fff;'>
         <view class='bts'>
           <button bindtap='chooseT' data-id='1' class='cu-btn round {{chooseid==1?"line-red":"bg-gray"}}'>昨天</button>
-          <button bindtap='chooseT' data-id='2' class='cu-btn round {{chooseid==2?"line-red":"bg-gray"}}'>近七天</button>
-          <button bindtap='chooseT' data-id='3' class='cu-btn round {{chooseid==3?"line-red":"bg-gray"}}'>全部</button>
+          <button bindtap='chooseT' data-id='7' class='cu-btn round {{chooseid==7?"line-red":"bg-gray"}}'>近七天</button>
+          <button bindtap='chooseT' data-id='0' class='cu-btn round {{chooseid==0?"line-red":"bg-gray"}}'>全部</button>
         </view>
         <view bindtap='showtop' style='height:100rpx;display:flex;justify-content:space-between;align-items:center;'>
           <view wx:if="{{endtime&&starttime}}">{{starttime}}-<view>{{endtime}}</view></view>
@@ -42,20 +42,20 @@
     <view class='text-xl' style='padding:25rpx 0;'>
       <view class='van-hairline--top-bottom' style='display:flex;justify-content:space-between;line-height:123rpx;padding:0 50rpx;'>
         <view>累计收益（元）</view>
-        <view>{{newsalaperson}}</view>
+        <view>{{ajaxData.profit||0}}</view>
       </view>
       <view class='van-hairline--bottom' style='display:flex;justify-content:space-between;line-height:123rpx;padding:0 50rpx;'>
         <view>待结算收益（元）</view>
-        <view>{{newcustomer}}</view>
+        <view>{{ajaxData.settleaccounts||0}}</view>
       </view>
     </view>
-    <view class='van-hairline--bottom text-center' hidden='{{ajaxData.length==0}}' style='font-size:33rpx;line-height:120rpx;'>收益明细</view>
-    <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:100rpx;' wx:for="{{ajaxData}}" wx:key="index">
+    <view class='van-hairline--bottom text-center' hidden='{{ajaxData.list.length==0}}' style='font-size:33rpx;line-height:120rpx;'>收益明细</view>
+    <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:100rpx;' wx:for="{{ajaxData.list}}" wx:key="index">
       <view>
-        <view><text class='margin-right'>{{item.createdat}}</text><text class='text-xl'>{{item.nickname}}</text></view>
-        <view class='text-df text-left margin-top-sm'  wx:if="{{item.shopername}}">店长：{{item.shopername}} <text style='margin-left:20rpx;'>分销员：{{item.shopername}}</text></view>
+        <view><text class='margin-right'>{{item.createdate}}</text><text class='text-xl'>{{item.customername}}</text></view>
+        <view class='text-df text-left margin-top-sm'  wx:if="{{item.shopownername}}">店长：{{item.shopownername}} <text style='margin-left:20rpx;' wx:if="{{item.salapersonname}}">分销员：{{item.salapersonname}}</text></view>
       </view>
-      <view class='text-xl text-red'>{{item.usertype}}</view>
+      <view class='text-xl text-red'>+{{item.num}}</view>
     </view>
   </view>
   <view class='main' style='margin-bottom:0;'>

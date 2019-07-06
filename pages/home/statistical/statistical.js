@@ -26,7 +26,7 @@ Page({
         starttime:this.fomattime(yesterday), 
         endtime: this.fomattime(yesterday), 
       })
-    } else if (index == 2){
+    } else if (index == 7){
       this.setData({
         starttime: this.fomattime(day7),
         endtime: this.fomattime(),
@@ -37,6 +37,7 @@ Page({
         endtime: "",
       })
     }
+    this.onLoad();
   },
   selecttime(event) {
     this.setData({
@@ -89,14 +90,16 @@ Page({
       })
     } else if (this.fomattime(day7) == this.data.starttime && this.fomattime() == this.data.endtime) {
       this.setData({
-        chooseid: 2
+        chooseid: 7
       })
     } else {
       this.setData({
-        chooseid: 0
+        chooseid: 2
       })
     }
+    console.log(this.data.chooseid)
     this.showtop();
+    this.onLoad();
   },
   showtop(){
     this.setData({
@@ -110,7 +113,7 @@ Page({
     starttime: "",
     endtime:"",
     topsearch:false,//自定义时间
-    chooseid:3,//1-昨天，2,-近七天，3-全部
+    chooseid:0,//1-昨天，7,-近七天，0-全部
     ismaiduan:0,
     true: true,
     ajaxData: [],
@@ -165,32 +168,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.chooseT(1)
-    this.setData({
-      ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
-    })
-    console.log(wx.getStorageSync("isoverpay"))
-    let _this = this;
-    //经销商GET /api/dester/v1/getdistributoryesterdayadd 店长查看新增代理
-    util.request(app.data.hostAjax + '/api/dester/v1/getshopowneryesterdayadd', {
+    var url='/api/dester/v1/gettransactiondata'
+    if (this.data.TabCur == 1){//客户数据
+      url = '/api/dester/v1/getcustomerdata'
+    }else{
+      url = '/api/dester/v1/gettransactiondata'
+    }
+    // console.log(wx.getStorageSync("isoverpay"))
+    let _this = this;//数据统计
+    util.request(app.data.hostAjax + url, {
       userid: wx.getStorageSync("userid"),
+      type: this.data.chooseid,//0：全部 1 昨日 7：近7天 2：自定义
+      starttime: this.data.starttime,
+      endtime: this.data.endtime,
+      pageindex: 1,
+      pagesize: 1111111,
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          ajaxData: res.Data.list,
-          sqsalespersonnums: res.Data.sqsalespersonnums,
-          newsalaperson: res.Data.newsalaperson,
-          newcustomer: res.Data.newcustomer,
-        })
-      } else {
-        _this.setData({
-          ajaxData:[],
-          sqsalespersonnums: 0,
-          newsalaperson: 0,
-          newcustomer: 0,
-        })
+          ajaxData: res.Data
+        });
       }
-    });
+    })
     return
     this.setData({
       windowHeight: app.data.windowHeight,
@@ -295,7 +294,7 @@ Page({
       hideLoading: true,
       goodsValue: e.detail
     })
-    this.onLoad();
+    // this.onLoad();
   },
   onCancel() {//取消搜索搜索时触发
 
@@ -337,7 +336,7 @@ Page({
       this.setData({
         pageindex: this.data.pageindex + 1
       })
-      this.onLoad();
+      // this.onLoad();
     }
 
   },

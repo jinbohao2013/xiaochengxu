@@ -25,7 +25,7 @@
         </view>
       </view>
       <view class="action">
-        <navigator bindtap='see' class="cu-tag bg-grey radius">查看</navigator>
+        <navigator url='/pages/home/fenxiaoyuan/see/see?id={{item.userid}}' class="cu-tag bg-grey radius">查看</navigator>
         <!-- 
         <navigator class="cu-tag bg-grey radius">删除</navigator> -->
       </view>

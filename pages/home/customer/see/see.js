@@ -15,13 +15,12 @@ Page({
    */
   onLoad: function (options) {
     let _this=this;
-    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+    util.request(app.data.hostAjax + '/api/dester/v1/getcustomerinfo', { userid: options.id }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          consultant: res.Data[0]
+          consultant: res.Data
         });
       }
-
     })
   },
 

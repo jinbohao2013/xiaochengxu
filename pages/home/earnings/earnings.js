@@ -23,13 +23,13 @@ Page({
     })
     if (index==1){
       this.setData({
-        starttime: new Date(yesterday).toLocaleDateString(),
-        endtime: new Date(yesterday).toLocaleDateString(),
+        starttime: this.fomattime(yesterday),
+        endtime: this.fomattime(yesterday), 
       })
-    } else if (index == 2){
+    } else if (index == 7){
       this.setData({
-        starttime: new Date(day7).toLocaleDateString(),
-        endtime: new Date().toLocaleDateString(),
+        starttime: this.fomattime(day7),
+        endtime: this.fomattime(),
       })
     }else{
       this.setData({
@@ -37,6 +37,7 @@ Page({
         endtime: "",
       })
     }
+    this.onLoad();
   },
   selecttime(event) {
     this.setData({
@@ -63,7 +64,7 @@ Page({
       case 'datetime':
     return date.toLocaleString();
     case 'date':
-    return date.toLocaleDateString();
+        return this.fomattime(date);
     case 'year-month':
     return `${date.getFullYear()}/${date.getMonth() + 1}`;
     case 'time':
@@ -83,20 +84,21 @@ Page({
     }
     let yesterday = new Date().getTime() - 24 * 60 * 60 * 1000
     let day7 = new Date().getTime() - 24 * 60 * 60 * 1000 * 7
-    if (new Date(yesterday).toLocaleDateString() == this.data.starttime && new Date(yesterday).toLocaleDateString() == this.data.endtime) {
+    if (this.fomattime(yesterday) == this.data.starttime && this.fomattime(yesterday) == this.data.endtime) {
       this.setData({
         chooseid: 1
       })
-    } else if (new Date(day7).toLocaleDateString() == this.data.starttime && new Date().toLocaleDateString() == this.data.endtime) {
+    } else if (this.fomattime(day7) == this.data.starttime && this.fomattime() == this.data.endtime) {
       this.setData({
-        chooseid: 2
+        chooseid: 7
       })
     } else {
       this.setData({
-        chooseid: 0
+        chooseid: 2
       })
     }
     this.showtop();
+    this.onLoad();
   },
   showtop(){
     this.setData({
@@ -108,7 +110,7 @@ Page({
     starttime: "",
     endtime:"",
     topsearch:false,//自定义时间
-    chooseid:3,//1-昨天，2,-近七天，3-全部
+    chooseid:0,//1-昨天，7,-近七天，0-全部
     ismaiduan:0,
     true: true,
     ajaxData: [],
@@ -142,32 +144,37 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.chooseT(1)
+    if (options&&options.type==1){
+      this.setData({
+        chooseid: 1
+      })
+      this.chooseT(1)
+    }
     this.setData({
       ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
     })
     console.log(wx.getStorageSync("isoverpay"))
-    let _this = this;
-    //经销商GET /api/dester/v1/getdistributoryesterdayadd 店长查看新增代理
-    util.request(app.data.hostAjax + '/api/dester/v1/getshopowneryesterdayadd', {
+    let _this = this;//收益接口
+    util.request(app.data.hostAjax + '/api/dester/v1/getdetailedinfo', {
       userid: wx.getStorageSync("userid"),
+      type: this.data.chooseid,//0：全部 1 昨日 7：近7天 2：自定义
+      starttime: this.data.starttime,
+      endtime: this.data.endtime,
+      pageindex:1,
+      pagesize:1111111,
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          ajaxData: res.Data.list,
-          sqsalespersonnums: res.Data.sqsalespersonnums,
-          newsalaperson: res.Data.newsalaperson,
-          newcustomer: res.Data.newcustomer,
-        })
-      } else {
+          ajaxData: res.Data
+        });
+      }else{
         _this.setData({
-          ajaxData:[],
-          sqsalespersonnums: 0,
-          newsalaperson: 0,
-          newcustomer: 0,
-        })
+          ajaxData: {
+            list:[]
+          }
+        });
       }
-    });
+    })
     return
     this.setData({
       windowHeight: app.data.windowHeight,
@@ -360,7 +367,17 @@ Page({
   onClose() {
     this.setData({ show: !this.data.show });
   },
-
+  fomattime(time) {
+    var tradeDate;
+    if (time) {
+      tradeDate = new Date(time);
+    } else {
+      tradeDate = new Date();
+    }
+    var yyyyMMdd = tradeDate.getFullYear() + "-"
+      + (tradeDate.getMonth() + 1) + "-" + tradeDate.getDate();
+    return yyyyMMdd
+  },
   /**
    * 用户点击右上角分享
    */

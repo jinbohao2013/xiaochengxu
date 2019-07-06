@@ -21,7 +21,7 @@
        <navigator wx:if="{{ismaiduan}}" style='position:absolute;top:31px;right:50rpx;color:red;' url='/pages/home/fenxiaoyuan/proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-btn round bg-gray">佣金设置</navigator>
    </view>
    <view class='middel'>
-      <view class='middel_one'>  
+      <navigator url='/pages/home/earnings/earnings' class='middel_one'>  
         <view class="total_one">
             <text wx:if="{{usertype=='2'}}">当前累计收益（元)</text>
             <text wx:elif="{{usertype=='3'}}">当前店铺累计收益（元)</text>
@@ -34,21 +34,21 @@
         </view>
          <!-- <view class='total_three'>
             <text>包含待结算{{dataInfo.profit}}元</text>
-         </view> -->
-      </view>
+         </view> pages/home/earnings/earnings-->
+      </navigator>
       <view class='middel_two'>
-         <view class='earning'>
+         <navigator url='/pages/home/earnings/earnings?type=1' class='earning'>
            <view class="earning_one">
              <text>昨日收益（元)</text>
            </view>
            <view class='earning_two'>
              <text>{{tools.fixd2(dataInfo.zrprofit||"0.00")}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>待结算 {{0.00}} 元</view>
+           <view class='text' style='color:#999;font-size:24rpx;'>待结算 {{tools.fixd2(dataInfo.djsprice||"0.00")}} 元</view>
            <!-- <view class='earning_three'>
              <text>待结算{{dataInfo.zrprofit}}元</text>
            </view> -->
-         </view>
+         </navigator>
          <navigator url='newfenxiaoyuan/newfenxiaoyuan' class='client' wx:if="{{usertype=='3'}}">
            <view class="client_one">
              <text>昨日新增分销员(人)</text>

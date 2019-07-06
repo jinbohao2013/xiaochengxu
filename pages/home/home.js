@@ -46,13 +46,9 @@ Page({
     })
   },
   godatastatistics: function () {
-    wx.showToast({
-      title: '暂未开放',
-      icon:'none'
-    })
-    return
+   
     wx.navigateTo({
-      url: '/pages/goods/index/index',//数据统计
+      url: '/pages/home/statistical/statistical',//数据统计
     })
   },
   // 获取店铺信息

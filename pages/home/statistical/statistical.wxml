@@ -10,8 +10,8 @@
       <view class='serch' style='display:flex;justify-content:space-between;align-items:center;padding:0 20rpx;position:relative;height:100rpx;z-index:11;background-color:#fff;'>
         <view class='bts'>
           <button bindtap='chooseT' data-id='1' class='cu-btn round {{chooseid==1?"line-red":"bg-gray"}}'>昨天</button>
-          <button bindtap='chooseT' data-id='2' class='cu-btn round {{chooseid==2?"line-red":"bg-gray"}}'>近七天</button>
-          <button bindtap='chooseT' data-id='3' class='cu-btn round {{chooseid==3?"line-red":"bg-gray"}}'>全部</button>
+          <button bindtap='chooseT' data-id='7' class='cu-btn round {{chooseid==7?"line-red":"bg-gray"}}'>近七天</button>
+          <button bindtap='chooseT' data-id='0' class='cu-btn round {{chooseid==0?"line-red":"bg-gray"}}'>全部</button>
         </view>
         <view bindtap='showtop' style='height:100rpx;display:flex;justify-content:space-between;align-items:center;'>
           <view wx:if="{{endtime&&starttime}}">{{starttime}}-<view>{{endtime}}</view></view>
@@ -45,30 +45,48 @@
       </view>
     </view>
     <view class='text-xl' style='padding:25rpx 0;'>
-     <view class="cu-list grid col-2 van-hairline--top">
+     <view class="cu-list grid col-2 van-hairline--top" wx:if="{{TabCur==0}}">
       <view class='cu-item'>
         <view>总订单（笔）</view>
-        <view>8</view>
+        <view>{{ajaxData.sumorder}}</view>
       </view>
       <view class='cu-item'>
         <view>总订单金额（元）</view>
-        <view>822</view>
+        <view>{{ajaxData.sumprice||0}}</view>
       </view>
       <view class='cu-item'>
         <view>代付款订单（笔）</view>
-        <view>8</view>
+        <view>{{ajaxData.dfkordernums}}</view>
       </view>
       <view class='cu-item'>
         <view>代付款订单金额（元）</view>
-        <view>8888</view>
+        <view>{{ajaxData.dfksumprice||0}}</view>
       </view>
       <view class='cu-item'>
         <view>已成交订单（笔）</view>
-        <view>88</view>
+        <view>{{ajaxData.completeordernums}}</view>
       </view>
       <view class='cu-item'>
         <view>已成交订单金额（元）</view>
-        <view>8888</view>
+        <view>{{ajaxData.completesumprice||0}}</view>
+      </view>
+     </view>
+     <view class="cu-list grid col-2 van-hairline--top" wx:if="{{TabCur==1}}">
+      <view class='cu-item'>
+        <view>新增客户（人）</view>
+        <view>{{ajaxData.newcustorm}}</view>
+      </view>
+      <view class='cu-item'>
+        <view>成交客户（人）</view>
+        <view>{{ajaxData.cjcustorm}}</view>
+      </view>
+      <view class='cu-item'  wx:if="{{ajaxData.dfkordernums}}">
+        <view>新增店长（人）</view>
+        <view>{{ajaxData.newshopowner}}</view>
+      </view>
+      <view class='cu-item'  wx:if="{{ajaxData.dfksumprice}}">
+        <view>新增分销员（人）</view>
+        <view>{{ajaxData.newsalaperson}}</view>
       </view>
      </view>
     </view>
