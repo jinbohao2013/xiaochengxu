@@ -118,7 +118,7 @@ Page({
           }).then(function (res) {
             if (res.Code == "200") {
               wx.showToast({
-                title: '收货成功,祝您生活愉快！'
+                title: '收货成功'
               })
               that.onLoad(that.data.e)
             } else {

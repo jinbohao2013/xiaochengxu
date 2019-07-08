@@ -163,4 +163,4 @@
     </view>
   </view>
 </view>
-<navigator url='/pages/person/consultant1/consultant1' class='cu-avatar round lg bg-red margin-xs shadow' style='position:fixed;bottom:{{isIphoneX?"150rpx":"115rpx"}};font-size:1.5em;right:20rpx;'>客服</navigator>
+<navigator url='/pages/person/consultant1/consultant1' class='cu-avatar round lg bg-red margin-xs shadow' style='position:fixed;bottom:{{isIphoneX?"150rpx":"115rpx"}};font-size:1.5em;right:20rpx;background-image:url(http://www.yqcoffee.cn/image/kefu.png)'></navigator>

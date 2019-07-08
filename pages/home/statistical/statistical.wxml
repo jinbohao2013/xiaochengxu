@@ -55,11 +55,11 @@
         <view>{{ajaxData.sumprice||0}}</view>
       </view>
       <view class='cu-item'>
-        <view>代付款订单（笔）</view>
+        <view>待付款订单（笔）</view>
         <view>{{ajaxData.dfkordernums}}</view>
       </view>
       <view class='cu-item'>
-        <view>代付款订单金额（元）</view>
+        <view>待付款订单金额（元）</view>
         <view>{{ajaxData.dfksumprice||0}}</view>
       </view>
       <view class='cu-item'>
