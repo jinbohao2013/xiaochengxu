@@ -17,9 +17,9 @@
       
       <view  class='b'>{{item.phone}}</view>
      {{item.shopname}}
-        <button wx:if="{{item.states=='已通过'}}" class='cu-tag line-red' data-id='{{item.id}}'>{{item.states}}</button>
+        <button wx:if="{{item.states=='已通过'}}" class='cu-tag line-red' data-id='{{item.id}}' >{{item.states}}</button>
         <button wx:if="{{item.states=='已驳回'}}" class='cu-tag line-black' data-id='{{item.id}}'>{{item.states}}</button>
-        <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}'>同意</button>
+        <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}' data-type='{{item.ispayover}}'>同意</button>
         <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" style='margin-left: 20rpx;' class='cu-tag line-black'  bindtap='hideModal' data-id='{{item.id}}'>不同意</button>
       
     </view>

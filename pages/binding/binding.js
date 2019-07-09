@@ -37,7 +37,6 @@ Page({
           success: (res) => {
             let ress = JSON.parse(res.data.Data)
             let openid = JSON.parse(res.data.Data).openid
-            // console.log(res.data)
             //获取用户的openid 
             console.log("用户的openid" + openid)
             app.globalData.openid = openid
@@ -49,7 +48,6 @@ Page({
                 nickname: app.globalData.userInfo.nickName
               },
               success: (ress) => {
-                console.log(ress)
                 let usertype = ress.data.Data.usertype
                 app.globalData.usertype = ress.data.Data.usertype
                 app.globalData.user_id = ress.data.Data.user_id
@@ -82,7 +80,6 @@ Page({
                 Address: this.data.address
               },
               success: (res) => {
-                console.log(res)
                 if (res.data.Msg == '操作成功') {
                   wx.showToast({
                     title: '您的申请已提交，请等待经销商审核',
@@ -149,7 +146,6 @@ Page({
           account: phone
         },
         success: (res) => {
-          console.log(res)
           if (res.data.Msg == '发送成功') {
             wx.showToast({
               title: '验证码已发送',
@@ -192,7 +188,6 @@ Page({
   },
   // 输入框
   changeInput: function (e) {
-    console.log(e)
     var types = e.currentTarget.dataset.types
     switch (types) {
       case 'name':
@@ -252,7 +247,7 @@ Page({
         })
       }
       let _this = this;
-      //获取用户登录信息
+      //获取用户登录信息\c
       wx.request({
         url: config.apiHost + "/api/user/v1/info",
         data: {
@@ -270,13 +265,28 @@ Page({
           }
         }
       })
+      wx.request({//获取店铺的名称和地址
+        url: config.apiHost + "/api/dester/v1/getshopownerdester",
+        data: {
+          userid: this.data.uid,
+        },
+        success: (res) => {
+          try {//res.data.Data.imgurl
+            _this.setData({
+              name: res.data.Data.shopname,
+              address: res.data.Data.address,
+            })
+          } catch (e) {
+
+          }
+        }
+      })
     }catch(e){
 
     }
     console.log(this.data.distributorid, "-------------", this.data.shopid)
     wx.getUserInfo({
       success: (data) => {
-        console.log(data);
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
         this.login()

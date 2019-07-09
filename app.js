@@ -8,7 +8,6 @@ App({
   },
   data:{
     hostAjax: "https://www.yqcoffee.cn:2020",
-    // hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
@@ -170,15 +169,14 @@ App({
         userid: wx.getStorageSync("userid"),
       },
       success: (res) => {
-        // console.log(res)
+        wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的经销商id
         if (type == 2) {//如果是分销商
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
+          
           wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type == 3) {//如果是店长
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.shopqrurl.split("distributorid=")[1]);//获取储存分享出去的经销商id
-          wx.setStorageSync("isoverpay", res.data.Data.isoverpay);
+          wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
+          wx.setStorageSync("logo", res.data.Data.distributorlog);
         } else if (type == 4) {//如果是分销员
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
       }

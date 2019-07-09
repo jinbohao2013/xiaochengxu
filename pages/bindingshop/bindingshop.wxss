@@ -71,7 +71,7 @@
   text-align: center;
   font-size: 28rpx;
 }
-.footer view{
+.footer view,.footer navigator{
   padding: 30rpx;
 }
 

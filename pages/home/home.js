@@ -63,14 +63,13 @@ Page({
         this.setData({
           shopName: res.data.Data.shopname
         })
-        if (Number(wx.getStorageSync("usertype"))==3){
-          wx.setStorageSync("logo", res.data.Data.shoplog);
-        }
+       
       }
     })
   },
   // 数据加载
   getData: function(v,e,type){
+    let _this=this;
     wx.request({
       url: config.apiHost + v,
       data: {
@@ -78,19 +77,19 @@ Page({
         userid: wx.getStorageSync("userid"),
       },
       success: (res) => {
-        console.log(res)
+        wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);
         if (type==2){//如果是分销商
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("distributorid=")[1].split("&")[0]);//获取储存分享出去的经销商id
           wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type ==3) {//如果是店长
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.qrurl.split("shopqrurl=")[1]);//获取储存分享出去的经销商id
-          console.log(res.data.Data)
+          _this.setData({
+            ismaiduan: parseInt(res.data.Data.isoverpay)
+          })
+          wx.setStorageSync("logo", res.data.Data.distributorlog);
         } else if (type == 4){//如果是分销员
-          wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的 分销员id
         }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
-        this.getShopData(res.data.Data.shopid)
-        this.setData({
+        _this.getShopData(res.data.Data.shopid)
+        _this.setData({
           dataInfo:res.data.Data
         })
         
@@ -102,7 +101,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0
+      ismaiduan: parseInt(wx.getStorageSync("isoverpay")) == 1 ? 1 : 0
     })
     let _this=this;
     //获取用户登录信息

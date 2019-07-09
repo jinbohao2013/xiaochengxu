@@ -122,9 +122,12 @@ Page({
               wx.showToast({
                 title: '已通过'
               })
-              wx.navigateTo({
-                url: '/pages/home/dianzhang/proportion/proportion?shopid=' + e.currentTarget.dataset.id,
-              })
+              if (e.currentTarget.dataset.type =="经销"){//
+                wx.navigateTo({
+                  url: '/pages/home/dianzhang/proportion/proportion?shopid=' + e.currentTarget.dataset.id,
+                })
+              }
+              
             }
           });
         } else if (res.cancel) {

@@ -135,7 +135,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onShow: function () {
     let _this=this;
     
     //首先登录，获取用户的类型，判断是不是客户
@@ -191,12 +191,7 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    console.log(this.data.ajaxData)
-  },
+  
 
   /**
    * 生命周期函数--监听页面隐藏

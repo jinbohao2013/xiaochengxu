@@ -75,7 +75,7 @@ Page({
           })
           _this.onLoad();
           wx.showToast({
-            title: "提交成功",
+            title: "提现申请已提交",
             icon: 'none'
           })
         } else {

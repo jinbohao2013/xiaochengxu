@@ -8,8 +8,8 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>分销员佣金<text style='float:right;color:#{{1?"07BF05":"EC5050"}};margin-right:28rpx;'>0.01</text></view>
-      <text style='color:#aaa;'>2019-01-03 21:37:31</text>
+      <view style='margin:30rpx 0 15rpx 0;'>分销佣金<text style='float:right;color:#{{1?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.cashmonys}}</text></view>
+      <text style='color:#aaa;'>{{item.creatdat}}</text>
     </view>
     </block>
     <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">

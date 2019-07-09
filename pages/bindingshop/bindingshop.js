@@ -23,6 +23,7 @@ Page({
     userInfoImg: "",
     state :1,
     ifskip: false,
+    ifclick: false,
   },
   // 登录
   login: function () {
@@ -65,6 +66,13 @@ Page({
   
   // 绑定手机号
   bindingPhone:function(){
+    //禁止连续点击
+    if(this.data.ifclick){
+      return
+    }
+    this.setData({
+      ifclick: true
+    })
     let _this=this;
     console.log('开始绑定', app.globalData.openid)
     if (this.data.name.length>0){
@@ -89,7 +97,7 @@ Page({
                 if(res.data.Msg == '操作成功'){
                   wx.showToast({
                     title: '您的申请已提交，请等待经销商审核',
-                    icon: 'success',
+                    icon: 'none',
                   })
                   wx.setStorageSync("usertype",3);
                   try {
@@ -107,6 +115,9 @@ Page({
                   //   })
                   // },1500)
                 }else{
+                 _this.setData({
+                    ifclick: false
+                  })
                   wx.showToast({
                     title: res.data.Msg,
                     icon: 'none',
@@ -278,7 +289,7 @@ Page({
     }catch(e){
 
     }
-    console.log("distributorid=", this.data.distributorid)
+    console.log("distributorid=", this.data.distributorid, this.data.state)
     wx.getUserInfo({
       success: (data) => {
         console.log(data);

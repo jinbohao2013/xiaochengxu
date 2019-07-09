@@ -8,11 +8,11 @@
   <view>
     <view class='denglu'>
       <image src='{{bindingImage[0]}}'></image>
-      <input name="mobile" class="center" placeholder="店铺名称" placeholder-class="wen" bindinput='changeInput' data-types='name' />
+      <input name="mobile" class="center" placeholder="店铺名称" placeholder-class="wen" bindinput='changeInput' data-types='name' value='{{name}}'/>
     </view>
     <view class='denglu'>
       <image src='{{bindingImage[1]}}'></image>
-      <input name="mobile" class="center" placeholder="店铺地址" placeholder-class="wen" bindinput='changeInput' data-types='address' />
+      <input name="mobile" class="center" placeholder="店铺地址" placeholder-class="wen" bindinput='changeInput' data-types='address' value='{{address}}'/>
     </view>
     <view class='denglu'>
       <image src='{{bindingImage[2]}}'></image>

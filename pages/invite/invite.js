@@ -39,33 +39,54 @@ Page({
       console.log("买断店长mm")
       shareUrl = "https://www.yqcoffee.cn/userbind/?distributorid=" + wx.getStorageSync("fenxiaoshangid") + "&state=2" + "&uid=" + wx.getStorageSync("userid");
     }
+    if (wx.getStorageSync("logo")){
 
-    console.log(shareUrl)
-    var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
-    const ctx = wx.createCanvasContext('myQrcode')
-    wx.downloadFile({
-      url: shareUrl,
-      success: (res) => {
-        // ctx.drawImage(shareImg, 0, 0, w, w)
-        console.log(res)
-        // 绘制图片到canvas中
-        drawQrcode({
-          width: 400 / 750 * wx.getSystemInfoSync().windowWidth,
-          height: 400 / 750 * wx.getSystemInfoSync().windowWidth,
-          canvasId: 'myQrcode',
-          ctx: ctx,
-          text: shareUrl,
-          image: {
-            imageResource: wx.getStorageSync("logo"),
-            dx: 150 / 750 * wx.getSystemInfoSync().windowWidth,
-            dy: 150 / 750 * wx.getSystemInfoSync().windowWidth,
-            dWidth: 100 / 750 * wx.getSystemInfoSync().windowWidth,
-            dHeight: 100 / 750 * wx.getSystemInfoSync().windowWidth
-          }
-        })
-      }
-    })
-
+    
+      const img111 = (wx.getStorageSync("logo").replace("http://39.106.49.173:8088", "https://www.yqcoffee.cn:2020")) 
+      console.log(shareUrl) 
+      var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
+      const ctx = wx.createCanvasContext('myQrcode')
+      wx.downloadFile({
+        url: img111,
+        success: (res) => {
+          // ctx.drawImage(shareImg, 0, 0, w, w)
+          console.log(res.tempFilePath)
+          // 绘制图片到canvas中
+          drawQrcode({
+            width: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+            height: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+            canvasId: 'myQrcode',
+            ctx: ctx,
+            text: shareUrl,
+            image: {
+              imageResource: res.tempFilePath,
+              dx: 150 / 750 * wx.getSystemInfoSync().windowWidth,
+              dy: 150 / 750 * wx.getSystemInfoSync().windowWidth,
+              dWidth: 100 / 750 * wx.getSystemInfoSync().windowWidth,
+              dHeight: 100 / 750 * wx.getSystemInfoSync().windowWidth
+            }
+          })
+        }
+      })
+    }else{
+      var w = 400 / 750 * wx.getSystemInfoSync().windowWidth;
+      const ctx = wx.createCanvasContext('myQrcode')
+      wx.downloadFile({
+        url: shareUrl,
+        success: (res) => {
+          // ctx.drawImage(shareImg, 0, 0, w, w)
+          console.log(res.tempFilePath)
+          // 绘制图片到canvas中
+          drawQrcode({
+            width: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+            height: 400 / 750 * wx.getSystemInfoSync().windowWidth,
+            canvasId: 'myQrcode',
+            ctx: ctx,
+            text: shareUrl,
+          })
+        }
+      })
+    }
     
   },
   /**
