@@ -137,10 +137,10 @@ Page({
    */
   onShow: function () {
     let _this=this;
-    
+    console.log("我进来了啊,111111111111111")
     //首先登录，获取用户的类型，判断是不是客户
     if (wx.getStorageSync("openid") == "") {
-      console.log("我进来了啊")
+      console.log("我进来了啊,222222")
       //此时是页面加载早了，而微信appjs还没加载--导致openid为undefined
       app.readyCallback = (hostAjax) =>{
         wx.request({
@@ -155,6 +155,7 @@ Page({
           success(res) {
             if (res.data.Success) {
               wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+              wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
             }
           }
         })
@@ -177,11 +178,16 @@ Page({
         })
         if (res.data.Success) {
           wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+          wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
             //1--隐藏底部导航
             _this.setData({
               hideBotom: false
+            })
+          }else{
+            _this.setData({
+              hideBotom: true
             })
           }
         } else {

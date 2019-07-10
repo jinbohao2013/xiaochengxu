@@ -8,7 +8,11 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>分销佣金<text style='float:right;color:#{{1?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.cashmonys}}</text></view>
+      <view style='margin:30rpx 0 15rpx 0;'>{{item.stateremark}}
+        <text style='float:right;margin-right:28rpx;color:green;' wx:if="{{item.stateremark=='已通过'}}">{{item.cashmonys}}元</text>
+        <text style='float:right;margin-right:28rpx;color:red;' wx:if="{{item.stateremark=='驳回'}}">{{item.cashmonys}}元</text>
+        <text style='float:right;margin-right:28rpx;color:blue;' wx:if="{{item.stateremark=='待审核'}}">{{item.cashmonys}}元</text>
+      </view>
       <text style='color:#aaa;'>{{item.creatdat}}</text>
     </view>
     </block>

@@ -9,7 +9,7 @@
   </view>
   <view class='main'>
     <navigator url='../withdraw/withdraw' style='margin:0 20rpx 15rpx 20rpx;'><van-button type="primary" size="large">提现</van-button></navigator>
-    <view class='text-center text-sm' style='margin-bottom:20rpx;'>提现会扣除微信平台相关手续费</view>
+    <view class='text-center text-sm text-gray' style='margin-bottom:20rpx;'>提现会扣除微信平台相关手续费</view>
     <van-cell-group>
       <van-cell url="../tradingrecord/tradingrecord" title="收支明细" is-link />
       <van-cell url="../withdrawrecord/withdrawrecord" title="提现记录" is-link />

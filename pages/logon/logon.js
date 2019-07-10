@@ -48,7 +48,7 @@ Page({
           } else {
             //储存--的经销商的用户id、店长的用户id、分销员的用户id--用于购买支付的id是分销员id不是用户id
             wx.setStorageSync("userid", res.data.Data.user_id);
-            wx.setStorageSync("usertype", res.data.Data.usertype);
+            wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
           }
         }else{
           wx.showToast({

@@ -12,7 +12,7 @@
     <view class="text">暂无订单</view>
   </view>
   <view class="order-list" hidden="{{orderList.length ? false : true}}">
-    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
       <navigator url="/pages/home/order/details/details?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view style='display:flex;justify-content:space-between;padding:20rpx; align-items:center;'>
         <view>订单:{{item.ordernumber}} ><view>日期:{{item.createdat}}</view></view>

@@ -23,8 +23,8 @@
    <view class='middel'>
       <navigator url='/pages/home/earnings/earnings' class='middel_one'>  
         <view class="total_one">
-            <text wx:if="{{usertype=='2'}}">当前累计收益（元)</text>
-            <text wx:elif="{{usertype=='3'}}">当前店铺累计收益（元)</text>
+            <text wx:if="{{usertype=='2'}}">当前累计收益(元)</text>
+            <text wx:elif="{{usertype=='3'}}">当前店铺累计收益(元)</text>
              <text wx:else>我的收益（元)</text>
         </view>
         <view class='total_two'>
@@ -106,20 +106,20 @@
          <view>累计客户</view>
       </navigator>
       <navigator url='/pages/home/order/order' class='accumulate_one' wx:if="{{usertype=='3'||usertype=='4'}}">
-         <view style='color:#38f;'>{{ordernum1||0}}</view>
+         <view style='color:#38f;'>{{dataInfo.tgordernums||0}}</view>
          <view>推广订单</view>
       </navigator>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order'>
         
-         <view style='color:#38f;'>{{ordernum1||0}}</view>
+         <view style='color:#38f;'>{{dataInfo.ordernums||0}}</view>
          <view>全部订单</view></navigator>
       </view>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order?type=2'>
-         <view style='color:#38f;'>{{ordernum2||0}}</view>
+         <view style='color:#38f;'>{{dataInfo.dfhordernums||0}}</view>
          <view>待发货订单</view></navigator>
       </view>
    </view>
@@ -163,4 +163,4 @@
     </view>
   </view>
 </view>
-<navigator url='/pages/person/consultant1/consultant1' class='cu-avatar round lg bg-red margin-xs shadow' style='position:fixed;bottom:{{isIphoneX?"150rpx":"115rpx"}};font-size:1.5em;right:20rpx;background-image:url(http://www.yqcoffee.cn/image/kefu.png)'></navigator>
+<navigator url='/pages/person/consultant1/consultant1' class='cu-avatar round lg margin-xs shadow' style='position:fixed;bottom:{{isIphoneX?"150rpx":"115rpx"}};font-size:1.5em;right:20rpx;background-image:url(http://www.yqcoffee.cn/image/kefu.png)'></navigator>

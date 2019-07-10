@@ -23,7 +23,10 @@
         <view style='color:#666;font-size:25rpx;'>{{ajaxData.synopsis}}</view>
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       </view>
-      <view wx:if="{{hideBotom}}" style='float:right;padding:20rpx;' bindtap="togglePopup"><van-icon name="share" size='25px'/></view>
+      <view wx:if="{{hideBotom}}" style='float:right;padding:20rpx;' bindtap="togglePopup">
+        <van-icon name="share" size='25px'/>
+        <view class='text-sm text-center'>分享</view>
+      </view>
     </view>  <!-- top结束 -->
     <view style='background-color:#F8F8F8;height:20rpx;'></view>
     <van-cell-group>
@@ -140,4 +143,12 @@
     
   </van-popup>
 </view>
+  <view class='container' wx:if='{{isLogin}}'>
+  <view class='content'>
+    <view class='logo'>
+    <image src='http://www.yqcoffee.cn/image/show_iogo.png' mode='aspectFill'></image>
+  </view>
+  <button class='login-btn' open-type='getUserInfo' bindgetuserinfo="getInfo" >登录授权</button>
+  </view>
   
+</view>

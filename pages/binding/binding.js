@@ -82,7 +82,7 @@ Page({
               success: (res) => {
                 if (res.data.Msg == '操作成功') {
                   wx.showToast({
-                    title: '您的申请已提交，请等待经销商审核',
+                    title: '您的申请已提交，请等待审核',
                     icon: 'success',
                   })
                   wx.setStorageSync("usertype", 4);
@@ -93,7 +93,7 @@ Page({
 
                   }
                   _this.setData({
-                    ifskip: false,
+                    ifskip: true, 
                   })
                   // setTimeout(() => {
                   //   wx.redirectTo({

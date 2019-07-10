@@ -80,7 +80,9 @@ Page({
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);
         if (type==2){//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
+          wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type ==3) {//如果是店长
+          wx.setStorageSync("distributorid", res.data.Data.distributorid);
           _this.setData({
             ismaiduan: parseInt(res.data.Data.isoverpay)
           })

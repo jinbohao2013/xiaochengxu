@@ -7,7 +7,7 @@ App({
     usertype:null
   },
   data:{
-    hostAjax: "https://www.yqcoffee.cn:2020",
+    hostAjax: "https://www.yqcoffee.cn:2019",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
@@ -64,7 +64,7 @@ App({
                   }else{
                     //储存--用于购买支付的经销商的id、店长的id、分销员的id
                     wx.setStorageSync("userid", res.data.Data.user_id);
-                    wx.setStorageSync("usertype", res.data.Data.usertype);
+                    wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
                     //后续可能会在这里调取每个人的shopid用于分享
                     var type = Number(res.data.Data.usertype)
                     switch (type) {
@@ -171,7 +171,6 @@ App({
       success: (res) => {
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的经销商id
         if (type == 2) {//如果是分销商
-          
           wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
@@ -192,6 +191,64 @@ App({
     m = date.getMinutes() > 9 ? date.getMinutes() + ':' : '0' + date.getMinutes() + ':';
     s = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
     return Y + M + D + h + m + s;
+  },
+  // 登录
+  login: function (e,callback) {
+    var that = this;
+    wx.login({
+      success: (res) => {
+        console.log(res)
+        wx.request({
+          // url: 'https://api.weixin.qq.com/sns/jscode2session',
+          url: that.data.hostAjax + '/api/weixin/v1/jscode2session',
+          data: {
+            response_type: res.code,
+          },
+          method: "GET",
+          success: (res) => {
+            let ress = JSON.parse(res.data.Data)
+            let openid = JSON.parse(res.data.Data).openid
+            
+            //获取用户的openid 
+            console.log("用户的openid" + openid)
+            that.globalData.openid = openid
+            wx.request({
+              url: that.data.hostAjax + '/api/user/v1/wxloginopenid',
+              data: {
+                openid: openid,
+                imgurl: that.globalData.userInfo.avatarUrl,
+                nickname: that.globalData.userInfo.nickName
+              },
+              success: (ress) => {
+                let usertype = ress.data.Data.usertype
+                that.globalData.usertype = ress.data.Data.usertype
+                // that.globalData.usertype = '4'
+                that.globalData.user_id = ress.data.Data.user_id
+                that.globalData.token = ress.data.Data.token
+                if(e){
+                  callback()
+                }else{
+                  if (that.globalData.usertype == '2' || that.globalData.usertype == '3' || that.globalData.usertype == '4') {
+                    wx.redirectTo({
+                      // url: '/pages/home/home',
+                      url: '/pages/goods/index/index'
+                    })
+                  } else {
+                    //用户进来要清楚用户以前的销售信息
+                    wx.removeStorageSync('useridsaleman')
+                    wx.removeStorageSync('shopid')
+                    wx.redirectTo({
+                      url: '/pages/goods/index/index',
+                    })
+                  }
+                }
+                
+              }
+            })
+          }
+        })
+      }
+    })
   }
   
 })

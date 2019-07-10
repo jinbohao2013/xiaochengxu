@@ -17,17 +17,24 @@ Page({
     hasOnShow: false
   },
   statusTap: function (e) {
-    const curType = e.currentTarget.dataset.index;
-    this.data.currentType = curType
-    if (curType==0){
-      this.setData({
-        searchType: 100
-      });
+    console.log(e)
+    var curType
+    if(e){
+       curType = e.currentTarget.dataset.index;
+      this.data.currentType = curType
+      if (curType == 0) {
+        this.setData({
+          searchType: 100
+        });
+      } else {
+        this.setData({
+          searchType: parseInt(curType) - 1
+        });
+      }
     }else{
-      this.setData({
-        searchType: parseInt(curType)-1
-      });
+
     }
+    
     this.setData({
       orderList: [],
       pageindex: 1,
@@ -52,7 +59,7 @@ Page({
             orderid: orderId
             }).then(function (res) {
             if (res.Code == "200") {
-              that.onShow();
+              that.statusTap();
             }
           })
         }

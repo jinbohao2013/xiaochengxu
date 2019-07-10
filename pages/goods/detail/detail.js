@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLogin: false,
     windowHeight:null,//可用窗口的高度
     value1:1,//购买数量
     true: true,
@@ -169,7 +170,7 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
-    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8088","https://www.yqcoffee.cn:2020");
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8088","https://www.yqcoffee.cn:2019");
     console.log(shareImg)
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)
@@ -185,7 +186,7 @@ Page({
         //加入商品名字到canvas中
         ctx.setFontSize(s)
         if (_this.data.ajaxData.name.length>11){
-          var str=_this.data.ajaxData.name.substr(1, 11)
+          var str=_this.data.ajaxData.name.substr(0, 11)
           ctx.fillText(str + "..." , e, f)
         }else{
           ctx.fillText(_this.data.ajaxData.name , e, f)
@@ -324,6 +325,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getInfo();
 this.setData({
   autoplay: true,
 })
@@ -492,7 +494,26 @@ this.setData({
     }
     
   },
-
+  getInfo: function () {
+    let _this=this;
+    wx.getUserInfo({
+      success: (data) => {
+        console.log(data);
+        //更新data中的userInfo
+        app.globalData.userInfo = data.userInfo
+        app.login(1,function(){
+_this.setData({
+  isLogin: false
+})
+        })
+      },
+      fail: () => {
+        this.setData({
+          isLogin: true
+        })
+      }
+    })
+  }, 
   /**
    * 用户点击右上角分享
    */

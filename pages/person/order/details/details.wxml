@@ -2,7 +2,7 @@
     <view class="sec-wrap">
         <view class="order-status">
             <view class="right-text"  wx:if="{{orderDetail.status=='待付款'}}">
-                <view class="status red">{{orderDetail.statusStr}}</view>
+                <view class="status red">{{orderDetail.status}}</view>
                 <!-- <view class="des" hidden="">请于11时59分59秒内付款，超时订单将自动关闭</view> -->
             </view>
             <view class="right-text"  wx:if="{{orderDetail.status=='待发货'}}">
@@ -15,7 +15,7 @@
             </view>
             <view class="right-text "  wx:if="{{orderDetail.status=='退换货'}}">
                 <view class="status text-bold">退款中</view>
-                <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥298.00</text> </view>
+                <view class="des" hidden="">退款总金额： <text style='font-size:32rpx;color:red;'>￥{{orderDetail.sumprice}}</text> </view>
             </view>
         </view>
         <view style='margin:20rpx 0 0 30rpx ;' wx:if="{{orderDetail.status=='已发货'||orderDetail.status=='退换货'||orderDetail.status=='已完成'}}">

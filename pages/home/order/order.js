@@ -266,7 +266,14 @@ Page({
     }).then(function (res) {
       console.log()
       if (res.Code == "200") {
-        var arr = that.data.orderList.concat(res.Data.list);
+        //刷掉经销商的买断订单
+        for (var i=0;i<res.Data.list.length;i++){
+          if (wx.getStorageSync("usertype") == 2 && res.Data.list[i].ispayover == '买断') {
+            return
+          }
+          that.data.orderList.push(res.Data.list[i])
+        }
+        var arr = that.data.orderList;
         console.log("that.data.pageindex=", that.data.pageindex )
         console.log(that.data.pageindex == that.data.ajaxpageindex)
         if (that.data.pageindex == that.data.ajaxpageindex) {

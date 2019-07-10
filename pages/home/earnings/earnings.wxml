@@ -55,7 +55,8 @@
         <view><text class='margin-right'>{{item.createdate}}</text><text class='text-xl'>{{item.customername}}</text></view>
         <view class='text-df text-left margin-top-sm'  wx:if="{{item.shopownername}}">店长：{{item.shopownername}} <text style='margin-left:20rpx;' wx:if="{{item.salapersonname}}">分销员：{{item.salapersonname}}</text></view>
       </view>
-      <view class='text-xl text-red'>+{{item.num}}</view>
+      <view class='text-xl text-red' wx:if="{{item.gettype=='支出'}}">-{{item.num}}</view>
+      <view class='text-xl text-green' wx:else>+{{item.num}}</view>
     </view>
   </view>
   <view class='main' style='margin-bottom:0;'>

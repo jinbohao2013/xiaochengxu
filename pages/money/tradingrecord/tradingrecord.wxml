@@ -8,7 +8,7 @@
     <view class='lists' style='padding-bottom:50rpx;'>
     <block wx:for="{{ajaxData}}" wx:key>
     <view class='record_list van-hairline--bottom' style='margin-left:30rpx;height:130rpx;'>
-      <view style='margin:30rpx 0 15rpx 0;'>{{item.channel}}<text style='float:right;color:#{{item.gettype=="收入"?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.num}}</text></view>
+      <view style='margin:30rpx 0 15rpx 0;'>{{item.channel}}<text style='float:right;color:#{{item.gettype=="收入"?"07BF05":"EC5050"}};margin-right:28rpx;'>{{item.gettype=="收入"?"+":"-"}}{{item.num}}</text></view>
       <text style='color:#aaa;'>{{item.createdate}}</text>
     </view>
     </block>

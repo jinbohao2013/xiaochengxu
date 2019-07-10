@@ -371,7 +371,10 @@ Page({
             delta:1
           })
         } else {
-          
+          wx.showToast({
+            title: res.data.Msg,
+            icon: 'none',
+          })
         }
       }
     })

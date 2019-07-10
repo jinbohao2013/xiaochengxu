@@ -18,7 +18,7 @@ Page({
     code: '',
     address: '',
     isLogin: false,
-    uid: 70,
+    uid: 1,
     userInfoName: "",
     userInfoImg: "",
     state :1,
@@ -265,8 +265,6 @@ Page({
           state: decodeURIComponent(options.q).split("?")[1].split("state=")[1]
         })
       }
-     
-     
       let _this = this;
       //获取用户登录信息
       wx.request({
@@ -276,6 +274,7 @@ Page({
           curr_id: this.data.uid,
         },
         success: (res) => {
+          console.log(res);
           try {
             _this.setData({
               userInfoName: res.data.Data.nickname,
@@ -289,10 +288,10 @@ Page({
     }catch(e){
 
     }
-    console.log("distributorid=", this.data.distributorid, this.data.state)
+    console.log(this.data.uid, this.data.distributorid, this.data.state)
     wx.getUserInfo({
       success: (data) => {
-        console.log(data);
+        
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
         this.login()

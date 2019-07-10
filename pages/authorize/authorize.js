@@ -18,7 +18,7 @@ Page({
         console.log(data);
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
-        this.login()
+        app.login()
       },
       fail: () => {
         this.setData({
@@ -26,61 +26,8 @@ Page({
         })
       }
     })
-
   },
-  // 登录
-  login: function() {
-    wx.login({
-      success: (res) => {
-        console.log(res)
-        wx.request({
-          // url: 'https://api.weixin.qq.com/sns/jscode2session',
-          url: config.apiHost + '/api/weixin/v1/jscode2session',
-          data: {
-            response_type: res.code,
-          },
-          method: "GET",
-          success: (res) => {
-            let ress = JSON.parse(res.data.Data)
-            let openid = JSON.parse(res.data.Data).openid
-            // console.log(res.data)
-            //获取用户的openid 
-            console.log("用户的openid" + openid)
-            app.globalData.openid = openid
-            wx.request({
-              url: config.apiHost + '/api/user/v1/wxloginopenid',
-              data: {
-                openid: openid,
-                imgurl: app.globalData.userInfo.avatarUrl,
-                nickname: app.globalData.userInfo.nickName
-              },
-              success: (ress) => { 
-                console.log(ress)
-                let usertype = ress.data.Data.usertype
-                app.globalData.usertype = ress.data.Data.usertype
-                // app.globalData.usertype = '4'
-                app.globalData.user_id = ress.data.Data.user_id
-                app.globalData.token = ress.data.Data.token
-                if (app.globalData.usertype == '2' || app.globalData.usertype == '3' || app.globalData.usertype == '4'){
-                  wx.redirectTo({
-                    // url: '/pages/home/home',
-                    url: '/pages/goods/index/index'
-                  })
-                }else{
-                  //用户进来要清楚用户以前的销售信息
-                  wx.removeStorageSync('useridsaleman')
-                  wx.removeStorageSync('shopid')
-                  wx.redirectTo({
-                    url: '/pages/goods/index/index',
-                  })
-                }
-              }
-            })
-          }
-        })
-      }
-    })
-  },
+ 
   onShow: function() {
 
   },
