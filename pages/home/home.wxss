@@ -62,7 +62,7 @@
   margin-top:15rpx;
 }
 .total_one{
-  font-size: 34rpx;
+  
 }
 .total_two{
   font-size:60rpx; 
@@ -100,7 +100,7 @@
   font-size: 34rpx;
 }
 .client_two{
-  font-size: 50rpx;
+  font-size: 41.67rpx;
   color: black!important;
   margin-top:15rpx;
 }

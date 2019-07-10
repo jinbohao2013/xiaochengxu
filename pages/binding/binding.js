@@ -52,6 +52,11 @@ Page({
                 app.globalData.usertype = ress.data.Data.usertype
                 app.globalData.user_id = ress.data.Data.user_id
                 app.globalData.token = ress.data.Data.token
+                if (parseInt(usertype) != 1) {
+                  wx.navigateTo({
+                    url: '/pages/goods/index/index',
+                  })
+                }
               }
             })
           }

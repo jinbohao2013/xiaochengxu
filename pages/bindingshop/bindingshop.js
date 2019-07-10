@@ -9,7 +9,7 @@ Page({
       "http://www.yqcoffee.cn/image/phone.png",
       "http://www.yqcoffee.cn/image/yanzheng.png"
     ],
-    distributorid:16,
+    distributorid:26,
     submitTimeNum: 0,
     times: null,
     submitTime: 60,
@@ -18,7 +18,7 @@ Page({
     code: '',
     address: '',
     isLogin: false,
-    uid: 1,
+    uid: 151,
     userInfoName: "",
     userInfoImg: "",
     state :1,
@@ -56,6 +56,11 @@ Page({
                 app.globalData.usertype = ress.data.Data.usertype
                 app.globalData.user_id = ress.data.Data.user_id
                 app.globalData.token = ress.data.Data.token 
+                if (parseInt(usertype) != 1) {
+                  wx.navigateTo({
+                    url: '/pages/goods/index/index',
+                  })
+                }
               }
             })
           }
@@ -265,29 +270,30 @@ Page({
           state: decodeURIComponent(options.q).split("?")[1].split("state=")[1]
         })
       }
-      let _this = this;
-      //获取用户登录信息
-      wx.request({
-        url: config.apiHost + "/api/user/v1/info",
-        data: {
-          user_id: this.data.uid,
-          curr_id: this.data.uid,
-        },
-        success: (res) => {
-          console.log(res);
-          try {
-            _this.setData({
-              userInfoName: res.data.Data.nickname,
-              userInfoImg: res.data.Data.imgurl
-            })
-          } catch (e) {
-
-          }
-        }
-      })
+      
     }catch(e){
 
     }
+    let _this = this;
+    //获取用户登录信息
+    wx.request({
+      url: config.apiHost + "/api/user/v1/info",
+      data: {
+        user_id: this.data.uid,
+        curr_id: this.data.uid,
+      },
+      success: (res) => {
+        console.log(res);
+        try {
+          _this.setData({
+            userInfoName: res.data.Data.nickname,
+            userInfoImg: res.data.Data.imgurl
+          })
+        } catch (e) {
+
+        }
+      }
+    })
     console.log(this.data.uid, this.data.distributorid, this.data.state)
     wx.getUserInfo({
       success: (data) => {

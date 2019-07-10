@@ -24,8 +24,8 @@
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       </view>
       <view wx:if="{{hideBotom}}" style='float:right;padding:20rpx;' bindtap="togglePopup">
-        <van-icon name="share" size='25px'/>
-        <view class='text-sm text-center'>分享</view>
+        <van-icon  name="share" size='25px' color="red"/>
+        <view class='text-sm text-center text-red'>分享</view>
       </view>
     </view>  <!-- top结束 -->
     <view style='background-color:#F8F8F8;height:20rpx;'></view>
@@ -48,7 +48,7 @@
     </view><!-- 商品详情结束 -->
   </view><!-- mian结束 -->
   <view class='buy' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;z-index:1'>
-  <view class="">
+  <view class="" >
     <!-- <button style='height:90rpx;line-height:90rpx;' class="bg-red submit" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">立即购买</button> -->
     <view class="cu-bar bg-white tabbar border shop van-hairline--top">
       <navigator url='/pages/goods/index/index' class="action" >
@@ -59,7 +59,7 @@
       </navigator>
       <navigator url='/pages/person/cart/cart' class="action" >
         <view class="icon-cart jinbohao">
-          <!-- <view class="cu-tag badge">99</view> -->
+          <view class="cu-tag badge" wx:if="{{goodLength}}">{{goodLength}}</view>
         </view>
         购物车
       </navigator>
@@ -91,11 +91,11 @@
     </view>
     <view style='position:absolute;right:0;top:0;padding:20rpx;' bindtap="onClose"><van-icon name="close" size='25px'/></view>
   </view>
-  <view class='c' style='clear:both;'>
-    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:55rpx;'>分类</view>
-    <view style='margin:0rpx 50rpx 20rpx 50rpx;' >
+  <view class='c' style='clear:both;margin-bottom:{{isIphoneX?"134px":"100rpx"}};'>
+    <view class="van-hairline--top-bottom" style='line-height:90rpx;padding-left:22rpx;'>分类</view>
+    <view style='margin:0rpx 20rpx 20rpx 20rpx;' >
       <block wx:for="{{ajaxData.tastename}}" wx:key="*">
-        <button class='cu-btn {{index==acticeInxex?"bg-black":"lines-black"}}' data-index='{{index}}' data-name='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>{{item.names}}</button>
+        <button class='cu-btn {{index==acticeInxex?"bg-black":"aaaaa"}}' style='' data-index='{{index}}' data-name='{{index}}' bindtap='changeIndex' style='margin-right:20rpx;margin-top:20rpx;'>{{item.names}}</button>
       </block>
     </view>
     <!--  -->
@@ -106,7 +106,7 @@
 </van-cell>
     </view>
   </view>
-  <view class='bottom' style='margin-top:20rpx;'>
+  <view class='bottom' style='position:fixed;bottom:{{isIphoneX?"34px":0}};width:100%;z-index:1'>
   <!-- <button  lang="zh_CN" bindtap="onClickButton" id='custom-class' size="large" type="default" style='background-color:#333333;color:white;'>下一步</button> -->
    <view class="cu-bar bg-white tabbar border shop van-hairline--top">
       <navigator url='/pages/goods/index/index' class="action" >
@@ -117,7 +117,7 @@
       </navigator>
       <navigator url='/pages/person/cart/cart' class="action" >
         <view class="icon-cart jinbohao">
-          <!-- <view class="cu-tag badge">99</view> -->
+          <view class="cu-tag badge" wx:if="{{goodLength}}">{{goodLength}}</view>
         </view>
         购物车
       </navigator>

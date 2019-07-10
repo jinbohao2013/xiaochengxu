@@ -22,12 +22,12 @@
    </view>
    <view class='middel'>
       <navigator url='/pages/home/earnings/earnings' class='middel_one'>  
-        <view class="total_one">
+        <view class="total_one text-gray" style='font-size: 29.17rpx;'>
             <text wx:if="{{usertype=='2'}}">当前累计收益(元)</text>
             <text wx:elif="{{usertype=='3'}}">当前店铺累计收益(元)</text>
              <text wx:else>我的收益（元)</text>
         </view>
-        <view class='total_two'>
+        <view class='total_two'  style='font-size: 62.5rpx;'>
             <text wx:if="{{usertype=='2'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
             <text wx:elif="{{usertype=='3'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
              <text wx:else>{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
@@ -38,19 +38,19 @@
       </navigator>
       <view class='middel_two'>
          <navigator url='/pages/home/earnings/earnings?type=1' class='earning'>
-           <view class="earning_one">
+           <view class="earning_one text-gray" style='font-size: 29.17rpx;'>
              <text>昨日收益（元)</text>
            </view>
-           <view class='earning_two'>
+           <view class='client_two'>
              <text>{{tools.fixd2(dataInfo.zrprofit||"0.00")}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>待结算 {{tools.fixd2(dataInfo.djsprice||"0.00")}} 元</view>
+           <view class='text  text-gray' style='font-size:25rpx;'>待结算 {{tools.fixd2(dataInfo.djsprice||"0.00")}} 元</view>
            <!-- <view class='earning_three'>
              <text>待结算{{dataInfo.zrprofit}}元</text>
            </view> -->
          </navigator>
          <navigator url='newfenxiaoyuan/newfenxiaoyuan' class='client' wx:if="{{usertype=='3'}}">
-           <view class="client_one">
+           <view class="client_one text-gray" style='font-size: 29.17rpx;'>
              <text>昨日新增分销员(人)</text>
            
            </view>
@@ -58,20 +58,20 @@
            <view class='client_two'>
              <text>{{newsalaperson||0}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>待审核 {{sqsalespersonnums}} 人</view>
+           <view class='text' style='color:#999;font-size:25rpx;'>待审核 {{sqsalespersonnums}} 人</view>
          </navigator>
          <navigator url='newagent/newagent' class='client' wx:if="{{usertype=='2'}}">
-           <view class="client_one">
+           <view class="client_one text-gray" style='font-size: 29.17rpx;'>
              <text>昨日新增代理(人)</text>
            </view>
            
            <view class='client_two'>
              <text>{{newshop||0}}</text>
            </view>
-           <view class='text' style='color:#999;font-size:24rpx;'>店长申请 {{sqshopownernums}} 人</view>
+           <view class='text' style='color:#999;font-size:25rpx;'>店长申请 {{sqshopownernums}} 人</view>
          </navigator >
          <view class='client' wx:if="{{usertype=='4'}}">
-           <view class="client_one">
+           <view class="client_one text-gray" style='font-size: 29.17rpx;'>
              <text>昨日新增客户(人)</text>
            </view>
            <view class='client_two'>

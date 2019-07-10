@@ -3294,7 +3294,7 @@ scroll-view.cu-steps .cu-item {
 }
 
 .line-gray::after, .lines-gray::after {
-  border-color: var(--grey);
+  border-color: var(--gray);
 }
 
 .line-black::after, .lines-black::after {

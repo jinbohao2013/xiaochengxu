@@ -40,6 +40,7 @@ Page({
     openset: false,//打开设置的判断
     hideBotom: true,//此时为了隐藏分享按钮，当时普通用户的时候
     buyType:2,//1为加入购物车，2为购买
+    goodLength:""
   },
   changeIndex(e) {
     console.log(e)
@@ -342,6 +343,17 @@ this.setData({
       fail: function (res) { },
       complete: function (res) { },
     })
+    util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          goodLength: res.Data.list.length == 0 ? "" : res.Data.list.length
+        })
+      }else{
+        _this.setData({
+          goodLength: ""
+        })
+      }
+    });
   },
 
   /**
@@ -436,6 +448,7 @@ this.setData({
     this.onClickButton()
   },
   onClickButton() {//立即购买
+  let _this =this;
     //判断口味是否选择
     console.log("口味：",this.data.acticeInxex)
     console.log(this.data.value1 * this.data.ajaxData.e_price)
@@ -456,6 +469,17 @@ this.setData({
                icon: 'none',
                duration: 2000
              })
+             util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+               if (res.Code == "200") {
+                 _this.setData({
+                   goodLength: res.Data.list.length == 0 ? "" : res.Data.list.length
+                 })
+               } else {
+                 _this.setData({
+                   goodLength: ""
+                 })
+               }
+             });
            }else{
              wx.showToast({
                title: res.Msg,

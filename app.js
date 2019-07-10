@@ -99,30 +99,20 @@ App({
     console.log("app3")
   },
   onShow:function(){
+    console.log("我从外面进来了哦")
+    //获取新版本--进行更新--开始
     const updateManager = wx.getUpdateManager()
-
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      // console.log(res.hasUpdate)
+      console.log("请求完新版本信息的回调,1.9.17最新版", res.hasUpdate)
     })
-
     updateManager.onUpdateReady(function () {
       updateManager.applyUpdate()
-      // wx.showModal({
-      //   title: '更新提示',
-      //   content: '新版本已经准备好，是否重启应用？',
-      //   success(res) {
-      //     if (res.confirm) {
-      //       // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-           
-      //     }
-      //   }
-      // })
     })
-
     updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
+    //获取新版本--进行更新--结束
   },
   postData: function (url, data) {
     var that = this;
@@ -169,6 +159,7 @@ App({
         userid: wx.getStorageSync("userid"),
       },
       success: (res) => {
+        wx.setStorageSync("isoverpay","");
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的经销商id
         if (type == 2) {//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);

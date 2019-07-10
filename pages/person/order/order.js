@@ -219,6 +219,37 @@ Page({
       }
     });
   },
+  getgoods(e) {
+    // 确认收货
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否确定',
+      success(res) {
+        if (res.confirm) {
+          util.request(app.data.hostAjax + '/api/transaction/v1/addbuyerreceiving', {
+            userid: wx.getStorageSync("userIdBuyGood"),
+            ordernumber: e.currentTarget.dataset.ordernumber,
+          }).then(function (res) {
+            if (res.Code == "200") {
+              wx.showToast({
+                title: '收货成功'
+              })
+              that.onLoad(that.data.e)
+            } else {
+
+              wx.showToast({
+                title: '网络错误，情稍后重试！',
+                icon: "none"
+              })
+            }
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   onHide: function () {
     // 生命周期函数--监听页面隐藏
 

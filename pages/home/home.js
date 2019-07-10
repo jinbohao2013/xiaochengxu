@@ -77,15 +77,18 @@ Page({
         userid: wx.getStorageSync("userid"),
       },
       success: (res) => {
+        wx.setStorageSync("isoverpay", "");
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);
         if (type==2){//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
           wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type ==3) {//如果是店长
+          console.log("ismaiduan", res.data.Data.isoverpay)
           wx.setStorageSync("distributorid", res.data.Data.distributorid);
           _this.setData({
             ismaiduan: parseInt(res.data.Data.isoverpay)
           })
+          wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
           wx.setStorageSync("logo", res.data.Data.distributorlog);
         } else if (type == 4){//如果是分销员
         }
@@ -102,9 +105,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      ismaiduan: parseInt(wx.getStorageSync("isoverpay")) == 1 ? 1 : 0
-    })
+    
     let _this=this;
     //获取用户登录信息
     wx.request({
@@ -132,13 +133,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onShow:function(){
+    this.setData({
+      ismaiduan: parseInt(wx.getStorageSync("isoverpay")) == 1 ? 1 : 0
+    })
     // 获取订单列表
     var that = this;
     var type = Number(wx.getStorageSync("usertype"))
     console.log(type)
     switch (type){
       case 3:
-        this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id, app.globalData.usertype)
+        this.getData('/api/dester/v1/getshopownerdester', app.globalData.user_id, type)
         //店长查看新增代理
         util.request(app.data.hostAjax + '/api/dester/v1/getshopowneryesterdayadd', {
           userid: wx.getStorageSync("userid"),
@@ -153,7 +157,7 @@ Page({
         });
         break;
       case 2:
-        this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, app.globalData.usertype)
+        this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, type)
         //经销商GET /api/dester/v1/getdistributoryesterdayadd 经销商查看新增代理
         util.request(app.data.hostAjax + '/api/dester/v1/getdistributoryesterdayadd', {
           userid: wx.getStorageSync("userid"),
@@ -170,7 +174,7 @@ Page({
         });
         break;
       case 4:
-        this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id, app.globalData.usertype)
+        this.getData('/api/dester/v1/getsalespersondester', app.globalData.user_id, type)
         break;
       default:
         break;

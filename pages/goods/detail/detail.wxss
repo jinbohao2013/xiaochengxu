@@ -17,6 +17,10 @@ background-color:rgba(0, 0, 0, 0)!important;
  width:200px!important;
  margin:auto
 }
+.aaaaa{
+  border:1rpx solid #999;color:black;
+  background-color:#fff!important;
+}
 .van-tabs__line {
 background-color:#000!important;
 }
