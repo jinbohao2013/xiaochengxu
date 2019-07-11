@@ -32,7 +32,10 @@ App({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // console.log(res.code);
           _this.getData("/api/weixin/v1/jscode2session", { response_type: res.code }).then(res => {
-           
+            if (!JSON.parse(res.Data).openid) {
+              console.log("获取openID失败,请重新登录！")
+              return
+            }
             wx.setStorage({
               key: 'sessionKey',
               data: JSON.parse(res.Data).session_key,
@@ -190,7 +193,6 @@ App({
       success: (res) => {
         console.log(res)
         wx.request({
-          // url: 'https://api.weixin.qq.com/sns/jscode2session',
           url: that.data.hostAjax + '/api/weixin/v1/jscode2session',
           data: {
             response_type: res.code,
@@ -199,7 +201,10 @@ App({
           success: (res) => {
             let ress = JSON.parse(res.data.Data)
             let openid = JSON.parse(res.data.Data).openid
-            
+            if (!JSON.parse(res.data.Data).openid) {
+              console.log("获取openID失败，请重新登录")
+              return
+            }
             //获取用户的openid 
             console.log("用户的openid" + openid)
             that.globalData.openid = openid

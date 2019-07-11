@@ -23,7 +23,20 @@ Page({
       this.setData({
         shopid: options.shopid,
       })
-
+    let _this = this;
+    //获取三者的比例
+    util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
+      userid: wx.getStorageSync("userid"),
+      shopid: wx.getStorageSync("shopid"),
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          // distributor: res.Data.distributor,
+          shopowner: res.Data.shopowner,
+          salaperson: res.Data.salaperson,
+        })
+      }
+    });
   },
 
   /**

@@ -94,32 +94,7 @@ Page({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
-    //首先登录，获取用户的类型，判断是不是客户--储存购买用户的id
-    wx.request({
-      url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
-      data: {
-        openid: wx.getStorageSync("openid"),
-      },
-      method: "get",
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
-        if (res.data.Success) {
-          wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
-          if (res.data.Data.usertype == 1) {
-            //1为普通用户 2为经销商 3为店长 4为分销员
-            //1--隐藏底部导航
-            _this.setData({
-              hideBotom: false
-            })
-          }else{
-            //，，专门为扫码进来的分销商、店长、分销员、制作分享页--帮助分享
-          }
-          console.log("22222222我是商品的储存22222222", _this.data.hideBotom)
-        }
-      }
-    })
+    
     //下面是调取详情接口--展示商品信息
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/getgoodsdetail', // 获取商品详情
@@ -343,17 +318,7 @@ this.setData({
       fail: function (res) { },
       complete: function (res) { },
     })
-    util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
-      if (res.Code == "200") {
-        _this.setData({
-          goodLength: res.Data.list.length == 0 ? "" : res.Data.list.length
-        })
-      }else{
-        _this.setData({
-          goodLength: ""
-        })
-      }
-    });
+    
   },
 
   /**
@@ -526,9 +491,47 @@ this.setData({
         //更新data中的userInfo
         app.globalData.userInfo = data.userInfo
         app.login(1,function(){
-_this.setData({
-  isLogin: false
-})
+          _this.setData({
+            isLogin: false
+          })
+          //首先登录，获取用户的类型，判断是不是客户--储存购买用户的id
+          wx.request({
+            url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
+            data: {
+              openid: wx.getStorageSync("openid"),
+            },
+            method: "get",
+            header: {
+              'content-type': 'application/json',
+            },
+            success(res) {
+              if (res.data.Success) {
+                wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+                if (res.data.Data.usertype == 1) {
+                  //1为普通用户 2为经销商 3为店长 4为分销员
+                  //1--隐藏底部导航
+                  _this.setData({
+                    hideBotom: false
+                  })
+                } else {
+                  //，，专门为扫码进来的分销商、店长、分销员、制作分享页--帮助分享
+                }
+                console.log("商品详情中的购买人id", res.data.Data.user_id)
+                util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: res.data.Data.user_id }).then(function (res) {
+                  if (res.Code == "200") {
+                    _this.setData({
+                      goodLength: res.Data.list.length == 0 ? "" : res.Data.list.length
+                    })
+                  } else {
+                    _this.setData({
+                      goodLength: ""
+                    })
+                  }
+                });
+              }
+            }
+          })
+          
         })
       },
       fail: () => {

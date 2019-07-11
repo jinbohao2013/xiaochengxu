@@ -37,6 +37,9 @@ Page({
     }
     if (options.id){
       console.log("买断店长mm")
+      wx.setNavigationBarTitle({
+        title: '买断推广'
+      })
       shareUrl = "https://www.yqcoffee.cn/userbind/?distributorid=" + wx.getStorageSync("distributorid") + "&state=3" + "&uid=" + wx.getStorageSync("userid");
     }
     if (wx.getStorageSync("logo")){
