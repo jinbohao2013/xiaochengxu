@@ -8,6 +8,7 @@ Page({
    */
   data: {
     ismaiduan: 0,
+    xiugai: 0,
     Images: [
       "http://www.yqcoffee.cn/image/pic1.png",
       "http://www.yqcoffee.cn/image/pic2.png",
@@ -90,6 +91,24 @@ Page({
           })
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
           wx.setStorageSync("logo", res.data.Data.distributorlog);
+          // if (parseInt(res.data.Data.isoverpay)==1){
+          //   //获取买断店长设置的比例
+          //   util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
+          //     userid: wx.getStorageSync("userid"),
+          //     shopid: wx.getStorageSync("shopid"),
+          //   }).then(function (res) {
+          //     if (res.Code == "200" && parseInt(res.Data.shopowner)!=0) {
+          //       //已经设置过了
+          //       _this.setData({
+          //         xiugai: 1
+          //       })
+          //     }else{
+          //       _this.setData({
+          //         xiugai: 0
+          //       })
+          //     }
+          //   });
+          // }
         } else if (type == 4){//如果是分销员
         }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
@@ -133,9 +152,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onShow:function(){
-    this.setData({
-      ismaiduan: parseInt(wx.getStorageSync("isoverpay")) == 1 ? 1 : 0
-    })
+    
     // 获取订单列表
     var that = this;
     var type = Number(wx.getStorageSync("usertype"))

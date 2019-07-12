@@ -17,15 +17,9 @@ App({
     hideBotom: true,////隐藏底部导航
   },
   onLaunch: function () {
-    // if (wx.getStorageSync("token")) {//ifLogin
-    //   wx.reLaunch({
-    //     url: 'pages/logs/logs'
-    //   })
-    //   return false;
-    // }
-    // return
+
     let _this=this;
-   
+    
     new Promise(function (resolve, reject){
       wx.login({
         success: res => {
@@ -89,7 +83,7 @@ App({
 
                 }
               }
-            })
+            });
           })
           resolve()
           
@@ -104,14 +98,14 @@ App({
   onShow:function(){
     console.log("我从外面进来了哦")
     //获取新版本--进行更新--开始
-    const updateManager = wx.getUpdateManager()
+    const updateManager = wx.getUpdateManager();
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      console.log("请求完新版本信息的回调,1.9.17最新版", res.hasUpdate)
-    })
+      console.log("请求完新版本信息的回调,1.9.18最新版", res.hasUpdate)
+    });
     updateManager.onUpdateReady(function () {
       updateManager.applyUpdate()
-    })
+    });
     updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
