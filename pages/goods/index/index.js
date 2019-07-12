@@ -24,6 +24,7 @@ Page({
     loading:true,
     hideLoading:true,//隐藏底部加载
     hideBotom: true,//隐藏底部导航
+    personUrl:"",
     show: false,
     acticeInxex:null,//口味的index,从0开始
     pageindex:1,
@@ -183,11 +184,13 @@ Page({
             //1为普通用户 2为经销商 3为店长 4为分销员
             //1--隐藏底部导航
             _this.setData({
-              hideBotom: false
+              hideBotom: false,
+              personUrl:"/pages/person/person"
             })
           }else{
             _this.setData({
-              hideBotom: true
+              hideBotom: true,
+              personUrl: "/pages/home/home"
             })
           }
         } else {

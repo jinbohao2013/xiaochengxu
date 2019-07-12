@@ -8,6 +8,9 @@
     <view class="c">
       <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" />
       <text>去添加点什么吧</text>
+      <view class='text-center margin-top'>
+        <navigator url='/pages/goods/index/index' class='cu-btn line-orange'>去逛逛</navigator>
+       </view>
     </view>
   </view>
   <view class="cart-view" wx:if="{{cartGoods.length > 0}}">
@@ -33,35 +36,35 @@
         </view>
       </view>
 
-      <!--<view class="group-item">
-                <view class="header">
-                    <view class="promotion">
-                        <text class="tag">满赠</text>
-                        <text class="txt">再加26元, 3件赠1件蔓越莓干</text>
-                        <image class="icon" src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/go-b67cb9718d.png"></image>
-                    </view>
-                    <view class="get">领赠品</view>                
-                </view>
-                <view class="goods">
-                    <view class="item">
-                        <view class="checkbox" ></view>
-                        <view class="cart-goods">
-                            <image class="img" src="http://yanxuan.nosdn.127.net/04e05e9de3a471b1f6479dd137b459a8.png"></image>
-                            <view class="info">
-                                <view class="t">
-                                    <text class="name">秋冬保暖加厚细羊毛被</text>
-                                    <text class="num">x1</text>
-                                </view>
-                                <view class="attr">220*240cm</view>
-                                <view class="b">
-                                    <text class="price">￥199.99</text>
-                                    <view class="open">优惠活动</view>
-                                </view>
-                            </view>
+      <!-- <view class="group-item">
+        <view class="header">
+            <view class="promotion">
+                <text class="tag">满赠</text>
+                <text class="txt">再加26元, 3件赠1件蔓越莓干</text>
+                <image class="icon" src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/go-b67cb9718d.png"></image>
+            </view>
+            <view class="get">领赠品</view>                
+        </view>
+        <view class="goods">
+            <view class="item">
+                <view class="checkbox" ></view>
+                <view class="cart-goods">
+                    <image class="img" src="http://yanxuan.nosdn.127.net/04e05e9de3a471b1f6479dd137b459a8.png"></image>
+                    <view class="info">
+                        <view class="t">
+                            <text class="name">秋冬保暖加厚细羊毛被</text>
+                            <text class="num">x1</text>
+                        </view>
+                        <view class="attr">220*240cm</view>
+                        <view class="b">
+                            <text class="price">￥199.99</text>
+                            <view class="open">优惠活动</view>
                         </view>
                     </view>
                 </view>
-            </view>-->
+            </view>
+        </view>
+      </view> -->
     </view>
     <view class="cart-bottom">
       <!-- <view class="checkbox {{checkedAllStatus ? 'checked' : ''}}" bindtap="checkedAll">全选({{cartTotal.checkedGoodsCount}})</view>
@@ -91,24 +94,14 @@
     </view>
   </view>
   <!-- 底部的推荐商品 -->
-  <view class='recommend_goods'>
-    <!-- <view class='text-center' style='color:#999;line-height:100rpx;'>更多精选商品</view>
+  <view class='recommend_goods' style='margin-bottom:120rpx;'>
+    <view class='text-center' style='color:#999;line-height:100rpx;'>更多精选商品</view>
     <view class='c'>
-      <view class='list'>
-        <image class="img" mode='widthFix' style='border:1px solid #999;' src="http://yanxuan.nosdn.127.net/04e05e9de3a471b1f6479dd137b459a8.png"></image>
-        <view class='text'>我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍</view>
-        <view class='price' style='font-size:35rpx;color:#de1010;'>￥298.00</view>
+      <view class='list' wx:for="{{goodsList}}">
+        <navigator url='/pages/goods/detail/detail?id={{item.id}}'><image class="img" mode='widthFix' src="{{item.smallimg}}"></image></navigator>
+        <view class='text van-multi-ellipsis--l3' >{{item.name}}</view>
+        <view class='price' style='font-size:35rpx;color:#de1010;'>￥{{item.e_price}}</view>
       </view>
-      <view class='list'>
-        <image class="img"  mode='widthFix' style='border:1px solid #999;' src="http://yanxuan.nosdn.127.net/04e05e9de3a471b1f6479dd137b459a8.png"></image>
-        <view class='text'>我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍</view>
-        <view class='price' style='font-size:35rpx;color:#de1010;'>￥298.00</view>
-      </view>
-      <view class='list'>
-        <image class="img" mode='widthFix' style='border:1px solid #999;' src="http://yanxuan.nosdn.127.net/04e05e9de3a471b1f6479dd137b459a8.png"></image>
-        <view class='text'>我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍我是商品的介绍</view>
-        <view class='price' style='font-size:35rpx;color:#de1010;'>￥298.00</view>
-      </view>
-    </view> -->
+    </view>
   </view>
 </view>

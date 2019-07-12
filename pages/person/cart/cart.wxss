@@ -30,16 +30,17 @@ page{
     font-size: 25rpx;
     color: #666;
 }
-.recommend_goods .c{
-  
-}
 .recommend_goods .list{
   width: 50%;
   display: inline-block;
   padding: 20rpx;
 }
-.recommend_goods .text{
+.recommend_goods .list .text{
+  height:4em;
   margin:15rpx 0 ;
+  /* overflow: hidden;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis */
 }
 .no-cart{
     width: 100%;

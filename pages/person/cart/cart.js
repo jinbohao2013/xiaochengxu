@@ -55,6 +55,23 @@ Page({
       }
       
     });
+    util.request(app.data.hostAjax + '/api/user/v1/getgoodslist', { 
+      user_id: wx.getStorageSync("userIdBuyGood") ,
+      orderby:1,
+      pageindex:1,
+      pagesize:6,
+      }).then(function (res) {
+      if (res.Code == "200") {
+        that.setData({
+          goodsList: res.Data.list
+        })
+      } else {
+        that.setData({
+          goodsList: [],
+        })
+      }
+
+    });
   },
   onClickButton() {//购物车结算//提交订单--吊起支付
     let _this = this;
