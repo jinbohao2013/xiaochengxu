@@ -48,8 +48,22 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/home/home",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "客服",
+					"pathName": "pages/person/consultant1/consultant1",
+					"scene": null
+				}
+			]
 		}
 	}
 }

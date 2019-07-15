@@ -1,5 +1,9 @@
 <view class="body">
-<image src='http://www.yqcoffee.cn/image/consultant.jpg' mode="widthFix" style='width:100%;'> </image>
+<button show-message-card="{{true}}" open-type="contact" bindcontact="callback" style='background-color:#fff;'>
+<image src='http://www.yqcoffee.cn/image/kefu_top.jpg' mode="widthFix" style='width:100%;'> </image>
+</button>
+<button style='background-color:#fff;'><image src='http://www.yqcoffee.cn/image/kefu_bottom.jpg' mode="widthFix" style='width:100%;'> </image></button>
+
 
 <!-- <view style='padding:25rpx 25rpx 25rpx 35rpx;'><van-icon
         name="star-o"

@@ -58,3 +58,9 @@ navigator .text{
   display: inline-block;
   text-align: center;
 }
+.body button{
+  border: 0;
+  outline: none;
+  border-radius:0; 
+}
+.body button:after{ border: none; }
