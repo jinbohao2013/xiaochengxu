@@ -101,7 +101,7 @@ App({
     const updateManager = wx.getUpdateManager();
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      console.log("请求完新版本信息的回调,1.9.18最新版", res.hasUpdate)
+      console.log("请求完新版本信息的回调,1.9.20最新版", res.hasUpdate)
     });
     updateManager.onUpdateReady(function () {
       updateManager.applyUpdate()
