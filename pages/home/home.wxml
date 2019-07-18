@@ -14,10 +14,14 @@
           <text wx:else>分销员：{{userInfoName}}</text>
         </view>
         <view class='cent'>
-          <text class='cent_one'>自购分佣</text>
-          <text class='cent_two'><text wx:if="{{usertype=='2'}}">分销商绑定</text>
+        <text class='cent_two'><text wx:if="{{usertype=='2'}}">分销商绑定</text>
           <text wx:elif="{{usertype=='3'}}">店长绑定</text>
-          <text wx:else>分销员绑定</text></text>    
+          <text wx:else>分销员绑定</text></text>  
+          <text class='cent_one'>自购分佣</text>
+          <navigator url='/pages/home/pos/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
+          <view class="cu-tag badge" style='right:-40rpx'>99</view>  
+          pos用户 </navigator>
+           
         </view>
       </view>
        <navigator wx:if="{{ismaiduan}}" style='position:absolute;top:31px;right:50rpx;color:red;' url='/pages/home/fenxiaoyuan/proportion/proportion?id={{item.userid}}&shopid={{item.shopid}}' class="cu-btn round bg-gray">{{xiugai?"佣金修改":"佣金设置"}}</navigator>
@@ -112,12 +116,16 @@
          <view>推广订单</view>
       </navigator>
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
-        <!-- 设置 -->
+      <!-- pos提交主页 -->
+        <navigator url='/pages/home/pos/index_more/index'>
+         <view style='color:#38f;'>{{dataInfo.ordernums||0}}</view>
+         <view>POS订单提交</view></navigator>
+      </view>
+      <!-- <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <navigator url='/pages/home/order/order'>
-        
          <view style='color:#38f;'>{{dataInfo.ordernums||0}}</view>
          <view>全部订单</view></navigator>
-      </view>
+      </view> -->
       <view class='accumulate_one' wx:if="{{usertype=='2'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order?type=2'>

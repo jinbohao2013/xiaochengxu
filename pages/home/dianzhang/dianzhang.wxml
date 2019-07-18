@@ -19,7 +19,7 @@
      <view class="cu-item">
       <view class="cu-avatar round lg" style="background-image:url({{item.imgurl}});"></view>
       <view class="content">
-        <view class="text-grey">{{item.nickname}}</view>
+        <view class="text-grey">{{item.nickname}} <view class='cu-tag round bg-red sm'>pos</view></view>
         <view class="text-gray text-sm flex">
           成交额：{{item.sumprice}}
         </view>

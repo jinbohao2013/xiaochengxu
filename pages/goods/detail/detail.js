@@ -146,17 +146,17 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
-    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8088","https://www.yqcoffee.cn:2019");
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8085","https://www.yqcoffee.cn:2021");
     console.log(shareImg)
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
-    const imgUrl = 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid")
+    const imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid")
     console.log(imgUrl)
     wx.downloadFile({
       url: shareImg,
-      success:(res)=>{ 
+      success:(res)=>{
         shareImg=res.tempFilePath;
         ctx.drawImage(shareImg, c, 38 / 750 * wx.getSystemInfoSync().windowWidth, d, d)
         //加入商品名字到canvas中

@@ -1,0 +1,43 @@
+<view class="container">
+  
+  <view wx:if='{{!hasRefund}}' class="status-box" style='justify-content:space-around;padding:0 30rpx;'>
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <view class="no-order" hidden="{{orderList.length ? true : false}}">
+    <image src="http://www.yqcoffee.cn/image/empty_order.png" class="no-order-img"></image>
+    <view class="text">暂无订单</view>
+  </view>
+  <view class="order-list" hidden="{{orderList.length ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
+      
+      <view style='display:flex;justify-content:space-between;align-items:stretch;'>
+        <view class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
+          <view>
+            <view class='van-ellipsis text-xl'>店铺名称：王一一的店铺</view>
+            <view class='text-gray' style='margin-top:10rpx;'>提交时间:{{item.createdat}}</view>
+          </view>
+          <view class='line'>
+            <view>雪加烟杆套装雪加烟杆套装雪加烟杆套装 ￥298 <text style='float:right;'>×1</text></view>
+            <view>雪加烟杆套装 ￥298 <text style='float:right;'>×1</text></view>
+          </view>
+          <view class="goods-price" >
+            <text class="p">总计金额:¥{{item.sumprice}}<text style='padding-left:10rpx;'></text> 分佣提成:¥{{item.sumprice}}</text>
+          </view>
+        </view>
+        <navigator style='display:flex;align-items:center;background: linear-gradient(#3C4258, #727691);' url="/pages/home/order/details/details?id={{item.id}}" class="text-center" hover-class="weui-cell_active"><view style='color:white;font-size:32rpx;width:200rpx;'>查看详情<view>(点击审核)</view></view></navigator>
+      </view>
+      
+    </view>
+  </view>
+  <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+      <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&orderList.length>10}}">
+      我到底了
+    </view>
+  </scroll-view>
+</view>

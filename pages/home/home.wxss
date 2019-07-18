@@ -36,8 +36,10 @@
   padding: 2rpx
 }
 .cent_one{
-    border: 1px solid #8b8b8b;
-    color: #8b8b8b;
+  border: 1px solid #8b8b8b;
+  color: #8b8b8b;
+  display:inline-block;
+  position:relative;
 }
 .cent_two{
     color: #eed1a0;

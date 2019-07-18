@@ -122,7 +122,6 @@ Page({
               })
               that.onLoad(that.data.e)
             } else {
-
               wx.showToast({
                 title: '网络错误，情稍后重试！',
                 icon: "none"

@@ -16,9 +16,10 @@ Page({
     this.setData({
       isIphoneX: app.data.isIphoneX
     })
-    console.log(this.data.isIphoneX)
   },
-
+  callback(){
+    console.log("客服消息回调")
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

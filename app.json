@@ -48,6 +48,9 @@
     "pages/home/customer/customer",
     "pages/home/customer/see/see",
     "pages/home/dianzhang/proportion/proportion",
+    "pages/home/pos/index/index",
+    "pages/home/pos/index_more/index",
+    "pages/home/pos/submit/submit",
     "pages/money/withdraw/cardbind/cardbind"
   ],
   "window": {

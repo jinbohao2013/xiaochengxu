@@ -3,11 +3,11 @@ const Promise = require('utils/promise.js');
 App({
   readyCallback: null,
   
-  globalData: {
+  globalData: { 
     usertype:null
   },
   data:{
-    hostAjax: "https://www.yqcoffee.cn:2019",
+    hostAjax: "https://www.yqcoffee.cn:2021",
     statusBarHeight: wx.getSystemInfoSync()["statusBarHeight"],
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
@@ -17,17 +17,23 @@ App({
     hideBotom: true,////隐藏底部导航
   },
   onLaunch: function () {
-
+    // if (wx.getStorageSync("token")) {//ifLogin
+    //   wx.reLaunch({
+    //     url: 'pages/logs/logs'
+    //   })
+    //   return false;
+    // }
+    // return
     let _this=this;
-    
+   
     new Promise(function (resolve, reject){
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // console.log(res.code);
           _this.getData("/api/weixin/v1/jscode2session", { response_type: res.code }).then(res => {
-            if (!JSON.parse(res.Data).openid) {
-              console.log("获取openID失败,请重新登录！")
+            if (!JSON.parse(res.Data).openid){
+              console.log("请重新登录")
               return
             }
             wx.setStorage({
@@ -83,7 +89,7 @@ App({
 
                 }
               }
-            });
+            })
           })
           resolve()
           
@@ -98,14 +104,14 @@ App({
   onShow:function(){
     console.log("我从外面进来了哦")
     //获取新版本--进行更新--开始
-    const updateManager = wx.getUpdateManager();
+    const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      console.log("请求完新版本信息的回调,1.9.20最新版", res.hasUpdate)
-    });
+      console.log("请求完新版本信息的回调,1.9.17最新版", res.hasUpdate)
+    })
     updateManager.onUpdateReady(function () {
       updateManager.applyUpdate()
-    });
+    })
     updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
@@ -187,6 +193,7 @@ App({
       success: (res) => {
         console.log(res)
         wx.request({
+          // url: 'https://api.weixin.qq.com/sns/jscode2session',
           url: that.data.hostAjax + '/api/weixin/v1/jscode2session',
           data: {
             response_type: res.code,
@@ -196,7 +203,7 @@ App({
             let ress = JSON.parse(res.data.Data)
             let openid = JSON.parse(res.data.Data).openid
             if (!JSON.parse(res.data.Data).openid) {
-              console.log("获取openID失败，请重新登录")
+              console.log("请重新登录")
               return
             }
             //获取用户的openid 
