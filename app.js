@@ -225,6 +225,7 @@ App({
                 if(e){
                   callback()
                 }else{
+                  wx.removeStorageSync('saoma')
                   if (that.globalData.usertype == '2' || that.globalData.usertype == '3' || that.globalData.usertype == '4') {
                     wx.redirectTo({
                       // url: '/pages/home/home',

@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    modalshow: false,//优惠券的弹框-可以领取--当有优惠券的时候提示--分享人进来的时候判断是否分享成功
+    shareid:"",//分享人的id
     isLogin: false,
     windowHeight:null,//可用窗口的高度
     value1:1,//购买数量
@@ -38,7 +40,7 @@ Page({
     // productName:"SNOW＋橘子汽水",
     loading:false,//保存按钮的加载动画
     openset: false,//打开设置的判断
-    hideBotom: true,//此时为了隐藏分享按钮，当时普通用户的时候
+    // hideBotom: true,//此时为了隐藏分享按钮，当时普通用户的时候
     buyType:2,//1为加入购物车，2为购买
     goodLength:""
   },
@@ -64,9 +66,6 @@ Page({
     let _this=this;
     var goodsId = options.id;
     if (!goodsId){
-      _this.setData({
-        hideBotom: false
-      })
       //此时是从分享页面进来的?useridsaleman=0&goodsid=2471&shopid=0
       //2471&shopid=0
       if (decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1].indexOf("&")>=0){
@@ -74,17 +73,32 @@ Page({
       }else{
         goodsId = decodeURIComponent(options.q).split("?")[1].split("goodsid=")[1]
       }
-      if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
-        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
-      } else {
-        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+      if (decodeURIComponent(options.q).indexOf("shopid")>0){
+        if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
+          wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
+        } else {
+          wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+        }
       }
-      if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
-        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
-        //为了跟appjs的uid冲突，制作一个顶级的分享人的uid
-        
-      } else {
-        wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1])
+      if (decodeURIComponent(options.q).indexOf("useridsaleman") > 0){
+        if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
+          wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
+          //为了跟appjs的uid冲突，制作一个顶级的分享人的uid
+        } else {
+          wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1])
+        }
+      }
+      if (decodeURIComponent(options.q).indexOf("shareid") > 0){
+        if (decodeURIComponent(options.q).split("?")[1].split("shareid=")[1].indexOf("&") >= 0) {
+          _this.setData({
+            shareid: decodeURIComponent(options.q).split("?")[1].split("shareid=")[1].split("&")[0]
+          })
+        } else {
+          _this.setData({
+            shareid: decodeURIComponent(options.q).split("?")[1].split("shareid=")[1]
+          })
+        }
+        wx.setStorageSync("saoma", true)
       }
     }
     console.log("传过来的商品id是:---" + goodsId)
@@ -152,7 +166,13 @@ Page({
     ctx.fillRect(0, 0, w, h)
     ctx.setFillStyle('#000')
     //加入图片到canvas中
-    const imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid")
+    var imgUrl;
+    if (wx.getStorageSync("usertype")==1){
+      imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?goodsid=' + goodsId + '&shareid=' + wx.getStorageSync("userIdBuyGood")
+    }else{
+      imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid") + '&shareid=' + wx.getStorageSync("userIdBuyGood")
+    }
+    
     console.log(imgUrl)
     wx.downloadFile({
       url: shareImg,
@@ -483,6 +503,11 @@ this.setData({
     }
     
   },
+  hideModal(e) {//增加了优惠券分享的弹框
+    this.setData({
+      modalshow: !this.data.modalshow
+    })
+  },
   getInfo: function () {
     let _this=this;
     wx.getUserInfo({
@@ -499,6 +524,7 @@ this.setData({
             url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
             data: {
               openid: wx.getStorageSync("openid"),
+              fxuserid:_this.data.shareid
             },
             method: "get",
             header: {
@@ -507,16 +533,23 @@ this.setData({
             success(res) {
               if (res.data.Success) {
                 wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
+                _this.drawImg(_this.data.goodsid);
                 if (res.data.Data.usertype == 1) {
                   //1为普通用户 2为经销商 3为店长 4为分销员
                   //1--隐藏底部导航
-                  _this.setData({
-                    hideBotom: false
-                  })
+                  
                 } else {
                   //，，专门为扫码进来的分销商、店长、分销员、制作分享页--帮助分享
                 }
-                console.log("商品详情中的购买人id", res.data.Data.user_id)
+                // console.log("商品详情中的购买人id", res.data.Data.user_id);
+                //在这里判断被分享人扫码进来的时候
+                if (_this.data.shareid && parseInt(res.data.Data.isnewuser) == 1 && parseInt(res.data.Data.isticket) == 0){//新用户 
+                  //弹出优惠券的框
+                  console.log("弹出优惠券的框");
+                  _this.setData({
+                    modalshow: true
+                  })
+                }
                 util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: res.data.Data.user_id }).then(function (res) {
                   if (res.Code == "200") {
                     _this.setData({

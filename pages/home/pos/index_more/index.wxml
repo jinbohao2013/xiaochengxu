@@ -21,18 +21,21 @@
       <view style='display:flex;justify-content:space-between;align-items:stretch;'>
         <view class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
           <view>
-            <view class='van-ellipsis text-xl'>店铺名称：王一一的店铺</view>
+            <view class='van-ellipsis text-xl'>店铺名称：{{item.shopname}}</view>
             <view class='text-gray' style='margin-top:10rpx;'>提交时间:{{item.createdat}}</view>
           </view>
           <view class='line'>
-            <view>雪加烟杆套装雪加烟杆套装雪加烟杆套装 ￥298 <text style='float:right;'>×1</text></view>
-            <view>雪加烟杆套装 ￥298 <text style='float:right;'>×1</text></view>
+            <view wx:for="{{item.goodslist}}">{{item.goodsname}} ￥{{item.price}} <text style='float:right;'>×{{item.num}}</text></view>
           </view>
           <view class="goods-price" >
-            <text class="p">总计金额:¥{{item.sumprice}}<text style='padding-left:10rpx;'></text> 分佣提成:¥{{item.sumprice}}</text>
+            <text class="p">总计金额:¥{{item.orsumprice}}<text style='padding-left:10rpx;'></text> 分佣提成:¥{{item.royalty}}</text>
           </view>
         </view>
-        <navigator style='display:flex;align-items:center;background: linear-gradient(#3C4258, #727691);' url="/pages/home/order/details/details?id={{item.id}}" class="text-center" hover-class="weui-cell_active"><view style='color:white;font-size:32rpx;width:200rpx;'>审核中</view></navigator>
+        <navigator style='display:flex;align-items:center;background: linear-gradient(#3C4258, #727691);' url="/pages/home/pos/seepos/seepos?id={{item.id}}" class="text-center" hover-class="weui-cell_active"><view style='color:white;font-size:32rpx;width:200rpx;'>
+        <text wx:if="{{item.states=='0'}}">审核中</text> 
+        <text wx:if="{{item.states=='1'}}">已通过</text> 
+        <text wx:if="{{item.states=='2'}}">已驳回</text> 
+        </view></navigator>
       </view>
       
     </view>

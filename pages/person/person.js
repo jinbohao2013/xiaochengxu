@@ -57,7 +57,6 @@ Page({
           consultant:true
         });
       }
-      
     })
     util.request(app.data.hostAjax + '/api/user/v1/info', {
       user_id: wx.getStorageSync("userIdBuyGood"),

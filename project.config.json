@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -144,28 +144,28 @@
 				{
 					"id": 13,
 					"name": "新增店长",
-					"pathName": "pages/home/dianzhang/dianzhang",
+					"pathName": "pages/home/dianzhang/proportion/proportion",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 14,
 					"name": "查看详情",
-					"pathName": "pages/home/fenxiaoyuan/see/see",
+					"pathName": "pages/person/order/order",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 15,
-					"name": "选择账户",
-					"pathName": "pages/money/withdraw/withdraw",
-					"query": "",
+					"name": "领券",
+					"pathName": "pages/goods/coupon_choose/coupon_choose",
+					"query": "orderid=35",
 					"scene": null
 				},
 				{
 					"id": 16,
 					"name": "POS",
-					"pathName": "pages/home/pos/submit/submit",
+					"pathName": "pages/home/pos/index/index",
 					"query": "",
 					"scene": null
 				}

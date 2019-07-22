@@ -33,14 +33,14 @@
   <view style='padding-left:30rpx;'>注：经销员+店长+经销商的比例之和必须等于100%</view>
 
   <view>
-    <view class="cu-bar solid-bottom margin-top">
-    <view class='action text-xl' style='color:#933A3A;font-size:36rpx'>
-      pos用户设置
+    <view class="cu-bar margin-top">
+      <view class='action text-xl' style='color:#933A3A;font-size:36rpx'>
+        pos用户设置
+      </view>
+      <view class='action'>
+        <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
+      </view>
     </view>
-    <view class='action'>
-      <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
-    </view>
-  </view>
   </view>
   <view style='padding-left:30rpx;'>注：设置成为POS用户后，店长及店长对应的分销员可通过提交店内POS机收款凭证，经销商审核通过后可获取佣金</view>
 

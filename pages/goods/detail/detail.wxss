@@ -74,3 +74,8 @@ border:1px solid #333;
 .login-btn::after{
   border: 0;
 }
+.cu-modal .cu-dialog{
+  width: 750rpx!important;
+  background-color: rgba(0, 0, 0, 0)!important;
+  bottom:52px;
+}

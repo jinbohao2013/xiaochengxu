@@ -23,8 +23,8 @@
         <view style='color:#666;font-size:25rpx;'>{{ajaxData.synopsis}}</view>
         <!-- <view style='font-size:25rpx;'>¥ <text class='price'>39.00</text>--¥ <text class='price'>329.00</text></view> -->
       </view>
-      <view wx:if="{{hideBotom}}" style='float:right;padding:20rpx;' bindtap="togglePopup">
-        <van-icon  name="share" size='25px' color="red"/>
+      <view style='float:right;padding:20rpx;' bindtap="togglePopup">
+        <van-icon name="share" size='25px' color="red"/>
         <view class='text-sm text-center text-red'>分享</view>
       </view>
     </view>  <!-- top结束 -->
@@ -152,3 +152,8 @@
   </view>
   
 </view>
+<view class="cu-modal {{modalshow?'show':''}}"  wx:if="{{modalshow}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap>
+    <coupon bindmyevent="hideModal"/>
+  </view>
+</view> 

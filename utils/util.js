@@ -26,7 +26,7 @@ function request(url, data = {}, method = "GET") {
         'Content-Type': 'application/json',
       },
       success: function (res) {
-        console.log("success");
+        console.log("success", res.statusCode);
 
         if (res.statusCode == 200) {
 

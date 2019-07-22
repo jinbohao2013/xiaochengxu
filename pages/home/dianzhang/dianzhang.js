@@ -51,13 +51,13 @@ Page({
         shoptype: 1,
         ajaxData: [],
       })
-      this.onLoad()
+      this.onShow()
     } else if (this.data.TabCur == 1){
       this.setData({
         shoptype: 3,
         ajaxData: [],
       })
-      this.onLoad()
+      this.onShow()
     }else{//客户
 
     }
@@ -65,7 +65,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function () {
     // wx.reLaunch({//重定向到登录页面
     //   url: '/pages/index/index'
     // })
@@ -79,21 +79,21 @@ Page({
       userid: wx.getStorageSync("userid"),
       shoptype: this.data.shoptype,//1为经销店长 3为买断店长
       pageindex: this.data.pageindex,
-      pagesize: 30,
+      pagesize: 50,
     }).then(function (res) {
       if (res.Code == "200") {
-        let arr = _this.data.ajaxData;
-        try {
-          if (res.Data.list) {
-            arr = arr.concat(res.Data.list)
-          }
+        // let arr = _this.data.ajaxData;
+        // try {
+        //   if (res.Data.list) {
+        //     arr = arr.concat(res.Data.list)
+        //   }
 
-        } catch (e) {
-          console.log("出错了");
-        }
+        // } catch (e) {
+        //   console.log("出错了");
+        // }
 
         _this.setData({
-          ajaxData: arr
+          ajaxData: res.Data.list
         })
         if (res.Data.list.length < 10) {
           _this.setData({
@@ -121,9 +121,6 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -157,14 +154,6 @@ Page({
     this.setData({
       value1: event.detail
     })
-  },
-  onSearch(e) {
-    this.setData({
-      ajaxData: [],
-      hideLoading: true,
-      goodsValue: e.detail
-    })
-    this.onLoad();
   },
   onCancel() {//取消搜索搜索时触发
 
@@ -206,7 +195,8 @@ Page({
       this.setData({
         pageindex: this.data.pageindex + 1
       })
-      this.onLoad();
+      console.log(this.data.pageindex)
+      // this.onShow();
     }
 
   },

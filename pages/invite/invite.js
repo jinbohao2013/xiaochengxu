@@ -42,9 +42,10 @@ Page({
       })
       shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=3" + "&uid=" + wx.getStorageSync("userid");
     }
+    console.log(shareUrl) 
     if (wx.getStorageSync("logo")){
       const img111 = (wx.getStorageSync("logo").replace("http://39.106.49.173:8085", "https://www.yqcoffee.cn:2021")) 
-      console.log(shareUrl) 
+      
       var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
       const ctx = wx.createCanvasContext('myQrcode')
       wx.downloadFile({

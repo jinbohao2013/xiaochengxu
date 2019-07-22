@@ -61,10 +61,10 @@
         <van-icon name="user-circle-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>信息修改</view>
       </navigator>
-      <!-- <navigator url=''>
+      <navigator url='/pages/person/coupon_my/coupon_my'>
         <van-icon name="coupon-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的优惠券</view>
-      </navigator> -->
+      </navigator>
       <navigator url='/pages/person/address/address'>
         <van-icon name="newspaper-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>收货地址</view>
@@ -73,10 +73,10 @@
         <van-icon name="smile-comment-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>专属顾问</view>
       </navigator>
-      <!-- <navigator url=''>
+      <navigator url='/pages/person/coupon_center/coupon_center'>
         <van-icon name="balance-pay" size="26px" color="#999" custom-class="icon" />
         <view class='text'>领券中心</view>
-      </navigator> -->
+      </navigator>
       <navigator url='/pages/person/cart/cart'>
         <van-icon name="shopping-cart-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的购物车</view>

@@ -45,13 +45,33 @@ Page({
     permissions:null,
     launchTime: "",//预出货时间
     name: "",//送货员名称
+    goodnum:{},//储存对象--容易遍历
   },
   onLoad: function (options) {
     this.setData({
-      options: options
+      options: options,
+      username: wx.getStorageSync("username"),
+      phone: wx.getStorageSync("phone"),
+      shopname: wx.getStorageSync("shopname"),
     })
     let _this = this;
-    
+    util.request(app.data.hostAjax + '/api/user/v1/getgoodslist', {
+      user_id: wx.getStorageSync("userIdBuyGood"),
+      orderby: 1,
+      pageindex: 1,
+      pagesize: 6,
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          goodsList: res.Data.list
+        })
+      } else {
+        _this.setData({
+          goodsList: [],
+        })
+      }
+
+    });
   },
   onShow: function () {
     this._onLoad(this.data.options);
@@ -502,9 +522,59 @@ Page({
     })
   },
   hideModal(e) {
-    this.setData({
-      modalName: null
-    })
+    console.log(this.data.goodnum)
+    
+    let _this = this, goodnum="";
+    if (JSON.stringify(this.data.goodnum) == "{}") {
+      wx.showToast({
+        title: '请选择商品数量',
+        icon: 'none',
+        duration: 3000
+      })
+      return;
+    }else{
+      let numall=0;
+      for (var item in this.data.goodnum){
+        goodnum += "," + item + "|" + this.data.goodnum[item];
+        numall+=this.data.goodnum[item];
+      }
+      goodnum = goodnum.substr(1, goodnum.length-1);
+      console.log(goodnum)
+      if (numall==0){
+        wx.showToast({
+          title: '请选择商品数量',
+          icon: 'none',
+          duration: 3000
+        })
+        return;
+      }
+    }
+    if (this.data.imgList.length == 0) {
+      wx.showToast({
+        title: '请选择上传的图片',
+        icon: 'none',
+        duration: 3000
+      })
+      return;
+    }
+    util.request(app.data.hostAjax + '/api/transaction/v1/addposorder', { // pos订单申请
+      userid: wx.getStorageSync("userid"),
+      goodnum: goodnum,
+      imgurl:this.data.imgList[0]
+    }).then(function (res) {
+      if (res.Code == "200") {
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        wx.showToast({
+          title: res.Msg,
+          icon: 'none',
+          duration: 3000
+        })
+      }
+
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -521,15 +591,7 @@ Page({
       return false;
     }
     
-    let _this = this;
-    if (this.data.text1 == "") {
-      wx.showToast({
-        title: '请选择售后原因',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
+    
     if (this.data.orderNum == "") {
       wx.showToast({
         title: '请填写订单号',
@@ -734,33 +796,31 @@ onHide:function(){
           return false;
         }
         for (var i = 0; i < tempFilePaths.length;i++){
-          wx.uploadFile({
-            url: 'https://www.shengdaprint.com/UploadImage/SaveFile', // 上传图篇
-            filePath: tempFilePaths[i],
-            name: 'file',
-            formData: {
-              mark: 'aftersale',
-              orderNum: _this.data.orderNum
-            },
-            success(res) {
-              console.log(res)
-              const data = res.data
+          
+          util.request(app.data.hostAjax + '/api/other/v1/base64upload', { // 上传图篇
+            base64: wx.getFileSystemManager().readFileSync(tempFilePaths[i],"base64") ,
+          },"post").then(function (res) {
+            if (res.Code == "0") {
+              
               // do something
               let b = _this.data.imgList;
-              let a = "https://content.shengdaprint.com/" +JSON.parse(res.data).Message
+              let a = res.Data.imgurl
               b.push(a);
               _this.setData({
                 imgList: b
               })
+            } else {
+              
             }
-          })
+
+          });
         }
         
         console.log(_this.data.imgList)
       }
     });
   },
-  ViewImage(e) {//https://content.shengdaprint.com/
+  ViewImage(e) {
     wx.previewImage({
       urls: this.data.imgList,
       current: e.currentTarget.dataset.url
@@ -776,20 +836,20 @@ onHide:function(){
       confirmText: '确定',
       success: res => {
         if (res.confirm) {
-          wx.request({
-            url: 'https://www.shengdaprint.com/UploadImage/DeleteFile',//删除图片
-            data: {
-              "url": _this.data.imgList[e.currentTarget.dataset.index].split("https://content.shengdaprint.com/")[1]
-            },
-            method: "post",
-            header: {
-              'content-type': 'application/json',
-              'Authorization': "Bearer " + wx.getStorageSync("token")
-            },
-            success(res) {
+          // wx.request({
+          //   url: 'https://www.shengdaprint.com/UploadImage/DeleteFile',//删除图片
+          //   data: {
+          //     "url": _this.data.imgList[e.currentTarget.dataset.index].split("https://content.shengdaprint.com/")[1]
+          //   },
+          //   method: "post",
+          //   header: {
+          //     'content-type': 'application/json',
+          //     'Authorization': "Bearer " + wx.getStorageSync("token")
+          //   },
+          //   success(res) {
              
-            }
-          })
+          //   }
+          // })
           _this.data.imgList.splice(e.currentTarget.dataset.index, 1);
           _this.setData({
             imgList: _this.data.imgList
@@ -857,23 +917,21 @@ onHide:function(){
     })
   },
   onchange(event) {
-
     let _this = this, add = "reduce";
     console.warn(`change: ${event.detail[0]}`);
-    console.log(event.detail)
-    // if (event.detail[0] == 0) {
-    //   util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: "delete", id: event.currentTarget.dataset.id }).then(function (res) {
-
-    //     _this.onShow();
-    //   })
-    // }else
-    if (event.detail[1]) {
-      add = "add"
-    }
-    util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: add, id: event.currentTarget.dataset.id }).then(function (res) {
-
-      _this.onShow();
+    console.log(event.target.dataset.id);
+    this.data.goodnum[event.target.dataset.id] = event.detail[0];
+    console.log(this.data.goodnum)
+    this.setData({
+      goodnum: this.data.goodnum
     })
+    // if (event.detail[1]) {
+    //   add = "add"
+    // }
+    // util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: add, id: event.currentTarget.dataset.id }).then(function (res) {
+
+    //   _this.onShow();
+    // })
   },
   onShareAppMessage: function (res) {
     // let _this = this;

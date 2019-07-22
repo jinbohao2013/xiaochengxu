@@ -4,11 +4,13 @@
 <view class='add_header'>
   <view>
     <radio-group class="block" bindchange="radioChange" style="font-size:33rpx;line-height:100rpx;">
-      <view class="cu-form-group margin-top" style='width:50%;display:inline-block;padding-left:35px;'>
-        <radio  value="1"></radio>
+      <view  wx:if="{{consultant||saoma}}" class="cu-form-group margin-top" style='width:50%;display:inline-block;padding-left:35px;'>
+        <radio wx:if="{{!saoma}}" value="1" ></radio>
+        <radio checked value="1" wx:if="{{saoma}}"></radio>
+        <!-- 扫码进来只能自提 -->
         <text class="title text-bold margin-left-sm">自提</text>
       </view>
-      <view class="cu-form-group" style='width:50%;display:inline-block;padding-left:35px;'>
+      <view  wx:if="{{!saoma}}" class="cu-form-group" style='width:50%;display:inline-block;padding-left:35px;'>
         <radio checked value="2"></radio>
         <text class="title text-bold margin-left-sm">快递</text>
       </view>
@@ -43,9 +45,14 @@
   </view>
   <view class='main' style='margin-bottom:0;'>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{(ajaxData[0].sumprice)}}</text></view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>优惠券 
+      <navigator url='/pages/goods/coupon_choose/coupon_choose' style='float:right;' wx:if="{{ifchoose}}">{{couponprice}}元优惠券</navigator> 
+      <navigator url='/pages/goods/coupon_choose/coupon_choose' style='float:right;' wx:elif="{{hascoupon}}">使用优惠 ></navigator>
+      <navigator style='float:right;' wx:else>暂无优惠券</navigator>      
+    </view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
-    <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{(ajaxData[0].sumprice)}}</view>
+    <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{newprice||(ajaxData[0].sumprice)}}</view>
   </view><!-- mian结束 -->
   <view class='buy' wx:if="{{!loading}}">
     <van-submit-bar

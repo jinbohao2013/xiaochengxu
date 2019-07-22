@@ -1,0 +1,65 @@
+<wxs src="../../../../utils/tools.wxs" module="tools" />
+
+<view class='contion' >
+   <view class="cu-form-group ">
+    <view class="title title1 text-red" wx:if="{{goodsList.states=='0'}}">订单审核中 </view>
+    <view class="title title1 text-red" wx:if="{{goodsList.states=='1'}}">订单已通过 </view>
+    <view class="title title1 text-red" wx:if="{{goodsList.states=='2'}}">订单已驳回 
+      <view>驳回理由： {{goodsList.reason}}</view>
+    </view>
+  </view>
+  <view class="cu-form-group ">
+    <view class="title title1">姓名:</view>
+    <input type='number' disabled bindinput='text5_num' value='{{goodsList.nickname}}'></input>
+  </view>
+  <view class="cu-form-group ">
+    <view class="title title1">电话:</view>
+    <input type='number' disabled bindinput='text5_num' value='{{goodsList.phone}}'></input>
+  </view>
+  <view class="cu-form-group ">
+    <view class="title title1">店铺名称:</view>
+    <input type='number' disabled bindinput='text5_num' value='{{goodsList.shopname}}'></input>
+  </view>
+  <view class="cu-form-group ">
+    <view class="title title1">商品选择:</view>
+  </view>
+  <view class="cart-view " style='padding:1rpx 30rpx'>
+    <view class="item {{isEditCart ? 'edit' : ''}}" wx:for="{{goodsList.goodslist}}" wx:key="{{index}}">
+      <!-- <view class="checkbox {{item.checked ? 'checked' : ''}}" bindtap="checkedItem" data-item-index="{{index}}"></view> -->
+      <view class="cart-goods" style='display:flex;justify-content:space-between;align-items:center;'>
+        <image class="img" src="{{item.smallimg}}"></image>
+        <view class="info">
+          <view class="t">
+            <text class="name">{{item.goodsname}}</text>
+          </view>
+          <view class="b" style='display:flex;justify-content:space-between;align-items:center;'>
+            <text class="price">￥{{item.price}}</text>
+            <van-stepper min="0" disable-input="{{true}}" disabled value="{{item.num}}"/>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cu-bar bg-white" style='border-top:1rpx solid #eee'>
+    <view class="action">
+      上传证明:
+    </view>
+  </view>
+  <view class="">
+      <view class="padding-xs bg-img" style="width:547rpx;line-height:245rpx;height:245rpx;border-radius:18px;margin:auto;text-align:center;background-image:url({{imgList[index]}})" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+        <!-- <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+          <text class="icon-close jinbohao"></text>
+        </view> -->
+      </view>
+      <view class="padding-xs solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}" style="position:relative;width:547rpx;line-height:245rpx;height:245rpx;border-radius:18px;margin:auto;text-align:center;">
+        <text style="position:absolute;top:10px;line-height:32rpx;left:15rpx;" class='text-gray'>选择用户付款凭证照片</text>
+        <text class="icon-cameraadd jinbohao" style='font-size:40px;color:#aaa;'></text>
+      </view>
+  </view>
+  <view class='margin'>
+    <!-- <view class="btn-row text-right;">
+      <button class="cu-btn bg-black margin-right" style='border-radius:5px;' bindtap="hideModal">确认提交</button>
+    </view> -->
+  </view>
+  </view>
+  

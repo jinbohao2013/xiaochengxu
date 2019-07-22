@@ -14,6 +14,7 @@
     "pages/logs/orderDetail/orderDetail",
     "pages/money/index/index",
     "pages/goods/index/index",
+    "pages/goods/coupon_choose/coupon_choose",
     "pages/goods/detail/detail",
     "pages/goods/payMent/pay",
     "pages/money/withdraw/cardlist/list",
@@ -31,6 +32,8 @@
     "pages/logon/logon",
     "pages/person/edit/edit",
     "pages/person/consultant/consultant",
+    "pages/person/coupon_center/coupon_center",
+    "pages/person/coupon_my/coupon_my",
     "pages/person/consultant1/consultant1",
     "pages/home/newagent/newagent",
     "pages/home/earnings/earnings",
@@ -51,6 +54,8 @@
     "pages/home/pos/index/index",
     "pages/home/pos/index_more/index",
     "pages/home/pos/submit/submit",
+    "pages/home/pos/seepos/seepos",
+    "pages/home/pos/seepos_J/seepos",
     "pages/money/withdraw/cardbind/cardbind"
   ],
   "window": {

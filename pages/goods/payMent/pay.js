@@ -13,6 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    consultant: false,
+    ifchoose:false,//默认是没有优惠券的
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
     ajaxData: {
@@ -30,7 +32,8 @@ Page({
     loading: false,
     show: false,//支付结束弹框
     checked:2,//
-    address:{},//获取默认地址
+    address:{},//获取默认地址’
+    saoma: false
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -50,7 +53,8 @@ Page({
     try{
       console.log(options.ajaxData)
       this.setData({
-        ajaxData: JSON.parse(options.ajaxData)
+        ajaxData: JSON.parse(options.ajaxData),
+        totleprice: JSON.parse(options.ajaxData).totle
       })
     }catch(e){
 
@@ -60,7 +64,14 @@ Page({
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
-    this.getAddress()
+    this.getAddress();
+    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {//专属顾问，没有就不能自提
+        _this.setData({
+          consultant: true
+        });
+      }
+    })
   },
 
   /**
@@ -112,13 +123,49 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
+
   onShow: function () {
+    let _this=this;
+    this.setData({
+      ifchoose:wx.getStorageSync("couponid")?true:false,
+      couponprice: wx.getStorageSync("couponprice")
+    })
+    // 扫码进来只能自提
+    if (wx.getStorageSync("saoma")) {
+      this.setData({
+        checked: 1,
+        saoma:true
+      })
+    }
+    console.log(this.data.totleprice)
+    if (wx.getStorageSync("couponprice")){
+      let price = this.data.totleprice/100 - this.data.couponprice
+      this.setData({
+        newprice: price.toFixed(2),
+        newprice1: price.toFixed(2)*100
+      })
+    }
+    
     this.getAddress()
     wx.hideShareMenu({
       success: function () {
         console.log("禁止了分享按钮的现实！")
       }
     })
+    util.request(app.data.hostAjax + '/api/my/v1/getmycoupon', {//我的券
+      userid: wx.getStorageSync("userIdBuyGood"),
+      types: 1
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          hascoupon:true
+        })
+      } else {
+        _this.setData({
+          hascoupon: false
+        })
+      }
+    });
   },
 
   /**
@@ -132,7 +179,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorageSync('couponid');
+    wx.removeStorageSync('couponprice');
   },
 
   /**
@@ -233,7 +281,6 @@ Page({
               'content-type': 'application/json',
             },
             success(res) {
-
               if (res.data.Success) {
                 //调取提交订单接口
                 wx.request({
@@ -241,8 +288,9 @@ Page({
                   data: {
                     userid: wx.getStorageSync("userIdBuyGood"),
                     orderid: res.data.Data.orderid,
-                    total_fee: res.data.Data.sumprice,
+                    total_fee: _this.data.newprice || res.data.Data.sumprice,//res.data.Data.sumprice,
                     addressid: _this.data.checked == 2 ? _this.data.address.id:0,//收货地址id 自提传0
+                    couponid: wx.getStorageSync("couponid")||0
                   },
                   method: "get",
                   header: {
@@ -261,8 +309,10 @@ Page({
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
                             //展示支付成功的界面
-                            wx.removeStorageSync('useridsaleman')
-                            wx.removeStorageSync('shopid')
+                            wx.removeStorageSync('useridsaleman');
+                            wx.removeStorageSync('shopid');
+                            wx.removeStorageSync('couponid');
+                            wx.removeStorageSync('couponprice');
                             wx.redirectTo({
                               url: '/pages/person/order/order',
                             })

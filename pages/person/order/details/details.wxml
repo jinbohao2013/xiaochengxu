@@ -1,4 +1,5 @@
 <view class="container">
+ <wxs src="../../../../utils/tools.wxs" module="tools" />
     <view class="sec-wrap">
         <view class="order-status">
             <view class="right-text"  wx:if="{{orderDetail.status=='待付款'}}">
@@ -39,7 +40,7 @@
                   <image class="icon" src="http://www.yqcoffee.cn/image/icon-address.png"></image>
               </view>
               <view class="right-box">
-                  <view class="name-tel">{{orderDetail.nickname}}  {{orderDetail.phone}}</view>
+                  <view class="name-tel">{{orderDetail.receivingname}}  {{orderDetail.phone}}</view>
                   <view class="text">
                     {{orderDetail.provincename}}
                     {{orderDetail.cityname}}
@@ -87,9 +88,13 @@
                 <view class="row-label">运费</view>
                 <view class="right-text">+ ¥ {{0.00}}</view>
             </view>
+            <view class="row-box" wx:if="{{orderDetail.couponnames}}">
+                <view class="row-label">使用{{orderDetail.couponnames}}</view>
+                <view class="right-text">- ¥ {{orderDetail.e_price}}</view>
+            </view>
             <view class="row-box">
                 <view class="row-label">应付总额</view>
-                <view class="right-text">¥ {{orderDetail.sumprice}}</view>
+                <view class="right-text">¥ {{tools.fixd2(orderDetail.sumprice-orderDetail.e_price)}}</view>
             </view>
         </view>
         <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'}}">
@@ -176,4 +181,11 @@
       </view>
     </view>
   </view>
+</view>
+<view class='jinbohao'>
+<view class="cu-modal {{modalshow?'show':''}}" wx:if="{{modalshow}}" bindtap="hideModalcoupon">
+  <view class="cu-dialog" catchtap>
+    <coupon bindmyevent="hideModalcoupon"/>
+  </view>
+</view> 
 </view>

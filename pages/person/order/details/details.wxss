@@ -292,3 +292,8 @@ page{
     color: #e64340;
     text-align: right;
 }
+.jinbohao .cu-modal .cu-dialog{
+  width: 750rpx!important;
+  background-color: rgba(0, 0, 0, 0)!important;
+  bottom:52px;
+}

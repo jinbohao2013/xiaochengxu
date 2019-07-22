@@ -1,0 +1,13 @@
+<custom-component>
+  <!-- 优惠券的弹框 -->
+  <wxs src="../../../utils/tools.wxs" module="tools" />
+  <view class='float'></view>
+  <view class='content text-center'>
+    <view style='width:253rpx;height:117rpx;border-radius:4px;background-color:white;margin:auto;'>
+      <view style='font-size:57.33rpx; background-image:-webkit-linear-gradient(left top,#55A6F7,#8A2DFD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;'>{{orderList.e_price}} <text style='font-size:21.5rpx;'>元</text></view>
+      <view style='font-size:20.57rpx;color:#340294;'> {{orderList.name}}</view>
+      <view style='font-size:12.5rpx;margin-top:4rpx;'><text style='color:#55ABF7;'>有效期至：</text><text style='color:#340294;'>{{tools.split(orderList.endtime)}}</text> </view>
+    </view>
+    <button class='round cu-btn' style='background: linear-gradient(#F7D402, #FBEB7F);color:#9E200A;width:168rpx;height:52rpx;font-size:24rpx;border-radius:5000rpx;margin-top:40rpx;' bindtap='getgoods' data-id='{{orderList.couponid}}'>立即领取</button>
+  </view>
+</custom-component>

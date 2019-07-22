@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    consultant: false,
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
     ajaxData: [{
@@ -32,6 +33,7 @@ Page({
     checked: 2,//
     address: null,//获取默认地址
     addressid:0,//
+    saoma: false
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -62,6 +64,13 @@ Page({
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 - 68 : app.data.windowHeight - 59 - 51
     })
     this.getAddress();
+    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {//专属顾问，没有就不能自提
+        _this.setData({
+          consultant: true
+        });
+      }
+    })
     let that=this;
     //获取订单列表ajaxData
     util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist', {//用户订单列表
@@ -72,7 +81,11 @@ Page({
       if (res.Code == "200") {
         that.setData({
           ajaxData: res.Data.list,
+          totleprice: res.Data.list[0].sumprice,
         });
+        wx.setStorageSync("couponid", res.Data.list[0].couponid)
+        wx.setStorageSync("couponprice", res.Data.list[0].e_price)
+        that.onShow()
       } else {
         that.setData({
           ajaxData: null,
@@ -132,12 +145,48 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let _this = this;
+    this.setData({
+      ifchoose: wx.getStorageSync("couponid") ? true : false,
+      couponprice: wx.getStorageSync("couponprice")
+    })
+    // 扫码进来只能自提
+    if (wx.getStorageSync("saoma")){
+      this.setData({
+        checked:1
+      })
+    }
+    console.log(this.data.totleprice)
+    if (wx.getStorageSync("couponprice")) {
+      let price = this.data.totleprice  - this.data.couponprice
+      this.setData({
+        newprice: price.toFixed(2),
+      })
+    }else{
+      this.setData({
+        newprice: "",
+      })
+    }
     this.getAddress()
     wx.hideShareMenu({
       success: function () {
         console.log("禁止了分享按钮的现实！")
       }
     })
+    util.request(app.data.hostAjax + '/api/my/v1/getmycoupon', {//我的券
+      userid: wx.getStorageSync("userIdBuyGood"),
+      types: 1
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          hascoupon: true
+        })
+      } else {
+        _this.setData({
+          hascoupon: false
+        })
+      }
+    });
   },
 
   /**
@@ -151,7 +200,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorageSync('couponid');
+    wx.removeStorageSync('couponprice');
   },
 
   /**
@@ -232,15 +282,15 @@ Page({
                   data: {
                     userid: wx.getStorageSync("userIdBuyGood"),
                     orderid: _this.data.ajaxData[0].id,
-                    total_fee: _this.data.ajaxData[0].sumprice,
-                    addressid: _this.data.checked == 2 ? _this.data.addressid:0,//收货地址id 自提传0
+                    total_fee: _this.data.newprice || _this.data.totleprice,//res.data.Data.sumprice,
+                    addressid: _this.data.checked == 2 ? _this.data.address.id : 0,//收货地址id 自提传0
+                    couponid: wx.getStorageSync("couponid") || 0
                   },
                   method: "get",
                   header: {
                     'content-type': 'application/json',
                   },
                   success(res) {
-
                     if (res.data.Success) {
                       try {
                         console.log(JSON.parse(res.data.Data));
@@ -251,6 +301,8 @@ Page({
                           signType: 'MD5',
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
+                            wx.removeStorageSync('couponid');
+                            wx.removeStorageSync('couponprice');
                             //展示支付成功的界面
                             wx.redirectTo({
                               url: '/pages/person/order/order',

@@ -1,34 +1,34 @@
 <wxs src="../../../../utils/tools.wxs" module="tools" />
 
-<view class='contion' wx:if="{{ifHide ==1}}" >
+<view class='contion' >
   
   <view class="cu-form-group ">
     <view class="title title1">姓名:</view>
-    <input type='number' disabled bindinput='text5_num' value=''></input>
+    <input type='number' disabled bindinput='text5_num' value='{{username}}'></input>
   </view>
   <view class="cu-form-group ">
     <view class="title title1">电话:</view>
-    <input type='number' disabled bindinput='text5_num' value=''></input>
+    <input type='number' disabled bindinput='text5_num' value='{{phone}}'></input>
   </view>
   <view class="cu-form-group ">
     <view class="title title1">店铺名称:</view>
-    <input type='number' disabled bindinput='text5_num' value=''></input>
+    <input type='number' disabled bindinput='text5_num' value='{{shopname}}'></input>
   </view>
   <view class="cu-form-group ">
     <view class="title title1">商品选择:</view>
   </view>
   <view class="cart-view " style='padding:1rpx 30rpx'>
-    <view class="item {{isEditCart ? 'edit' : ''}}" wx:for="12" wx:key="{{index}}">
+    <view class="item {{isEditCart ? 'edit' : ''}}" wx:for="{{goodsList}}" wx:key="{{index}}">
       <!-- <view class="checkbox {{item.checked ? 'checked' : ''}}" bindtap="checkedItem" data-item-index="{{index}}"></view> -->
       <view class="cart-goods" style='display:flex;justify-content:space-between;align-items:center;'>
-        <image class="img" src="https://www.runoob.com/wp-content/uploads/2015/07/f10918ccb8a13247c9d47715a2bd2c33.png"></image>
+        <image class="img" src="{{item.smallimg}}"></image>
         <view class="info">
           <view class="t">
-            <text class="name">盛大防守打法沙发是的发送到发送到盛大防守打法沙发是的发送到发送到</text>
+            <text class="name">{{item.name}}</text>
           </view>
           <view class="b" style='display:flex;justify-content:space-between;align-items:center;'>
-            <text class="price">￥298.00</text>
-            <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-id="{{item.id}}" value="{{ item.nums }}"/>
+            <text class="price">￥{{item.e_price}}</text>
+            <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-id="{{item.id}}" value="{{goodnum[item.id]||0}}"/>
           </view>
         </view>
       </view>

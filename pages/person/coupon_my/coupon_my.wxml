@@ -1,0 +1,35 @@
+<view class="container">
+  <wxs src="../../../utils/tools.wxs" module="tools" />
+  <view wx:if='{{!hasRefund}}' class="status-box" style='justify-content:space-around;padding:0 30rpx;'>
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <view class='padding' style='position:relative;z-index:11;'>
+    <navigator class='gocenter' url='/pages/person/coupon_center/coupon_center'>前往领券中心查看更多优惠~~</navigator>
+  </view>
+  <view class="no-order" hidden="{{orderList.length ? true : false}}">
+    <image src="http://www.yqcoffee.cn/image/empty_order.png" class="no-order-img"></image>
+    <view class="text">暂无优惠券</view>
+  </view>
+  <view class="order-list" hidden="{{orderList.length ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+      <view class='order-list-c' style='width:291rpx;height:142rpx;background-image:url(http://www.yqcoffee.cn/image/coupon.png);background-size:100%;' data-id='{{item.couponid}}'>
+        <view class='name'>
+          <view class='l'>{{item.e_price}}</view>
+          <view class='c'><view>￥</view><view>{{item.name}}</view></view>
+        </view>
+        <view class='time'>截止日期:{{tools.split(item.endtime)}}</view>
+      </view>
+    </view>
+  </view>
+  <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+      <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&orderList.length>10}}">
+      我到底了
+    </view>
+  </scroll-view>
+</view>

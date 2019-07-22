@@ -1,0 +1,9 @@
+/* pages/component/toast_coupon/toast_coupon.wxss */
+.content{
+  width: 750rpx;
+  height:507rpx;
+  background-image: url(http://www.yqcoffee.cn/image/toastcoupon.png);
+  background-size: 100%;
+  padding-top: 237rpx;
+ 
+}

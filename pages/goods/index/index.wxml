@@ -102,6 +102,11 @@
   </view>
 </van-popup>
 
+<view class="cu-modal {{modalshow?'show':''}}"  wx:if="{{modalshow}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap>
+    <coupon bindmyevent="hideModal"/>
+  </view>
+</view> 
 <!-- <view class='toTop' bindtap='totop' style='bottom:{{isIphoneX?"114px":"94px"}}'>
   <van-icon name="share" size='25px'/>
   </view> -->

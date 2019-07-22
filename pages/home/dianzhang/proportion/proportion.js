@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isCard:true,
+    isCard:false,
     id:0,
     shopid:0,
     distributor: "",
@@ -39,6 +39,7 @@ Page({
           distributor: res.Data.distributor,
           shopowner: res.Data.shopowner,
           salaperson: res.Data.salaperson,
+          isCard: res.Data.ispos =="POS"?true:false
         })
       }
     });
@@ -64,6 +65,7 @@ Page({
       distributor: this.data.distributor,
       shopowner: this.data.shopowner,
       salaperson: this.data.salaperson,
+      posstate: this.data.isCard?1:0
     }).then(function (res) {
       if (res.Code == "200") {
         wx.showToast({

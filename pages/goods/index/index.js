@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    modalshow:false,//优惠券的弹框-可以领取--当有优惠券的时候提示--分享人进来的时候判断是否分享成功
     true: true,
     bannerList: [],
     goodsValue:"",
@@ -157,6 +158,14 @@ Page({
             if (res.data.Success) {
               wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
               wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
+              //在这里判断被分享人扫码进来的时候
+              if (parseInt(res.data.Data.isticket) == 0) {//分享人进来时--未读消息时
+                //弹出优惠券的框
+                console.log("弹出优惠券的框");
+                _this.setData({
+                  modalshow: true
+                })
+              }
             }
           }
         })
@@ -379,6 +388,11 @@ Page({
       }
     })
     
+  },
+  hideModal(e) {//增加了优惠券分享的弹框
+    this.setData({
+      modalshow: !this.data.modalshow
+    })
   },
   /**
    * 用户点击右上角分享

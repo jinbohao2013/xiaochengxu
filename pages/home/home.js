@@ -20,6 +20,16 @@ Page({
     userInfoName: "",
     usertype:2,
     allcustomer: 0,//累计客户
+    statusType: ["分销中心", "个人主页"],
+    currentType: 0,
+    ispos: 0,//增加pos分销员判断 1为pos分销员 0为普通分销员
+  },
+  statusTap: function (e) {
+    const curType = e.currentTarget ? e.currentTarget.dataset.index : e;
+    this.setData({
+      currentType: curType
+    });
+    
   },
   // 去推广
   goPromotion:function(){
@@ -64,7 +74,7 @@ Page({
         this.setData({
           shopName: res.data.Data.shopname
         })
-       
+        wx.setStorageSync("shopname", res.data.Data.shopname);
       }
     })
   },
@@ -84,11 +94,13 @@ Page({
           wx.setStorageSync("logo", res.data.Data.logimg);
           wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type ==3) {//如果是店长
-          console.log("ismaiduan", res.data.Data.isoverpay)
+          console.log("ismaiduan", res.data.Data.ispos)
           wx.setStorageSync("distributorid", res.data.Data.distributorid);
           _this.setData({
-            ismaiduan: parseInt(res.data.Data.isoverpay)
+            ismaiduan: parseInt(res.data.Data.isoverpay),
+            ispos: parseInt(res.data.Data.ispos),
           })
+          wx.setStorageSync("shopname", res.data.Data.shopname);
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
           wx.setStorageSync("logo", res.data.Data.distributorlog);
           // if (parseInt(res.data.Data.isoverpay)==1){
@@ -110,6 +122,9 @@ Page({
           //   });
           // }
         } else if (type == 4){//如果是分销员
+          _this.setData({
+            ispos: parseInt(res.data.Data.ispos),
+          })
         }
         wx.setStorageSync("shopid", res.data.Data.shopid);//获取储存分享出去的店铺id
         _this.getShopData(res.data.Data.shopid)
@@ -143,13 +158,25 @@ Page({
             userInfoImg: res.data.Data.imgurl,
             usertype: res.data.Data.usertype,
           })
+          wx.setStorageSync("username",res.data.Data.nickname);
         } catch (e) {
 
         }
       }
     })
+    util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          consultant: true
+        });
+      }
+    })
   },
-
+  go_order() {
+    wx.navigateTo({
+      url: '/pages/person/order/order',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

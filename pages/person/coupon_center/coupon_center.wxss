@@ -1,0 +1,57 @@
+page{
+  min-height:100%;
+   background-color: #F2f2f2;
+}
+.container{
+    width: 100%;
+   
+}
+
+.no-order{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 88rpx;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 203rpx;
+    background-color: #F2f2f2;
+}
+.no-order-img{
+    width: 200rpx;
+    height: 200rpx;
+    margin-bottom: 31rpx;
+}
+.no-order .text{
+    font-size:28rpx;
+    color:#999999;
+    text-align: center
+}
+.order-list{
+  padding: 50rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: white;
+}
+.order-list-c{
+  padding: 20rpx 0 0 13rpx;
+  margin-bottom: 75rpx;
+}
+.order-list .name .l{
+  float: left;
+  font-size: 70rpx;
+}
+.order-list .name .c{
+  
+}
+.time{
+  padding-top: 2px;
+  font-size:18rpx;
+  clear: both;
+  margin-left: 11rpx;
+  width: 160rpx;
+  text-align: center;
+  border-top: 1rpx solid white;
+}

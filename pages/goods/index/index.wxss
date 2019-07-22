@@ -20,3 +20,8 @@
   padding: 15rpx;
   box-shadow: 1px 1px 4px #eee;
 }
+.cu-modal .cu-dialog{
+  width: 750rpx!important;
+  background-color: rgba(0, 0, 0, 0)!important;
+  bottom:52px;
+}

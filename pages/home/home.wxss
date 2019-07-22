@@ -1,4 +1,4 @@
-.top{
+.top1{
   padding: 40rpx;
   overflow: hidden;
   background: linear-gradient(0deg,#575a6a,#2b2d3d);
@@ -153,4 +153,86 @@
 .accumulate_one{
   font-size: 40rpx;
 }
- 
+.status-box{
+    width:100%;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+.status-box .status-label{
+    width: 150rpx;
+    height: 100%;
+    text-align: center;
+    font-size:28rpx;
+    color:#353535;
+    box-sizing: border-box;
+    position: relative;
+}
+.status-box .status-label.active{
+    color:#e64340;
+    border-bottom: 6rpx solid #e64340;
+}
+/* pages/src/person/index/index.wxss */
+.header{
+				padding-top: 38rpx;
+        padding-left: 45rpx;
+				background-color: #fff;
+				box-shadow: 2px 2px 6px #eee ;
+        color: white;
+			}
+			.header .img{
+        display: inline-block;
+				width: 120rpx;
+        height: 120rpx;
+				border-radius: 100rpx;
+				overflow: hidden;
+				margin-bottom: 20rpx;
+        float: left;
+        margin-right:50rpx;
+			}
+			.list{
+				height: 90rpx;
+				line-height: 90rpx;
+				background-color: #fff;
+				padding-left: 20rpx;
+				border-bottom: 1px solid #eee;
+			}
+.lists{
+  text-align: center;
+  display: flex;
+  padding: 28rpx 0 40rpx 0;
+}
+.lists>view{
+  width: 20%;
+  position:relative;
+}
+navigator .text{
+  margin-top: 15rpx;
+}
+.lists .t{
+  display:inline-block;
+  position: relative;
+}
+.num{
+  font-size: 30rpx;
+  font-weight: 900;
+  line-height: 45rpx;
+}
+.lists>view{
+  flex-grow: 2;
+}
+.c .text{
+  margin-top: 15rpx;
+}
+.iconfont{
+  -webkit-text-stroke-width:0
+}
+.c navigator{
+  margin-bottom: 35rpx;
+  width: 25%;
+  display: inline-block;
+  text-align: center;
+}

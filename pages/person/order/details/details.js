@@ -14,6 +14,7 @@ Page({
     textareaAValue1: "",//换货理由
     shipnumber:"",
     shipname: "",
+    modalshow: false,//优惠券的弹框-可以领取--当有优惠券的时候提示--分享人进来的时候判断是否分享成功
   },
   onLoad: function (e) {
     var orderId = e.id;
@@ -104,6 +105,11 @@ Page({
       url: "/pages/wuliu/index?id=" + orderId
     })
   },
+  hideModalcoupon(){
+    this.setData({
+      modalshow: !this.data.modalshow
+    })
+  },
   getgoods() {
     // 确认收货
     let that = this;
@@ -121,6 +127,11 @@ Page({
                 title: '收货成功'
               })
               that.onLoad(that.data.e)
+              //弹出优惠券的框
+              console.log("弹出优惠券的框");
+              _this.setData({
+                modalshow: true
+              })
             } else {
               wx.showToast({
                 title: '网络错误，情稍后重试！',

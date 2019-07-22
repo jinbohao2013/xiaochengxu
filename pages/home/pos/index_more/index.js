@@ -21,15 +21,9 @@ Page({
   statusTap: function (e) {
     const curType = e.currentTarget ? e.currentTarget.dataset.index : e;
     this.data.currentType = curType
-    if (curType==0){
-      this.setData({
-        searchType: 100
-      });
-    }else{
-      this.setData({
-        searchType: parseInt(curType)-1
-      });
-    }
+    this.setData({
+      searchType: parseInt(curType)
+    });
     this.setData({
       orderList: [],
       pageindex: 1,
@@ -41,35 +35,7 @@ Page({
    
     this.onShow();
   },
-  cancelOrderTap: function (e) {
-    const that = this;
-    const orderId = e.currentTarget.dataset.id;
-    wx.showModal({
-      title: '确定要取消该订单吗？',
-      content: '',
-      success: function (res) {
-        if (res.confirm) {
-          util.request(app.data.hostAjax + '/api/transaction/v1/deleteorderinfo',{
-            user_id: wx.getStorageSync("userIdBuyGood"),
-            orderid: orderId
-            }).then(function (res) {
-            if (res.Code == "200") {
-              that.onShow();
-              wx.showToast({
-                title: '删除成功',
-                icon: "none"
-              })
-            }else{
-              wx.showToast({
-                title: res.Msg,
-                icon: "none"
-              })
-            }
-          })
-        }
-      }
-    })
-  },
+  
   shipname(e) {
     this.data.data["shipname" + e.currentTarget.dataset.id]=e.detail.value;
     this.setData({
@@ -84,47 +50,7 @@ Page({
     })
     console.log(this.data.data)
   },
-  fahuo(e){
-    var that = this;
-    //调取发货
-    if (this.data.data["shipname" + e.currentTarget.dataset.id]){
-
-    }else{
-      wx.showToast({
-        title: '请填写快递公司',
-        icon:"none"
-      })
-      return
-    }
-    if (this.data.data["shipnumber" + e.currentTarget.dataset.id]) {
-
-    } else {
-      wx.showToast({
-        title: '请填写快递单号',
-        icon: "none"
-      })
-      return
-    }
-    util.request(app.data.hostAjax + '/api/transaction/v1/adddelivergoods', {
-      userid: wx.getStorageSync("userIdBuyGood"),
-      ordernumber: e.currentTarget.dataset.ordernumber,
-      shipnumber: this.data.data["shipnumber" + e.currentTarget.dataset.id],
-      shipname: this.data.data["shipname" + e.currentTarget.dataset.id]
-    }).then(function (res) {
-      if (res.Code == "200") {
-        that.statusTap(2);
-        wx.showToast({
-          title: '发货成功',
-          icon: "none"
-        })
-      } else {
-        wx.showToast({
-          title: res.Msg,
-          icon: "none"
-        })
-      }
-    })
-  },
+  
   refundApply(e) {
     // 申请售后
     const orderId = e.currentTarget.dataset.id;
@@ -185,70 +111,13 @@ Page({
       ismaiduan: wx.getStorageSync("isoverpay") == 1 ? 1 : 0,
       scroolHeight: app.data.windowHeight-40
     })
-    if (options && options.type) {
-
-      if (options.type == 100) {
-        this.setData({
-          hasRefund: false,
-          currentType: options.type,
-          searchType: parseInt(options.type)
-        });
-      } else {
-        this.setData({
-          hasRefund: false,
-           currentType: options.type,
-          searchType: parseInt(options.type)-1
-        });
-      }
-    }else{
-      this.setData({
-        hasRefund: false,
-        currentType: 0,
-        searchType: 100
-      });
-    }
+    
   },
   onReady: function () {
     // 生命周期函数--监听页面初次渲染完成
 
   },
-  getOrderStatistics: function () {
-    var that = this;
-    WXAPI.orderStatistics(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        var tabClass = that.data.tabClass;
-        if (res.data.count_id_no_pay > 0) {
-          tabClass[0] = "red-dot"
-        } else {
-          tabClass[0] = ""
-        }
-        if (res.data.count_id_no_transfer > 0) {
-          tabClass[1] = "red-dot"
-        } else {
-          tabClass[1] = ""
-        }
-        if (res.data.count_id_no_confirm > 0) {
-          tabClass[2] = "red-dot"
-        } else {
-          tabClass[2] = ""
-        }
-        if (res.data.count_id_no_reputation > 0) {
-          tabClass[3] = "red-dot"
-        } else {
-          tabClass[3] = ""
-        }
-        if (res.data.count_id_success > 0) {
-          //tabClass[4] = "red-dot"
-        } else {
-          //tabClass[4] = ""
-        }
-
-        that.setData({
-          tabClass: tabClass,
-        });
-      }
-    })
-  },
+  
   searchText(e) {
     this.setData({
       searchtxt: e.detail.value
@@ -257,19 +126,15 @@ Page({
   onShow: function () {
     // 获取订单列表
     var that = this;
-    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist',{//用户订单列表
+    util.request(app.data.hostAjax + '/api/transaction/v1/getselfposorderlist',{//用户订单列表
       userid: wx.getStorageSync("userid"),
-      ordertype:this.data.searchType,
+      states:this.data.searchType,
       pagesize: this.data.pagesize,
-      pageindex: this.data.pageindex,
-      searchtxt: this.data.searchtxt
+      pageindex: this.data.pageindex
     }).then(function (res) {
       if (res.Code == "200") {
-        //刷掉经销商的买断订单
         for (var i=0;i<res.Data.list.length;i++){
-          if (wx.getStorageSync("usertype") == 2 && res.Data.list[i].ispayover == '买断') {
-            return
-          }
+          
           that.data.orderList.push(res.Data.list[i])
         }
         var arr = that.data.orderList;
@@ -300,12 +165,11 @@ Page({
   getOrder: function (pagesize) {
     // 获取订单列表
     var that = this;
-    util.request(app.data.hostAjax + '/api/transaction/v1/distributororderlist', {//用户订单列表
+    util.request(app.data.hostAjax + '/api/transaction/v1/getselfposorderlist', {//分销员或店长查询自己提交的pos订单
       userid: wx.getStorageSync("userid"),
-      ordertype: this.data.searchType,
+      states: this.data.searchType,
       pagesize: pagesize,
-      pageindex: 1,
-      searchtxt: this.data.searchtxt
+      pageindex: 1
     }).then(function (res) {
       console.log()
       if (res.Code == "200") {
