@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    consultant: false,
+    consultant: false,//默认没有专属顾问
     ifchoose:false,//默认是没有优惠券的
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
@@ -66,7 +66,11 @@ Page({
     })
     this.getAddress();
     util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
-      if (res.Code == "200") {//专属顾问，没有就不能自提
+      if (res.Code == "200" && wx.getStorageSync("usertype") == 1) {//专属顾问，没有就不能自提--仅仅对普通用户限制
+        _this.setData({
+          consultant: true
+        });
+      } else if (wx.getStorageSync("usertype") != 1) {
         _this.setData({
           consultant: true
         });
@@ -130,8 +134,8 @@ Page({
       ifchoose:wx.getStorageSync("couponid")?true:false,
       couponprice: wx.getStorageSync("couponprice")
     })
-    // 扫码进来只能自提
-    if (wx.getStorageSync("saoma")) {
+    // 扫码进来只能自提--只对用户做限制
+    if (wx.getStorageSync("saoma") && wx.getStorageSync("usertype")==1) {
       this.setData({
         checked: 1,
         saoma:true
@@ -197,6 +201,7 @@ Page({
                 //调取提交订单接口
                 _this.setData({
                   orderid: res.data.Data.orderid,
+                  sumprice: res.data.Data.sumprice,
                 })
               } else {
                 wx.showToast({
@@ -309,7 +314,7 @@ Page({
         data: {
           userid: wx.getStorageSync("userIdBuyGood"),
           orderid: this.data.orderid,
-          total_fee: _this.data.newprice || res.data.Data.sumprice,//res.data.Data.sumprice,
+          total_fee: _this.data.newprice || this.data.sumprice,//res.data.Data.sumprice,
           addressid: _this.data.checked == 2 ? _this.data.address.id : 0,//收货地址id 自提传0
           couponid: wx.getStorageSync("couponid") || 0
         },

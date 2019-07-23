@@ -65,7 +65,11 @@ Page({
     })
     this.getAddress();
     util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
-      if (res.Code == "200") {//专属顾问，没有就不能自提
+      if (res.Code == "200" && wx.getStorageSync("usertype") == 1) {//专属顾问，没有就不能自提--仅仅对普通用户限制
+        _this.setData({
+          consultant: true
+        });
+      } else if (wx.getStorageSync("usertype") != 1){
         _this.setData({
           consultant: true
         });
@@ -151,9 +155,10 @@ Page({
       couponprice: wx.getStorageSync("couponprice")
     })
     // 扫码进来只能自提
-    if (wx.getStorageSync("saoma")){
+    if (wx.getStorageSync("saoma") && wx.getStorageSync("usertype") == 1){
       this.setData({
-        checked:1
+        checked: 1,
+        saoma: true
       })
     }
     console.log(this.data.totleprice)
