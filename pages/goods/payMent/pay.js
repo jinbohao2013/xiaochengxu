@@ -166,6 +166,54 @@ Page({
         })
       }
     });
+    wx.request({
+      url: app.data.hostAjax + "/api/transaction/v1/buynow",
+      data: {
+        userid: wx.getStorageSync("userIdBuyGood"),
+        goodsid: _this.data.ajaxData.id,
+        salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid") || 0,//分销商的id分销员id
+        shopid: wx.getStorageSync("shopid") || 0,//店铺id--每个人都有一个店铺
+        num: this.data.ajaxData.num,
+        tasteid: this.data.ajaxData.tasteId,//商品口味
+      },
+      method: "get",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      },
+      success(res) {
+        if (res.data.Success) {
+          //订单确认
+          wx.request({
+            url: app.data.hostAjax + '/api/transaction/v1/confirmationorder',
+            data: {
+              user_id: wx.getStorageSync("userIdBuyGood"),
+            },
+            method: "get",
+            header: {
+              'content-type': 'application/json',
+            },
+            success(res) {
+              if (res.data.Success) {
+                //调取提交订单接口
+                _this.setData({
+                  orderid: res.data.Data.orderid,
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.Msg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.Msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -254,6 +302,73 @@ Page({
       return
     }
     this.setData({ loading: true });
+    if(this.data.orderid){//当有订单号的时候
+      //调取提交订单接口
+      wx.request({
+        url: app.data.hostAjax + '/api/transaction/v1/orderpayinfo',
+        data: {
+          userid: wx.getStorageSync("userIdBuyGood"),
+          orderid: this.data.orderid,
+          total_fee: _this.data.newprice || res.data.Data.sumprice,//res.data.Data.sumprice,
+          addressid: _this.data.checked == 2 ? _this.data.address.id : 0,//收货地址id 自提传0
+          couponid: wx.getStorageSync("couponid") || 0
+        },
+        method: "get",
+        header: {
+          'content-type': 'application/json',
+        },
+        success(res) {
+
+          if (res.data.Success) {
+            try {
+              console.log(JSON.parse(res.data.Data));
+              wx.requestPayment({
+                timeStamp: JSON.parse(res.data.Data).timeStamp,
+                nonceStr: JSON.parse(res.data.Data).nonceStr,
+                package: JSON.parse(res.data.Data).package,
+                signType: 'MD5',
+                paySign: JSON.parse(res.data.Data).paySign,
+                success(res) {//支付成功
+                  //展示支付成功的界面
+                  wx.removeStorageSync('useridsaleman');
+                  wx.removeStorageSync('shopid');
+                  wx.removeStorageSync('couponid');
+                  wx.removeStorageSync('couponprice');
+                  wx.redirectTo({
+                    url: '/pages/person/order/order',
+                  })
+                  return
+                  // _this.onClose();
+                },
+                fail(res) {
+                  console.log(res)
+                  if (res.errMsg == "requestPayment:fail cancel") {
+                    wx.showToast({
+                      title: "支付已取消",
+                      icon: 'none'
+                    })
+                    wx.redirectTo({
+                      url: '/pages/person/order/order',
+                    })
+                    return
+                  }
+                }
+              })
+              _this.setData({ loading: false });
+            } catch (e) {
+              _this.setData({ loading: false });
+            }
+
+          } else {
+            wx.showToast({
+              title: res.data.Msg,
+              icon: 'none'
+            })
+          }
+        }
+      })
+      return
+    }
     wx.request({
       url: app.data.hostAjax + "/api/transaction/v1/buynow",
       data: {

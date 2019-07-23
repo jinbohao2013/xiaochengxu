@@ -1,9 +1,15 @@
 /* pages/component/toast_coupon/toast_coupon.wxss */
 .content{
   width: 750rpx;
-  height:507rpx;
-  background-image: url(http://www.yqcoffee.cn/image/toastcoupon.png);
+  height:513rpx;
+  background-image: url(http://www.yqcoffee.cn/image/toastcoupon_change.png);
   background-size: 100%;
-  padding-top: 237rpx;
+  padding-top: 235rpx;
  
+}
+.box{
+  padding: 0 0rpx 0 30rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }

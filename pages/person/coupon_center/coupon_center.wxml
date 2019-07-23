@@ -7,12 +7,17 @@
   </view>
   <view class="order-list" hidden="{{orderList.length ? false : true}}">
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
-      <view class='order-list-c' style='width:291rpx;height:142rpx;background-image:url(http://www.yqcoffee.cn/image/coupon.png);background-size:100%;' data-id='{{item.couponid}}' bindtap='getgoods'>
+    <view class='order-list-c text-center' style='width:630rpx;height:188rpx;background-image:url(http://www.yqcoffee.cn/image/coupon_change.png);background-size:100%;color:#FF4373;' data-id='{{item.couponid}}'>
         <view class='name'>
-          <view class='l'>{{item.e_price}}</view>
-          <view class='c'><view>￥</view><view>{{item.name}}</view></view>
+          <view class='l'> <text style='font-weight:bold'>{{item.e_price}}</text><text style='font-size:26rpx;'>元</text>
+            <view style='color:#FF9BB0;font-size:22rpx;'>满{{item.fullprice}}元可使用</view>
+          </view>
         </view>
-        <view class='time'>截止日期:{{tools.split(item.endtime)}}</view>
+        <view>
+            <view class='c' style='margin-bottom:30rpx;' ><view>{{item.name}}</view></view>
+            <view class='time'>{{tools.split(item.starttime)}} -- {{tools.split(item.endtime)}}</view>
+        </view>
+        <button data-id='{{item.couponid}}' bindtap='getgoods' class='cu-btn round bg-grey sm' style='background-color:#FF4373;width:120rpx;height:40rpx;line-height:40rpx;font-size:22rpx;padding:4rpx;margin:0;'>立即领取</button>
       </view>
     </view>
   </view>

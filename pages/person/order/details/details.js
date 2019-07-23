@@ -129,7 +129,7 @@ Page({
               that.onLoad(that.data.e)
               //弹出优惠券的框
               console.log("弹出优惠券的框");
-              _this.setData({
+              that.setData({
                 modalshow: true
               })
             } else {

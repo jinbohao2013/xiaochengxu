@@ -1,3 +1,22 @@
+
+.gocenter{
+  width: 100%;
+  border:1px solid #999999;
+  color: #999;
+  border-radius: 4px;
+  text-align: center;
+  padding: 15rpx;
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  height:103rpx;
+  line-height:103rpx;
+  font-size: 35rpx;
+
+}
 page{
   min-height:100%;
    background-color: #F2f2f2;
@@ -29,29 +48,27 @@ page{
     text-align: center
 }
 .order-list{
-  padding: 50rpx;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  color: white;
+  justify-content: center;
 }
 .order-list-c{
-  padding: 20rpx 0 0 13rpx;
-  margin-bottom: 75rpx;
+  padding: 0 45rpx 0 33rpx;
+  margin-bottom: 45rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 .order-list .name .l{
   float: left;
   font-size: 70rpx;
 }
-.order-list .name .c{
-  
-}
 .time{
   padding-top: 2px;
   font-size:18rpx;
   clear: both;
-  margin-left: 11rpx;
-  width: 160rpx;
+  width: 185rpx;
   text-align: center;
   border-top: 1rpx solid white;
 }
@@ -83,14 +100,4 @@ page{
   border-radius: 4px;
   text-align: center;
   padding: 15rpx;
-}
-.footer{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #fff;
-  height:103rpx;
-  line-height:103rpx;
-  font-size: 35rpx;
-
 }

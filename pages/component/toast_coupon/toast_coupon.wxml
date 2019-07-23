@@ -2,11 +2,16 @@
   <!-- 优惠券的弹框 -->
   <wxs src="../../../utils/tools.wxs" module="tools" />
   <view class='float'></view>
-  <view class='content text-center'>
-    <view style='width:253rpx;height:117rpx;border-radius:4px;background-color:white;margin:auto;'>
-      <view style='font-size:57.33rpx; background-image:-webkit-linear-gradient(left top,#55A6F7,#8A2DFD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;'>{{orderList.e_price}} <text style='font-size:21.5rpx;'>元</text></view>
-      <view style='font-size:20.57rpx;color:#340294;'> {{orderList.name}}</view>
-      <view style='font-size:12.5rpx;margin-top:4rpx;'><text style='color:#55ABF7;'>有效期至：</text><text style='color:#340294;'>{{tools.split(orderList.endtime)}}</text> </view>
+  <view class='content '>
+    <view class='box' style='width:437rpx;height:120rpx;border-radius:4px;margin:auto;'>
+      <view class='text-center' style='font-size:57.33rpx; background-image:-webkit-linear-gradient(left top,#55A6F7,#8A2DFD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;'>{{orderList.e_price}}<text style='font-size:21.5rpx;margin-left:1px;'>元</text>
+        <view style='font-size:20rpx;'>满{{tools.parseI(orderList.fullprice)}}使用</view>
+      </view>
+      <view style='margin-left:76rpx;'>
+        <view style='font-size:30rpx;color:#340294;letter-spacing:2px;'> {{orderList.name}}</view>
+        <view style='font-size:22rpx;margin-top:4rpx;position:relative;top:14rpx; background-image:-webkit-linear-gradient(left top,#39b4f6,#9a3cfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;'><text >有效期至：</text><text>{{tools.split(orderList.endtime)}}</text> </view>
+      </view>
+      
     </view>
     <button class='round cu-btn' style='background: linear-gradient(#F7D402, #FBEB7F);color:#9E200A;width:168rpx;height:52rpx;font-size:24rpx;border-radius:5000rpx;margin-top:40rpx;' bindtap='getgoods' data-id='{{orderList.couponid}}'>立即领取</button>
   </view>

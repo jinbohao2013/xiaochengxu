@@ -73,35 +73,14 @@ Page({
       })
       this.onShow();
     }
-
   },
   onLoad: function (options) {
     this.setData({
       scroolHeight: app.data.windowHeight-40,
-      isIphoneX: app.data.isIphoneX
+      isIphoneX: app.data.isIphoneX,
+      orderid: options.id
     })
-    if (options && options.type) {
-
-      if (options.type == 100) {
-        this.setData({
-          hasRefund: false,
-          currentType: options.type,
-          searchType: parseInt(options.type)
-        });
-      } else {
-        this.setData({
-          hasRefund: false,
-           currentType: options.type,
-          searchType: parseInt(options.type)-1
-        });
-      }
-    }else{
-      this.setData({
-        hasRefund: false,
-        currentType: 0,
-        searchType: 100
-      });
-    }
+    
   },
   onReady: function () {
     // 生命周期函数--监听页面初次渲染完成
@@ -109,9 +88,10 @@ Page({
   },
   getOrder: function (pagesize) {
     var that = this;
-    util.request(app.data.hostAjax + '/api/my/v1/getmycoupon', {//我的券
+    util.request(app.data.hostAjax + '/api/my/v1/getusercoupon', {//我的券
       userid: wx.getStorageSync("userIdBuyGood"),
-      types: this.data.searchType
+      states: this.data.searchType,
+      orderid: this.data.orderid
     }).then(function (res) {
       if (res.Code == "200") {
         that.setData({
@@ -133,18 +113,16 @@ Page({
   },
   onShow: function () {
     var that = this;
-    util.request(app.data.hostAjax + '/api/my/v1/getmycoupon', {//我的券
+    util.request(app.data.hostAjax + '/api/my/v1/getusercoupon', {//我的券
       userid: wx.getStorageSync("userIdBuyGood"),
-      types: this.data.searchType
+      states: this.data.searchType,
+      orderid: this.data.orderid
     }).then(function (res) {
-      if (res.Code == "200") {
+      if (res.Code == "0") {
         var arr = that.data.orderList.concat(res.Data.list);
         console.log("that.data.pageindex=", that.data.pageindex )
         console.log(that.data.pageindex == that.data.ajaxpageindex)
-        if (that.data.pageindex == that.data.ajaxpageindex) {
-          that.getOrder(that.data.orderList.length)
-          return;
-        }
+        
         that.setData({
           orderList: arr,
           loading: true,

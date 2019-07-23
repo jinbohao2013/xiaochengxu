@@ -51,8 +51,10 @@ var fixd2 = function (s) {
   }
   var price = parseFloat(s).toFixed(2)
   return price
+} 
+var parseI=function(s){
+  return parseInt(s)
 }
-
 var imgFirst = function (s) {
   if(s){
     var imgArr = s.split("|")[0];
@@ -72,6 +74,7 @@ var cardnum=function(e){
   return str.substring(str.length - 4, str.length)
 }
 module.exports = {
+  parseI: parseI,
   split: split,
   cardnum: cardnum,
   bar: bar,

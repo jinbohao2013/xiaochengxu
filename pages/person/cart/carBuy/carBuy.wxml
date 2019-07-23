@@ -46,8 +46,8 @@
   <view class='main' style='margin-bottom:0;'>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{(ajaxData[0].sumprice)}}</text></view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>优惠券 
-      <navigator url='/pages/goods/coupon_choose/coupon_choose' style='float:right;' wx:if="{{ifchoose}}">{{couponprice}}元优惠券</navigator> 
-      <navigator url='/pages/goods/coupon_choose/coupon_choose' style='float:right;' wx:elif="{{hascoupon}}">使用优惠 ></navigator>
+      <navigator url='/pages/goods/coupon_choose/coupon_choose?id={{ajaxData[0].id}}' style='float:right;' wx:if="{{ifchoose}}">{{couponprice}}元优惠券</navigator> 
+      <navigator url='/pages/goods/coupon_choose/coupon_choose?id={{ajaxData[0].id}}' style='float:right;' wx:elif="{{hascoupon}}">使用优惠 ></navigator>
       <navigator style='float:right;' wx:else>暂无优惠券</navigator>      
     </view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>

@@ -29,29 +29,27 @@ page{
     text-align: center
 }
 .order-list{
-  padding: 50rpx;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  color: white;
+  justify-content: center;
 }
 .order-list-c{
-  padding: 20rpx 0 0 13rpx;
-  margin-bottom: 75rpx;
+  padding: 0 45rpx 0 33rpx;
+  margin-bottom: 45rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 .order-list .name .l{
   float: left;
   font-size: 70rpx;
 }
-.order-list .name .c{
-  
-}
 .time{
   padding-top: 2px;
   font-size:18rpx;
   clear: both;
-  margin-left: 11rpx;
-  width: 160rpx;
+  width: 185rpx;
   text-align: center;
   border-top: 1rpx solid white;
 }
