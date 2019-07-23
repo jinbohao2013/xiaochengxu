@@ -33,7 +33,9 @@ page{
 .cu-form-group .title1{
   min-width: calc(6em + 30rpx);
 }
-
+.cart-view .item .cart-goods:last-of-type{
+  border:0;
+}
 .cart-view{
     width: 100%;
     height: auto;

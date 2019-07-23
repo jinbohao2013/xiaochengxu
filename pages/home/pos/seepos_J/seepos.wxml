@@ -39,6 +39,7 @@
         </view>
       </view>
     </view>
+    <text style='text-align:right;display:block;'>总计： <text class='text-red'>￥{{goodsList.orsumprice}}</text></text>
   </view>
   <view class="cu-bar bg-white" style='border-top:1rpx solid #eee'>
     <view class="action">

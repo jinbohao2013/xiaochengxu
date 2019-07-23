@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 16,
 			"list": [
 				{
 					"id": 0,
@@ -165,8 +165,8 @@
 				{
 					"id": 16,
 					"name": "POS",
-					"pathName": "pages/home/pos/index/index",
-					"query": "",
+					"pathName": "pages/home/pos/seepos_J/seepos",
+					"query": "id=5",
 					"scene": null
 				}
 			]

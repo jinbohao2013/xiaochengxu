@@ -193,7 +193,6 @@ App({
       success: (res) => {
         console.log(res)
         wx.request({
-          // url: 'https://api.weixin.qq.com/sns/jscode2session',
           url: that.data.hostAjax + '/api/weixin/v1/jscode2session',
           data: {
             response_type: res.code,
@@ -205,6 +204,14 @@ App({
             if (!JSON.parse(res.data.Data).openid) {
               console.log("请重新登录")
               return
+            }else{
+              if (e) {
+                
+              }else{
+                wx.redirectTo({
+                  url: '/pages/goods/index/index'
+                })
+              }
             }
             //获取用户的openid 
             console.log("用户的openid" + openid)
@@ -217,6 +224,7 @@ App({
                 nickname: that.globalData.userInfo.nickName
               },
               success: (ress) => {
+                
                 let usertype = ress.data.Data.usertype
                 that.globalData.usertype = ress.data.Data.usertype
                 // that.globalData.usertype = '4'
@@ -228,7 +236,6 @@ App({
                   wx.removeStorageSync('saoma')
                   if (that.globalData.usertype == '2' || that.globalData.usertype == '3' || that.globalData.usertype == '4') {
                     wx.redirectTo({
-                      // url: '/pages/home/home',
                       url: '/pages/goods/index/index'
                     })
                   } else {

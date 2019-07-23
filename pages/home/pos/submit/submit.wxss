@@ -76,7 +76,9 @@ page{
     border-bottom: 1px solid #f4f4f4;
     width:100%;
 }
-
+.cart-view .item .cart-goods:last-of-type{
+  border:0;
+}
 .cart-view .item .img{
     float: left;
     height:125rpx;

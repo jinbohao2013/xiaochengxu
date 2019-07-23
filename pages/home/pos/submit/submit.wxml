@@ -28,11 +28,12 @@
           </view>
           <view class="b" style='display:flex;justify-content:space-between;align-items:center;'>
             <text class="price">￥{{item.e_price}}</text>
-            <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-id="{{item.id}}" value="{{goodnum[item.id]||0}}"/>
+            <van-stepper min="0" disable-input="{{true}}" bind:change="onchange" data-price="{{item.e_price}}" data-id="{{item.id}}" value="{{goodnum[item.id]||0}}"/>
           </view>
         </view>
       </view>
     </view>
+    <text style='text-align:right;display:block;'>总计： <text class='text-red'>￥{{totle}}</text></text>
   </view>
   <view class="cu-bar bg-white" style='border-top:1rpx solid #eee'>
     <view class="action">

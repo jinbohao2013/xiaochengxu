@@ -46,6 +46,7 @@ Page({
     launchTime: "",//预出货时间
     name: "",//送货员名称
     goodnum:{},//储存对象--容易遍历
+    totle:0,
   },
   onLoad: function (options) {
     this.setData({
@@ -918,16 +919,22 @@ onHide:function(){
   },
   onchange(event) {
     let _this = this, add = "reduce";
-    console.warn(`change: ${event.detail[0]}`);
-    console.log(event.target.dataset.id);
+    console.warn(`change: ${event.detail}`);
+    console.log(event.target.dataset.price);
     this.data.goodnum[event.target.dataset.id] = event.detail[0];
     console.log(this.data.goodnum)
     this.setData({
       goodnum: this.data.goodnum
     })
-    // if (event.detail[1]) {
-    //   add = "add"
-    // }
+    if (event.detail[1]) {
+      this.setData({
+        totle: this.data.totle + parseFloat(event.target.dataset.price)
+      })
+    }else{
+      this.setData({
+        totle: this.data.totle - parseFloat(event.target.dataset.price)
+      })
+    }
     // util.request(app.data.hostAjax + '/api/transaction/v1/updateshoppingcart', { userid: wx.getStorageSync("userIdBuyGood"), optiontype: add, id: event.currentTarget.dataset.id }).then(function (res) {
 
     //   _this.onShow();

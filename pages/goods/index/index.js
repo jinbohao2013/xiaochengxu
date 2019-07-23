@@ -189,6 +189,14 @@ Page({
         if (res.data.Success) {
           wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);//储存购买用户的id用来调取支付
           wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
+          //在这里判断被分享人扫码进来的时候
+          if (parseInt(res.data.Data.isticket) == 0) {//分享人进来时--未读消息时
+            //弹出优惠券的框
+            console.log("弹出优惠券的框");
+            _this.setData({
+              modalshow: true
+            })
+          }
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
             //1--隐藏底部导航
