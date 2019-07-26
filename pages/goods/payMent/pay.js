@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    consultant: false,//默认没有专属顾问
+    consultant: true,//默认没有专属顾问
     ifchoose:false,//默认是没有优惠券的
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量

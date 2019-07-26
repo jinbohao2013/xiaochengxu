@@ -31,7 +31,7 @@
   margin-top: 10rpx;
   font-size: 24rpx;
 }
-.cent text{
+.cent text,.cent navigator{
   margin-right: 8rpx;
   padding: 2rpx
 }

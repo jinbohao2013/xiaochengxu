@@ -81,9 +81,9 @@
         <van-icon name="shopping-cart-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的购物车</view>
       </navigator>
-      <navigator url='/pages/logon/logon'>
+      <navigator url='/pages/logon/logon' wx:if="{{usertype==1}}">
         <van-icon name="manager-o" size="26px" color="#999" custom-class="icon" />
-        <view class='text'>成为经销商</view>
+        <view class='text'>会员中心</view>
       </navigator>
       <navigator url='/pages/person/consultant1/consultant1'>
         <van-icon name="service-o" size="26px" color="#999" custom-class="icon" />

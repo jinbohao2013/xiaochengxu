@@ -163,8 +163,8 @@ App({
       },
       success: (res) => {
         wx.setStorageSync("isoverpay","");
-        wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存分享出去的经销商id
-        if (type == 2) {//如果是分销商
+        wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存salapersonid
+        if (type == 2 || type == 6) {//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));

@@ -21,6 +21,9 @@ Page({
     //     url: '/pages/index/index'
     //   })
     // }
+    this.setData({
+      usertype: wx.getStorageSync("usertype")
+    })
     let _this=this;
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录

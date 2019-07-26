@@ -98,7 +98,7 @@ Page({
             shareid: decodeURIComponent(options.q).split("?")[1].split("shareid=")[1]
           })
         }
-        wx.setStorageSync("saoma", true)
+        // wx.setStorageSync("saoma", true)//后期去掉了自提和地址的限制
       }
     }
     console.log("传过来的商品id是:---" + goodsId)

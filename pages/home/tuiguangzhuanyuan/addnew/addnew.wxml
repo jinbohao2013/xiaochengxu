@@ -1,0 +1,67 @@
+
+<view class='all'>
+  <view class='binding'>
+    <view class='image'><open-data class="img" type="userAvatarUrl" style=''></open-data></view>
+    <text>经销商绑定添加</text> 
+  </view>
+  <view>
+    <view class='denglu'>
+      <image src='{{bindingImage[0]}}'></image>
+      <input name="mobile" class="center" placeholder="姓名" placeholder-class="wen" bindinput='changeInput' data-types='name' value='{{name}}'/>
+    </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[2]}}'></image>
+      <input name="mobile" type="number" class="center" maxlength="11" placeholder="请输入手机号" placeholder-class="wen" bindinput='changeInput' data-types='phone' />
+    </view>
+  </view>
+  <view style='padding:20rpx 100rpx;'>
+    <view class='text-xl' style='color:#933A3A;'>
+      返佣设置
+    </view>
+    <view class='margin-top-sm' style='display:flex;align-items:center;justify-content:space-between'>
+      <view  style='width:220rpx;'>销售员佣金比例： </view>
+      <view style='display:flex;align-items:center;' >
+        <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson' value='{{salaperson}}'></input> <text>%</text>
+      </view>
+    </view>
+       <view class='margin-top-sm text-sm' style='text-align:right;color:#999;'>推广专员所销售订单的提成佣金比例</view> 
+       <view class='margin-top-sm text-sm'>注：推广专员的佣金计算：实付金额×佣金比例</view> 
+        
+
+      <view>
+    <view class=" margin-top" style='display:flex;align-items:center;justify-content:space-between'>
+      <view class=' text-xl' style='color:#933A3A;font-size:36rpx'>
+        订单发货权限设置
+      </view>
+      <view class='action'>
+        <switch class='sm' checked='{{isCard1}}' bindchange='isCard1'></switch>
+      </view>
+    </view>
+    <view class='margin-top-sm text-sm' style='color:#999;'>打开订单发货权限，推广专员可对所有待发货订单进行发货</view> 
+    <view class=" margin-top " style='display:flex;align-items:center;justify-content:space-between'>
+      <view class=' text-xl' style='color:#933A3A;font-size:36rpx'>
+        pos订单审核
+      </view>
+      <view class='action'>
+        <switch class='sm' checked='{{isCard2}}' bindchange='isCard2'></switch>
+      </view>
+    </view>
+    <view class='margin-top-sm text-sm' style='color:#999;'>打开pos订单审核权限后，推广专员可审核所有pos用户提交的返佣申请</view> 
+  </view>
+  </view>
+    
+    
+  <view class='footer ' catchtap='bindingPhone'>
+    <view class='text-xxl'>确认添加</view>
+  </view>
+</view>
+<view class='win' wx:if='{{isLogin}}'>
+  <view class='win-top'>
+    <view class='win-title'>
+      请先授权
+    </view>
+    <view class='win-btn'>
+      <button open-type='getUserInfo' bindgetuserinfo="getInfo">登录授权</button>
+    </view>
+  </view>
+</view>

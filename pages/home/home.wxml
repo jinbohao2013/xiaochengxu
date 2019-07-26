@@ -18,6 +18,8 @@
           <text wx:elif="{{usertype=='3'}}">店长绑定</text>
           <text wx:else>分销员绑定</text></text>  
           <text class='cent_one'>自购分佣</text>
+          <!-- <navigator url='/pages/home/tuiguangzhuanyuan/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
+         推广专员</navigator> -->
           <navigator url='/pages/home/pos/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
           <view class="cu-tag badge" style='right:-40rpx'>{{dataInfo.posnum}}</view>  
           pos用户 </navigator>
@@ -109,10 +111,6 @@
       <navigator url='/pages/person/cart/cart'>
         <van-icon name="shopping-cart-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的购物车</view>
-      </navigator>
-      <navigator url='/pages/logon/logon'>
-        <van-icon name="manager-o" size="26px" color="#999" custom-class="icon" />
-        <view class='text'>成为经销商</view>
       </navigator>
       <navigator url='/pages/person/consultant1/consultant1'>
         <van-icon name="service-o" size="26px" color="#999" custom-class="icon" />
@@ -237,6 +235,7 @@
       <view wx:if="{{usertype=='2'||usertype=='3'}}">
         <view class='popularize'>
           <view class='popularize_one' catchtap='goPromotion'>
+            <!-- 后期增加推广专员只有统一改成226*117 -->
               <image style='width:182rpx;height:87rpx' src='{{Images[0]}}'></image>
           </view>
           <view class='popularize_one' wx:if="{{usertype=='2'}}" catchtap='go_byout'>

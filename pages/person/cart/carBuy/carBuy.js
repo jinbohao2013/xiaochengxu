@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    consultant: false,
+    consultant: true,
     windowHeight: null,//可用窗口的高度
     value1: 1,//购买数量
     ajaxData: [{

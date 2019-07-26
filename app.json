@@ -56,6 +56,9 @@
     "pages/home/pos/submit/submit",
     "pages/home/pos/seepos/seepos",
     "pages/home/pos/seepos_J/seepos",
+    "pages/home/tuiguangzhuanyuan/index/index",
+    "pages/home/tuiguangzhuanyuan/addnew/addnew",
+    "pages/home/tuiguangzhuanyuan/setting/proportion",
     "pages/money/withdraw/cardbind/cardbind"
   ],
   "window": {
