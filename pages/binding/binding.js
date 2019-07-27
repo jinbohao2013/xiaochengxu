@@ -72,6 +72,12 @@ Page({
         if (this.data.phone.length > 0) {
           if (this.data.code.length > 0) {
             console.log('开始绑定')
+            if(this.data.doit){//限制连续点击
+              return
+            }
+            this.setData({
+              doit:true
+            })
             wx.request({
               url: config.apiHost + '/api/user/v1/addsalesperson_manager',
               method: "POST",
@@ -106,6 +112,9 @@ Page({
                   //   })
                   // }, 1500)
                 } else {
+                  this.setData({
+                    doit: false
+                  })
                   wx.showToast({
                     title: res.data.Msg,
                     icon: 'none',

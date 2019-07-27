@@ -550,6 +550,15 @@ this.setData({
                     modalshow: true
                   })
                 }
+                if (_this.data.shareid){
+                  //绑定专属顾问--扫码进来
+                  util.request(app.data.hostAjax + '/api/dester/v1/addmyadviser', { userid: res.data.Data.user_id, salapersonid: wx.getStorageSync("useridsaleman") }).then(function (res) {
+                    if (res.Code == "200") {
+                     
+                    }
+                  });
+                }
+                
                 util.request(app.data.hostAjax + '/api/transaction/v1/myshoppingcart', { user_id: res.data.Data.user_id }).then(function (res) {
                   if (res.Code == "200") {
                     _this.setData({
