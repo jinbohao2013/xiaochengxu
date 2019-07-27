@@ -141,14 +141,20 @@
    
    height:276rpx;
 }
-.popularize view{
+.twoImg{
+  display:flex;justify-content:space-around;border-top: 20rpx solid #eeeeee;padding:0 80rpx!important;margin-bottom:160rpx
+}
+.popularize{
+  display:flex;justify-content: space-between;border-top: 20rpx solid #eeeeee;margin-bottom:160rpx;flex-wrap:wrap;padding:0 18rpx;
+}
+.popularize view,.popularize navigator{
   
   padding: 50rpx 0rpx;
   float: left;
   height: 130rpx;
 }
 .popularize_one+.popularize_one{
-  margin-left:50rpx; 
+  /* margin-left:50rpx;  */
 }
 .accumulate_one{
   font-size: 40rpx;

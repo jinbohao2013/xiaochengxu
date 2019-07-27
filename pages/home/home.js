@@ -14,6 +14,8 @@ Page({
       "http://www.yqcoffee.cn/image/pic2.png",
       "http://www.yqcoffee.cn/image/pic3.png",
       "http://www.yqcoffee.cn/image/pic4.png",
+      "http://www.yqcoffee.cn/image/pic5.png",
+      "http://www.yqcoffee.cn/image/pic6.png",
     ],
     userInfo: {},
     userInfoImg:"",
@@ -216,6 +218,23 @@ Page({
             })
           } else {
             
+          }
+        });
+        break;
+      case 6:
+        this.getData('/api/dester/v1/getpromotiondester', app.globalData.user_id, type)
+        //经销商GET /api/dester/v1/getdistributoryesterdayadd 经销商查看新增代理
+        util.request(app.data.hostAjax + '/api/dester/v1/getdistributoryesterdayadd', {
+          userid: wx.getStorageSync("userid"),
+        }).then(function (res) {
+          if (res.Code == "200") {
+            that.setData({
+              newsalaperson: res.Data.newsalaperson,
+              newshop: res.Data.newshop,
+              sqshopownernums: res.Data.sqshopownernums,
+            })
+          } else {
+
           }
         });
         break;
