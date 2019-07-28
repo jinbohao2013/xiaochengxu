@@ -42,9 +42,8 @@ Component({
         content: '是否确定',
         success(res) {
           if (res.confirm) {
-            util.request(app.data.hostAjax + '/api/my/v1/addmycoupon', {
-              userid: wx.getStorageSync("userIdBuyGood"),
-              couponid: e.currentTarget.dataset.id,
+            util.request(app.data.hostAjax + '/api/my/v1/addmyallcoupon', {//全部领取优惠券
+              userid: wx.getStorageSync("userIdBuyGood")
             }).then(function (res) {
               if (res.Code == "200") {
                 wx.showToast({

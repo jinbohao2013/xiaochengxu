@@ -115,14 +115,14 @@ page{
 }
 
 .cart-view .item .cart-goods{
-    float: left;
-    height: 164rpx;
+    /* float: left;
+    height: 164rpx; */
     border-bottom: 1px solid #f4f4f4;
     width:100%;
 }
 
 .cart-view .item .img{
-    float: left;
+    /* float: left; */
     height:125rpx;
     width: 176rpx;
     background: #f4f4f4;
@@ -130,8 +130,8 @@ page{
 }
 
 .cart-view .item .info{
-    float: left;
-    height:125rpx;
+    /* float: left;
+    height:125rpx; */
     margin: 19.5rpx 26rpx 19.5rpx 0;
     flex-grow:2;
 }

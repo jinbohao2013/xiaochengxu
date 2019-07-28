@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    readybuy:false,//支付成功禁止调立即购买接口
     consultant: true,//默认没有专属顾问
     ifchoose:false,//默认是没有优惠券的
     windowHeight: null,//可用窗口的高度
@@ -170,6 +171,7 @@ Page({
         })
       }
     });
+    if (this.data.readybuy){return}
     wx.request({
       url: app.data.hostAjax + "/api/transaction/v1/buynow",
       data: {
@@ -335,6 +337,9 @@ Page({
                 paySign: JSON.parse(res.data.Data).paySign,
                 success(res) {//支付成功
                   //展示支付成功的界面
+                  _this.setData({
+                    readybuy:true
+                  })
                   wx.removeStorageSync('useridsaleman');
                   wx.removeStorageSync('shopid');
                   wx.removeStorageSync('couponid');
@@ -429,6 +434,9 @@ Page({
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
                             //展示支付成功的界面
+                            _this.setData({
+                              readybuy: true
+                            })
                             wx.removeStorageSync('useridsaleman');
                             wx.removeStorageSync('shopid');
                             wx.removeStorageSync('couponid');

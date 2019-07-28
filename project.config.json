@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 6,
 			"list": [
 				{
 					"id": 2,
@@ -82,6 +82,20 @@
 					"id": 4,
 					"name": "提交订单",
 					"pathName": "pages/home/tuiguangzhuanyuan/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提交订单",
+					"pathName": "pages/logon/logon",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提交订单",
+					"pathName": "pages/home/fenxiaoyuan/proportion/proportion",
 					"query": "",
 					"scene": null
 				}

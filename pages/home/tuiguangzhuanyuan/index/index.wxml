@@ -13,7 +13,7 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
       
       <view style='display:flex;justify-content:space-between;align-items:stretch;'>
-        <view class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
+        <navigator url="/pages/home/tuiguangzhuanyuan/see/see?id={{item.id}}" class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
           <view>
             <view class='van-ellipsis text-xl'>姓名：{{item.nickname}}</view>
             <view class='text-gray' style='margin-top:10rpx;'>电话:{{item.phone}}</view>
@@ -27,7 +27,7 @@
             <view><view style='color:#38f;font-size:35rpx;'>{{item.customer||0}}</view><view>累计客户</view></view>
             <view><view style='color:#38f;font-size:35rpx;'>{{item.ordernums||0}}</view><view>全部订单</view></view>
           </view>
-        </view>
+        </navigator>
         <navigator style='display:flex;align-items:center;background: linear-gradient(#3C4258, #727691);' url="/pages/home/tuiguangzhuanyuan/setting/proportion?id={{item.id}}" class="text-center" hover-class="weui-cell_active"><view style='color:white;font-size:32rpx;width:200rpx;'>
         <text>返佣设置</text> 
         </view></navigator>

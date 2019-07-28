@@ -24,7 +24,7 @@ Page({
     })
     var shareUrl="";
     //判断店长和经销商的身份
-    if (wx.getStorageSync("usertype")=="2") {
+    if (wx.getStorageSync("usertype") == "2" || wx.getStorageSync("usertype") == 6) {
       //2为经销商 3为店长 4为分销员
       //申请店长的链接，后面的参数是分销商的id
       shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=1" + "&uid=" + wx.getStorageSync("userid");

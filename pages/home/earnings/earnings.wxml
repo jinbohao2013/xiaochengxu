@@ -52,7 +52,7 @@
     <view class='van-hairline--bottom text-center' hidden='{{ajaxData.list.length==0}}' style='font-size:33rpx;line-height:120rpx;'>收益明细</view>
     <view class='van-hairline--bottom' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:100rpx;' wx:for="{{ajaxData.list}}" wx:key="index">
       <view>
-        <view><text class='margin-right'>{{item.createdate}}</text><text class='text-xl'>{{item.customername}}</text></view>
+        <view><text class='margin-right'>{{item.createdate}}</text><text class='text-xl' wx:if="{{item.customername}}">{{item.customername}}</text><text class='text-xl' wx:else>{{item.channel}}</text></view>
         <view class='text-df text-left margin-top-sm'  wx:if="{{item.shopownername}}">店长：{{item.shopownername}} <text style='margin-left:20rpx;' wx:if="{{item.salapersonname}}">分销员：{{item.salapersonname}}</text></view>
       </view>
       <view class='text-xl text-red' wx:if="{{item.gettype=='支出'}}">-{{item.num}}</view>

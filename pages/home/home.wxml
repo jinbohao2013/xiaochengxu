@@ -220,7 +220,7 @@
           <view>POS订单提交</view>
         </navigator>
       </view>
-      <view class='accumulate_one' wx:if="{{usertype=='2'||(usertype=='6'&&dataInfo.sendgoods=='1')}}">
+      <view class='accumulate_one' wx:if="{{usertype=='2'||(usertype=='6')}}">
         <navigator url='/pages/home/order/order'>
          <view style='color:#38f;'>{{dataInfo.ordernums||0}}</view>
          <view>全部订单</view></navigator>
@@ -251,7 +251,7 @@
           <view class='popularize_one' wx:if="{{usertype!='6'}}" catchtap='godatastatistics'>
               <image style='width:226rpx;height:117rpx' src='{{Images[1]}}'></image>
           </view>
-          <navigator url='/pages/home/order/order?type=2' class='popularize_one' wx:if="{{usertype=='6'&&dataInfo.sendgoods=='1'}}" >
+          <navigator url='/pages/home/order/order_zhuanyuan?type=2' class='popularize_one' wx:if="{{usertype=='6'&&dataInfo.sendgoods=='1'}}" >
               <image style='width:226rpx;height:117rpx' src='{{Images[4]}}'></image>
           </navigator>
           <navigator url='/pages/home/pos/index/index' class='popularize_one' wx:if="{{usertype=='6'&&dataInfo.posaudi=='1'}}">

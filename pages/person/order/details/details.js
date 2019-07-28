@@ -127,11 +127,18 @@ Page({
                 title: '收货成功'
               })
               that.onLoad(that.data.e)
-              //弹出优惠券的框
-              console.log("弹出优惠券的框");
-              that.setData({
-                modalshow: true
-              })
+              util.request(app.data.hostAjax + '/api/user/v1/wxloginopenid', {//判断是否有未读优惠券
+                openid: wx.getStorageSync("openid"),
+              }).then(function (res) {
+                if (res.Code == "200" && parseInt(res.Data.isticket) == 0) {
+                  //弹出优惠券的框
+                  console.log("弹出优惠券的框");
+                  that.setData({
+                    modalshow: true
+                  })
+                }
+              });
+              
             } else {
               wx.showToast({
                 title: '网络错误，情稍后重试！',

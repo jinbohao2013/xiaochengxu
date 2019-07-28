@@ -27,6 +27,7 @@
     "pages/invite/invite",
     "pages/home/home",
     "pages/home/order/order",
+    "pages/home/order/order_zhuanyuan",
     "pages/home/order/details/details",
     "pages/binding/binding",
     "pages/logon/logon",
@@ -57,6 +58,7 @@
     "pages/home/pos/seepos/seepos",
     "pages/home/pos/seepos_J/seepos",
     "pages/home/tuiguangzhuanyuan/index/index",
+    "pages/home/tuiguangzhuanyuan/see/see",
     "pages/home/tuiguangzhuanyuan/addnew/addnew",
     "pages/home/tuiguangzhuanyuan/setting/proportion",
     "pages/money/withdraw/cardbind/cardbind"

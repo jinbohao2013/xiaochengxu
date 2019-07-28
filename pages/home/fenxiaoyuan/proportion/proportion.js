@@ -75,12 +75,6 @@ Page({
       }
     });
   },
-  distributor(e){
-    //e.detail.value
-    this.setData({
-      distributor: e.detail.value
-    })
-  },
   shopowner(e) {
     this.setData({
       shopowner: e.detail.value
@@ -90,6 +84,13 @@ Page({
     this.setData({
       salaperson: e.detail.value
     })
+    this.settingauto()
+  },
+  settingauto() {//自动计算三者的比例
+    this.setData({
+      shopowner: 100 - parseFloat(this.data.salaperson).toFixed(2)
+    })
+    console.log(this.data.shopowner)
   },
   /**
    * 生命周期函数--监听页面显示

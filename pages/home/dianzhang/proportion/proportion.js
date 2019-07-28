@@ -13,6 +13,7 @@ Page({
     distributor: "",
     shopowner: "",
     salaperson: "",
+    hadsetting: false
   },
   isCard(e) {
     console.log(e.detail.value)
@@ -41,6 +42,11 @@ Page({
           salaperson: res.Data.salaperson,
           isCard: res.Data.ispos =="POS"?true:false
         })
+        if (res.Data.distributor){
+          _this.setData({
+            hadsetting:true
+          })
+        }
       }
     });
   },
@@ -92,11 +98,22 @@ Page({
     this.setData({
       shopowner: e.detail.value
     })
+    this.settingauto()
   },
   salaperson(e) {
     this.setData({
       salaperson: e.detail.value
     })
+    this.settingauto()
+  },
+  settingauto(){//自动计算三者的比例
+    if (this.data.distributor){
+      // Number(2),toFixed
+    }
+    this.setData({
+      distributor: 100 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2) 
+    })
+    console.log(this.data.distributor)
   },
   /**
    * 生命周期函数--监听页面显示

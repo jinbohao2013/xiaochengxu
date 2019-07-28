@@ -157,6 +157,9 @@ Page({
   getOrder: function (pagesize) {
     // 获取订单列表
     var that = this;
+    that.setData({
+      orderList: [],
+    })
     util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist', {//用户订单列表
       userid: wx.getStorageSync("userIdBuyGood"),
       ordertype: this.data.searchType,
@@ -193,12 +196,12 @@ Page({
       pageindex: this.data.pageindex,
       searchtxt: this.data.searchtxt
     }).then(function (res) {
-      console.log()
       if (res.Code == "200") {
         var arr = that.data.orderList.concat(res.Data.list);
         console.log("that.data.pageindex=", that.data.pageindex )
         console.log(that.data.pageindex == that.data.ajaxpageindex)
         if (that.data.pageindex == that.data.ajaxpageindex) {
+          
           that.getOrder(that.data.orderList.length)
           return;
         }

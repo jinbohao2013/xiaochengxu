@@ -25,7 +25,7 @@ Page({
       data: {
         phone: this.data.phone,
         code: this.data.code,
-        openid: app.globalData.openid
+        openid: wx.getStorageSync("openid")
       },
       success: (res) => {
         console.log(res)
@@ -38,17 +38,18 @@ Page({
           app.globalData.token = res.data.Data.token
           app.globalData.user_id = res.data.Data.user_id
           app.globalData.usertype = res.data.Data.usertype
-          setTimeout(()=>{
-            wx.redirectTo({
-              url: '/pages/home/home',
-            })
-          },1500)
+          
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
           } else {
             //储存--的经销商的用户id、店长的用户id、分销员的用户id--用于购买支付的id是分销员id不是用户id
             wx.setStorageSync("userid", res.data.Data.user_id);
             wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
+            setTimeout(() => {
+              wx.redirectTo({
+                url: '/pages/home/home',
+              })
+            }, 1500)
           }
         }else{
           wx.showToast({
