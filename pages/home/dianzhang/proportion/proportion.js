@@ -37,12 +37,12 @@ Page({
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          distributor: res.Data.distributor,
-          shopowner: res.Data.shopowner,
-          salaperson: res.Data.salaperson,
+          distributor: parseFloat(res.Data.distributor)||"",
+          shopowner: parseFloat(res.Data.shopowner) || "",
+          salaperson: parseFloat(res.Data.salaperson) || "",
           isCard: res.Data.ispos =="POS"?true:false
         })
-        if (res.Data.distributor){
+        if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype")==6){
           _this.setData({
             hadsetting:true
           })
@@ -57,7 +57,7 @@ Page({
   submit: function () {
     if (parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson) + parseFloat(this.data.distributor) != 100) {
       wx.showToast({
-        title: "经销员+店长+经销商的比例之和必须等于100%",
+        title: "分销员+店长+经销商的比例之和必须等于100%",
         icon: "none",
         duration: 4000
       })

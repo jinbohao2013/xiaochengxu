@@ -6,12 +6,12 @@
     </view>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
-    <view style='width:220rpx;'>销售员佣金比例： </view>
+    <view style='width:220rpx;'>分销员佣金比例： </view>
       <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson' value='{{salaperson}}'></input> <text>%</text>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center; margin:20rpx 0'>
-    <view style='width:200rpx;opacity:0;'>销售员佣金比例： </view>
-      <text>销售员推荐买家购买后能拿到的佣金比例</text>
+    <view style='width:200rpx;opacity:0;'>分销员佣金比例： </view>
+      <text>分销员推荐买家购买后能拿到的佣金比例</text>
   </view>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>店长佣金比例： </view>
@@ -30,7 +30,7 @@
     <view style='width:200rpx;opacity:0;'>经销商佣金比例： </view>
       <text>经销商能拿到的佣金比例</text>
   </view>
-  <view style='padding-left:30rpx;'>注：经销员+店长+经销商的比例之和必须等于100%</view>
+  <view style='padding-left:30rpx;'>注：分销员+店长+经销商的比例之和必须等于100%</view>
 
   <view>
     <view class="cu-bar margin-top">

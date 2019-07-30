@@ -19,7 +19,7 @@
       返佣设置
     </view>
     <view class='margin-top-sm' style='display:flex;align-items:center;justify-content:space-between'>
-      <view  style='width:220rpx;'>销售员佣金比例： </view>
+      <view  style='width:220rpx;'>分销员佣金比例： </view>
       <view style='display:flex;align-items:center;' >
         <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson' value='{{salaperson}}'></input> <text>%</text>
       </view>

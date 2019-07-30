@@ -32,8 +32,8 @@ Page({
       if (res.Code == "200") {
         _this.setData({
           // distributor: res.Data.distributor,
-          shopowner: res.Data.shopowner,
-          salaperson: res.Data.salaperson,
+          shopowner: parseFloat(res.Data.shopowner) || "",
+          salaperson: parseFloat(res.Data.salaperson) || "",
         })
       }
     });
@@ -45,7 +45,7 @@ Page({
   submit: function () {
     if(parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson)!=100){
       wx.showToast({
-        title: "经销员+店长的比例之和必须等于100%",
+        title: "分销员+店长的比例之和必须等于100%",
         icon: "none",
         duration:4000
       })
