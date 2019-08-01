@@ -17,8 +17,13 @@
       </view>
       <view class="cu-form-group">
         <view class="title">手机号:</view>
-        <input type='number' placeholder="请填写" value='{{userInfo.phone}}' bindinput='binphone'></input> 
+        <input type='number' placeholder="请填写" maxlength='11' value='{{userInfo.phone}}' bindinput='binphone'></input> 
       </view>
+      <!-- <view class="cu-form-group">
+        <view class="title">验证码</view>
+        <input placeholder="请填写"></input>
+        <button class="cu-btn bg-green shadow" bindtap='time'>{{timecode==60?'获取验证码':timecode}}</button>
+      </view> -->
       <view class="cu-form-group">
         <view class="title">姓别:</view>
         <input placeholder="请填写" value='{{userInfo.sex}}'  bindinput='binsex'></input> 
