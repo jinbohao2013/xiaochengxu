@@ -35,29 +35,29 @@
   <view class='title'>商品信息</view>
     <!-- 商品卡片 -->
     <van-card
-      num="{{ajaxData.num}}"
-      price="{{ajaxData.price}}"
-      desc="{{ajaxData.desc}}"
-      title="{{ajaxData.title}}"
-      thumb="{{ ajaxData.img }}"
+      num="{{ajaxData1.list[0].num}}"
+      price="{{ajaxData1.list[0].price}}"
+      desc="{{ajaxData1.list[0].tastname}}"
+      title="{{ajaxData1.list[0].goodsname}}"
+      thumb="{{ ajaxData1.list[0].img }}"
     />
     
   </view>
   <view class='main' style='margin-bottom:0;'>
-    <view style='padding: 0 30rpx;margin-top:20rpx;'>分类：{{ajaxData.taste}}</view>
-    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{tools.floatPrice(ajaxData.totle)}}</text></view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>商品金额： <text style='float:right;'>￥{{ajaxData1.goodsprice}}</text></view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;'>优惠券 
       <navigator url='/pages/goods/coupon_choose/coupon_choose?id={{orderid}}' style='float:right;' wx:if="{{ifchoose}}">{{couponprice}}元优惠券</navigator> 
       <navigator url='/pages/goods/coupon_choose/coupon_choose?id={{orderid}}' style='float:right;' wx:elif="{{hascoupon}}">使用优惠 ></navigator>
       <navigator style='float:right;' wx:else>暂无优惠券</navigator>      
     </view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top' wx:if="{{grad.gradename!='LV0'}}">会员折扣： <navigator url='/pages/person/level/level' class="cu-tag bg-red round sm" >{{ajaxData1.gradename}}</navigator><text style='float:right;'>×{{ajaxData1.gradpreference}}%</text></view>
     <view wx:if="{{checked==2}}" style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
     <view wx:if="{{checked==2}}" style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
-    <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{newprice||tools.floatPrice(ajaxData.totle)}}</view>
+    <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：￥{{newprice||ajaxData1.sumprice}}</view>
   </view><!-- mian结束 -->
   <view class='buy' wx:if="{{!loading}}">
     <van-submit-bar
-    price="{{newprice1||ajaxData.totle}}"
+    price="{{newprice1||ajaxData1.sumprice}}"
     button-text="提交订单"
     bind:submit="onClickButton"
     custom-class="van-submit-bar"
@@ -67,7 +67,7 @@
   <view class='buy' wx:if="{{loading}}">
     <van-submit-bar
     loading
-    price="{{newprice1||ajaxData.totle}}"
+    price="{{newprice1||ajaxData1.sumprice}}"
     button-text="提交订单"
     custom-class="van-submit-bar"
     safe-area-inset-bottom="{{ true }}"
@@ -92,7 +92,7 @@
       <view style='margin-bottom:230rpx;margin-top:30rpx;font-size:22px;'>支付成功</view>
       </view>
     <view style='font-size:19px;font-weight:900;'>雪加平台</view>
-    <view style='margin-bottom:400rpx;margin-top:30rpx;'>￥<text style='font-size:50rpx;'>{{tools.floatPrice(ajaxData.totle)}}</text></view>
+    <view style='margin-bottom:400rpx;margin-top:30rpx;'>￥<text style='font-size:50rpx;'>{{ajaxData1.sumprice}}</text></view>
     <button style='color:#4BBA03;border:1px solid #4BBA03;border-radius:5px;background-color:#fff;width:196rpx;height:48rpx;line-height:48rpx;font-size:16px;' bindtap='returnGoodsList'>返回商家</button>
   </view>
 </van-popup>

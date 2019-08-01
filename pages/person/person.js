@@ -61,6 +61,14 @@ Page({
         });
       }
     })
+    //会员等级
+    util.request(app.data.hostAjax + '/api/dester/v1/getcurstormdester', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          grad: res.Data
+        });
+      }
+    })
     util.request(app.data.hostAjax + '/api/user/v1/info', {
       user_id: wx.getStorageSync("userIdBuyGood"),
       curr_id: wx.getStorageSync("userIdBuyGood"), }).then(function (res) {

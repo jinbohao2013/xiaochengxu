@@ -52,15 +52,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "测试客服页面",
-					"pathName": "pages/home/tuiguangzhuanyuan/setting/proportion",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 3,
 					"name": "1",
-					"pathName": "pages/binding/binding",
+					"pathName": "pages/person/person",
 					"query": "",
 					"scene": null
 				},

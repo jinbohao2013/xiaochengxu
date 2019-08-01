@@ -61,7 +61,8 @@
     "pages/home/tuiguangzhuanyuan/see/see",
     "pages/home/tuiguangzhuanyuan/addnew/addnew",
     "pages/home/tuiguangzhuanyuan/setting/proportion",
-    "pages/money/withdraw/cardbind/cardbind"
+    "pages/money/withdraw/cardbind/cardbind",
+    "pages/person/level/level"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -119,7 +120,7 @@
     "van-collapse": "../../dist/collapse/index",
     "van-collapse-item": "../../dist/collapse-item/index",
     "van-picker": "../../dist/picker/index",
-    "jin-consultant":"/pages/component/consultant/consultant"
+    "jin-consultant": "/pages/component/consultant/consultant"
   },
   "sitemapLocation": "sitemap.json"
 }

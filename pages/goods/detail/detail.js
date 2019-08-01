@@ -348,6 +348,7 @@ this.setData({
     this.setData({
       show: false,
       autoplay: false,
+      acticeInxex: null,
     })
   },
 

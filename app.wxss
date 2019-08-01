@@ -11,6 +11,14 @@
 .jin-consultant{
   position:fixed;bottom:50%;font-size:1.5em;right:20rpx;background-image:url(http://www.yqcoffee.cn/image/customerservice.png);background-color:rgba(256,256,256,0.5);z-index:10;
 }
+/* //解决拖拽事件 */
+movable-view {
+    pointer-events: auto; 
+}
+
+movable-area {
+    pointer-events: none;
+}
 /* //底部导航样式 */
 .Bottom-Tabbar{
   position: fixed;

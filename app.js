@@ -12,6 +12,7 @@ App({
     isIphoneX: (wx.getSystemInfoSync()["model"].indexOf('iPhone X')>=0?true:false),
     screenHeight: wx.getSystemInfoSync()["screenHeight"],
     windowHeight: wx.getSystemInfoSync()["windowHeight"],
+    windowWidth: wx.getSystemInfoSync()["windowWidth"],
     dalay:true,
     stop: false,
     hideBotom: true,////隐藏底部导航

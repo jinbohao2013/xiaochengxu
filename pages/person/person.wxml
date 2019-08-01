@@ -1,7 +1,9 @@
 <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="content">
   <view class="header" style="height: 190rpx;background-color:#424454;">
-    <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
+    <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
+      <navigator url='/pages/person/level/level' class="cu-tag bg-red round" wx:if="{{grad.gradename!='LV0'}}">{{grad.gradename}}</navigator>
+    </view>
     <view>	
       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
       <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
@@ -22,7 +24,7 @@
             <navigator url='/pages/person/order/order?type=1'>
               <view class='t'>
                 <van-icon name="todo-list-o" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view wx:if="{{grad.payordernums!='0'}}" class="cu-tag badge">{{grad.payordernums}}</view>
               </view>
               <view class='text'>待付款</view>
             </navigator>
@@ -31,7 +33,7 @@
             <navigator url='/pages/person/order/order?type=2'>
               <view class='t'>
                 <van-icon name="records" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.shippedordernums!='0'}}">{{grad.shippedordernums}}</view>
               </view>
               <view class='text'>待发货</view>
             </navigator>
@@ -40,7 +42,7 @@
             <navigator url='/pages/person/order/order?type=3'>
               <view class='t'>
                 <van-icon name="logistics" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.receivedordernums!='0'}}">{{grad.receivedordernums}}</view>
               </view>
               <view class='text'>待收货</view>
             </navigator>
@@ -49,7 +51,7 @@
             <navigator url='/pages/person/order/order?type=4'>
               <view class='t'>
                 <van-icon name="gold-coin-o" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.returnordernums!='0'}}">{{grad.returnordernums}}</view>
               </view>
               <view class='text'>退款/售后</view>
             </navigator>

@@ -142,14 +142,7 @@ Page({
         saoma:true
       })
     }
-    console.log(this.data.totleprice)
-    if (wx.getStorageSync("couponprice")){
-      let price = this.data.totleprice/100 - this.data.couponprice
-      this.setData({
-        newprice: price.toFixed(2),
-        newprice1: price.toFixed(2)*100
-      })
-    }
+    
     
     this.getAddress()
     wx.hideShareMenu({
@@ -202,9 +195,18 @@ Page({
               if (res.data.Success) {
                 //调取提交订单接口
                 _this.setData({
+                  ajaxData1: res.data.Data,
                   orderid: res.data.Data.orderid,
                   sumprice: res.data.Data.sumprice,
                 })
+                console.log("优惠金额：", _this.data.couponprice)
+                if (wx.getStorageSync("couponprice")) {
+                  let price = res.data.Data.sumprice  - _this.data.couponprice
+                  _this.setData({
+                    newprice: price.toFixed(2),
+                    newprice1: price.toFixed(2) * 100
+                  })
+                }
               } else {
                 wx.showToast({
                   title: res.data.Msg,
