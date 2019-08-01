@@ -48,12 +48,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 0,
 			"list": [
 				{
-					"id": 2,
-					"name": "提交订单",
-					"pathName": "pages/goods/payMent/pay",
+					"id": 0,
+					"name": "测试客服页面",
+					"pathName": "pages/home/tuiguangzhuanyuan/setting/proportion",
 					"query": "",
 					"scene": null
 				},

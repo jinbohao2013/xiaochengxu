@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="withdraw__wrapper">
   <wxs src="../../../utils/tools.wxs" module="tools" />
   <view class="withdraw-account">

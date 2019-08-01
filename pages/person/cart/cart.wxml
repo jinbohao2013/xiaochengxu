@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
   <!-- <view class="service-policy">
     <view class="item">7天无忧退货</view>

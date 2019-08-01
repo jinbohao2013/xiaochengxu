@@ -1,4 +1,4 @@
-
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="content">
   <view class="header" style="height: 190rpx;background-color:#424454;">
     <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>

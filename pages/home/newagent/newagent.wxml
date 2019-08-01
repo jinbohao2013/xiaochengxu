@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <!--推广商品-->
 <view class='body'>
   <view class='header text-center' style='margin-bottom:0rpx;'>

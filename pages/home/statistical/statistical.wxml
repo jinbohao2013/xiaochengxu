@@ -1,4 +1,5 @@
 <!--推广商品-->
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='body'>
 <view class="flex text-center text-xl" style='height:90rpx;line-height:90rpx;position:relative;z-index:11;background-color: #fff;'>
     <view class="cu-item flex-sub {{index==TabCur?'on':'c'}}" wx:for="{{tab_bur}}" wx:key bindtap="tabSelect" data-id="{{index}}">

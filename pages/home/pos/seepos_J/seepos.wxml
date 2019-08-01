@@ -1,5 +1,5 @@
 <wxs src="../../../../utils/tools.wxs" module="tools" />
-
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='contion' >
    <view class="cu-form-group ">
     <view class="title title1 text-red" wx:if="{{goodsList.states=='0'}}">订单审核中 </view>

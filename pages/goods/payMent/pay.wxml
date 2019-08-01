@@ -1,4 +1,5 @@
 <!--推广商品-->
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <wxs src="../../../utils/tools.wxs" module="tools" />
 <!-- 二期新加的头部 -->
 <view class='add_header'>

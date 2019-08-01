@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="body">
 <view class="header" style="height:auto;">
     <view class="cu-avatar xl round margin-left" style="background-image:url({{consultant.imgurl}});width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin:0 28rpx 20rpx 0;float:left;"></view>

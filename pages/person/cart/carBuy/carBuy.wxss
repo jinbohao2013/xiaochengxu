@@ -17,3 +17,6 @@ button[class*="icon-"] {
     font-size: inherit;
     font-style: normal;
 }
+.jin-consultant{
+  bottom: 60%;
+}

@@ -7,3 +7,4 @@
 			
     <van-button type="primary" class="demo-margin-right">主要按钮</van-button>
 </view>
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>

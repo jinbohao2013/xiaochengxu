@@ -1,4 +1,5 @@
 <!--pages/home/dianzhang/proportion/proportion.wxml-->
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='body' style='background-color:#F8F8F8;padding:30rpx;'>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>分销员佣金比例： </view>

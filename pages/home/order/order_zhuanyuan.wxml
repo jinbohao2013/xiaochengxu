@@ -1,5 +1,5 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
-  
   <view wx:if='{{!hasRefund}}' class="status-box">
     <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
       {{item}}

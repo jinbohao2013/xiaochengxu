@@ -1,2 +1,3 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <!--pages/help/help.wxml-->
  <image src='http://www.yqcoffee.cn/image/demo_3.jpg' style='width:100%;' mode='widthFix'></image>

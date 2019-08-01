@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='all'>
    <view class='invite_img' style='position:relative;'>
      <image src='{{inviteImage[0]}}'></image>

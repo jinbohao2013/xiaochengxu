@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
   <view style='text-align:center;'>
     <navigator url='/pages/home/pos/submit/submit' class='cu-btn line-black' style='margin:auto;margin-top:10px;margin-bottom:10px;'>新增POS订单</navigator>

@@ -1,4 +1,6 @@
 <!--标题栏-->
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+
 <view class='aaaa' style='height:{{statusBarHeight}}px;background: linear-gradient(to left,#f9bb00,#fdd000);position:fixed;top:0;width:100%;z-index:22222;'></view>
 <view class='topBar' style='position:fixed;top:{{statusBarHeight}}px;width:100%;text-align:center;font-size:33rpx;color:#444;height:44px;line-height:44px;background: linear-gradient(to left,#f9bb00,#fdd000);z-index:22222;'>
   <!-- <view class='return' style='position:absolute;left:20rpx;' bindtap='return'><i-icon style='position:relative;top:-1.5px' size="20" type="return" /> 返回</view> -->
