@@ -86,8 +86,8 @@ Page({
           ajaxData: res.Data,
           totleprice: res.Data.sumprice,
         });
-        wx.setStorageSync("couponid", res.Data.list[0].couponid)
-        wx.setStorageSync("couponprice", res.Data.list[0].e_price)
+        wx.setStorageSync("couponid", res.Data.couponid)
+        wx.setStorageSync("couponprice", res.Data.e_price)
         that.onShow()
       } else {
         that.setData({
