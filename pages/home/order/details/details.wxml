@@ -48,7 +48,7 @@
                   <image class="icon" src="http://www.yqcoffee.cn/image/icon-address.png"></image>
               </view>
               <view class="right-box">
-                  <view class="name-tel">{{orderDetail.nickname}}  {{orderDetail.phone}}</view>
+                  <view class="name-tel">{{orderDetail.receivingname}}  {{orderDetail.phone}}</view>
                   <view class="text">
                     {{orderDetail.provincename}}
                     {{orderDetail.cityname}}

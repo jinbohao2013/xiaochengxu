@@ -160,7 +160,7 @@ Page({
     var s = 30 / 750 * wx.getSystemInfoSync().windowWidth;
     const ctx = wx.createCanvasContext('myQrcode')
     //画板的背景
-    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8085","https://www.yqcoffee.cn:2021");
+    var shareImg = _this.data.ajaxData.imgurl.split("|")[0].replace("http://39.106.49.173:8088","https://www.yqcoffee.cn:2019");
     console.log(shareImg)
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, w, h)
@@ -168,9 +168,9 @@ Page({
     //加入图片到canvas中
     var imgUrl;
     if (wx.getStorageSync("usertype")==1){
-      imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?goodsid=' + goodsId + '&shareid=' + wx.getStorageSync("userIdBuyGood")
+      imgUrl = 'https://www.yqcoffee.cn/goods/detail/?goodsid=' + goodsId + '&shareid=' + wx.getStorageSync("userIdBuyGood")
     }else{
-      imgUrl = 'https://www.yqcoffee.cn/goods1/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid") + '&shareid=' + wx.getStorageSync("userIdBuyGood")
+      imgUrl = 'https://www.yqcoffee.cn/goods/detail/?useridsaleman=' + wx.getStorageSync("fenxiaoshangid") + '&goodsid=' + goodsId + '&shopid=' + wx.getStorageSync("shopid") + '&shareid=' + wx.getStorageSync("userIdBuyGood")
     }
     
     console.log(imgUrl)
@@ -524,7 +524,9 @@ this.setData({
             url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
             data: {
               openid: wx.getStorageSync("openid"),
-              fxuserid:_this.data.shareid
+              imgurl: data.userInfo.avatarUrl,
+              nickname: data.userInfo.nickName,
+              fxuserid:_this.data.shareid||0
             },
             method: "get",
             header: {

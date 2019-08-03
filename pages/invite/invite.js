@@ -27,24 +27,24 @@ Page({
     if (wx.getStorageSync("usertype") == "2" || wx.getStorageSync("usertype") == 6) {
       //2为经销商 3为店长 4为分销员
       //申请店长的链接，后面的参数是分销商的id
-      shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=1" + "&uid=" + wx.getStorageSync("userid");
+      shareUrl = "https://www.yqcoffee.cn/userbind/?distributorid=" + wx.getStorageSync("distributorid") + "&state=1" + "&uid=" + wx.getStorageSync("userid");
     } else if (wx.getStorageSync("usertype") == "3"){
       //申请分销员的链接，后面的参数是经销商的id和店长的id
-      shareUrl = "https://www.yqcoffee.cn/usebind1/?distributorid=" + wx.getStorageSync("distributorid") + "&shopid=" + wx.getStorageSync("shopid") + "&uid=" + wx.getStorageSync("userid");
+      shareUrl = "https://www.yqcoffee.cn/usebind/?distributorid=" + wx.getStorageSync("distributorid") + "&shopid=" + wx.getStorageSync("shopid") + "&uid=" + wx.getStorageSync("userid");
     } else if (wx.getStorageSync("usertype") == "4") {
       //分享商品列表---后面的参数是分销员的id和店铺的id
-      shareUrl = "https://www.yqcoffee.cn/goods1/?useridsaleman=" + wx.getStorageSync("fenxiaoshangid")+"&shopid=" + wx.getStorageSync("shopid");
+      shareUrl = "https://www.yqcoffee.cn/goods/?useridsaleman=" + wx.getStorageSync("fenxiaoshangid")+"&shopid=" + wx.getStorageSync("shopid");
     }
     if (options.id){
       console.log("买断店长mm")
       wx.setNavigationBarTitle({
         title: '买断推广'
       })
-      shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=3" + "&uid=" + wx.getStorageSync("userid");
+      shareUrl = "https://www.yqcoffee.cn/userbind/?distributorid=" + wx.getStorageSync("distributorid") + "&state=3" + "&uid=" + wx.getStorageSync("userid");
     }
     console.log(shareUrl) 
     if (wx.getStorageSync("logo")){
-      const img111 = (wx.getStorageSync("logo").replace("http://39.106.49.173:8085", "https://www.yqcoffee.cn:2021")) 
+      const img111 = (wx.getStorageSync("logo").replace("http://39.106.49.173:8088", "https://www.yqcoffee.cn:2019")) 
       
       var w= 400 / 750 * wx.getSystemInfoSync().windowWidth;
       const ctx = wx.createCanvasContext('myQrcode')

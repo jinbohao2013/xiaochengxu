@@ -22,7 +22,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.4",
-	"appid": "wx9a6ead73a3bc0c40",
+	"appid": "wx8d7691a1be11d3ea",
 	"projectname": "demo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -48,13 +48,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 0,
 			"list": [
 				{
-					"id": 2,
+					"id": 0,
 					"name": "提交订单",
-					"pathName": "pages/goods/payMent/pay",
-					"query": "",
+					"pathName": "pages/goods/detail/detail",
+					"query": "id=2475",
 					"scene": null
 				},
 				{
