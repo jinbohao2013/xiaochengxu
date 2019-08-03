@@ -166,6 +166,7 @@ Page({
         }
       }
     })
+    
     util.request(app.data.hostAjax + '/api/dester/v1/getmyadviser', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
@@ -296,5 +297,13 @@ Page({
         })
       }
     });
+    //会员等级
+    util.request(app.data.hostAjax + '/api/dester/v1/getcurstormdester', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
+      if (res.Code == "200") {
+        that.setData({
+          grad: res.Data
+        });
+      }
+    })
   }
 })

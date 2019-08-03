@@ -1,4 +1,5 @@
 <!--推广商品-->
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='body' style='margin-bottom:120rpx;'>
  <wxs src="../../../utils/tools.wxs" module="tools" />
   <!-- <view class='header text-center' style='margin-bottom:10rpx;'>

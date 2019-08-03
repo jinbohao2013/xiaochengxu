@@ -79,7 +79,7 @@ Page({
     const orderId = e.currentTarget.dataset.id;
     const total_fee = e.currentTarget.dataset.money;
     //调取提交订单接口--跳转到购物车结算页
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/person/cart/carBuy/carBuy',
     })
   },

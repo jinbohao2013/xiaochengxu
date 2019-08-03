@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
     <view class="sec-wrap">
         <view class="order-status">
@@ -90,9 +91,17 @@
         <view class="goods-info" wx:if="{{orderDetail.status!='退换货'}}">
             <view class="row-box">
                 <view class="row-label">商品金额</view>
-                <view class="right-text">¥ {{orderDetail.sumprice}}</view>
+                <view class="right-text">¥ {{orderDetail.goodsprice}}</view>
             </view>
-            <view class="row-box" wx:if="{{orderDetail.deliverytype==1}}">
+            <view class="row-box" wx:if="{{orderDetail.e_price!=''}}">
+                <view class="row-label">优惠券</view>
+                <view class="right-text">{{orderDetail.e_price}}元{{orderDetail.couponnames}}</view>
+            </view>
+            <view class="row-box" wx:if="{{orderDetail.gradename!='LV0'}}">
+                <view class="row-label">会员折扣 <navigator url='/pages/person/level/level' class="cu-tag bg-red round sm" >{{orderDetail.gradename}}</navigator></view>
+                <view class="right-text">×{{orderDetail.gradpreference}}%</view>
+            </view>
+            <view class="row-box" wx:if="{{orderDetail.distributortype==1}}">
                 <view class="row-label">运费</view>
                 <view class="right-text">+ ¥ {{0.00}}</view>
             </view>

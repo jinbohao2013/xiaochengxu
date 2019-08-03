@@ -1,4 +1,4 @@
-
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='all'>
   <view class='binding'>
     <view class='image'><open-data class="img" type="userAvatarUrl" style=''></open-data></view>

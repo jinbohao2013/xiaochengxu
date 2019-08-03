@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <scroll-view scroll-x class="bg-white nav">
   <view class="flex text-center">
     <view class="cu-item flex-sub {{index==TabCur?'text-red cur':''}}" wx:for="{{tab_bur}}" wx:key bindtap="tabSelect" data-id="{{index}}">

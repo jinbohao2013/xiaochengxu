@@ -1,3 +1,4 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
   <wxs src="../../../utils/tools.wxs" module="tools" />
   <view wx:if='{{!hasRefund}}' class="status-box" style='justify-content:space-around;padding:0 30rpx;'>

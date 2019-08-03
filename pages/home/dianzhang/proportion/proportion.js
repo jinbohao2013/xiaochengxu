@@ -1,15 +1,15 @@
 // pages/home/dianzhang/proportion/proportion.js
 const util = require('../../../../utils/util.js');
-var app = getApp();
+var app=getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isCard: false,
-    id: 0,
-    shopid: 0,
+    isCard:false,
+    id:0,
+    shopid:0,
     distributor: "",
     shopowner: "",
     salaperson: "",
@@ -25,10 +25,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // /api/user/v1/addsetpercents
-    this.setData({
-      shopid: options.shopid,
-    })
+// /api/user/v1/addsetpercents
+      this.setData({
+        shopid: options.shopid,
+      })
     let _this = this;
     //获取三者的比例
     util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
@@ -37,14 +37,14 @@ Page({
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          distributor: parseFloat(res.Data.distributor) || "",
+          distributor: parseFloat(res.Data.distributor)||"",
           shopowner: parseFloat(res.Data.shopowner) || "",
           salaperson: parseFloat(res.Data.salaperson) || "",
-          isCard: res.Data.ispos == "POS" ? true : false
+          isCard: res.Data.ispos =="POS"?true:false
         })
-        if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
+        if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype")==6){
           _this.setData({
-            hadsetting: true
+            hadsetting:true
           })
         }
       }
@@ -66,29 +66,29 @@ Page({
     let _this = this;
     //分销商给店长设置
     util.request(app.data.hostAjax + '/api/user/v1/addsetpercents', {
-      userid: wx.getStorageSync("userid"),
+      userid: wx.getStorageSync("userid"), 
       shopid: this.data.shopid,
       distributor: this.data.distributor,
       shopowner: this.data.shopowner,
       salaperson: this.data.salaperson,
-      posstate: this.data.isCard ? 1 : 0
+      posstate: this.data.isCard?1:0
     }).then(function (res) {
       if (res.Code == "200") {
         wx.showToast({
           title: '设置成功'
         })
         wx.navigateBack({
-          delta: 1
+          delta:1
         })
       } else {
         wx.showToast({
-          title: res.Msg,
-          icon: "none"
+          title:res.Msg,
+          icon:"none"
         })
       }
     });
   },
-  distributor(e) {
+  distributor(e){
     //e.detail.value
     this.setData({
       distributor: e.detail.value
@@ -106,12 +106,12 @@ Page({
     })
     this.settingauto()
   },
-  settingauto() {//自动计算三者的比例
-    if (this.data.distributor) {
+  settingauto(){//自动计算三者的比例
+    if (this.data.distributor){
       // Number(2),toFixed
     }
     this.setData({
-      distributor: 100 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2)
+      distributor: 100 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2) 
     })
     console.log(this.data.distributor)
   },
@@ -119,7 +119,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

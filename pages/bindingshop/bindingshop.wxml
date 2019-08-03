@@ -1,5 +1,5 @@
 <!--pages/bindingshop/bindingshop.wxml-->
-
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='all'>
   <view class='binding'>
     <image src='{{userInfoImg}}'></image>

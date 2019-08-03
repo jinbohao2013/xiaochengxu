@@ -7,6 +7,12 @@
 .top_one{
   border-radius: 50px;
   float: left;
+  position: relative;
+}
+.top_one .cu-tag{
+  position: absolute;
+  bottom:0;
+  right: -20rpx;
 }
 .top_one image{
   width: 120rpx;

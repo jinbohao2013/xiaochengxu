@@ -76,19 +76,18 @@ Page({
       }
     })
     let that=this;
-    //获取订单列表ajaxData
-    util.request(app.data.hostAjax + '/api/transaction/v1/curstormorderlist', {//用户订单列表
-      userid: wx.getStorageSync("userIdBuyGood"),
-      ordertype: 0,
+    //获取确认订单信息
+    util.request(app.data.hostAjax + '/api/transaction/v1/confirmationorder', {//获取确认订单信息
+      user_id: wx.getStorageSync("userIdBuyGood"),
     }).then(function (res) {
-      console.log(res.Data.list)
+      console.log(res)
       if (res.Code == "200") {
         that.setData({
-          ajaxData: res.Data.list,
-          totleprice: res.Data.list[0].sumprice,
+          ajaxData: res.Data,
+          totleprice: res.Data.sumprice,
         });
-        wx.setStorageSync("couponid", res.Data.list[0].couponid)
-        wx.setStorageSync("couponprice", res.Data.list[0].e_price)
+        wx.setStorageSync("couponid", res.Data.couponid)
+        wx.setStorageSync("couponprice", res.Data.e_price)
         that.onShow()
       } else {
         that.setData({
@@ -286,7 +285,7 @@ Page({
                   url: app.data.hostAjax + '/api/transaction/v1/orderpayinfo',
                   data: {
                     userid: wx.getStorageSync("userIdBuyGood"),
-                    orderid: _this.data.ajaxData[0].id,
+                    orderid: _this.data.ajaxData.orderid,
                     total_fee: _this.data.newprice || _this.data.totleprice,//res.data.Data.sumprice,
                     addressid: _this.data.checked == 2 ? _this.data.address.id : 0,//收货地址id 自提传0
                     couponid: wx.getStorageSync("couponid") || 0

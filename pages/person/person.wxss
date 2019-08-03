@@ -11,11 +11,16 @@
 				width: 120rpx;
         height: 120rpx;
 				border-radius: 100rpx;
-				overflow: hidden;
 				margin-bottom: 20rpx;
         float: left;
         margin-right:50rpx;
+        position: relative;
 			}
+      .header .img .cu-tag{
+        position: absolute;
+        bottom:0;
+        right: -20rpx;
+      }
 			.list{
 				height: 90rpx;
 				line-height: 90rpx;

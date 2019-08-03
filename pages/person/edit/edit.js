@@ -13,8 +13,79 @@ Page({
       sex: "",
       birthday: "",
     },
+    timecode: 60,//增加的手机验证码
   },
-
+  time: function () {
+    let _this = this;
+    if (this.data.userInfo.phone.length!=11){
+      wx.showToast({
+        title: "请填写完整的手机号",
+        icon: 'none',
+        duration: 2500
+      })
+      return
+    }
+    //第三步时,此时第一步已经确认了手机号等信息。可以直接获取短信
+    if (_this.data.timecode == 60) {
+      _this.setData({
+        timecode: _this.data.timecode - 1
+      })
+      wx.request({//获取短信验证
+        url: app.data.hostAjax + "/api/user/v1/sms",
+        data: {
+          type:5,
+          account: this.data.userInfo.phone
+        },
+        method: "post",
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          console.log(res)
+          if (res.data.Code==200) {
+            _this.setData({
+              interval: setInterval(function () {
+                _this.setTime();
+              }, 1000)
+            })
+          } else {
+            clearInterval(_this.data.interval);
+            _this.setData({
+              timecode: 60
+            })
+            wx.showToast({
+              title: res.data.Msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        },
+        error(res) {
+          clearInterval(_this.data.interval);
+          _this.setData({
+            timecode: 60
+          })
+        }
+      })
+    }
+  },
+  setTime: function () {
+    let _this = this;
+    if (this.data.timecode == 60) {//倒计时开始
+      this.setData({
+        timecode: this.data.time - 1
+      })
+    } else if (this.data.timecode == 0) {//倒计时结束
+      clearInterval(_this.data.interval);
+      this.setData({
+        timecode: 60
+      })
+    } else {
+      this.setData({
+        timecode: this.data.timecode - 1
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -25,7 +96,6 @@ Page({
     //   })
     // }
     let _this = this;
-    
     wx.request({
       url: app.data.hostAjax + '/api/user/v1/info', // 获取用户信息
       data: {

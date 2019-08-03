@@ -1,4 +1,4 @@
-
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="content">
 <view class="header" style="height: 190rpx;background-color:#424454;">
 <view class='img'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data></view>
@@ -17,8 +17,13 @@
       </view>
       <view class="cu-form-group">
         <view class="title">手机号:</view>
-        <input type='number' placeholder="请填写" value='{{userInfo.phone}}' bindinput='binphone'></input> 
+        <input type='number' placeholder="请填写" maxlength='11' value='{{userInfo.phone}}' bindinput='binphone'></input> 
       </view>
+      <!-- <view class="cu-form-group">
+        <view class="title">验证码</view>
+        <input placeholder="请填写"></input>
+        <button class="cu-btn bg-green shadow" bindtap='time'>{{timecode==60?'获取验证码':timecode}}</button>
+      </view> -->
       <view class="cu-form-group">
         <view class="title">姓别:</view>
         <input placeholder="请填写" value='{{userInfo.sex}}'  bindinput='binsex'></input> 

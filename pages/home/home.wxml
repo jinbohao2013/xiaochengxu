@@ -3,6 +3,7 @@
    <view class='top1' style='position:relative;'>
       <view class='top_one'>
          <image src="{{userInfoImg}}" bindtap=''></image>
+         <navigator url='/pages/person/level/level' class="cu-tag bg-red round">{{grad.gradename}}</navigator>
       </view>
       <view class='top_two'>
         <view  class='name'>
@@ -18,7 +19,7 @@
         <text class='cent_two'><text wx:if="{{usertype=='2'}}">分销商绑定</text>
           <text wx:elif="{{usertype=='3'}}">店长绑定</text>
           <text wx:elif="{{usertype=='6'}}">推广专员</text>
-          <text wx:else>分销员绑定</text></text>  
+          <text wx:else>分销员绑定</text></text>
           <text class='cent_one'>自购分佣</text>
           <navigator url='/pages/home/tuiguangzhuanyuan/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
          推广专员</navigator>
@@ -55,7 +56,7 @@
             <navigator url='/pages/person/order/order?type=1'>
               <view class='t'>
                 <van-icon name="todo-list-o" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+               <view wx:if="{{grad.payordernums!='0'}}" class="cu-tag badge">{{grad.payordernums}}</view>
               </view>
               <view class='text'>待付款</view>
             </navigator>
@@ -64,7 +65,7 @@
             <navigator url='/pages/person/order/order?type=2'>
               <view class='t'>
                 <van-icon name="records" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.shippedordernums!='0'}}">{{grad.shippedordernums}}</view>
               </view>
               <view class='text'>待发货</view>
             </navigator>
@@ -73,7 +74,7 @@
             <navigator url='/pages/person/order/order?type=3'>
               <view class='t'>
                 <van-icon name="logistics" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.receivedordernums!='0'}}">{{grad.receivedordernums}}</view>
               </view>
               <view class='text'>待收货</view>
             </navigator>
@@ -82,7 +83,7 @@
             <navigator url='/pages/person/order/order?type=4'>
               <view class='t'>
                 <van-icon name="gold-coin-o" size="26px" color="#999" custom-class="icon" />
-                <!-- <view class="cu-tag badge">{{1}}</view> -->
+                <view class="cu-tag badge" wx:if="{{grad.returnordernums!='0'}}">{{grad.returnordernums}}</view>
               </view>
               <view class='text'>退款/售后</view>
             </navigator>
@@ -280,4 +281,4 @@
     </view>
   </view>
 </view>
-<navigator url='/pages/person/consultant1/consultant1' class='cu-avatar round lg margin-xs shadow' style='position:fixed;bottom:{{isIphoneX?"150rpx":"115rpx"}};font-size:1.5em;right:20rpx;background-image:url(http://www.yqcoffee.cn/image/kefu.png)'></navigator>
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>

@@ -348,6 +348,7 @@ this.setData({
     this.setData({
       show: false,
       autoplay: false,
+      acticeInxex: null,
     })
   },
 
@@ -524,8 +525,6 @@ this.setData({
             url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
             data: {
               openid: wx.getStorageSync("openid"),
-              imgurl: data.userInfo.avatarUrl,
-              nickname: data.userInfo.nickName,
               fxuserid:_this.data.shareid||0
             },
             method: "get",

@@ -1,0 +1,6 @@
+
+<movable-area style="height: {{height}}px; width: 750rpx;position:fixed;z-index:1;">
+  <movable-view damping="{{50}}" friction="{{5}}" inertia="{{true}}" x="{{x}}" y="{{y}}" class='my-class' direction="all">
+    <navigator  url='/pages/person/consultant1/consultant1'style="height:100%;width:100%;"></navigator>
+  </movable-view>
+</movable-area>
