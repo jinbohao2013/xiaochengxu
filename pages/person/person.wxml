@@ -2,7 +2,7 @@
 <view class="content">
   <view class="header" style="height: 190rpx;background-color:#424454;">
     <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
-      <navigator url='/pages/person/level/level' class="cu-tag bg-red round" wx:if="{{grad.gradename!='LV0'}}">{{grad.gradename}}</navigator>
+      <navigator url='/pages/person/level/level' class="cu-tag bg-red round" >{{grad.gradename}}</navigator>
     </view>
     <view>	
       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>

@@ -305,6 +305,8 @@ Page({
                           signType: 'MD5',
                           paySign: JSON.parse(res.data.Data).paySign,
                           success(res) {//支付成功
+                            wx.removeStorageSync('useridsaleman');
+                            wx.removeStorageSync('salemanshopid');
                             wx.removeStorageSync('couponid');
                             wx.removeStorageSync('couponprice');
                             //展示支付成功的界面

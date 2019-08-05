@@ -165,13 +165,14 @@ Page({
       }
     });
     if (this.data.readybuy){return}
+    console.log("扫码的shopid是：", wx.getStorageSync("salemanshopid") || 0)
     wx.request({
       url: app.data.hostAjax + "/api/transaction/v1/buynow",
       data: {
         userid: wx.getStorageSync("userIdBuyGood"),
         goodsid: _this.data.ajaxData.id,
         salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid") || 0,//分销商的id分销员id
-        shopid: wx.getStorageSync("shopid") || 0,//店铺id--每个人都有一个店铺
+        shopid: wx.getStorageSync("salemanshopid") || 0,//店铺id--每个人都有一个店铺
         num: this.data.ajaxData.num,
         tasteid: this.data.ajaxData.tasteId,//商品口味
       },
@@ -343,7 +344,7 @@ Page({
                     readybuy:true
                   })
                   wx.removeStorageSync('useridsaleman');
-                  wx.removeStorageSync('shopid');
+                  wx.removeStorageSync('salemanshopid');
                   wx.removeStorageSync('couponid');
                   wx.removeStorageSync('couponprice');
                   wx.redirectTo({
@@ -387,7 +388,7 @@ Page({
         userid: wx.getStorageSync("userIdBuyGood"),
         goodsid: _this.data.ajaxData.id,
         salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid")||0,//分销商的id分销员id
-        shopid: wx.getStorageSync("shopid")||0,//店铺id--每个人都有一个店铺
+        shopid: wx.getStorageSync("salemanshopid")||0,//店铺id--每个人都有一个店铺
         num: this.data.ajaxData.num,
         tasteid: this.data.ajaxData.tasteId,//商品口味
       },
@@ -440,7 +441,7 @@ Page({
                               readybuy: true
                             })
                             wx.removeStorageSync('useridsaleman');
-                            wx.removeStorageSync('shopid');
+                            wx.removeStorageSync('salemanshopid');
                             wx.removeStorageSync('couponid');
                             wx.removeStorageSync('couponprice');
                             wx.redirectTo({

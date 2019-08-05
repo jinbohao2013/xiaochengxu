@@ -51,7 +51,7 @@
       <navigator url='/pages/goods/coupon_choose/coupon_choose?id={{ajaxData.orderid}}' style='float:right;' wx:elif="{{hascoupon}}">使用优惠 ></navigator>
       <navigator style='float:right;' wx:else>暂无优惠券</navigator>      
     </view>
-    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top' wx:if="{{grad.gradename!='LV0'}}">会员折扣： <navigator url='/pages/person/level/level' class="cu-tag bg-red round sm" >{{ajaxData.gradename}}</navigator><text style='float:right;'>×{{ajaxData.gradpreference}}%</text></view>
+    <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top' wx:if="{{ajaxData.gradename!='LV0'}}">会员折扣： <navigator url='/pages/person/level/level' class="cu-tag bg-red round sm" >{{ajaxData.gradename}}</navigator><text style='float:right;'>×{{ajaxData.gradpreference}}%</text></view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>配送方式： <text style='float:right;'>快递免运费</text></view>
     <view style='line-height:40rpx;margin:30rpx 0;padding: 0 30rpx;van-hairline--top'>运费： <text style='float:right;'>￥0.00</text></view>
     <view class='totle text-right van-hairline--top' style='padding: 0 30rpx;font-size:30rpx;'>合计：<text class='text-red'>￥{{newprice||(ajaxData.sumprice)}}</text> </view>

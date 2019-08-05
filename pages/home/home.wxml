@@ -3,7 +3,7 @@
    <view class='top1' style='position:relative;'>
       <view class='top_one'>
          <image src="{{userInfoImg}}" bindtap=''></image>
-         <navigator url='/pages/person/level/level' class="cu-tag bg-red round" wx:if="{{grad.gradename!='LV0'}}">{{grad.gradename}}</navigator>
+         <navigator url='/pages/person/level/level' class="cu-tag bg-red round">{{grad.gradename}}</navigator>
       </view>
       <view class='top_two'>
         <view  class='name'>
