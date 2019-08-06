@@ -75,9 +75,9 @@ Page({
       }
       if (decodeURIComponent(options.q).indexOf("shopid")>0){
         if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
-          wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
+          wx.setStorageSync("salemanshopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
         } else {
-          wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+          wx.setStorageSync("salemanshopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
         }
       }
       if (decodeURIComponent(options.q).indexOf("useridsaleman") > 0){
