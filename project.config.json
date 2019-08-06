@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -89,6 +89,13 @@
 					"id": -1,
 					"name": "提交订单",
 					"pathName": "pages/home/fenxiaoyuan/proportion/proportion",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提交订单",
+					"pathName": "pages/person/person",
 					"query": "",
 					"scene": null
 				}
