@@ -62,7 +62,9 @@
     "pages/home/tuiguangzhuanyuan/addnew/addnew",
     "pages/home/tuiguangzhuanyuan/setting/proportion",
     "pages/money/withdraw/cardbind/cardbind",
-    "pages/person/level/level"
+    "pages/person/level/level",
+    "pages/help/loginAgreement/text1",
+    "pages/help/loginAgreement/text2"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -18,13 +18,7 @@ App({
     hideBotom: true,////隐藏底部导航
   },
   onLaunch: function () {
-    // if (wx.getStorageSync("token")) {//ifLogin
-    //   wx.reLaunch({
-    //     url: 'pages/logs/logs'
-    //   })
-    //   return false;
-    // }
-    // return
+    wx.clearStorageSync();
     let _this=this;
    
     new Promise(function (resolve, reject){

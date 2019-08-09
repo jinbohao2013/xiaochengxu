@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
@@ -58,44 +58,16 @@
 					"scene": null
 				},
 				{
-					"id": 5,
+					"id": 1,
 					"name": "首页-审核",
-					"pathName": "pages/home/home",
+					"pathName": "pages/home/newagent/newagent",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 2,
 					"name": "修改信息",
-					"pathName": "pages/person/consultant/consultant",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "提交订单",
-					"pathName": "pages/home/tuiguangzhuanyuan/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "提交订单",
-					"pathName": "pages/logon/logon",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "提交订单",
-					"pathName": "pages/home/fenxiaoyuan/proportion/proportion",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "提交订单",
-					"pathName": "pages/person/person",
+					"pathName": "pages/person/order/details/details",
 					"query": "",
 					"scene": null
 				}

@@ -1,0 +1,8 @@
+page{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  line-height: 54rpx;
+}
+strong{
+  font-weight: bold;
+}
