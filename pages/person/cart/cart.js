@@ -81,7 +81,7 @@ Page({
       data: {
         userid: wx.getStorageSync("userIdBuyGood"),
         salapersonid: wx.getStorageSync("useridsaleman") || wx.getStorageSync("fenxiaoshangid") || 0,//分销商的id分销员id
-        shopid: wx.getStorageSync("salemanshopid") || 0,//店铺id--每个人都有一个店铺
+        shopid: wx.getStorageSync("salemanshopid") || wx.getStorageSync("shopid") || 0,//店铺id--每个人都有一个店铺
       },
       method: "get",
       header: {

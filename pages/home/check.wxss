@@ -6,7 +6,7 @@
   margin-right: 20rpx;
 }
 .a{
-  
+  width: 250rpx
 }
 .cu-tag {
   /* margin: 0 */

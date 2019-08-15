@@ -1,8 +1,8 @@
 /* pages/component/toast_coupon/toast_coupon.wxss */
 .content{
   width: 750rpx;
-  height:513rpx;
-  background-image: url(http://www.yqcoffee.cn/image/toastcoupon_change.png);
+  height:603rpx;
+  background-image: url(http://www.yqcoffee.cn/image/toastcoupon.png);
   background-size: 100%;
   padding-top: 235rpx;
  
@@ -12,4 +12,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+.content_scroll{
+  height: 268rpx;
+  overflow: scroll;
 }

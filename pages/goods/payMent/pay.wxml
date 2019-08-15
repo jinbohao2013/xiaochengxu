@@ -39,7 +39,7 @@
       price="{{ajaxData1.list[0].price}}"
       desc="{{ajaxData1.list[0].tastname}}"
       title="{{ajaxData1.list[0].goodsname}}"
-      thumb="{{ ajaxData1.list[0].img }}"
+      thumb="{{ ajaxData1.list[0].smallimg }}"
     />
     
   </view>

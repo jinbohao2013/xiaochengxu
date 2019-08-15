@@ -2,19 +2,28 @@
 <!--推广商品-->
 <view class='body'>
   <view class='header' style='margin-bottom:0rpx;'>
-    <view class='van-hairline--bottom text-xl ' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
+    <!-- <view class='van-hairline--bottom text-xl ' style='display:flex;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;'>
       <view>姓名</view><view>电话</view><view>店铺名称</view><view>是否通过</view>
-    </view>
+    </view> -->
 
-    <view class='van-hairline--bottom text-xl' style='display:;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;' wx:for="{{ajaxData}}" wx:key="index">
-      <view class='a' style='white-space:nowrap;'>{{item.nickname}}</view>
-      
-      <view  class='b'>{{item.phone}}</view>
-     {{item.shopname}}
+    <view class='van-hairline--bottom ' style='display:;align-items:center;padding:20rpx 25rpx;justify-content:space-between;min-height:114rpx;' wx:for="{{ajaxData}}" wx:key="index">
+    <view style='background-color:#eee;border-radius:5px;padding:20rpx 25rpx;'>
+      <view><view class='a' style='white-space:nowrap;'>姓名：{{item.nickname}}</view>
+      <view  class='b'>手机号：{{item.phone}}</view></view>
+
+<view style='display:flex;align-items:center;justify-content:space-between;'>
+<view style='width:450rpx;'>店铺名称：{{item.shopname}}</view>
+<view style='width:200rpx;text-align:center;'>
         <button wx:if="{{item.states=='已通过'}}" class='cu-tag line-red' data-id='{{item.id}}' >{{item.states}}</button>
         <button wx:if="{{item.states=='已驳回'}}" class='cu-tag line-black' data-id='{{item.id}}'>{{item.states}}</button>
         <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" class='cu-tag line-red' bindtap='agree' data-id='{{item.id}}' data-type='{{item.ispayover}}'>同意</button>
         <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" style='margin-left: 20rpx;' class='cu-tag line-black'  bindtap='hideModal' data-id='{{item.id}}'>不同意</button>
+</view>
+        </view>
+    </view>
+      
+      
+     
       
     </view>
     

@@ -23,7 +23,7 @@ Component({
       if (res.Code == "200") {
         var arr = res.Data.list;
         that.setData({
-          orderList: arr[0],
+          orderList: arr,
         });
       } else {
       }

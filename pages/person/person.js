@@ -101,6 +101,12 @@ Page({
         selected: 1
       })
     }
+    if (wx.getStorageSync("usertype") != 1) {
+      //系统用户全部切换到home页面
+      wx.redirectTo({
+        url: '/pages/home/home',
+      })
+    }
     let _this=this;
     //会员等级
     util.request(app.data.hostAjax + '/api/dester/v1/getcurstormdester', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
