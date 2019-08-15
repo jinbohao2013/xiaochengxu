@@ -34,7 +34,7 @@
       <view class="goods-price" style='padding-right:20rpx;'>
       <view class='margin-bottom-sm' wx:if="{{item.e_price}}">使用{{item.couponnames}}减扣{{item.e_price}}元</view>
         共 {{item.goodslist.length}} 件商品 合计：
-        <text class="p">¥ {{tools.fixd2(item.sumprice-item.e_price)}}</text>
+        <text class="p">¥ {{tools.fixd2(item.sumprice)}}</text>
       </view>
       <!-- <view class="goods-info">
         <view class="goods-des">

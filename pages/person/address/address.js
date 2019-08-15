@@ -30,6 +30,9 @@ Page({
             addressList: res.data.Data.list
           })
         } else {
+          _this.setData({
+            addressList: ""
+          })
           wx.showToast({
             title: '请添加收货地址',
             icon: 'none'

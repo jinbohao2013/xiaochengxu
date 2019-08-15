@@ -103,7 +103,7 @@
             </view>
             <view class="row-box">
                 <view class="row-label">应付总额</view>
-                <view class="right-text">¥ {{tools.fixd2(orderDetail.sumprice-orderDetail.e_price)}}</view>
+                <view class="right-text">¥ {{tools.fixd2(orderDetail.sumprice)}}</view>
             </view>
         </view>
         <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'}}">

@@ -13,12 +13,61 @@ Page({
     distributor: "",
     shopowner: "",
     salaperson: "",
-    hadsetting: false
+    hadsetting: false,
+    showSelect:false
   },
   isCard(e) {
     console.log(e.detail.value)
     this.setData({
       isCard: e.detail.value
+    })
+    if (e.detail.value){//设置pos
+      util.request(app.data.hostAjax + '/api/user/v1/addispos', {
+        userid: wx.getStorageSync("userid"),
+        shopid: this.data.shopid,
+        posstate: 1
+      }).then(function (res) {
+      });
+    }else{
+      //取消pos
+      util.request(app.data.hostAjax + '/api/user/v1/addispos', {
+        userid: wx.getStorageSync("userid"),
+        shopid: this.data.shopid,
+        posstate: 0
+      }).then(function (res) {
+      });
+    }
+  },
+  checkname(e) {
+    let _this=this;
+    this.setData({
+      goodname: e.currentTarget.dataset.name,
+      showSelect: !this.data.showSelect,
+      goodsid: e.currentTarget.dataset.id
+    })
+    util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
+      userid: wx.getStorageSync("userid"),
+      shopid: this.data.shopid,
+      goodsid: e.currentTarget.dataset.id
+    }).then(function (res) {
+      if (res.Code == "200") {
+        _this.setData({
+          distributor: parseFloat(res.Data.distributor) || "",
+          shopowner: parseFloat(res.Data.shopowner) || "",
+          salaperson: parseFloat(res.Data.salaperson) || "",
+          isCard: res.Data.ispos == "POS" ? true : false
+        })
+        if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
+          _this.setData({
+            hadsetting: true
+          })
+        }
+      }
+    });
+  },
+  changgoods(){
+    this.setData({
+      showSelect: !this.data.showSelect
     })
   },
   /**
@@ -31,22 +80,37 @@ Page({
       })
     let _this = this;
     //获取三者的比例
-    util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
-      userid: wx.getStorageSync("userid"),
-      shopid: this.data.shopid,
+    
+    //获取所有商品的名字和id，名字展示页面，id选取第一个调取查询分成比列接口
+    util.request(app.data.hostAjax + '/api/user/v1/getgoodslist', {
+      pageindex:1,
+      pagesize: 111,
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          distributor: parseFloat(res.Data.distributor)||"",
-          shopowner: parseFloat(res.Data.shopowner) || "",
-          salaperson: parseFloat(res.Data.salaperson) || "",
-          isCard: res.Data.ispos =="POS"?true:false
+          goodsLists:res.Data.list,
+          goodname: res.Data.list[0].goodsabbreviation,
+          goodsid: res.Data.list[0].id
         })
-        if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype")==6){
-          _this.setData({
-            hadsetting:true
-          })
-        }
+        util.request(app.data.hostAjax + '/api/user/v1/getshopownerpercents', {
+          userid: wx.getStorageSync("userid"),
+          shopid: _this.data.shopid,
+          goodsid: res.Data.list[0].id
+        }).then(function (res) {
+          if (res.Code == "200") {
+            _this.setData({
+              distributor: parseFloat(res.Data.distributor) || "",
+              shopowner: parseFloat(res.Data.shopowner) || "",
+              salaperson: parseFloat(res.Data.salaperson) || "",
+              isCard: res.Data.ispos == "POS" ? true : false
+            })
+            if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
+              _this.setData({
+                hadsetting: true
+              })
+            }
+          }
+        });
       }
     });
   },
@@ -71,7 +135,8 @@ Page({
       distributor: this.data.distributor,
       shopowner: this.data.shopowner,
       salaperson: this.data.salaperson,
-      posstate: this.data.isCard?1:0
+      posstate: this.data.isCard?1:0,
+      goodsid: this.data.goodsid
     }).then(function (res) {
       if (res.Code == "200") {
         wx.showToast({

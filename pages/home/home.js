@@ -54,6 +54,11 @@ Page({
   },
   
   go_byout(){
+    wx.showToast({
+      title: '开发中',
+      icon:'none'
+    })
+    return
     wx.navigateTo({
       url: '/pages/invite/invite?id=1',//买断店长
     })

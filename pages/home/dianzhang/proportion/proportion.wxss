@@ -1,1 +1,17 @@
-/* pages/home/dianzhang/proportion/proportion.wxss */
+.li{
+  height: 46rpx;
+  line-height: 46rpx;
+  background-color: #eee;
+  padding: 0 15rpx;
+}
+.li:hover{
+  background-color: #999
+}
+.li+.li{
+  border-top:1px solid #999;
+}
+.ul{
+  position: absolute;
+  top: 45rpx;
+  left: 10rpx;
+}
