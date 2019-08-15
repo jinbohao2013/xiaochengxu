@@ -1,6 +1,18 @@
 <!--pages/home/dianzhang/proportion/proportion.wxml-->
 <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class='body' style='background-color:#F8F8F8;padding:30rpx;'>
+  <view class="cu-bar solid-bottom">
+    <view class='text-xl' style='color:#933A3A;' style='display:flex;align-items:center;'>
+      <view>佣金设置: </view>
+      <view class='text-sm' style='width:200rpx;height:46rpx;line-height:46rpx;border-radius:46px;border:1px solid #000;position:relative;z-index:11;margin-left:20rpx;'>
+        <view bindtap='changgoods' style='padding:0 20rpx;'>{{goodname}}<text style='float:right' class='jinbohao icon-unfold'></text></view>
+        
+        <view class='ul ' style='width:180rpx;' wx:if="{{showSelect}}">
+          <view class='li' wx:for="{{goodsLists}}" wx:key="index" bindtap='checkname' data-id='{{item.id}}' data-name='{{item.goodsabbreviation}}'>{{item.goodsabbreviation}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
   <view style='line-height:45rpx;display:flex;align-items:center;'>
     <view style='width:220rpx;'>分销员佣金比例： </view>
       <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson' value='{{salaperson}}'></input> <text>%</text>

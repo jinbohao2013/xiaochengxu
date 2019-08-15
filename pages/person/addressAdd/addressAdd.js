@@ -84,14 +84,14 @@ Page({
     });
   },
   deleteAddress(event) {
-    console.log(event.target)
+    console.log(event)
     let that = this;
     wx.showModal({
       title: '',
       content: '确定要删除地址？',
       success: function (res) {
         if (res.confirm) {
-          let addressId = event.target.dataset.userbankid;
+          let addressId = event.currentTarget.dataset.userbankid;
           util.request(app.data.hostAjax + '/api/my/v1/deletereceivingaddress', { user_id: wx.getStorageSync("userIdBuyGood"), userbankid: addressId }, 'get').then(function (res) {
             if (res.Success) {
               wx.navigateBack({
