@@ -75,6 +75,9 @@ App({
                       case 4:
                         _this.getfenxiaoid('/api/dester/v1/getsalespersondester', type)
                         break;
+                      case 6:
+                        _this.getfenxiaoid('/api/dester/v1/getpromotiondester', type)
+                        break;
                       default:
                         break;
                     }
@@ -202,10 +205,6 @@ App({
             }else{
               if (e) {
                 
-              }else{
-                wx.redirectTo({
-                  url: '/pages/goods/index/index'
-                })
               }
             }
             //获取用户的openid 
@@ -228,24 +227,25 @@ App({
                 if(e){
                   callback()
                 }else{
-                  wx.removeStorageSync('saoma')
-                  if (that.globalData.usertype == '2' || that.globalData.usertype == '3' || that.globalData.usertype == '4') {
-                    wx.redirectTo({
-                      url: '/pages/goods/index/index'
-                    })
-                  } else {
-                    //用户进来要清楚用户以前的销售信息
-                    wx.removeStorageSync('useridsaleman')
-                    wx.removeStorageSync('shopid')
-                    wx.redirectTo({
-                      url: '/pages/goods/index/index',
-                    })
-                  }
+                  
                 }
                 
               }
             })
           }
+        })
+      }
+    })
+  },
+  checkauthorization(callback){
+    wx.getUserInfo({
+      success: (data) => {
+        if (callback) { callback();}
+       
+      },
+      fail: () => {
+        wx.navigateTo({
+          url: '/pages/authorize/authorize',
         })
       }
     })

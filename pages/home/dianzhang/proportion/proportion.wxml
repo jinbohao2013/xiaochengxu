@@ -39,7 +39,7 @@
       <text>经销商能拿到的佣金比例</text>
   </view>
   <view style='padding-left:30rpx;'>注：分销员+店长+经销商的比例之和必须等于100%</view>
- <view class='text-right margin' hidden='{{hadsetting}}'> <button class='cu-btn bg-black' bindtap='submit'>保存</button></view>
+ <view class='text-right margin'> <button class='cu-btn bg-black' bindtap='submit'>保存</button></view>
   <view>
     <view class="cu-bar margin-top">
       <view class='action text-xl' style='color:#933A3A;font-size:36rpx'>

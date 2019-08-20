@@ -424,14 +424,23 @@ this.setData({
     this.setData({ show: !this.data.show });
   },
   togglePopup() {
-    this.setData({ show1: !this.data.show1 });
+    app.checkauthorization(() =>{
+      this.setData({ show1: !this.data.show1 });
+    })
   },
   onGotUserInfo: function (e) {
-    console.log(e.currentTarget)
-    this.setData({
-      buyType: e.currentTarget.dataset.index
+    app.checkauthorization(()=>{
+      if (e.currentTarget.dataset.url) {
+        wx.navigateTo({
+          url: e.currentTarget.dataset.url,
+        })
+        return
+      }
+      this.setData({
+        buyType: e.currentTarget.dataset.index
+      })
+      this.onClickButton()
     })
-    this.onClickButton()
   },
   onClickButton() {//立即购买
   let _this =this;

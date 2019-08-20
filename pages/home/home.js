@@ -56,7 +56,7 @@ Page({
   go_byout(){
     wx.showToast({
       title: '开发中',
-      icon:'none'
+      icon: 'none'
     })
     return
     wx.navigateTo({

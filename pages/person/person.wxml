@@ -1,6 +1,13 @@
 <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="content">
-  <view class="header" style="height: 190rpx;background-color:#424454;">
+  <view wx:if="{{hideBotom}}" class="header" style="height: 190rpx;background-color:#424454;">
+    <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
+    </view>
+    <view class='margin-top' style="font-size:55rpx;" bindtap='onGotUserInfo'>	
+      点击登录
+    </view>
+  </view>
+  <view wx:else class="header" style="height: 190rpx;background-color:#424454;">
     <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
       <navigator url='/pages/person/level/level' class="cu-tag bg-red round" >{{grad.gradename}}</navigator>
     </view>
@@ -12,7 +19,7 @@
   <view class="main" style='margin:26rpx;'>
   <!--  -->
     <view class='top' style='background-color:#F2F2F2;border-radius:5px;'>
-    <view style='padding:25rpx 28rpx;' bindtap='go_order'> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
+    <view style='padding:25rpx 28rpx;' bindtap='onGotUserInfo' data-url="/pages/person/order/order"> <text>我的订单</text>  <view style='float:right;'>查看全部订单                <van-icon
         name="arrow"
         size="10px"
         color="#999"
@@ -21,73 +28,73 @@
       <view class='line' style='height:1rpx;background-color:#CFCFCF;'></view>
       <view class='lists'>
           <view class=''>
-            <navigator url='/pages/person/order/order?type=1'>
+            <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/order/order?type=1'>
               <view class='t'>
                 <van-icon name="todo-list-o" size="26px" color="#999" custom-class="icon" />
-                <view wx:if="{{grad.payordernums!='0'}}" class="cu-tag badge">{{grad.payordernums}}</view>
+                <view wx:if="{{grad.payordernums!='0'&&!hideBotom}}" class="cu-tag badge">{{grad.payordernums}}</view>
               </view>
               <view class='text'>待付款</view>
-            </navigator>
+            </view>
           </view>
           <view>
-            <navigator url='/pages/person/order/order?type=2'>
+            <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/order/order?type=2'>
               <view class='t'>
                 <van-icon name="records" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge" wx:if="{{grad.shippedordernums!='0'}}">{{grad.shippedordernums}}</view>
+                <view class="cu-tag badge" wx:if="{{grad.shippedordernums!='0'&&!hideBotom}}">{{grad.shippedordernums}}</view>
               </view>
               <view class='text'>待发货</view>
-            </navigator>
+            </view>
           </view>
           <view>
-            <navigator url='/pages/person/order/order?type=3'>
+            <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/order/order?type=3'>
               <view class='t'>
                 <van-icon name="logistics" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge" wx:if="{{grad.receivedordernums!='0'}}">{{grad.receivedordernums}}</view>
+                <view class="cu-tag badge" wx:if="{{grad.receivedordernums!='0'&&!hideBotom}}">{{grad.receivedordernums}}</view>
               </view>
               <view class='text'>待收货</view>
-            </navigator>
+            </view>
           </view>
           <view>
-            <navigator url='/pages/person/order/order?type=4'>
+            <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/order/order?type=4'>
               <view class='t'>
                 <van-icon name="gold-coin-o" size="26px" color="#999" custom-class="icon" />
-                <view class="cu-tag badge" wx:if="{{grad.returnordernums!='0'}}">{{grad.returnordernums}}</view>
+                <view class="cu-tag badge" wx:if="{{grad.returnordernums!='0'&&!hideBotom}}">{{grad.returnordernums}}</view>
               </view>
               <view class='text'>退款/售后</view>
-            </navigator>
+            </view>
           </view>
       </view>
     </view>
     <view class='c ' style='height:526rpx;padding:44rpx;background-color:#F2F2F2;margin-top:45rpx;border-radius:5px;'>
-    <navigator url='/pages/person/edit/edit'>
+    <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/edit/edit'>
         <van-icon name="user-circle-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>信息修改</view>
-      </navigator>
-      <navigator url='/pages/person/coupon_my/coupon_my'>
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/coupon_my/coupon_my'>
         <van-icon name="coupon-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的优惠券</view>
-      </navigator>
-      <navigator url='/pages/person/address/address'>
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/address/address'>
         <van-icon name="newspaper-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>收货地址</view>
-      </navigator>
-      <navigator wx:if="{{consultant}}" url='/pages/person/consultant/consultant'>
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/consultant/consultant' wx:if="{{consultant}}" >
         <van-icon name="smile-comment-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>专属顾问</view>
-      </navigator>
-      <navigator url='/pages/person/coupon_center/coupon_center'>
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/coupon_center/coupon_center'>
         <van-icon name="balance-pay" size="26px" color="#999" custom-class="icon" />
         <view class='text'>领券中心</view>
-      </navigator>
-      <navigator url='/pages/person/cart/cart'>
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/person/cart/cart'>
         <van-icon name="shopping-cart-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的购物车</view>
-      </navigator>
-      <navigator url='/pages/logon/logon' wx:if="{{usertype==1}}">
+      </view>
+      <view class="view" bindtap='onGotUserInfo' data-url='/pages/logon/logon' wx:if="{{usertype==1}}">
         <van-icon name="manager-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>会员中心</view>
-      </navigator>
-      <navigator url='/pages/person/consultant1/consultant1'>
+      </view>
+      <navigator class='view' url='/pages/person/consultant1/consultant1'>
         <van-icon name="service-o" size="26px" color="#999" custom-class="icon" />
         <view class='text'>我的客服</view>
       </navigator>

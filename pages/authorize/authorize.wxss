@@ -2,6 +2,9 @@
 .container{
   width: 100vw;
   height: 100vh;
+  /* min-height: 1314rpx; */
+  background-image: url(http://www.yqcoffee.cn/image/logonAgree_bg.png);
+  background-size: 100% 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +15,12 @@
   flex-direction: column;
   align-items: center;
   margin-top: -300rpx;
+}
+
+checkbox{
+  zoom: 0.5;
+  position: relative;
+  bottom: 18rpx;
 }
 .logo{
   width: 150rpx;
@@ -27,6 +36,7 @@
   border-radius: 100rpx;
 }
 .login-btn{
+  display:inline-block;
   width: 200rpx;
   height: 80rpx;
   font-size: 30rpx;

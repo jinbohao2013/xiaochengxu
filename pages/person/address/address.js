@@ -12,7 +12,7 @@ Page({
   getAddress() {
     let _this = this;
     wx.request({
-      url: app.data.hostAjax + '/api/my/v1/selectreceivingaddress', // 收支明细
+      url: app.data.hostAjax + '/api/my/v1/selectreceivingaddress',
       data: {
         user_id: wx.getStorageSync("userIdBuyGood")
       },
@@ -21,11 +21,7 @@ Page({
         'content-type': 'application/json',
       },
       success(res) {
-
         if (res.data.Data.list.length) {
-          for (var i = 0; i < res.data.Data.list.length; i++) {
-
-          }
           _this.setData({
             addressList: res.data.Data.list
           })

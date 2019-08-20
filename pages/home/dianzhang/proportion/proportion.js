@@ -57,6 +57,17 @@ Page({
           salaperson: parseFloat(res.Data.salaperson) || "",
           isCard: res.Data.ispos == "POS" ? true : false
         })
+        console.log(Number(res.Data.salaperson))
+        if (Number(res.Data.salaperson) != 0) {
+          //  已经设置过了
+          _this.setData({
+            setted: true
+          })
+        } else {
+          _this.setData({
+            setted: false
+          })
+        }
         if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
           _this.setData({
             hadsetting: true
@@ -104,6 +115,16 @@ Page({
               salaperson: parseFloat(res.Data.salaperson) || "",
               isCard: res.Data.ispos == "POS" ? true : false
             })
+            if (Number(res.Data.salaperson)!=0){
+              //  已经设置过了
+              _this.setData({
+                setted:true
+              })
+            }else{
+              _this.setData({
+                setted: false
+              })
+            }
             if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
               _this.setData({
                 hadsetting: true
@@ -119,6 +140,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   submit: function () {
+    if (this.data.setted && wx.getStorageSync("usertype")==6){
+      wx.showToast({
+        title: "您没有修改权限，请联系经销商进行修改",
+        icon: "none",
+        duration: 3000
+      })
+      return
+    }
     if (parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson) + parseFloat(this.data.distributor) != 100) {
       wx.showToast({
         title: "分销员+店长+经销商的比例之和必须等于100%",

@@ -66,6 +66,7 @@ Page({
   },
   // 绑定手机号
   bindingPhone: function () {
+    app.checkauthorization(() => {
     let _this=this;
     if (this.data.name.length > 0) {
       if (this.data.address.length > 0) {
@@ -146,6 +147,7 @@ Page({
         icon: 'none'
       })
     }
+    })
   },
   // 发送验证码
   sumbitCode: function () {
@@ -299,21 +301,22 @@ Page({
 
     }
     console.log(this.data.distributorid, "-------------", this.data.shopid)
-    wx.getUserInfo({
-      success: (data) => {
-        //更新data中的userInfo
-        app.globalData.userInfo = data.userInfo
-        this.login()
-        this.setData({
-          isLogin: false
-        })
-      },
-      fail: () => {
-        this.setData({
-          isLogin: true
-        })
-      }
-    })
+    app.checkauthorization(() => {})
+    // wx.getUserInfo({
+    //   success: (data) => {
+    //     //更新data中的userInfo
+    //     app.globalData.userInfo = data.userInfo
+    //     this.login()
+    //     this.setData({
+    //       isLogin: false
+    //     })
+    //   },
+    //   fail: () => {
+    //     this.setData({
+    //       isLogin: true
+    //     })
+    //   }
+    // })
   },
   getInfo(e){
     wx.getUserInfo({

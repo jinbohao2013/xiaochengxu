@@ -14,8 +14,8 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
       
       <view style='display:flex;justify-content:space-between;align-items:stretch;'>
-        <navigator url="/pages/home/tuiguangzhuanyuan/see/see?id={{item.id}}" class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
-          <view>
+        <navigator url="/pages/home/tuiguangzhuanyuan/see/see?id={{item.userid}}" class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
+          <view class='van-ellipsis' style='width:444rpx'>
             <view class='van-ellipsis text-xl'>姓名：{{item.nickname}}</view>
             <view class='text-gray' style='margin-top:10rpx;'>电话:{{item.phone}}</view>
           </view>

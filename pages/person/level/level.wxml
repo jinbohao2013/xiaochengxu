@@ -31,7 +31,7 @@
     </block>
   </view>
   
-  <view class='margin-top' style='text-indent:2em;line-height:46rpx;'>雪加小程序会员等级成长体系设有VIP1、VIP2、VIP3、VIP4、VIP5、等5个等级，不用会员等级的会员享有不同的优惠与福利。</view>
+  <view class='margin-top' style='text-indent:2em;line-height:46rpx;'>雪加小程序会员等级成长体系设有LV1、LV2、LV3、LV4、LV5、等5个等级，不用会员等级的会员享有不同的优惠与福利。</view>
   <view style='text-indent:2em;line-height:46rpx;'>用户消费满指定金额后可达到相应等级，可享受对应等级的折扣。</view>
       
 </view>

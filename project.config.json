@@ -53,42 +53,35 @@
 				{
 					"id": 0,
 					"name": "1",
-					"pathName": "pages/person/person",
+					"pathName": "pages/binding/binding",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 5,
+					"id": 1,
 					"name": "首页-审核",
-					"pathName": "pages/home/home",
+					"pathName": "pages/home/newagent/newagent",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 2,
 					"name": "修改信息",
-					"pathName": "pages/person/consultant/consultant",
+					"pathName": "pages/person/order/details/details",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 4,
-					"name": "提交订单",
-					"pathName": "pages/home/tuiguangzhuanyuan/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "提交订单",
-					"pathName": "pages/logon/logon",
-					"query": "",
+					"id": 3,
+					"name": "店长",
+					"pathName": "pages/home/fenxiaoyuan/fenxiaoyuan",
+					"query": "id=80",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "提交订单",
-					"pathName": "pages/home/fenxiaoyuan/proportion/proportion",
+					"name": "登录页",
+					"pathName": "pages/authorize/authorize",
 					"query": "",
 					"scene": null
 				}

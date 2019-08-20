@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/goods/index/index",
     "pages/authorize/authorize",
     "pages/index/index",
     "pages/logs/logs",
@@ -13,7 +14,7 @@
     "pages/index/setPasswords/setPasswords",
     "pages/logs/orderDetail/orderDetail",
     "pages/money/index/index",
-    "pages/goods/index/index",
+    
     "pages/goods/coupon_choose/coupon_choose",
     "pages/goods/detail/detail",
     "pages/goods/payMent/pay",

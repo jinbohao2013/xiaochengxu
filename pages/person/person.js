@@ -47,10 +47,6 @@ Page({
               hideBotom: false
             })
           }
-        } else {
-          wx.redirectTo({
-            url: '/pages/home/home',
-          })
         }
       }
     })
@@ -101,12 +97,25 @@ Page({
         selected: 1
       })
     }
-    if (wx.getStorageSync("usertype") != 1) {
-      //系统用户全部切换到home页面
-      wx.redirectTo({
-        url: '/pages/home/home',
-      })
-    }
+    wx.getUserInfo({
+      success: (data) => {
+        _this.setData({
+          hideBotom: false,//隐藏顶部的未登录状态
+        })
+        if (wx.getStorageSync("usertype") != 1) {
+          wx.redirectTo({
+            url: '/pages/home/home',
+          })
+        }
+      },
+      fail: () => {
+        console.log("还没有授权登录！")
+        _this.setData({
+          hideBotom: true,//显示顶部的未登录状态
+        })
+      }
+    })
+    
     let _this=this;
     //会员等级
     util.request(app.data.hostAjax + '/api/dester/v1/getcurstormdester', { userid: wx.getStorageSync("userIdBuyGood") }).then(function (res) {
@@ -117,9 +126,14 @@ Page({
       }
     })
   },
-  go_order(){
-    wx.navigateTo({
-      url: '/pages/person/order/order',
+  onGotUserInfo: function (e) {//判断登录跳转登录页
+    app.checkauthorization(() => {
+      if (e.currentTarget.dataset.url) {
+        wx.navigateTo({
+          url: e.currentTarget.dataset.url,
+        })
+        return
+      }
     })
   },
   /**

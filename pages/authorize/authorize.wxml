@@ -5,7 +5,28 @@
     <view class='logo'>
     <image src='http://www.yqcoffee.cn/image/show_iogo.png' mode='aspectFill'></image>
   </view>
-  <button class='login-btn' open-type='getUserInfo' bindgetuserinfo="getInfo" wx:if='{{isLogin}}'>登录授权</button>
+  <view>本平台所售商品适用于年满18周岁的成年人</view>
+  <radio-group class="margin-tb" bindchange="checkboxChange">
+    <label class="checkbox">
+      <checkbox class='black' value="true" checked=""/> 我已满18岁
+    </label>
+    <label class="checkbox margin-left" >
+      <checkbox class='black' value="false" checked=""/> 我未满18岁
+    </label>
+  </radio-group>
+  <view> 
+    <radio-group class="margin-tb" bindchange="checkboxChange1">
+      <label class="checkbox margin-left" >
+        <checkbox class='black' value="true" /> 阅读并接受 <navigator url='/pages/help/loginAgreement/text1' style='color:#373A66;display:inline-block;'>《雪加用户协议》</navigator> 及 <navigator url='/pages/help/loginAgreement/text2' style='color:#373A66;display:inline-block;'>《雪加隐私政策》</navigator>
+      </label>
+    </radio-group>
+  </view>
+  <view>
+    <button class='login-btn margin-right' bindtap='goback'>取消</button>
+    <button wx:if="{{s1=='true'&&s2=='true'}}" class='login-btn' open-type='getUserInfo' bindgetuserinfo="getInfo">授权登录</button>
+    <button wx:else class='login-btn' bindtap='showt'>授权登录</button>
+  </view>
+  
   </view>
   
 </view>
