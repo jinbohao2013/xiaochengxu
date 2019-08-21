@@ -43,9 +43,9 @@ Page({
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
             //1--隐藏底部导航
-            _this.setData({
-              hideBotom: false
-            })
+            // _this.setData({
+            //   hideBotom: false
+            // })
           }
         }
       }
