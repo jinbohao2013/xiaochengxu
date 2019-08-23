@@ -4,10 +4,10 @@
   <view class="cu-bar solid-bottom">
     <view class='text-xl' style='color:#933A3A;' style='display:flex;align-items:center;'>
       <view>佣金设置: </view>
-      <view class='text-sm' style='width:200rpx;height:46rpx;line-height:46rpx;border-radius:46px;border:1px solid #000;position:relative;z-index:11;margin-left:20rpx;'>
+      <view class='text-sm' style='width:224rpx;height:46rpx;line-height:46rpx;border-radius:46px;border:1px solid #000;position:relative;z-index:11;margin-left:20rpx;'>
         <view bindtap='changgoods' style='padding:0 20rpx;'>{{goodname}}<text style='float:right' class='jinbohao icon-unfold'></text></view>
         
-        <view class='ul ' style='width:180rpx;' wx:if="{{showSelect}}">
+        <view class='ul ' style='width:200rpx;' wx:if="{{showSelect}}">
           <view class='li' wx:for="{{goodsLists}}" wx:key="index" bindtap='checkname' data-id='{{item.id}}' data-name='{{item.goodsabbreviation}}'>{{item.goodsabbreviation}}</view>
         </view>
       </view>
