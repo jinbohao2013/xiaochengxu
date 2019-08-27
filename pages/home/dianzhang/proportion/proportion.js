@@ -58,7 +58,7 @@ Page({
           isCard: res.Data.ispos == "POS" ? true : false
         })
         console.log(Number(res.Data.salaperson))
-        if (Number(res.Data.distributor) != 0) {
+        if (Number(res.Data.distributor) != 100) {
           //  已经设置过了
           _this.setData({
             setted: true
@@ -115,7 +115,7 @@ Page({
               salaperson: parseFloat(res.Data.salaperson) || 0,
               isCard: res.Data.ispos == "POS" ? true : false
             })
-            if (Number(res.Data.distributor) != 0) {
+            if (Number(res.Data.distributor) != 100) {
               //  已经设置过了
               _this.setData({
                 setted: true
