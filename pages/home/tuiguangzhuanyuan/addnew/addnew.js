@@ -1,5 +1,8 @@
 import config from '../../../../config'
-const app = getApp()
+const util = require('../../../../utils/util.js');
+var app = getApp();
+
+import Toast from '../../../../dist/toast/toast';
 Page({
   data: {
     bindingImage: [
@@ -13,6 +16,36 @@ Page({
     isCard2:false,
     name: "",
     phone:"",
+    s1: "",
+    address: {
+      id: 0,
+      province_id: 0,
+      city_id: 0,
+      district_id: 0,
+      address: '',
+      full_region: '',
+      name: '',
+      mobile: '',
+      is_default: 0
+    },
+    addressStr:"",
+    code:"",
+    addvalues: [],
+    addressId: 0,
+    openSelectRegion: false,
+    selectRegionList: [
+      { id: 0, name: '省份', parent_id: 1, type: 1 },
+      { id: 0, name: '城市', parent_id: 1, type: 2 },
+      { id: 0, name: '区县', parent_id: 1, type: 3 }
+    ],
+    regionType: 1,
+    regionList: [],
+    selectRegionDone: false
+  },
+  checkboxChange: function (e) {
+    this.setData({
+      s1: e.detail.value
+    })
   },
   salaperson(e) {
     this.setData({
@@ -34,22 +67,28 @@ Page({
     let _this=this;
     if (this.data.name.length > 0) {
       if (this.data.phone.length > 0) {
+        if (this.data.s1 == ""){
+          Toast("请选择收款方")
+          return
+        }
         
-        if (this.data.salaperson.length > 0) {
             if(this.data.ifskip){return}//如果是，那么不能点
             this.setData({
               ifskip:true
             })
             wx.request({
-              url: config.apiHost + '/api/user/v1/addsubprivileges',
+              url: config.apiHost + '/api/prom/v1/addpromdistributor',
               method: "get",
               data: {
                 distributorid: wx.getStorageSync("distributorid"),
                 nickname: this.data.name, 
                 phone: this.data.phone,
-                percents: this.data.salaperson,
-                sendgoods: this.data.isCard1?1:0,//发货状态 1开 0关
-                posaudi: this.data.isCard2 ? 1 : 0,//pos审核状态 1开 0关
+                corporatename: this.data.code,
+                conpayaddress: this.data.addressStr,
+                ifreceiver:this.data.s1=='true'? 0 : 1,// 1分销商 0经销商
+                province: this.data.address.province_id,  //分销地区省id
+                city: this.data.address.city_id,//分销地区市id
+                area: this.data.address.district_id,//分销地区区id
               },
               success: (res) => {
                 if (res.data.Msg == '操作成功') {
@@ -73,12 +112,6 @@ Page({
                 }
               }
             })
-          } else {
-            wx.showToast({
-              title: '请填写返佣比例！',
-              icon: 'none'
-            })
-          }
         } else {
           wx.showToast({
             title: '请填写手机号！',
@@ -104,7 +137,7 @@ Page({
         break;
       case 'address':
         this.setData({
-          address: e.detail.value
+          addressStr: e.detail.value
         })
         break;
       case 'phone':
@@ -170,10 +203,140 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  getRegionList(regionId) {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(app.data.hostAjax + '/api/user/v1/pcd', { prov: regionId }).then(function (res) {
+      // that.data.address.province_id = 0
+      // that.data.address.city_id = 0
+      // that.data.address.district_id = 0
+      console.log(that.data.addvalues)
+      that.setData({
+        addvalues: [],
+        regionList: res.Data,
+        // address: that.data.address
+      })
+    });
+  },
+  chooseRegion() {
+    let that = this;
+    this.setData({
+      openSelectRegion: !this.data.openSelectRegion
+    });
+    this.getRegionList(0);
+  },
+  selectRegionType(event) {
+    let that = this;
+    let regionTypeIndex = event.target.dataset.regionTypeIndex;
+    let selectRegionList = that.data.selectRegionList;
 
+    //判断是否可点击
+    if (regionTypeIndex + 1 == this.data.regionType || (regionTypeIndex - 1 >= 0 && selectRegionList[regionTypeIndex - 1].id <= 0)) {
+      return false;
+    }
+
+    this.setData({
+      regionType: regionTypeIndex + 1
+    })
+    if (this.data.regionType == 1) {//查询省
+      //查询市
+      this.getRegionList(0)
+    }
+  },
+  getRegionList(regionId) {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(app.data.hostAjax + '/api/user/v1/pcd', { prov: regionId }).then(function (res) {
+      // that.data.address.province_id = 0
+      // that.data.address.city_id = 0
+      // that.data.address.district_id = 0
+      console.log(that.data.addvalues)
+      that.setData({
+        addvalues: [],
+        regionList: res.Data,
+        // address: that.data.address
+      })
+    });
+  },
+  selectRegion(event) {
+    let that = this;
+    let regionIndex = event.target.dataset.regionIndex;
+    //查询市
+    util.request(app.data.hostAjax + '/api/user/v1/pcd', { prov: regionIndex }).then(function (res) {
+      let arr = that.data.addvalues
+      if (res.Data.length == 0) {
+        that.data.address.full_region = event.target.dataset.name
+        that.data.address.province_id = regionIndex
+        that.data.address.city_id = 0
+        that.data.address.district_id = 0
+        that.setData({
+          address: that.data.address,
+          openSelectRegion: false
+        })
+        console.log(that.data.address.province_id + "--" + that.data.address.city_id + "--" + that.data.address.district_id)
+        return
+      }
+
+      arr[0] = {
+        id: regionIndex,
+        name: event.target.dataset.name
+      }
+      //  arr.push(event.target.dataset.name)
+      that.setData({
+        addvalues: arr,
+        regionList: res.Data,
+        regionType: 2,
+        // address: that.data.address
+      })
+      console.log(that.data.addvalues)
+    });
+  },
+  selectRegion1(event) {
+    let that = this;
+    let regionIndex = event.target.dataset.regionIndex;
+    //查询xian
+    util.request(app.data.hostAjax + '/api/user/v1/pcd', { prov: this.data.address.province_id, cit: regionIndex }).then(function (res) {
+
+      // that.data.address.city_id = regionIndex
+      // that.data.address.district_id = 0
+      let arr = that.data.addvalues
+      arr[1] = {
+        id: regionIndex,
+        name: event.target.dataset.name
+      }
+      that.setData({
+        addvalues: arr,
+        regionList: res.Data,
+        regionType: 3,
+      })
+      console.log(that.data.addvalues)
+    });
+  },
+  selectRegion2(event) {
+
+    let that = this;
+    let regionIndex = event.target.dataset.regionIndex;
+    //设置地区
+    let arr = that.data.addvalues
+    arr[2] = {
+      id: regionIndex,
+      name: event.target.dataset.name
+    }
+    this.data.address.full_region = arr.map(item => item.name).join(',')
+    that.data.address.province_id = arr[0].id
+    that.data.address.city_id = arr[1].id
+    that.data.address.district_id = arr[2].id
+    that.setData({
+      addvalues: arr,
+      address: that.data.address,
+    })
+    this.cancelSelectRegion();
+  },
+  cancelSelectRegion() {
+    this.setData({
+      openSelectRegion: false,
+      regionType: this.data.regionDoneStatus ? 3 : 1
+    });
+    console.log(this.data.address.province_id + "--" + this.data.address.city_id + "--" + this.data.address.district_id)
   }
 })

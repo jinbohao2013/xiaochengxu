@@ -62,12 +62,14 @@ Page({
     //   url: '/pages/index/index'
     // })
     this.setData({
+      fromOtherPage: options.id ? false : true,
+      fromOtherPageId: options.id,
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 59 : app.data.windowHeight //- 59 - 51
     })
     let _this = this;
     util.request(app.data.hostAjax + '/api/dester/v1/getmycustomerlist', {
-      userid: wx.getStorageSync("userid"),
+      userid: this.data.fromOtherPageId || wx.getStorageSync("userid"),
       usertype: wx.getStorageSync("usertype"),//用户角色 2为经销商 3为店长 4为分销员
       pagesize: 1111111,
       pageindex: 1,
@@ -193,6 +195,9 @@ Page({
       //   })
       // }, 1000)
       console.log("在我这里调取加载数据")
+      this.setData({
+        hideLoading:false
+      })
       if (!this.data.hideLoading) {
         return
       }

@@ -73,7 +73,31 @@ var cardnum=function(e){
   var str = e.toString();
   return str.substring(str.length - 4, str.length)
 }
+var upOrDown = function (e) {
+  if(e){
+    var str = e.toString();
+    if (str.indexOf("+") >= 0) {
+      return "up"
+    } else if (str.indexOf("-") >= 0) {
+      return "down"
+    }
+  }
+  return ""
+}
+var upDownText = function (e) {
+  if (e) {
+    var str = e.toString();
+    if (str.indexOf("+") >= 0) {
+      return str.split("+")[1]
+    } else if (str.indexOf("-") >= 0) {
+      return str.split("-")[1]
+    }
+  }
+  return e
+}
 module.exports = {
+  upDownText: upDownText,
+  upOrDown:upOrDown,
   parseI: parseI,
   split: split,
   cardnum: cardnum,

@@ -58,12 +58,12 @@
         </view>
         首页
       </navigator>
-      <navigator url='/pages/person/cart/cart' class="action" >
+      <view bindtap='onGotUserInfo' data-url='/pages/person/cart/cart' class="action" >
         <view class="icon-cart jinbohao">
           <view class="cu-tag badge" wx:if="{{goodLength}}">{{goodLength}}</view>
         </view>
         购物车
-      </navigator>
+      </view>
       <view class="bg-white submit" data-index='1' bindtap='onGotUserInfo'>加入购物车</view>
       <view class="bg-black submit" data-index='2' bindtap='onGotUserInfo'>立即购买</view>
     </view>
@@ -144,7 +144,7 @@
     
   </van-popup>
 </view>
-  <view class='container' wx:if='{{isLogin}}'>
+  <!-- <view class='container' wx:if='{{isLogin}}'>
   <view class='content'>
     <view class='logo'>
     <image src='http://www.yqcoffee.cn/image/show_iogo.png' mode='aspectFill'></image>
@@ -152,7 +152,7 @@
   <button class='login-btn' open-type='getUserInfo' bindgetuserinfo="getInfo" >登录授权</button>
   </view>
   
-</view>
+</view> -->
 <view class="cu-modal {{modalshow?'show':''}}"  wx:if="{{modalshow}}" bindtap="hideModal">
   <view class="cu-dialog" catchtap>
     <coupon bindmyevent="hideModal"/>

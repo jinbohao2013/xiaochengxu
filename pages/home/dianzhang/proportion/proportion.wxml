@@ -4,10 +4,10 @@
   <view class="cu-bar solid-bottom">
     <view class='text-xl' style='color:#933A3A;' style='display:flex;align-items:center;'>
       <view>佣金设置: </view>
-      <view class='text-sm' style='width:200rpx;height:46rpx;line-height:46rpx;border-radius:46px;border:1px solid #000;position:relative;z-index:11;margin-left:20rpx;'>
+      <view class='text-sm' style='width:224rpx;height:46rpx;line-height:46rpx;border-radius:46px;border:1px solid #000;position:relative;z-index:11;margin-left:20rpx;'>
         <view bindtap='changgoods' style='padding:0 20rpx;'>{{goodname}}<text style='float:right' class='jinbohao icon-unfold'></text></view>
         
-        <view class='ul ' style='width:180rpx;' wx:if="{{showSelect}}">
+        <view class='ul ' style='width:200rpx;' wx:if="{{showSelect}}">
           <view class='li' wx:for="{{goodsLists}}" wx:key="index" bindtap='checkname' data-id='{{item.id}}' data-name='{{item.goodsabbreviation}}'>{{item.goodsabbreviation}}</view>
         </view>
       </view>
@@ -39,7 +39,7 @@
       <text>经销商能拿到的佣金比例</text>
   </view>
   <view style='padding-left:30rpx;'>注：分销员+店长+经销商的比例之和必须等于100%</view>
- <view class='text-right margin' hidden='{{hadsetting}}'> <button class='cu-btn bg-black' bindtap='submit'>保存</button></view>
+ <view class='text-right margin'> <button class='cu-btn bg-black' bindtap='submit'>保存</button></view>
   <view>
     <view class="cu-bar margin-top">
       <view class='action text-xl' style='color:#933A3A;font-size:36rpx'>

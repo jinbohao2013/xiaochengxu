@@ -1,3 +1,5 @@
+
+import Toast from '../../dist/toast/toast';
 import config from '../../config'
 const app = getApp()
 Page({
@@ -39,7 +41,8 @@ Page({
             let openid = JSON.parse(res.data.Data).openid
             //获取用户的openid 
             console.log("用户的openid" + openid)
-            app.globalData.openid = openid
+            app.globalData.openid = openid;
+            wx.setStorageSync("openid", openid);
             wx.request({
               url: config.apiHost + '/api/user/v1/wxloginopenid',
               data: {
@@ -52,11 +55,7 @@ Page({
                 app.globalData.usertype = ress.data.Data.usertype
                 app.globalData.user_id = ress.data.Data.user_id
                 app.globalData.token = ress.data.Data.token
-                if (parseInt(usertype) != 1) {
-                  wx.navigateTo({
-                    url: '/pages/goods/index/index',
-                  })
-                }
+                
               }
             })
           }
@@ -66,6 +65,8 @@ Page({
   },
   // 绑定手机号
   bindingPhone: function () {
+    this.login()
+    app.checkauthorization(() => {
     let _this=this;
     if (this.data.name.length > 0) {
       if (this.data.address.length > 0) {
@@ -146,6 +147,7 @@ Page({
         icon: 'none'
       })
     }
+    })
   },
   // 发送验证码
   sumbitCode: function () {
@@ -299,21 +301,30 @@ Page({
 
     }
     console.log(this.data.distributorid, "-------------", this.data.shopid)
-    wx.getUserInfo({
-      success: (data) => {
-        //更新data中的userInfo
-        app.globalData.userInfo = data.userInfo
-        this.login()
-        this.setData({
-          isLogin: false
+    if (this.data.distributorid){
+
+    }else{
+      Toast({
+        message: "错误的二维码：" + decodeURIComponent(options.q) + "请截图联系客服",
+        duration:0
         })
-      },
-      fail: () => {
-        this.setData({
-          isLogin: true
-        })
-      }
-    })
+    }
+    app.checkauthorization(() => {})
+    // wx.getUserInfo({
+    //   success: (data) => {
+    //     //更新data中的userInfo
+    //     app.globalData.userInfo = data.userInfo
+    //     this.login()
+    //     this.setData({
+    //       isLogin: false
+    //     })
+    //   },
+    //   fail: () => {
+    //     this.setData({
+    //       isLogin: true
+    //     })
+    //   }
+    // })
   },
   getInfo(e){
     wx.getUserInfo({

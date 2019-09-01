@@ -1,0 +1,35 @@
+.topbind input{
+  height: 80rpx;
+  border-radius:6rpx;
+  background-color: #fff;
+  padding-left:40rpx;
+  padding-right: 160rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+.topbind icon{
+  position: absolute;
+  left: 40rpx;
+  top: 17rpx;
+}
+.order-list{
+    width: 100%;
+    padding: 35rpx 0 0 0;
+}
+.order-list .a-order{
+  margin: auto;
+    margin-bottom:30rpx;
+    background-color: #fff;
+    width: 650rpx;
+    border-radius: 8px;
+    overflow:hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+.goods-price {
+  font-size:22rpx;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 45rpx;
+    width: 100%;
+}

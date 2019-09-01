@@ -97,7 +97,7 @@ Page({
       success: (res) => {
         wx.setStorageSync("isoverpay", "");
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);
-        if (type == 2 || type == 6){//如果是分销商
+        if (type == 2 || type == 6 || type == 5){//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
           wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type ==3) {//如果是店长
@@ -210,7 +210,7 @@ Page({
           }
         });
         break;
-      case 2:
+      case 2||5:
         this.getData('/api/dester/v1/getdistributordester', app.globalData.user_id, type)
         //经销商GET /api/dester/v1/getdistributoryesterdayadd 经销商查看新增代理
         util.request(app.data.hostAjax + '/api/dester/v1/getdistributoryesterdayadd', {

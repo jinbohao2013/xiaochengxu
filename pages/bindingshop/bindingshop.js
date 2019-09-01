@@ -1,5 +1,6 @@
 // pages/bindingshop/bindingshop.js
 import config from '../../config'
+import Toast from '../../dist/toast/toast';
 const app = getApp()
 Page({
   data: {
@@ -71,6 +72,9 @@ Page({
   
   // 绑定手机号
   bindingPhone:function(){
+    app.checkauthorization(() => {
+
+   
     //禁止连续点击
     if(this.data.ifclick){
       return
@@ -153,7 +157,8 @@ Page({
         title: '请填写店铺名称！',
         icon:'none'
       })
-    }    
+    }
+    }) 
   },
   // 发送验证码
   sumbitCode: function () {
@@ -295,22 +300,33 @@ Page({
       }
     })
     console.log(this.data.uid, this.data.distributorid, this.data.state)
-    wx.getUserInfo({
-      success: (data) => {
-        
-        //更新data中的userInfo
-        app.globalData.userInfo = data.userInfo
-        this.login()
-        this.setData({
-          isLogin: false
-        })
-      },
-      fail: () => {
-        this.setData({
-          isLogin: true
-        })
-      }
+    if (this.data.distributorid) {
+
+    } else {
+      Toast({
+        message: "错误的二维码：" + decodeURIComponent(options.q) + "请截图联系客服",
+        duration: 0
+      })
+    }
+    app.checkauthorization(() => {
+      
     })
+    // wx.getUserInfo({
+    //   success: (data) => {
+        
+    //     //更新data中的userInfo
+    //     app.globalData.userInfo = data.userInfo
+    //     this.login()
+    //     this.setData({
+    //       isLogin: false
+    //     })
+    //   },
+    //   fail: () => {
+    //     this.setData({
+    //       isLogin: true
+    //     })
+    //   }
+    // })
   },
   getInfo() {
     wx.getUserInfo({

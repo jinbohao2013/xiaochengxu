@@ -42,18 +42,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.reLaunch({//重定向到登录页面
-    //   url: '/pages/home/home'
-    // })
+    
     let _this = this;
     // console.log(JSON.stringify(options))
     var goodsId = JSON.stringify(options);
     if (goodsId!="{}") {
-      //此时是从分享页面进来的?useridsaleman=0&shopid=0
+      //此时是从分享页面进来的?useridsaleman=0&shopid=0&shareid=0
       if (decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].indexOf("&") >= 0) {
-        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
+        wx.setStorageSync("salemanshopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1].split("&")[0])
       } else {
-        wx.setStorageSync("shopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+        wx.setStorageSync("salemanshopid", decodeURIComponent(options.q).split("?")[1].split("shopid=")[1])
+      }
+      if (decodeURIComponent(options.q).indexOf("shareid") > 0) {
+        if (decodeURIComponent(options.q).split("?")[1].split("shareid=")[1].indexOf("&") >= 0) {
+          _this.setData({
+            shareid: decodeURIComponent(options.q).split("?")[1].split("shareid=")[1].split("&")[0]
+          })
+        } else {
+          _this.setData({
+            shareid: decodeURIComponent(options.q).split("?")[1].split("shareid=")[1]
+          })
+        }
+        // wx.setStorageSync("saoma", true)//后期去掉了自提和地址的限制
       }
       if (decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].indexOf("&") >= 0) {
         wx.setStorageSync("useridsaleman", decodeURIComponent(options.q).split("?")[1].split("useridsaleman=")[1].split("&")[0])
@@ -139,16 +149,17 @@ Page({
    */
   onShow: function () {
     let _this=this;
-    console.log("我进来了啊,111111111111111")
+    
     //首先登录，获取用户的类型，判断是不是客户
     if (wx.getStorageSync("openid") == "") {
-      console.log("我进来了啊,222222")
+      console.log("我进来了.,此时是页面加载早了，而微信appjs还没加载--导致openid为undefined")
       //此时是页面加载早了，而微信appjs还没加载--导致openid为undefined
       app.readyCallback = (hostAjax) =>{
         wx.request({
           url: hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
           data: {
             openid: wx.getStorageSync("openid"),
+            fxuserid: _this.data.shareid || 0
           },
           method: "get",
           header: {
@@ -165,6 +176,56 @@ Page({
                 _this.setData({
                   modalshow: true
                 })
+              }else if (_this.data.shareid && parseInt(res.data.Data.isnewuser) == 1 && parseInt(res.data.Data.isticket) == 0) {////在这里判断被分享人扫码进来的时候 
+                //弹出优惠券的框
+                console.log("弹出优惠券的框");
+                _this.setData({
+                  modalshow: true
+                })
+              }
+              if (_this.data.shareid) {
+                //绑定专属顾问--扫码进来
+                util.request(app.data.hostAjax + '/api/dester/v1/addmyadviser', { userid: res.data.Data.user_id, salapersonid: wx.getStorageSync("useridsaleman") }).then(function (res) {
+                  if (res.Code == "200") {
+
+                  }
+                });
+              }
+              if (res.data.Data.usertype == 1) {
+                //1为普通用户 2为经销商 3为店长 4为分销员
+                //1--隐藏底部导航
+                _this.setData({
+                  hideBotom: false,
+                  personUrl: "/pages/person/person"
+                })
+              } else {
+                
+                if (wx.getStorageSync("usertype") == 8) {//超管登录
+                  wx.reLaunch({
+                    url: '/pages/administrator/index/person',
+                  })
+                  return
+                }
+                
+                wx.getUserInfo({
+                  success: (data) => {
+                    //更新data中的userInfo
+                    app.globalData.userInfo = data.userInfo
+                    app.login();
+                    _this.setData({
+                      hideBotom: true,
+                      personUrl: "/pages/home/home"
+                    })
+                  },
+                  fail: () => {
+                    console.log("还没有授权登录！")
+                    _this.setData({
+                      hideBotom: false,
+                      personUrl: "/pages/person/person"
+                    })
+                  }
+                })
+                
               }
             }
           }
@@ -177,6 +238,7 @@ Page({
       url: app.data.hostAjax + '/api/user/v1/wxloginopenid', // 微信openid登录
       data: {
         openid: wx.getStorageSync("openid"),
+        fxuserid: _this.data.shareid || 0
       },
       method: "get",
       header: {
@@ -196,6 +258,20 @@ Page({
             _this.setData({
               modalshow: true
             })
+          } else if (_this.data.shareid && parseInt(res.data.Data.isnewuser) == 1 && parseInt(res.data.Data.isticket) == 0) {////在这里判断被分享人扫码进来的时候 
+            //弹出优惠券的框
+            console.log("弹出优惠券的框");
+            _this.setData({
+              modalshow: true
+            })
+          }
+          if (_this.data.shareid) {
+            //绑定专属顾问--扫码进来
+            util.request(app.data.hostAjax + '/api/dester/v1/addmyadviser', { userid: res.data.Data.user_id, salapersonid: wx.getStorageSync("useridsaleman") }).then(function (res) {
+              if (res.Code == "200") {
+
+              }
+            });
           }
           if (res.data.Data.usertype == 1) {
             //1为普通用户 2为经销商 3为店长 4为分销员
@@ -205,9 +281,30 @@ Page({
               personUrl:"/pages/person/person"
             })
           }else{
-            _this.setData({
-              hideBotom: true,
-              personUrl: "/pages/home/home"
+            if (wx.getStorageSync("usertype") == 8) {//超管登录
+              wx.reLaunch({
+                url: '/pages/administrator/index/person',
+              })
+              return
+            }
+           
+            wx.getUserInfo({
+              success: (data) => {
+                //更新data中的userInfo
+                app.globalData.userInfo = data.userInfo
+                app.login();
+                _this.setData({
+                  hideBotom: true,
+                  personUrl: "/pages/home/home"
+                })
+              },
+              fail: () => {
+                console.log("还没有授权登录！")
+                _this.setData({
+                  hideBotom: false,
+                  personUrl: "/pages/person/person"
+                })
+              }
             })
           }
         } else {
@@ -229,26 +326,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
   onChange(event) {
     // console.warn(`change: ${event.detail}`);
     this.setData({
@@ -271,9 +348,7 @@ Page({
     })
     this.onLoad({});
   },
-  scroll() {//滚动时触发
-
-  },
+  
   onPullDownRefresh: function () {
     
     wx.setBackgroundTextStyle({
@@ -296,12 +371,6 @@ Page({
         loading:false
 
       })
-      // setTimeout(function(){
-      //   _this.setData({
-      //     loading: true
-
-      //   })
-      // },1000)
       // console.log("在我这里调取加载数据")
       if (!this.data.hideLoading){
         return
@@ -317,11 +386,6 @@ Page({
   wx.showLoading({
     title: '稍等',
   })
-    
-    // console.log("登录信息获取，然后跳转到详情页面--调起支付")
-    //判断口味是否选择
-    // console.log("口味：", this.data.acticeInxex)
-    // console.log(this.data.value1 * this.data.ajaxGood.e_price)
     if (this.data.acticeInxex!=null) {
       //提交到订单确认
       wx.navigateTo({
@@ -348,7 +412,6 @@ Page({
       }
       this.setData({ show: !this.data.show });
     }
-
   },
   onClose() {
     this.setData({ show: !this.data.show });
@@ -386,13 +449,7 @@ Page({
           _this.setData({
             ajaxGood: res.data.Data
           })
-          
-          
-          
-        } else {
-          
         }
-        
       }
     })
     
@@ -402,10 +459,4 @@ Page({
       modalshow: !this.data.modalshow
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

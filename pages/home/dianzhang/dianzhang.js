@@ -26,7 +26,7 @@ Page({
     isIphoneX: app.data.isIphoneX,
     scroolHeight: 200,
     loading: true,
-    hideLoading: true,//隐藏底部加载
+    hideLoading: false,//隐藏底部加载
     hideBotom: true,//隐藏底部导航
     show: false,
     pageindex: 1,
@@ -62,6 +62,13 @@ Page({
 
     }
   },
+  onLoad:function(options){
+    console.log(options.id)
+    this.setData({
+      fromOtherPage: options.id?false:true,
+      fromOtherPageId: options.id
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -76,10 +83,10 @@ Page({
     })
     let _this = this;
     util.request(app.data.hostAjax + '/api/dester/v1/getshopownerlist', {
-      userid: wx.getStorageSync("userid"),
+      userid: this.data.fromOtherPageId||wx.getStorageSync("userid"),
       shoptype: this.data.shoptype,//1为经销店长 3为买断店长
       pageindex: this.data.pageindex,
-      pagesize: 50,
+      pagesize: 100,
     }).then(function (res) {
       if (res.Code == "200") {
         // let arr = _this.data.ajaxData;
@@ -189,9 +196,7 @@ Page({
       //   })
       // }, 1000)
       console.log("在我这里调取加载数据")
-      if (!this.data.hideLoading) {
-        return
-      }
+      return
       this.setData({
         pageindex: this.data.pageindex + 1
       })

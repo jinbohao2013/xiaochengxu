@@ -111,10 +111,10 @@
             </view>
         </view>
         <view class='goods-info' style='padding:30rpx;line-height:40rpx;'>
-          <view wx:if="{{usertype==4||usertype==2||usertype==3||usertype==6}}">分销员预计提成： <view style='float:right;'>{{orderDetail.salaperson||0}}元</view></view>
-          <view wx:if="{{usertype==3||usertype==6||usertype==2}}">店长预计提成：  <view style='float:right;'>{{orderDetail.shopowner||0}}元</view></view>
-          <view wx:if="{{usertype==2||usertype==6}}">推广专员预计提成： <view style='float:right;'>{{orderDetail.promotion||0}}元</view></view>
-           <view wx:if="{{usertype==2||usertype==6}}">经销商预计提成： <view style='float:right;'>{{orderDetail.distributor||0}}元</view></view>
+          <view wx:if="{{usertype==4||usertype==2||usertype==3||usertype==6||usertype==5}}">分销员预计提成： <view style='float:right;'>{{orderDetail.salaperson||0}}元</view></view>
+          <view wx:if="{{usertype==3||usertype==6||usertype==2||usertype==5}}">店长预计提成：  <view style='float:right;'>{{orderDetail.shopowner||0}}元</view></view>
+          <view wx:if="{{usertype==2||usertype==6||usertype==5}}">推广专员预计提成： <view style='float:right;'>{{orderDetail.promotion||0}}元</view></view>
+           <view wx:if="{{usertype==2||usertype==6||usertype==5}}">经销商预计提成： <view style='float:right;'>{{orderDetail.distributor||0}}元</view></view>
         </view> 
         <view class='goods-info' style='margin:0 0 0 50rpx;' wx:if="{{orderDetail.status=='退换货'||orderDetail.returntype=='退款'}}">
           <view>退款原因：{{orderDetail.reason}}</view>
@@ -123,7 +123,7 @@
         </view>
         
         <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
-        <view  class='bbbb'  wx:if="{{ismaiduan||usertype==2}}">
+        <view  class='bbbb'  wx:if="{{ismaiduan||usertype==2||usertype==5}}">
           <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='待收货'}}">
                 <button class="confirm-btn" bindtap=''>确认收货</button>
             </view>

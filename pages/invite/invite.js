@@ -24,7 +24,7 @@ Page({
     })
     var shareUrl="";
     //判断店长和经销商的身份
-    if (wx.getStorageSync("usertype") == "2" || wx.getStorageSync("usertype") == 6) {
+    if (wx.getStorageSync("usertype") == "2" || wx.getStorageSync("usertype") == 6 || wx.getStorageSync("usertype") == 5) {
       //2为经销商 3为店长 4为分销员
       //申请店长的链接，后面的参数是分销商的id
       shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=1" + "&uid=" + wx.getStorageSync("userid");
@@ -42,7 +42,7 @@ Page({
       })
       shareUrl = "https://www.yqcoffee.cn/userbind1/?distributorid=" + wx.getStorageSync("distributorid") + "&state=3" + "&uid=" + wx.getStorageSync("userid");
     }
-    console.log(shareUrl) 
+    console.log("shareUrl:", shareUrl) 
     if (wx.getStorageSync("logo")){
       const img111 = (wx.getStorageSync("logo").replace("http://39.106.49.173:8085", "https://www.yqcoffee.cn:2021")) 
       

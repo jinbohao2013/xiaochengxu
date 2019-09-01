@@ -48,12 +48,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "1",
-					"pathName": "pages/person/person",
+					"pathName": "pages/administrator/listForPerson1/list",
 					"query": "",
 					"scene": null
 				},
@@ -76,6 +76,13 @@
 					"name": "店长",
 					"pathName": "pages/home/fenxiaoyuan/fenxiaoyuan",
 					"query": "id=80",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "登录页",
+					"pathName": "pages/logon/logon",
+					"query": "",
 					"scene": null
 				}
 			]

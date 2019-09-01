@@ -37,7 +37,7 @@
   width: 20%;
   position:relative;
 }
-navigator .text{
+.view .text{
   margin-top: 15rpx;
 }
 .lists .t{
@@ -58,7 +58,7 @@ navigator .text{
 .iconfont{
   -webkit-text-stroke-width:0
 }
-.c navigator{
+.c .view{
   margin-bottom: 35rpx;
   width: 25%;
   display: inline-block;

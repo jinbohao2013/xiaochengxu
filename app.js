@@ -69,11 +69,14 @@ App({
                       case 3:
                         _this.getfenxiaoid('/api/dester/v1/getshopownerdester', type)
                         break;
-                      case 2:
+                      case 2||5:
                         _this.getfenxiaoid('/api/dester/v1/getdistributordester', type)
                         break;
                       case 4:
                         _this.getfenxiaoid('/api/dester/v1/getsalespersondester', type)
+                        break;
+                      case 6:
+                        _this.getfenxiaoid('/api/dester/v1/getpromotiondester', type)
                         break;
                       default:
                         break;
@@ -159,8 +162,9 @@ App({
       success: (res) => {
         wx.setStorageSync("isoverpay","");
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存salapersonid
-        if (type == 2 || type == 6) {//如果是分销商
+        if (type == 2 || type == 6 || type == 5) {//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
+          wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
           wx.setStorageSync("logo", res.data.Data.distributorlog);
@@ -202,10 +206,6 @@ App({
             }else{
               if (e) {
                 
-              }else{
-                wx.redirectTo({
-                  url: '/pages/goods/index/index'
-                })
               }
             }
             //获取用户的openid 
@@ -228,24 +228,26 @@ App({
                 if(e){
                   callback()
                 }else{
-                  wx.removeStorageSync('saoma')
-                  if (that.globalData.usertype == '2' || that.globalData.usertype == '3' || that.globalData.usertype == '4') {
-                    wx.redirectTo({
-                      url: '/pages/goods/index/index'
-                    })
-                  } else {
-                    //用户进来要清楚用户以前的销售信息
-                    wx.removeStorageSync('useridsaleman')
-                    wx.removeStorageSync('shopid')
-                    wx.redirectTo({
-                      url: '/pages/goods/index/index',
-                    })
-                  }
+                  
                 }
                 
               }
             })
           }
+        })
+      }
+    })
+  },
+  checkauthorization(callback){
+    wx.getUserInfo({
+      success: (data) => {
+        this.globalData.userInfo = data.userInfo
+        if (callback) { callback();}
+       
+      },
+      fail: () => {
+        wx.navigateTo({
+          url: '/pages/authorize/authorize',
         })
       }
     })

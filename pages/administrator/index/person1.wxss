@@ -1,0 +1,54 @@
+.header{
+  padding-top: 38rpx;
+  padding-left: 45rpx;
+  background-color: #fff;
+  box-shadow: 2px 2px 6px #eee ;
+  color: white;
+}
+.header .img{
+  display: inline-block;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 100rpx;
+  margin-bottom: 20rpx;
+  float: left;
+  margin-right:50rpx;
+  position: relative;
+}
+.main1{
+  padding: 20px 0;
+}
+.main1>view{
+  padding:0 20rpx;
+}
+.main1 .timeBox{
+  padding:0px 6rpx;
+  line-height: 20px;
+}
+.main1 .timeWrap button{
+  padding:0 10rpx;
+}
+.main1 .timeWrap button text{
+  margin-right:5px;
+  font-size:30rpx
+}
+.cu-item navigator>view{
+  white-space: nowrap;
+  line-height:44rpx;
+}
+.cu-item navigator>view view{
+  display: inline-block
+}
+.mintext{
+  font-size: 21rpx;
+  color: #666;
+}
+.main1 .timeBox image{
+  position: relative;
+  top: 3px;
+}
+.timeWrap{
+  display: flex;
+  align-items: center;
+  float:right;
+}

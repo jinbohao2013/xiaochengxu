@@ -1,0 +1,49 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+<view class="container">
+  <view wx:if='{{!hasRefund}}' class="status-box">
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <scroll-view scroll-y="{{!show}}" style="height: {{scroolHeight}}px;" enable-back-to-top="{{true}}" bindscroll="scroll" lower-threshold="300" bindscrolltolower="scrolltolower">
+  <view class="no-order" hidden="{{orderList.length ? true : false}}">
+    <image src="http://www.yqcoffee.cn/image/empty_order.png" class="no-order-img"></image>
+    <view class="text">暂无订单</view>
+  </view>
+  <view class="order-list" hidden="{{orderList.length ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
+      <navigator url="/pages/home/order/details/details_other?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view style='display:flex;justify-content:space-between;padding:20rpx; align-items:center;'>
+        <view>订单:{{item.ordernumber}} ><view>日期:{{item.createdat}}</view></view>
+        <view style='color:red;font-size:32rpx;'>{{item.status}}</view>
+      </view>
+      </navigator>
+      <!-- 商品的内容 -->
+      <block wx:for='{{item.goodslist}}'  wx:key="*this">
+        <van-card
+          num="{{item.num}}"
+          price="{{item.price}}"
+          desc="{{item.testename}}"
+          title="{{item.name}}"
+          thumb="{{item.smallimg}}"
+        />
+      </block>
+      <view class="goods-price" style='padding-right:20rpx;'>
+        共 {{item.goodslist.length}} 件商品 合计：
+        <text class="p">¥ {{item.sumprice}}</text>
+      </view>
+      <view class="price-box" style='padding-right:20rpx;' wx:if="{{ismaiduan||usertype==2||usertype==6}}">
+        
+        <navigator url='/pages/home/order/details/details_other?id={{item.id}}' class="btn" hidden="{{(item.status=='待发货') ? false : true}}" bindtap="seelOrderTap" data-id="{{item.id}}">查看订单</navigator>
+      </view>
+    </view>
+  </view>
+  <view style='color:#999;text-align:center;' wx:if="{{hideLoading}}">
+      <van-loading size="20px" style="margin-right:20rpx;"/>加载中...
+    </view>
+    <view style='color:#999;text-align:center;' wx:if="{{!hideLoading&&orderList.length>10}}">
+      我到底了
+    </view>
+  </scroll-view>
+</view>

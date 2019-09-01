@@ -20,7 +20,7 @@
         <button wx:if="{{item.states!='已通过'&&item.states!='已驳回'}}" style='margin-left: 20rpx;' class='cu-tag line-black'  bindtap='hideModal' data-id='{{item.id}}'>不同意</button>
 </view>
         </view>
-    </view>
+    </view> 
       
       
      

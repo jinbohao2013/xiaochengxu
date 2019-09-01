@@ -52,11 +52,22 @@ Page({
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          distributor: parseFloat(res.Data.distributor) || "",
-          shopowner: parseFloat(res.Data.shopowner) || "",
-          salaperson: parseFloat(res.Data.salaperson) || "",
+          distributor: parseFloat(res.Data.distributor) || 0,
+          shopowner: parseFloat(res.Data.shopowner) || 0,
+          salaperson: parseFloat(res.Data.salaperson) || 0,
           isCard: res.Data.ispos == "POS" ? true : false
         })
+        console.log(Number(res.Data.salaperson))
+        if (Number(res.Data.distributor) != 100) {
+          //  已经设置过了
+          _this.setData({
+            setted: true
+          })
+        } else {
+          _this.setData({
+            setted: false
+          })
+        }
         if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
           _this.setData({
             hadsetting: true
@@ -99,11 +110,21 @@ Page({
         }).then(function (res) {
           if (res.Code == "200") {
             _this.setData({
-              distributor: parseFloat(res.Data.distributor) || "",
-              shopowner: parseFloat(res.Data.shopowner) || "",
-              salaperson: parseFloat(res.Data.salaperson) || "",
+              distributor: parseFloat(res.Data.distributor) || 0,
+              shopowner: parseFloat(res.Data.shopowner) || 0,
+              salaperson: parseFloat(res.Data.salaperson) || 0,
               isCard: res.Data.ispos == "POS" ? true : false
             })
+            if (Number(res.Data.distributor)!=100){
+              //  已经设置过了
+              _this.setData({
+                setted:true
+              })
+            }else{
+              _this.setData({
+                setted: false
+              })
+            }
             if (parseFloat(res.Data.distributor) && wx.getStorageSync("usertype") == 6) {
               _this.setData({
                 hadsetting: true
@@ -119,6 +140,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   submit: function () {
+    if (this.data.setted && wx.getStorageSync("usertype")==6){
+      wx.showToast({
+        title: "您已经设置过一次了，不能重复设置",
+        icon: "none",
+        duration: 3000
+      })
+      return
+    }
     if (parseFloat(this.data.shopowner) + parseFloat(this.data.salaperson) + parseFloat(this.data.distributor) != 100) {
       wx.showToast({
         title: "分销员+店长+经销商的比例之和必须等于100%",
@@ -130,7 +159,7 @@ Page({
     let _this = this;
     //分销商给店长设置
     util.request(app.data.hostAjax + '/api/user/v1/addsetpercents', {
-      userid: wx.getStorageSync("userid"), 
+      userid: wx.getStorageSync("userid"),
       shopid: this.data.shopid,
       distributor: this.data.distributor,
       shopowner: this.data.shopowner,
@@ -176,8 +205,13 @@ Page({
       // Number(2),toFixed
     }
     this.setData({
-      distributor: 100 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2) 
+      distributor: (100.00 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2)).toFixed(2)
     })
+    if (isNaN(this.data.distributor)){
+      this.setData({
+        distributor: ""
+      })
+    }
     console.log(this.data.distributor)
   },
   /**

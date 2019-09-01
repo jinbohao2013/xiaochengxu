@@ -1,0 +1,91 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+<view class="content" style='margin-bottom:100rpx;'>
+  <view class="header" style="height: 190rpx;background-color:#424454;">
+    <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
+    </view>
+    <view>
+      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
+    </view>
+  </view>
+  <wxs src="../../../utils/tools.wxs" module="tools" />
+  <view class='main1'>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>数据概览</text>
+      <view class=' text-grey timeWrap'>
+       <picker class='timeBox solid' mode="date" value="{{main1Date1}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange1">
+          <view class="picker">
+            {{main1Date1}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <text class="icon-move jinbohao lg text-gray"></text>
+        <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
+          <view class="picker">
+            {{main1Date2}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <button class="cu-btn bg-black black sm margin-left-sm"><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
+      </view>
+    </view>
+    <view class='cu-list grid col-4 margin-top' style='width:100%'>
+      <view class='cu-item text-left text-sm'>
+      <navigator url='/pages/administrator/bar/index?type=1'>
+        <view>支付笔数</view>
+        <view class='text-lg'>98</view>
+        <view wx:if="{{tools.upOrDown('+111')=='down'}}" class='text-red'>日：{{tools.upDownText('+111')}}% <view>↓</view></view>
+        <view wx:elif="{{tools.upOrDown('+111')=='up'}}" class='text-green'>日：{{tools.upDownText('+111')}}% <view>↑</view></view>
+        <view wx:else>日：{{tools.upDownText('+111')}}% <view>↑</view></view>
+         <view wx:if="{{tools.upOrDown(item.up)=='down'}}" class='text-red'>周：1.22% <view>↓</view></view>
+        <view wx:elif="{{tools.upOrDown(item.up)=='up'}}" class='text-green'>周：1.22% <view>↑</view></view>
+        <view wx:else>周：1.22% <view>↑</view></view>
+         <view wx:if="{{tools.upOrDown(item.up)=='down'}}" class='text-red'>月：1.22% <view>↓</view></view>
+        <view wx:elif="{{tools.upOrDown(item.up)=='up'}}" class='text-green'>月：1.22% <view>↑</view></view>
+        <view wx:else>月：1.22% <view>↑</view></view>
+      </navigator>
+      </view>
+      <view class='cu-item'>
+        <view>支付金额</view>
+        <view>98</view>
+        <view class='text-red'>日：1.22% <view>↓</view></view>
+        <view class='text-green'>周：1.22% <view>↑</view></view>
+        <view class='text-green'>月：1.22% <view>↑</view></view>
+      </view>
+      
+    </view>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>整体数据</text></view>
+    <view>
+      <picker class='solid round main2Box' bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+        <view class="picker">
+          {{picker[index]}} <text class="icon-unfold jinbohao lg text-gray"></text>
+        </view>
+      </picker>
+    </view>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>详细数据</text></view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">日期</view>
+        <view class="th">支付金额（元）</view>
+      </view>
+      <block wx:for="12345" wx:key="this">
+        <view class="tr bg-g" wx:if="{{index % 2 == 1}}">
+          <view class="td">{{item.gradename}}2019-08-25</view>
+          <view class="td" wx:if="1">{{item.gradpreference}}325</view>
+          <view class="td" wx:else>{{item.gradpreference}}%</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td">{{item.gradename}}2019-08-25</view>
+          <view class="td">{{item.gradprice}}325</view>
+          <!-- <view class="td">{{item.gradpreference}}%</view> -->
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+
+<view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="redirect" style='width:50%;' url=''>支付数据</navigator>
+      <navigator open-type="redirect" style='width:50%;' url='/pages/administrator/index/person1'>会员数据</navigator>
+      <!-- <navigator open-type="navigate" url=''>个人中心</navigator> -->
+    </view>
+  </view>

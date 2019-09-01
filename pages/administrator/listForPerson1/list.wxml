@@ -1,0 +1,36 @@
+ <view class='topbind' style='height: 86rpx;font: 32rpx/86rpx "微软雅黑";background-color:#fff; color: #000;text-align: left;display:flex;position:relative;margin:20rpx 0 20rpx 0;padding:20rpx;'>
+    <view style='flex:1;align-self:center;position:relative;overflow:hidden;'>
+      <input style='background-color:#F7F7F7;'  disabled='disabled' confirm-type="search" bindconfirm="doSearh" type='text' value='{{searchText}}' placeholder="姓名/电话/店铺名称"></input>
+      <view style='height:80rpx;line-height:80rpx;width:80rpx;position:absolute;right:0;text-align:center;top:0;z-index:7;font-size:36rpx;color:#999;' class=' borderL icon jinbohao icon-search' bindtap='doSearh'>
+      </view>
+      <view class='iconfont icontubiao--1' style='line-height:80rpx;height:80rpx;width:80rpx;font-size:36rpx;position:absolute;right:80rpx;text-align:center;top:0;z-index:7;color:#999;'  bindtap='clearNum'></view>
+    </view>
+  </view>
+<view class='order-list'>
+  <view class="a-order" wx:for="1234" wx:key="{{index}}" >
+    <view style='display:flex;justify-content:space-between;align-items:stretch;'>
+      <view  class='l' style=''>
+      <view style='padding:20rpx 20rpx 0 20rpx;background-color:#eee;'>
+        <view class='van-ellipsis' style='width:50%;display:inline-block;'>
+          <view class='van-ellipsis text-xl'>姓名：靳博浩{{item.nickname}}</view>
+          <view class='text-gray van-ellipsis' style='margin-top:10rpx;'>店铺名称：落实到积分拉丝机蝶恋蜂狂{{item.phone}}</view>
+        </view>
+        <view class='van-ellipsis' style='width:50%;display:inline-block;'>
+          <view class='van-ellipsis text-xl'>电话:15836859549{{item.nickname}}</view>
+          <view class='text-gray van-ellipsis' style='margin-top:10rpx;'>所属经销商：王一帆{{item.phone}}</view>
+        </view>
+      </view>
+        
+        <view class='line'>
+          <view wx:for="{{item.goodslist}}">{{item.goodsname}} ￥{{item.price}} <text style='float:right;'>×{{item.num}}</text></view>
+        </view>
+        <view class="goods-price text-center" style='padding:20rpx;'>
+          <navigator url="/pages/home/dianzhang/dianzhang?id={{item.userid}}"><view style='color:#38f;font-size:35rpx;'>{{item.ljshops||0}}</view><view>累计店长</view></navigator>
+          <navigator url="/pages/home/fenxiaoyuan2/fenxiaoyuan2?id={{item.userid}}"><view style='color:#38f;font-size:35rpx;'>{{item.ljsalaperson||0}}</view><view>累计分销员</view></navigator>
+          <navigator url="/pages/home/customer/customer?id={{item.userid}}"><view style='color:#38f;font-size:35rpx;'>{{item.customer||0}}</view><view>累计客户</view></navigator>
+          <navigator url="/pages/home/customer/customer?id={{item.userid}}"><view style='color:#38f;font-size:35rpx;'>{{item.customer||0}}</view><view>累计客户</view></navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

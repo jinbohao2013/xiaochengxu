@@ -111,7 +111,7 @@
           <view>退款金额：￥{{orderDetail.sumprice}}</view>
           <view>退款时间：{{orderDetail.sqcreatedat}}</view>
         </view>
-        <form bindsubmit="confirmBtnTap" report-submit="true" style='margin-bottom: 120rpx;'>
+        <form  style='margin-bottom: 120rpx;'>
         <view  class='bbbb' >
           <view class="btn-row"  wx:if="{{orderDetail.status=='已发货'}}">
             <button class="confirm-btn" bindtap='getgoods'>确认收货</button>
@@ -123,7 +123,7 @@
               <button class="confirm-btn"  bindtap="huanhuo">申请换货</button>
             </view> -->
             <view class="btn-row"  wx:if="{{orderDetail.tatus=='待发货'||orderDetail.status=='退换货'}}">
-                <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn" formType="submit">联系客服</navigator>
+                <navigator url='/pages/person/consultant1/consultant1' class="confirm-btn">联系客服</navigator>
             </view>
            
             <!-- <view class="btn-row"  wx:if="{{orderDetail.status=='退换货'}}">

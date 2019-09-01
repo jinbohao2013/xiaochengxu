@@ -1,0 +1,57 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+<view class="content">
+  <view class="header" style="height: 190rpx;background-color:#424454;">
+    <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
+    </view>
+    <view>
+      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
+    </view>
+  </view>
+  <view class='main1'>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>数据概览</text>
+      <view class=' text-grey timeWrap'>
+       <picker class='timeBox solid' mode="date" value="{{main1Date1}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange1">
+          <view class="picker">
+            {{main1Date1}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <text class="icon-move jinbohao lg text-gray"></text>
+        <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
+          <view class="picker">
+            {{main1Date2}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <button class="cu-btn bg-black black sm margin-left-sm"><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
+      </view>
+    </view>
+    <view class='cu-list grid col-4 margin-top' style='width:100%'>
+      <view class='cu-item' wx:for="125" wx:key="*">
+      <navigator url='/pages/administrator/bar/index?type=1'>
+        <view>支付笔数</view>
+        <view>98</view>
+        <view class='mintext'>昨日新增：222人</view>
+        <view class='mintext'>昨日新增：222人</view>
+        <view class='mintext'>昨日新增：222人</view>
+      </navigator>
+      </view>
+      <view class='cu-item'>
+        <view>推广专员人数</view>
+        <view>98</view>
+        <view class='mintext'>昨日新增：222人</view>
+        <view class='mintext'>昨日新增：222人</view>
+        <view class='mintext'>昨日新增：222人</view>
+      </view>
+    </view>
+    <view style='line-height:32px;height:32px;'><text>访问人数</text></view>
+  </view>
+</view>
+
+
+<view class='footer'>
+    <view class='Bottom-Tabbar text-center' style='padding-bottom:{{isIphoneX?"34rpx":"0"}};'>
+      <navigator open-type="redirect" style='width:50%;' url='/pages/administrator/index/person'>支付数据</navigator>
+      <navigator open-type="redirect" style='width:50%;' url=''>会员数据</navigator>
+      <!-- <navigator open-type="navigate" url=''>个人中心</navigator> -->
+    </view>
+  </view>

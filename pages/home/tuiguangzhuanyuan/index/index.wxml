@@ -1,7 +1,7 @@
 <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
   <view style='text-align:center;'>
-    <navigator url='/pages/home/tuiguangzhuanyuan/addnew/addnew' class='cu-btn line-black' style='margin:auto;margin-top:10px;margin-bottom:10px;'>新增推广专员</navigator>
+    <navigator url='/pages/home/fenxiaoshang/addnew/addnew' class='cu-btn line-black' style='margin:auto;margin-top:10px;margin-bottom:10px;'>新增推广专员</navigator>
     <image mode='widthFix' style='width:100%;' src='http://www.yqcoffee.cn/image/demo_2_line.png'></image>
   </view>
   
@@ -14,8 +14,8 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}" >
       
       <view style='display:flex;justify-content:space-between;align-items:stretch;'>
-        <navigator url="/pages/home/tuiguangzhuanyuan/see/see?id={{item.id}}" class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
-          <view>
+        <navigator url="/pages/home/tuiguangzhuanyuan/see/see?id={{item.userid}}" class='l' style='display:flex; align-content:space-between;flex-wrap:wrap;padding:20rpx 20rpx 20rpx 35rpx;'>
+          <view class='van-ellipsis' style='width:444rpx'>
             <view class='van-ellipsis text-xl'>姓名：{{item.nickname}}</view>
             <view class='text-gray' style='margin-top:10rpx;'>电话:{{item.phone}}</view>
           </view>
