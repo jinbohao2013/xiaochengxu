@@ -1,4 +1,14 @@
-/* pages/src/person/index/index.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+ec-canvas {
+  width: 750rpx;
+  height: 600rpx;
+}
 .header{
   padding-top: 38rpx;
   padding-left: 45rpx;
@@ -32,6 +42,9 @@
 .main1 .timeWrap button text{
   margin-right:5px;
   font-size:30rpx
+}
+.cu-item {
+  padding-left:20rpx!important; 
 }
 .cu-item navigator>view{
   white-space: nowrap;

@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "柱状图表",
   "usingComponents": {
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }

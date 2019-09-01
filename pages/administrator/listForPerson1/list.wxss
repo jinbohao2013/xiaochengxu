@@ -16,6 +16,9 @@
     width: 100%;
     padding: 35rpx 0 0 0;
 }
+.l{
+  width:100%!important;
+}
 .order-list .a-order{
   margin: auto;
     margin-bottom:30rpx;

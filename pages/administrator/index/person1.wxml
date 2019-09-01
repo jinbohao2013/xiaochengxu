@@ -5,7 +5,7 @@
     </view>
     <view>
       <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
-      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{time}}</view>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{ajaxMain1.createdAt}}</view>
     </view>
   </view>
   <view class='main1'>
@@ -13,37 +13,60 @@
       <view class=' text-grey timeWrap'>
        <picker class='timeBox solid' mode="date" value="{{main1Date1}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange1">
           <view class="picker">
-            {{main1Date1}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+            {{main1Date1||"开始时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
           </view>
         </picker>
         <text class="icon-move jinbohao lg text-gray"></text>
         <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
           <view class="picker">
-            {{main1Date2}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+            {{main1Date2||"结束时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
           </view>
         </picker>
-        <button class="cu-btn bg-black black sm margin-left-sm"><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
+        <button class="cu-btn bg-black black sm margin-left-sm" bindtap='onLoadTow'><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
       </view>
     </view>
     <view class='cu-list grid col-4 margin-top' style='width:100%'>
-      <view class='cu-item' wx:for="125" wx:key="*">
-      <navigator url='/pages/administrator/bar/index?type=1'>
-        <view>支付笔数</view>
-        <view>98</view>
-        <view class='mintext'>昨日新增：222人</view>
-        <view class='mintext'>昨日新增：222人</view>
-        <view class='mintext'>昨日新增：222人</view>
-      </navigator>
+      <view class='cu-item text-left'>
+        <navigator url='/pages/administrator/listForPerson1/list?type=1'>
+          <view>经销商人数</view>
+          <view class='text-lg margin-bottom-sm margin-top-sm'>{{ajaxMain1.distributornums}}</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.zrdistributornums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.weekdistributornums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.monthdistributornums}}人</view>
+        </navigator>
       </view>
-      <view class='cu-item'>
-        <view>推广专员人数</view>
-        <view>98</view>
-        <view class='mintext'>昨日新增：222人</view>
-        <view class='mintext'>昨日新增：222人</view>
-        <view class='mintext'>昨日新增：222人</view>
+      <view class='cu-item text-left'>
+        <navigator url='/pages/administrator/listForPerson1/list?type=2'>
+          <view>推广专员人数</view>
+          <view class='text-lg margin-bottom-sm margin-top-sm'>{{ajaxMain1.promotionnums}}</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.zrpromotionnums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.weekpromotionnums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.monthpromotionnums}}人</view>
+        </navigator>
+      </view>
+      <view class='cu-item text-left'>
+        <navigator url='/pages/administrator/listForPerson1/list?type=3'>
+          <view>店长人数</view>
+          <view class='text-lg margin-bottom-sm margin-top-sm'>{{ajaxMain1.shopownernums}}</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.zrshopownernums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.weekshopownernums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.monthshopownernums}}人</view>
+        </navigator>
+      </view>
+      <view class='cu-item text-left'>
+        <navigator url='/pages/administrator/listForPerson1/list?type=4'>
+          <view>分销员人数</view>
+          <view class='text-lg margin-bottom-sm margin-top-sm'>{{ajaxMain1.salespersonnums}}</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.zrsalespersonnums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.weeksalespersonnums}}人</view>
+          <view class='mintext'>昨日新增：{{ajaxMain1.monthsalespersonnums}}人</view>
+        </navigator>
       </view>
     </view>
     <view style='line-height:32px;height:32px;'><text>访问人数</text></view>
+    <view class="container">
+      <ec-canvas id="mychart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+    </view>
   </view>
 </view>
 

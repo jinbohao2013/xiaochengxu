@@ -53,7 +53,7 @@
 				{
 					"id": 0,
 					"name": "1",
-					"pathName": "pages/administrator/listForPerson1/list",
+					"pathName": "pages/administrator/index/person1",
 					"query": "",
 					"scene": null
 				},

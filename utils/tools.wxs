@@ -93,7 +93,7 @@ var upDownText = function (e) {
       return str.split("-")[1]
     }
   }
-  return e
+  return e||"0.0"
 }
 module.exports = {
   upDownText: upDownText,
