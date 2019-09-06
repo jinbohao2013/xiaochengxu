@@ -53,14 +53,14 @@
 				{
 					"id": 0,
 					"name": "1",
-					"pathName": "pages/binding/binding",
+					"pathName": "pages/administrator/listForPerson1/listMoney/listMoney",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "首页-审核",
-					"pathName": "pages/home/newagent/newagent",
+					"pathName": "pages/home/home",
 					"query": "",
 					"scene": null
 				},
@@ -74,14 +74,14 @@
 				{
 					"id": 3,
 					"name": "店长",
-					"pathName": "pages/home/fenxiaoyuan/fenxiaoyuan",
+					"pathName": "pages/person/person",
 					"query": "id=80",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "登录页",
-					"pathName": "pages/authorize/authorize",
+					"pathName": "pages/logon/logon",
 					"query": "",
 					"scene": null
 				}

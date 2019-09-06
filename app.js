@@ -69,7 +69,7 @@ App({
                       case 3:
                         _this.getfenxiaoid('/api/dester/v1/getshopownerdester', type)
                         break;
-                      case 2:
+                      case 2||5:
                         _this.getfenxiaoid('/api/dester/v1/getdistributordester', type)
                         break;
                       case 4:
@@ -162,8 +162,9 @@ App({
       success: (res) => {
         wx.setStorageSync("isoverpay","");
         wx.setStorageSync("fenxiaoshangid", res.data.Data.salapersonid);//获取储存salapersonid
-        if (type == 2 || type == 6) {//如果是分销商
+        if (type == 2 || type == 6 || type == 5) {//如果是分销商
           wx.setStorageSync("logo", res.data.Data.logimg);
+          wx.setStorageSync("distributorid", res.data.Data.distributorid);
         } else if (type == 3) {//如果是店长
           wx.setStorageSync("isoverpay", parseInt(res.data.Data.isoverpay));
           wx.setStorageSync("logo", res.data.Data.distributorlog);
@@ -240,6 +241,7 @@ App({
   checkauthorization(callback){
     wx.getUserInfo({
       success: (data) => {
+        this.globalData.userInfo = data.userInfo
         if (callback) { callback();}
        
       },

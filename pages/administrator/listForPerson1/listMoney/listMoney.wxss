@@ -1,0 +1,61 @@
+.main1{
+  padding: 20px 0;
+}
+.main1>view{
+  padding:0 20rpx;
+}
+.main1 .timeBox{
+  padding:0px 6rpx;
+  line-height: 20px;
+}
+.main1 .timeWrap button{
+  padding:0 10rpx;
+}
+.main1 .timeWrap button text{
+  margin-right:5px;
+  font-size:30rpx
+}
+.main1 .timeBox image{
+  position: relative;
+  top: 3px;
+}
+.timeWrap{
+  display: flex;
+  align-items: center;
+  float:right;
+}
+.table {
+  border: 1px solid #eee;
+  padding: 0!important;
+  margin: 20px;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.td {
+    width: 33.33%;
+    justify-content: center;
+    text-align: center;
+}
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: #FAFBFF;
+}
+.th {
+  width: 33.33%;
+  justify-content: center;
+  background: #F4F5FA;
+  color: #666;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+.th+.th{
+  border-left: 1px solid #eee;
+}

@@ -1,0 +1,40 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+<view class="content" style='margin-bottom:100rpx;'>
+  <view class='main1'>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>数据统计</text>
+      <view class=' text-grey timeWrap'>
+       <picker class='timeBox solid' mode="date" value="{{main1Date1}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange1">
+          <view class="picker">
+            {{main1Date1||"开始时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <text class="icon-move jinbohao lg text-gray"></text>
+        <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
+          <view class="picker">
+            {{main1Date2||"结束时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <button class="cu-btn bg-black black sm margin-left-sm" bindtap='onLoadTow'><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">日期</view>
+        <view class="th">订单金额（元）</view>
+        <view class="th">提现金额（元）</view>
+      </view>
+      <block wx:for="111" wx:key="this">
+        <view class="tr bg-g" wx:if="{{index % 2 == 1}}">
+          <view class="td">{{item.days}}</view>
+          <view class="td">{{item.sumprice}}</view>
+          <view class="td">{{item.sumprice}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td">{{item.days}}</view>
+          <view class="td">{{item.sumprice}}</view>
+          <view class="td">{{item.sumprice}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

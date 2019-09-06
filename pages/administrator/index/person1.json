@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员数据",
+  "usingComponents": {
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
+  }
+}

@@ -9,7 +9,7 @@ Component({
     color: "#666",
     selectedColor: "#FDD000",
     list: [{
-      pagePath: "/pages/logs/logs",
+      pagePath: "/",
       iconPath: "/image/icon_component.png",
       selectedIconPath: "/image/icon_component_HL.png",
       text: "我的订单",

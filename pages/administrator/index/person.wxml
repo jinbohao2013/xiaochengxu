@@ -1,0 +1,128 @@
+<jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
+<view class="content" style='margin-bottom:100rpx;'>
+  <view class="header" style="height: 190rpx;background-color:#424454;">
+    <view class='img cu-avatar'><open-data class="img" type="userAvatarUrl" style='	width: 120rpx;height: 120rpx;border-radius: 100rpx;overflow: hidden;margin-bottom: 20rpx;'></open-data>
+    </view>
+    <view>
+      <open-data class="name" type="userNickName" style="font-size:35rpx;"></open-data>
+      <view style='font-size:25rpx;margin-top:25rpx;'>注册时间: {{ajaxMain1.createdAt}}</view>
+    </view>
+  </view>
+  <wxs src="../../../utils/tools.wxs" module="tools" />
+  <view class='main1'>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>数据概览</text>
+      <view class=' text-grey timeWrap'>
+       <picker class='timeBox solid' mode="date" value="{{main1Date1}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange1">
+          <view class="picker">
+            {{main1Date1||"开始时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <text class="icon-move jinbohao lg text-gray"></text>
+        <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
+          <view class="picker">
+            {{main1Date2||"结束时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+          </view>
+        </picker>
+        <button class="cu-btn bg-black black sm margin-left-sm" bindtap='onLoadTow'><text class="icon-search jinbohao lg text-gray"></text> 查询</button>
+      </view>
+    </view>
+    <view class='cu-list grid col-4 margin-top' style='width:100%'>
+      <view class='cu-item text-left text-sm'>
+        <navigator url='/pages/administrator/bar/index?type=1&main1Date2={{main1Date2GO}}'>
+          <view>支付笔数</view>
+          <view class='text-lg'>{{ajaxMain1.payordernums}}</view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.orderdaygrowth)=='down'}}" class='text-red'>日：{{tools.upDownText(ajaxMain1.orderdaygrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.orderdaygrowth)=='up'}}" class='text-green'>日：{{tools.upDownText(ajaxMain1.orderdaygrowth)}}% <view>↑</view></view>
+          <view wx:else>日：{{tools.upDownText(ajaxMain1.orderdaygrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.orderweekgrowth)=='down'}}" class='text-red'>周：{{tools.upDownText(ajaxMain1.orderweekgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.orderweekgrowth)=='up'}}" class='text-green'>周：{{tools.upDownText(ajaxMain1.orderweekgrowth)}}% <view>↑</view></view>
+          <view wx:else>周：{{tools.upDownText(ajaxMain1.orderweekgrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.ordermonthgrowth)=='down'}}" class='text-red'>月：{{tools.upDownText(ajaxMain1.ordermonthgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.ordermonthgrowth)=='up'}}" class='text-green'>月：{{tools.upDownText(ajaxMain1.ordermonthgrowth)}}% <view>↑</view></view>
+          <view wx:else>月：{{tools.upDownText(ajaxMain1.ordermonthgrowth)}}% <view>↑</view></view>
+        </navigator>
+      </view>
+      <view class='cu-item text-left text-sm'>
+        <navigator url='/pages/administrator/bar/index?type=2&main1Date2={{main1Date2GO}}'>
+          <view>支付人数</view>
+          <view class='text-lg'>{{ajaxMain1.paynumber}}</view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.numberdaygrowth)=='down'}}" class='text-red'>日：{{tools.upDownText(ajaxMain1.numberdaygrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.numberdaygrowth)=='up'}}" class='text-green'>日：{{tools.upDownText(ajaxMain1.numberdaygrowth)}}% <view>↑</view></view>
+          <view wx:else>日：{{tools.upDownText(ajaxMain1.numberdaygrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.numberweekgrowth)=='down'}}" class='text-red'>周：{{tools.upDownText(ajaxMain1.numberweekgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.numberweekgrowth)=='up'}}" class='text-green'>周：{{tools.upDownText(ajaxMain1.numberweekgrowth)}}% <view>↑</view></view>
+          <view wx:else>周：{{tools.upDownText(ajaxMain1.numberweekgrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.numbermonthgrowth)=='down'}}" class='text-red'>月：{{tools.upDownText(ajaxMain1.numbermonthgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.numbermonthgrowth)=='up'}}" class='text-green'>月：{{tools.upDownText(ajaxMain1.numbermonthgrowth)}}% <view>↑</view></view>
+          <view wx:else>月：{{tools.upDownText(ajaxMain1.numbermonthgrowth)}}% <view>↑</view></view>
+        </navigator>
+      </view>
+      <view class='cu-item text-left text-sm'>
+        <navigator url='/pages/administrator/bar/index?type=3&main1Date2={{main1Date2GO}}'>
+          <view>支付金额</view>
+          <view class='text-lg'>{{ajaxMain1.payprice||0}}</view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.paypricedaygrowth)=='down'}}" class='text-red'>日：{{tools.upDownText(ajaxMain1.paypricedaygrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.paypricedaygrowth)=='up'}}" class='text-green'>日：{{tools.upDownText(ajaxMain1.paypricedaygrowth)}}% <view>↑</view></view>
+          <view wx:else>日：{{tools.upDownText(ajaxMain1.paypricedaygrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.paypriceweekgrowth)=='down'}}" class='text-red'>周：{{tools.upDownText(ajaxMain1.paypriceweekgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.paypriceweekgrowth)=='up'}}" class='text-green'>周：{{tools.upDownText(ajaxMain1.paypriceweekgrowth)}}% <view>↑</view></view>
+          <view wx:else>周：{{tools.upDownText(ajaxMain1.paypriceweekgrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.paypricemonthgrowth)=='down'}}" class='text-red'>月：{{tools.upDownText(ajaxMain1.paypricemonthgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.paypricemonthgrowth)=='up'}}" class='text-green'>月：{{tools.upDownText(ajaxMain1.paypricemonthgrowth)}}% <view>↑</view></view>
+          <view wx:else>月：{{tools.upDownText(ajaxMain1.paypricemonthgrowth)}}% <view>↑</view></view>
+        </navigator>
+      </view>
+      <view class='cu-item text-left text-sm'>
+        <navigator url='/pages/administrator/bar/index?type=4&main1Date2={{main1Date2GO}}'>
+          <view>提现金额</view>
+          <view class='text-lg'>{{ajaxMain1.cashout||0}}</view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.cashoutdaygrowth)=='down'}}" class='text-red'>日：{{tools.upDownText(ajaxMain1.cashoutdaygrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.cashoutdaygrowth)=='up'}}" class='text-green'>日：{{tools.upDownText(ajaxMain1.cashoutdaygrowth)}}% <view>↑</view></view>
+          <view wx:else>日：{{tools.upDownText(ajaxMain1.cashoutdaygrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.cashoutweekgrowth)=='down'}}" class='text-red'>周：{{tools.upDownText(ajaxMain1.cashoutweekgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.cashoutweekgrowth)=='up'}}" class='text-green'>周：{{tools.upDownText(ajaxMain1.cashoutweekgrowth)}}% <view>↑</view></view>
+          <view wx:else>周：{{tools.upDownText(ajaxMain1.cashoutweekgrowth)}}% <view>↑</view></view>
+          <view wx:if="{{tools.upOrDown(ajaxMain1.cashoutmonthgrowth)=='down'}}" class='text-red'>月：{{tools.upDownText(ajaxMain1.cashoutmonthgrowth)}}% <view>↓</view></view>
+          <view wx:elif="{{tools.upOrDown(ajaxMain1.cashoutmonthgrowth)=='up'}}" class='text-green'>月：{{tools.upDownText(ajaxMain1.cashoutmonthgrowth)}}% <view>↑</view></view>
+          <view wx:else>月：{{tools.upDownText(ajaxMain1.cashoutmonthgrowth)}}% <view>↑</view></view>
+        </navigator>
+      </view>
+      
+    </view>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>整体数据</text></view>
+    <view>
+      <picker class='solid round main2Box' bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+        <view class="picker">
+          {{picker[index]}} <text class="icon-unfold jinbohao lg text-gray"></text>
+        </view>
+      </picker>
+    </view>
+    <view class="container">
+      <ec-canvas id="mychart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+    </view>
+    <view style='line-height:32px;height:32px;'><text class='text-xl'>详细数据</text></view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">日期</view>
+        <view class="th">支付金额（元）</view>
+      </view>
+      <block wx:for="{{ajaxMain2.list}}" wx:key="this">
+        <view class="tr bg-g" wx:if="{{index % 2 == 1}}">
+          <view class="td">{{item.days}}</view>
+          <view class="td">{{item.sumprice}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td">{{item.days}}</view>
+          <view class="td">{{item.sumprice}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+
+<cover-view class='footer'>
+      <button  style='width:50%;' url=''>支付数据</button>
+      <button bindtap='gohuiyuan' style='width:50%;' url=''>会员数据</button>
+      <!-- <navigator open-type="navigate" url=''>个人中心</navigator> -->
+  </cover-view>

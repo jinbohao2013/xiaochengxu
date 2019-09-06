@@ -1,0 +1,38 @@
+.header{
+  padding: 20rpx;
+  line-height: 55rpx;
+  border-bottom: 2px solid #eee;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+ec-canvas {
+  width: 750rpx;
+  height: 700rpx;
+}
+.main1{
+  padding:10rpx 0 0 0;
+}
+.main1>view{
+  padding:0 20rpx;
+}
+.main1 .timeBox{
+  padding:0px 6rpx;
+  line-height: 20px;
+}
+.main1 .timeWrap button{
+  padding:0 10rpx;
+}
+.main1 .timeWrap button text{
+  margin-right:5px;
+  font-size:30rpx
+}
+.timeWrap{
+  display: flex;
+  align-items: center;
+  float:right;
+}

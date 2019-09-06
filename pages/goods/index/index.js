@@ -199,8 +199,19 @@ Page({
                   personUrl: "/pages/person/person"
                 })
               } else {
+                
+                if (res.data.Data.usertype == 8) {//超管登录
+                  wx.reLaunch({
+                    url: '/pages/administrator/index/person',
+                  })
+                  return
+                }
+                
                 wx.getUserInfo({
                   success: (data) => {
+                    //更新data中的userInfo
+                    app.globalData.userInfo = data.userInfo
+                    app.login();
                     _this.setData({
                       hideBotom: true,
                       personUrl: "/pages/home/home"
@@ -270,8 +281,18 @@ Page({
               personUrl:"/pages/person/person"
             })
           }else{
+            if (wx.getStorageSync("usertype") == 8) {//超管登录
+              wx.reLaunch({
+                url: '/pages/administrator/index/person',
+              })
+              return
+            }
+           
             wx.getUserInfo({
               success: (data) => {
+                //更新data中的userInfo
+                app.globalData.userInfo = data.userInfo
+                app.login();
                 _this.setData({
                   hideBotom: true,
                   personUrl: "/pages/home/home"
@@ -305,26 +326,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
   onChange(event) {
     // console.warn(`change: ${event.detail}`);
     this.setData({
@@ -347,9 +348,7 @@ Page({
     })
     this.onLoad({});
   },
-  scroll() {//滚动时触发
-
-  },
+  
   onPullDownRefresh: function () {
     
     wx.setBackgroundTextStyle({
@@ -372,12 +371,6 @@ Page({
         loading:false
 
       })
-      // setTimeout(function(){
-      //   _this.setData({
-      //     loading: true
-
-      //   })
-      // },1000)
       // console.log("在我这里调取加载数据")
       if (!this.data.hideLoading){
         return
@@ -393,11 +386,6 @@ Page({
   wx.showLoading({
     title: '稍等',
   })
-    
-    // console.log("登录信息获取，然后跳转到详情页面--调起支付")
-    //判断口味是否选择
-    // console.log("口味：", this.data.acticeInxex)
-    // console.log(this.data.value1 * this.data.ajaxGood.e_price)
     if (this.data.acticeInxex!=null) {
       //提交到订单确认
       wx.navigateTo({
@@ -424,7 +412,6 @@ Page({
       }
       this.setData({ show: !this.data.show });
     }
-
   },
   onClose() {
     this.setData({ show: !this.data.show });
@@ -462,13 +449,7 @@ Page({
           _this.setData({
             ajaxGood: res.data.Data
           })
-          
-          
-          
-        } else {
-          
         }
-        
       }
     })
     
@@ -478,10 +459,4 @@ Page({
       modalshow: !this.data.modalshow
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

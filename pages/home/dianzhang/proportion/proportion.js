@@ -1,34 +1,34 @@
 // pages/home/dianzhang/proportion/proportion.js
 const util = require('../../../../utils/util.js');
-var app = getApp();
+var app=getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isCard: false,
-    id: 0,
-    shopid: 0,
+    isCard:false,
+    id:0,
+    shopid:0,
     distributor: "",
     shopowner: "",
     salaperson: "",
     hadsetting: false,
-    showSelect: false
+    showSelect:false
   },
   isCard(e) {
     console.log(e.detail.value)
     this.setData({
       isCard: e.detail.value
     })
-    if (e.detail.value) {//设置pos
+    if (e.detail.value){//设置pos
       util.request(app.data.hostAjax + '/api/user/v1/addispos', {
         userid: wx.getStorageSync("userid"),
         shopid: this.data.shopid,
         posstate: 1
       }).then(function (res) {
       });
-    } else {
+    }else{
       //取消pos
       util.request(app.data.hostAjax + '/api/user/v1/addispos', {
         userid: wx.getStorageSync("userid"),
@@ -39,7 +39,7 @@ Page({
     }
   },
   checkname(e) {
-    let _this = this;
+    let _this=this;
     this.setData({
       goodname: e.currentTarget.dataset.name,
       showSelect: !this.data.showSelect,
@@ -76,7 +76,7 @@ Page({
       }
     });
   },
-  changgoods() {
+  changgoods(){
     this.setData({
       showSelect: !this.data.showSelect
     })
@@ -85,21 +85,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // /api/user/v1/addsetpercents
-    this.setData({
-      shopid: options.shopid,
-    })
+// /api/user/v1/addsetpercents
+      this.setData({
+        shopid: options.shopid,
+      })
     let _this = this;
     //获取三者的比例
-
+    
     //获取所有商品的名字和id，名字展示页面，id选取第一个调取查询分成比列接口
     util.request(app.data.hostAjax + '/api/user/v1/getgoodslist', {
-      pageindex: 1,
+      pageindex:1,
       pagesize: 111,
     }).then(function (res) {
       if (res.Code == "200") {
         _this.setData({
-          goodsLists: res.Data.list,
+          goodsLists:res.Data.list,
           goodname: res.Data.list[0].goodsabbreviation,
           goodsid: res.Data.list[0].id
         })
@@ -115,12 +115,12 @@ Page({
               salaperson: parseFloat(res.Data.salaperson) || 0,
               isCard: res.Data.ispos == "POS" ? true : false
             })
-            if (Number(res.Data.distributor) != 100) {
+            if (Number(res.Data.distributor)!=100){
               //  已经设置过了
               _this.setData({
-                setted: true
+                setted:true
               })
-            } else {
+            }else{
               _this.setData({
                 setted: false
               })
@@ -140,9 +140,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   submit: function () {
-    if (this.data.setted && wx.getStorageSync("usertype") == 6) {
+    if (this.data.setted && wx.getStorageSync("usertype")==6){
       wx.showToast({
-        title: "您没有修改权限，请联系经销商进行修改",
+        title: "您已经设置过一次了，不能重复设置",
         icon: "none",
         duration: 3000
       })
@@ -164,7 +164,7 @@ Page({
       distributor: this.data.distributor,
       shopowner: this.data.shopowner,
       salaperson: this.data.salaperson,
-      posstate: this.data.isCard ? 1 : 0,
+      posstate: this.data.isCard?1:0,
       goodsid: this.data.goodsid
     }).then(function (res) {
       if (res.Code == "200") {
@@ -172,17 +172,17 @@ Page({
           title: '设置成功'
         })
         wx.navigateBack({
-          delta: 1
+          delta:1
         })
       } else {
         wx.showToast({
-          title: res.Msg,
-          icon: "none"
+          title:res.Msg,
+          icon:"none"
         })
       }
     });
   },
-  distributor(e) {
+  distributor(e){
     //e.detail.value
     this.setData({
       distributor: e.detail.value
@@ -200,14 +200,14 @@ Page({
     })
     this.settingauto()
   },
-  settingauto() {//自动计算三者的比例
-    if (this.data.distributor) {
+  settingauto(){//自动计算三者的比例
+    if (this.data.distributor){
       // Number(2),toFixed
     }
     this.setData({
       distributor: (100.00 - parseFloat(this.data.shopowner).toFixed(2) - parseFloat(this.data.salaperson).toFixed(2)).toFixed(2)
     })
-    if (isNaN(this.data.distributor)) {
+    if (isNaN(this.data.distributor)){
       this.setData({
         distributor: ""
       })
@@ -218,7 +218,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

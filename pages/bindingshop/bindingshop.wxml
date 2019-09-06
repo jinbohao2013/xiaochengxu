@@ -40,3 +40,4 @@
     </view>
   </view>
 </view>
+<van-toast id="van-toast" />

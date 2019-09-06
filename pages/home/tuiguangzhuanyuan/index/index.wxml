@@ -1,7 +1,7 @@
 <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
 <view class="container">
   <view style='text-align:center;'>
-    <navigator url='/pages/home/tuiguangzhuanyuan/addnew/addnew' class='cu-btn line-black' style='margin:auto;margin-top:10px;margin-bottom:10px;'>新增推广专员</navigator>
+    <navigator url='/pages/home/fenxiaoshang/addnew/addnew' class='cu-btn line-black' style='margin:auto;margin-top:10px;margin-bottom:10px;'>新增推广专员</navigator>
     <image mode='widthFix' style='width:100%;' src='http://www.yqcoffee.cn/image/demo_2_line.png'></image>
   </view>
   

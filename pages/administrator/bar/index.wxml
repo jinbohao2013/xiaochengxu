@@ -1,0 +1,36 @@
+<view class='header' wx:if="{{chartNameTypeControl=='支付人数'}}">
+  <view class='text-xl'>累计支付人数： <text class='text-bold'>{{ajaxMain1.ljpaynums}}</text>人</view>
+  <view>首次支付人数：<text class='text-bold'>{{ajaxMain1.firstpaynums}}</text>人 <text class='margin-left'>复购人数：<text class='text-bold'>{{ajaxMain1.backpaynums}}</text>人</text></view>
+  <view>支付人数转化率：<text class='text-bold'>{{ajaxMain1.conversionrate}}</text>%</view>
+</view>
+<view class='header' wx:if="{{chartNameTypeControl=='支付笔数'}}">
+  <view class='text-xl'>总订单笔数： <text class='text-bold'>{{ajaxMain1.sumorder}}</text>笔</view>
+  <view>已完成订单数：<text class='text-bold'>{{ajaxMain1.completeorder}}</text>笔 <text class='margin-left'>待收货订单数：<text class='text-bold'>{{ajaxMain1.receivedorder}}</text>笔</text></view>
+  <view>待付款订单数：<text class='text-bold'>{{ajaxMain1.paymentorder}}</text>笔 <text class='margin-left'>退换货订单数：<text class='text-bold'>{{ajaxMain1.backorder}}</text>笔</text></view>
+</view>
+<view class='header' wx:if="{{chartNameTypeControl=='支付金额'}}">
+  <view class='text-xl'>累计支付金额： <text class='text-bold'>{{ajaxMain1.sumprice||0}}</text>元</view>
+  <view>待支付订单金额：<text class='text-bold'>{{ajaxMain1.dzfprice}}</text>元</view>
+  <view>人均支付金额：<text class='text-bold'>{{ajaxMain1.personprice}}</text>元 <text class='margin-left'>单均支付金额：<text class='text-bold'>{{ajaxMain1.singleprice}}</text>元</text></view>
+</view>
+<view class='header' wx:if="{{chartNameTypeControl=='提现金额'}}">
+  <view class='text-xl'>累计提现金额： <text class='text-bold'>{{ajaxMain1.sumcashmonys||0}}</text>元</view>
+  <view>待提现金额：<text class='text-bold'>{{ajaxMain1.dtxcashmonys}}</text>元</view>
+</view>
+<view class='main1'>
+  <view style='line-height:32px;height:32px;'>
+    <text class='text-xl' wx:if="{{1}}">{{chartNameTypeControl}}概况</text>
+    <view class=' text-grey timeWrap'>
+      截止至：
+      <picker class='timeBox solid' mode="date" value="{{main1Date2}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange2">
+        <view class="picker">
+          {{main1Date2||"截止时间"}} <image style='width:30rpx;height:30rpx;' src='http://www.yqcoffee.cn/image/icon/category.png'></image>
+        </view>
+      </picker>
+      <button class="cu-btn bg-black black sm margin-left-sm" bindtap='onLoadTow'><text class="icon-search jinbohao lg text-gray" ></text> 查询</button>
+    </view>
+  </view>
+</view>
+<view class="container">
+  <ec-canvas id="mychart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+</view>

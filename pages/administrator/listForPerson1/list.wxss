@@ -1,0 +1,64 @@
+.topbind input{
+  height: 80rpx;
+  border-radius:6rpx;
+  background-color: #fff;
+  padding-left:40rpx;
+  padding-right: 160rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+.topbind icon{
+  position: absolute;
+  left: 40rpx;
+  top: 17rpx;
+}
+.order-list{
+    width: 100%;
+    padding: 35rpx 0 0 0;
+}
+.l{
+  width:100%!important;
+}
+.order-list .a-order{
+  margin: auto;
+    margin-bottom:30rpx;
+    background-color: #fff;
+    width: 650rpx;
+    border-radius: 8px;
+    overflow:hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+.goods-price {
+  font-size:22rpx;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 45rpx;
+    width: 100%;
+}
+.pagination .li{
+  font-size:32rpx;
+  display: inline-block;
+    color: #666;
+    line-height: 24px;
+    font-weight: normal;
+    text-align: center;
+    border: 1px solid #38f;
+    min-width: 14px;
+    padding: 0 7px;
+    margin: 10px 5px 0 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    background-color: #fafafa;
+}
+.pagination .li.active{
+      background: #38f;
+    color: #FFF;
+    border-color: #38f;
+    box-shadow: 0 1px 0 rgba(255,255,255,1), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+    cursor: default;
+}
+.pagination{
+  display: flex;
+  flex-wrap: wrap;
+}

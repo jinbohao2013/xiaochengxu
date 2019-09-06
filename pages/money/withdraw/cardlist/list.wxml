@@ -1,7 +1,7 @@
 <view class="card-list">
  <jin-consultant my-class="cu-avatar round lg margin-xs shadow jin-consultant"/>
  <wxs src="../../../../utils/tools.wxs" module="tools" />
-  <van-cell-group>
+  <!-- <van-cell-group>
    <view>
       <van-cell id="银行卡" title="银行卡" value="添加" data-name="银行卡添加" bind:click="changeAccount1" />
     </view> 
@@ -19,7 +19,7 @@
       
     <view class="card-section">
     </view>
-  </van-cell-group>
+  </van-cell-group> -->
   <!-- <view  class="card-section">
     <van-cell  id="微信钱包" title="微信钱包" value="添加" bind:click="changeAccount1" />
     </view> -->

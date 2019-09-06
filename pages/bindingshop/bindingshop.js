@@ -1,5 +1,6 @@
 // pages/bindingshop/bindingshop.js
 import config from '../../config'
+import Toast from '../../dist/toast/toast';
 const app = getApp()
 Page({
   data: {
@@ -299,6 +300,14 @@ Page({
       }
     })
     console.log(this.data.uid, this.data.distributorid, this.data.state)
+    if (this.data.distributorid) {
+
+    } else {
+      Toast({
+        message: "错误的二维码：" + decodeURIComponent(options.q) + "请截图联系客服",
+        duration: 0
+      })
+    }
     app.checkauthorization(() => {
       
     })

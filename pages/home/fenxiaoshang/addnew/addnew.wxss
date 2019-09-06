@@ -1,0 +1,108 @@
+.all{
+  width: 100%;
+}
+.binding{
+  margin: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 28rpx;
+  border-bottom: 10rpx solid #eeeeee;
+  padding-bottom: 20rpx;
+  padding-left: 25rpx;
+}
+.binding .image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow:hidden;
+}
+.binding text:nth-of-type(1){
+  margin-left: 10rpx;
+}
+.binding text:nth-of-type(2){
+  margin-left: 15rpx;
+}
+.denglu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ margin: 30rpx 100rpx 20rpx 120rpx;
+  border-bottom: 1px solid lightgrey;
+}
+.denglu input{
+  margin-left: 40rpx;
+  font-size: 28rpx;
+}
+.denglu image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.mima{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ margin: 30rpx 100rpx 20rpx 120rpx;
+  border-bottom: 1px solid lightgrey;
+}
+.mima input{
+  margin-left: 40rpx;
+  font-size: 28rpx;
+}
+.mima image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.mima button{
+  font-size: 24rpx; 
+  background-color: #8b8b8b;
+  color: white;
+  width: 40%;
+  margin-bottom: 10rpx;
+  padding: 0;
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  background-color: #08bf62;
+
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: 28rpx;
+}
+.footer view,.footer navigator{
+  padding: 30rpx;
+}
+
+.win{
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.win-top{
+  width: 600rpx;
+  height: 300rpx;
+  border-radius: 20rpx;
+  background: white;
+}
+.win-title{
+  width: 100%;
+  height: 120rpx;
+  text-align: center;
+  line-height: 120rpx;
+}
+.win-btn{
+  width: 100%;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

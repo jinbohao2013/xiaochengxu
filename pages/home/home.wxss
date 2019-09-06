@@ -49,7 +49,12 @@
 }
 .cent_two{
     color: #eed1a0;
+    display: inline-block;
+    margin-right:8rpx;
     border: 1px solid lightsalmon
+}
+.cent_two navigator{
+  color: lightsalmon
 }
 .middel{
   overflow: hidden;

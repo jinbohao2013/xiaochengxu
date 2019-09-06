@@ -13,17 +13,20 @@
           <text wx:if="{{usertype=='2'}}">经销商：{{userInfoName}}</text>
           <text wx:elif="{{usertype=='3'}}">店长：{{userInfoName}}</text>
           <text wx:elif="{{usertype=='6'}}">推广专员：{{userInfoName}}</text>
-          <text wx:else>分销员：{{userInfoName}}</text>
+          <text wx:elif="{{usertype=='4'}}">分销员：{{userInfoName}}</text>
         </view>
         <view class='cent'>
-        <text class='cent_two'><text wx:if="{{usertype=='2'}}">分销商绑定</text>
+        <view class='cent_two'>
+          <navigator  wx:if="{{usertype=='2'}}" url='/pages/home/fenxiaoshang/index/index'>分销商绑定</navigator>
           <text wx:elif="{{usertype=='3'}}">店长绑定</text>
           <text wx:elif="{{usertype=='6'}}">推广专员</text>
-          <text wx:else>分销员绑定</text></text>
+          <text wx:elif="{{usertype=='4'}}">分销员绑定</text>
+
+        </view>
           <text class='cent_one'>自购分佣</text>
-          <navigator url='/pages/home/tuiguangzhuanyuan/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
+          <navigator url='/pages/home/tuiguangzhuanyuan/index/index' class='cent_one' wx:if="{{usertype=='2'||usertype=='5'}}">
          推广专员</navigator>
-          <navigator url='/pages/home/pos/index/index' class='cent_one' wx:if="{{usertype=='2'}}">
+          <navigator url='/pages/home/pos/index/index' class='cent_one' wx:if="{{usertype=='2'||usertype=='5'}}">
           <view class="cu-tag badge" style='right:-40rpx'>{{dataInfo.posnum}}</view>  
           pos用户 </navigator>
            
@@ -128,12 +131,12 @@
     <view class='middel'>
       <navigator url='/pages/home/earnings/earnings' class='middel_one'>  
         <view class="total_one text-gray" style='font-size: 29.17rpx;'>
-            <text wx:if="{{usertype=='2'}}">当前累计收益(元)</text>
+            <text wx:if="{{usertype=='2'||usertype=='5'}}">当前累计收益(元)</text>
             <text wx:elif="{{usertype=='3'}}">当前店铺累计收益(元)</text>
              <text wx:else>我的收益（元)</text>
         </view>
         <view class='total_two'  style='font-size: 62.5rpx;'>
-            <text wx:if="{{usertype=='2'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
+            <text wx:if="{{usertype=='2'||usertype=='5'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
             <text wx:elif="{{usertype=='3'}}">{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
              <text wx:else>{{tools.fixd2(dataInfo.profit||"0.00")}}</text>
         </view>
@@ -165,7 +168,7 @@
            </view>
            <view class='text' style='color:#999;font-size:25rpx;'>待审核 {{sqsalespersonnums}} 人</view>
          </navigator>
-         <navigator url='newagent/newagent' class='client' wx:if="{{usertype=='2'||usertype=='6'}}">
+         <navigator url='newagent/newagent' class='client' wx:if="{{usertype=='2'||usertype=='6'||usertype=='5'}}">
            <view class="client_one text-gray" style='font-size: 29.17rpx;'>
              <text>昨日新增代理(人)</text>
            </view>
@@ -190,14 +193,14 @@
       </view>
    </view>
     <view class='accumulate'>
-      <view class='accumulate_one' wx:if="{{usertype=='2'||usertype=='6'}}">
+      <view class='accumulate_one' wx:if="{{usertype=='2'||usertype=='6'||usertype=='5'}}">
       <navigator url='dianzhang/dianzhang'>
       <!--  -->
          <view style='color:#38f;'>{{dataInfo.ljshops||0}}</view>
          <view>累计店长</view></navigator>
       </view>
-      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'||usertype=='6'}}">
-        <navigator url='fenxiaoyuan2/fenxiaoyuan2' wx:if="{{usertype=='2'||usertype=='6'}}">
+      <view class='accumulate_one' wx:if="{{usertype=='3'||usertype=='2'||usertype=='6'||usertype=='5'}}">
+        <navigator url='fenxiaoyuan2/fenxiaoyuan2' wx:if="{{usertype=='2'||usertype=='6'||usertype=='5'}}">
             <view style='color:#38f;'>{{dataInfo.ljsalaperson||0}}</view>
             <view>累计分销员</view>
         </navigator>
@@ -221,12 +224,12 @@
           <view>POS订单提交</view>
         </navigator>
       </view>
-      <view class='accumulate_one' wx:if="{{usertype=='2'||(usertype=='6')}}">
+      <view class='accumulate_one' wx:if="{{usertype=='2'||usertype=='5'||(usertype=='6')}}">
         <navigator url='/pages/home/order/order'>
          <view style='color:#38f;'>{{dataInfo.ordernums||0}}</view>
          <view>全部订单</view></navigator>
       </view> 
-      <view class='accumulate_one' wx:if="{{usertype=='2'}}">
+      <view class='accumulate_one' wx:if="{{usertype=='2'||usertype=='5'}}">
         <!-- 设置 -->
         <navigator url='/pages/home/order/order?type=2'>
          <view style='color:#38f;'>{{dataInfo.dfhordernums||0}}</view>
@@ -235,13 +238,13 @@
     </view>
     <!-- earnCommission是商品推广跳转商品列表 -->
     <view >
-      <view wx:if="{{usertype=='2'||usertype=='3'||usertype=='6'}}">
+      <view wx:if="{{usertype=='2'||usertype=='3'||usertype=='6'||usertype=='5'}}">
         <view class="popularize {{usertype=='6'&&dataInfo.sendgoods=='0'&&dataInfo.posaudi=='0'?'twoImg':''}}" >
           <view class='popularize_one' catchtap='goPromotion'>
             <!-- 后期增加推广专员只有统一改成226*117 -->
               <image style='width:226rpx;height:117rpx' src='{{Images[0]}}'></image>
           </view>
-          <view class='popularize_one' wx:if="{{usertype=='2'||usertype=='6'}}" catchtap='go_byout'>
+          <view class='popularize_one' wx:if="{{usertype=='2'||usertype=='6'||usertype=='5'}}" catchtap='go_byout'>
           <!-- 经销商的买断店长 -->
               <image style='width:226rpx;height:117rpx' src='{{Images[2]}}'></image>
           </view>

@@ -1,10 +1,6 @@
 import config from '../../config'
 const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     logonImage: [
       "http://www.yqcoffee.cn/image/demo_1.jpg",
@@ -46,6 +42,13 @@ Page({
             wx.setStorageSync("userid", res.data.Data.user_id);
             wx.setStorageSync("userIdBuyGood", res.data.Data.user_id);
             wx.setStorageSync("usertype", parseInt(res.data.Data.usertype));
+            if (parseInt(res.data.Data.usertype) == 8) {//超管登录
+              wx.reLaunch({
+                url: '/pages/administrator/index/person',
+              })
+              return
+            }
+            
             setTimeout(() => {
               wx.redirectTo({
                 url: '/pages/home/home',
@@ -58,9 +61,6 @@ Page({
             icon:'none'
           })
         }
-        // wx.redirectTo({
-        //   url: '/pages/home/home',
-        // })
       }
     })
   },
@@ -108,7 +108,6 @@ Page({
               icon: 'none'
             })
           }
-
         }
       })
     } else {
@@ -131,63 +130,10 @@ Page({
         code: e.detail.value
       })
     }
-    
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
     this.setData({
       usertype: app.globalData.usertype
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

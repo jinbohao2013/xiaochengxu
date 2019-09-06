@@ -62,6 +62,13 @@ Page({
 
     }
   },
+  onLoad:function(options){
+    console.log(options.id)
+    this.setData({
+      fromOtherPage: options.id?false:true,
+      fromOtherPageId: options.id
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -76,7 +83,7 @@ Page({
     })
     let _this = this;
     util.request(app.data.hostAjax + '/api/dester/v1/getshopownerlist', {
-      userid: wx.getStorageSync("userid"),
+      userid: this.data.fromOtherPageId||wx.getStorageSync("userid"),
       shoptype: this.data.shoptype,//1为经销店长 3为买断店长
       pageindex: this.data.pageindex,
       pagesize: 100,

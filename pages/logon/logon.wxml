@@ -18,7 +18,7 @@
     </view>
   </view>
   <view class='enter' catchtap="{{phone.length==11&&code.length==6?'login':''}}" style="background:{{phone.length==11&&code.length==6?'#3C3C3C':'#3C3C3C'}}">
-    <text>申请成为经销商</text>
+    <text>会员登录</text>
   </view>
 </view>
 <view style='margin: 60rpx 90rpx 20rpx 70rpx;'><text style='font-weight:900;'>经销商特权</text></view>

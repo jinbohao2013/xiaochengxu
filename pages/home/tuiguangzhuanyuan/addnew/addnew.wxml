@@ -2,7 +2,7 @@
 <view class='all'>
   <view class='binding'>
     <view class='image'><open-data class="img" type="userAvatarUrl" style=''></open-data></view>
-    <text>经销商绑定添加</text> 
+    <text>分销商绑定添加</text> 
   </view>
   <view>
     <view class='denglu'>
@@ -13,41 +13,32 @@
       <image src='{{bindingImage[2]}}'></image>
       <input name="mobile" type="number" class="center" maxlength="11" placeholder="请输入手机号" placeholder-class="wen" bindinput='changeInput' data-types='phone' />
     </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[1]}}'></image>
+      <input name="mobile"  class="center" value="{{address.full_region}}" disabled="true" bindtap="chooseRegion" placeholder="分销区域 (选择省/市/区) (选填)" placeholder-class="wen" />
+    </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[3]}}'></image>
+      <input name="mobile" type="text" class="center" placeholder="公司名称 (选填)" placeholder-class="wen" bindinput='changeInput' data-types='code' />
+    </view>
+    <view class='denglu'>
+      <image src='{{bindingImage[1]}}'></image>
+      <input name="mobile" type="text" class="center" placeholder="公司地址 (选填)" placeholder-class="wen" bindinput='changeInput' data-types='address' />
+    </view>
+    <view class='denglu'>
+      收款方：
+      <radio-group class="margin-tb" bindchange="checkboxChange">
+        <label class="checkbox">
+          <checkbox class='black' value="true" checked=""/> 经销商
+        </label>
+        <label class="checkbox margin-left" >
+          <checkbox class='black' value="false" checked=""/> 分销商
+        </label>
+      </radio-group>
+    </view>
   </view>
   <view style='padding:20rpx 100rpx;'>
-    <view class='text-xl' style='color:#933A3A;'>
-      返佣设置
-    </view>
-    <view class='margin-top-sm' style='display:flex;align-items:center;justify-content:space-between'>
-      <view  style='width:220rpx;'>分销员佣金比例： </view>
-      <view style='display:flex;align-items:center;' >
-        <input class='text-center' style='display:inline-block;width:152rpx;height:46rpx;border:1px solid #000;border-radius:4px;margin-right:15rpx;' type="digit" bindinput='salaperson' value='{{salaperson}}'></input> <text>%</text>
-      </view>
-    </view>
-       <view class='margin-top-sm text-sm' style='text-align:right;color:#999;'>推广专员所销售订单的提成佣金比例</view> 
-       <view class='margin-top-sm text-sm'>注：推广专员的佣金计算：实付金额×佣金比例</view> 
-        
-
-      <view>
-    <view class=" margin-top" style='display:flex;align-items:center;justify-content:space-between'>
-      <view class=' text-xl' style='color:#933A3A;font-size:36rpx'>
-        订单发货权限设置
-      </view>
-      <view class='action'>
-        <switch class='sm' checked='{{isCard1}}' bindchange='isCard1'></switch>
-      </view>
-    </view>
-    <view class='margin-top-sm text-sm' style='color:#999;'>打开订单发货权限，推广专员可对所有待发货订单进行发货</view> 
-    <view class=" margin-top " style='display:flex;align-items:center;justify-content:space-between'>
-      <view class=' text-xl' style='color:#933A3A;font-size:36rpx'>
-        pos订单审核
-      </view>
-      <view class='action'>
-        <switch class='sm' checked='{{isCard2}}' bindchange='isCard2'></switch>
-      </view>
-    </view>
-    <view class='margin-top-sm text-sm' style='color:#999;'>打开pos订单审核权限后，推广专员可审核所有pos用户提交的返佣申请</view> 
-  </view>
+    
   </view>
     
     
@@ -65,3 +56,26 @@
     </view>
   </view>
 </view>
+
+
+<view class="region-select" wx:if="{{openSelectRegion}}">
+      <view class="hd">
+        <view class="region-selected">
+          <view class="item {{item.id == 0 ? 'disabled' : ''}} {{(regionType -1) === index ? 'selected' : ''}}" bindtap="selectRegionType" data-region-type-index="{{index}}" wx:for="{{selectRegionList}}" wx:key="{{item.id}}">{{item.name}}</view>
+        </view>
+        <view class="done {{selectRegionDone ? '' : 'disabled'}}" bindtap="doneSelectRegion">确定</view>
+      </view>
+      <view class="bd">
+        <view class="region-list" wx:if="{{regionType==1}}">
+          <view class="item {{item.selected ? 'selected' : ''}}" bindtap="selectRegion" data-name='{{item.AreaName}}' data-region-index="{{item.AreaID}}" wx:for="{{regionList}}" wx:key="{{item.id}}">{{item.AreaName}}</view>
+        </view>
+        <view class="region-list" wx:if="{{regionType==2}}">
+          <view class="item {{item.selected ? 'selected' : ''}}" bindtap="selectRegion1" data-name='{{item.AreaName}}' data-region-index="{{item.AreaID}}" wx:for="{{regionList}}" wx:key="{{item.id}}">{{item.AreaName}}</view>
+        </view>
+        <view class="region-list" wx:if="{{regionType==3}}">
+          <view class="item {{item.selected ? 'selected' : ''}}" bindtap="selectRegion2" data-name='{{item.AreaName}}' data-region-index="{{item.AreaID}}" wx:for="{{regionList}}" wx:key="{{item.id}}">{{item.AreaName}}</view>
+        </view>
+      </view>
+    </view>
+<van-toast id="van-toast" />
+<view class="bg-mask" bindtap="cancelSelectRegion" wx:if="{{openSelectRegion}}"></view>

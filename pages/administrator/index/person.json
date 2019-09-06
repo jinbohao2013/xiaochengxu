@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "支付数据",
+  "usingComponents": {
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
+  }
+}

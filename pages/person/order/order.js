@@ -1,6 +1,5 @@
 var util = require('../../../utils/util.js');
 const app = getApp()
-// const WXAPI = require('../../wxapi/main')
 Page({
   data: {
     statusType: ["全部", "待付款", "待发货", "待收货", "已完成", "退换货"],
@@ -17,7 +16,6 @@ Page({
     hasOnShow: false
   },
   statusTap: function (e) {
-    console.log(e)
     var curType
     if(e){
        curType = e.currentTarget.dataset.index;
@@ -31,10 +29,7 @@ Page({
           searchType: parseInt(curType) - 1
         });
       }
-    }else{
-
     }
-    
     this.setData({
       orderList: [],
       pageindex: 1,
@@ -43,7 +38,6 @@ Page({
       loading: true,
       currentType: curType
     });
-   
     this.onShow();
   },
   cancelOrderTap: function (e) {
@@ -66,14 +60,6 @@ Page({
       }
     })
   },
-  refundApply(e) {
-    // 申请售后
-    const orderId = e.currentTarget.dataset.id;
-    const amount = e.currentTarget.dataset.amount;
-    wx.navigateTo({
-      url: "/pages/order/refundApply?id=" + orderId + "&amount=" + amount
-    })
-  },
   toPayTap: function (e) {
     const _this = this;
     const orderId = e.currentTarget.dataset.id;
@@ -83,21 +69,6 @@ Page({
       url: '/pages/person/cart/carBuy/carBuy',
     })
   },
-  _toPayTap: function (orderId, money) {
-    return
-    const _this = this
-    if (money <= 0) {
-      // 直接使用余额支付
-      WXAPI.orderPay(orderId, wx.getStorageSync('token')).then(function (res) {
-        _this.onShow();
-      })
-    } else {
-      wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
-    }
-  },
-  scroll() {//滚动时触发
-
-  },
   scrolltolower() {
     
     if (this.data.loading) {
@@ -106,12 +77,6 @@ Page({
         loading: false
 
       })
-      // setTimeout(function(){
-      //   _this.setData({
-      //     loading: true
-
-      //   })
-      // },1000)
       console.log("在我这里调取加载数据")
       if (!this.data.hideLoading) {
         return
@@ -149,10 +114,6 @@ Page({
         searchType: 100
       });
     }
-  },
-  onReady: function () {
-    // 生命周期函数--监听页面初次渲染完成
-
   },
   getOrder: function (pagesize) {
     // 获取订单列表
@@ -252,21 +213,5 @@ Page({
         }
       }
     })
-  },
-  onHide: function () {
-    // 生命周期函数--监听页面隐藏
-
-  },
-  onUnload: function () {
-    // 生命周期函数--监听页面卸载
-
-  },
-  onPullDownRefresh: function () {
-    // 页面相关事件处理函数--监听用户下拉动作
-
-  },
-  onReachBottom: function () {
-    // 页面上拉触底事件的处理函数
-
   }
 })

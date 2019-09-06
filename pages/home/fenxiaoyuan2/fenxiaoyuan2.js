@@ -62,13 +62,16 @@ Page({
    */
   onLoad: function (options) {
     //经销商的累计分销员
+    
     this.setData({
+      fromOtherPage: options.id ? false : true,
+      fromOtherPageId: options.id,
       windowHeight: app.data.windowHeight,
       scroolHeight: app.data.isIphoneX ? app.data.windowHeight - 74 : app.data.windowHeight -40
     })
     let _this = this;
     util.request(app.data.hostAjax + '/api/dester/v1/getsalapersonlist', {
-      userid: wx.getStorageSync("userid"),
+      userid: this.data.fromOtherPageId || wx.getStorageSync("userid"),
       shoptype: this.data.shoptype,//1为经销分销员 3为买断分销员
       pageindex: this.data.pageindex,
       pagesize: 30,
